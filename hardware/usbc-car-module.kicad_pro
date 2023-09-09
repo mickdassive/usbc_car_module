@@ -348,6 +348,10 @@
     [
       "91b561d6-4186-4f6f-8a2c-57c2c305f210",
       "FRONT USB-C POWER"
+    ],
+    [
+      "5a85a9e9-cefd-4e13-8f1c-f4704056cba2",
+      "F_AND_B_VOUT_FEEDBACK_NETWORKS"
     ]
   ],
   "text_variables": {}
