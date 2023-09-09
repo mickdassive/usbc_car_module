@@ -1,0 +1,5 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "EXTRA")(type "KiCad")(uri "F:/reflowow-oven-controler/hardware/EXTRA.kicad_sym")(options "")(descr ""))
+  (lib (name "CARTHING")(type "KiCad")(uri "${KIPRJMOD}/SIMBOLS/CARTHING.kicad_sym")(options "")(descr ""))
+)
