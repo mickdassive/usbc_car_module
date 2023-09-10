@@ -360,6 +360,14 @@
     [
       "dac2668f-7079-40dd-965e-c6c89da01341",
       "ADC"
+    ],
+    [
+      "7a7a6512-c96f-448a-bb8d-4d6e185adf7f",
+      "HUBCHIP"
+    ],
+    [
+      "115036d9-3633-4f5d-a259-54a6f0cf58ce",
+      "USB_UART"
     ]
   ],
   "text_variables": {}
