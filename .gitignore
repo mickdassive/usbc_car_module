@@ -36,4 +36,4 @@ fp-info-cache
 *.csv
 
 #platform io setup ignore
-platformio.ini
+#platformio.ini
