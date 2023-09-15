@@ -53,42 +53,71 @@ const uint8_t iox_out_port_config_register = 0x4f;
 //struct setup for pin cals
 enum in_out {
   in,
-  out
+  out,
+  bi_dir
 };
 
 struct pin {
   uint8_t mask;    //mask for iox
   int port;        //port on iox (can be 0 or 1 only)
   int iox_number;  //iox number
-  int pin_number;  //pin number 
+  int pin_number;  //pin number, for ESP-12F: GPIO#, for iox: phisical pin#
   in_out pin_mode;  //defines weather a given pin is an out put or an input
   bool onboard;    //If true, IO is on ESP8266; if false, IO is on IO expander
   
 };
 
+//BE SHURE TO ADD PINS TO BOTH THE "pin" STRUCT AND THE "pin_names" ARRAY THEY MUST MATCH
 //struct defines  {mask, port, iox#, pin, pin_mode, onboard}
-struct pin io_int = {0b0, 0, 0, 14, true};
-struct pin sda = {0b0, 0, 0, 4, true};
-struct pin scl = {0b0, 0, 0, 2, true};
-struct pin htr_1 = {0b0, 0, 0, 13, true};
-struct pin htr_2 = {0b0, 0, 0, 12, true};
-struct pin fan = {0b0, 0, 0, 5, true};
-struct pin ovlight = {0b10000000, 1, 20, false};
-struct pin wifi_led_g = {0b00001000, 1, 16, false};
-struct pin wifi_led_or = {0b00000100, 1, 15, false};
-struct pin wifi_led_r = {0b00000010, 1, 14, false};
-struct pin status_led_g = {0b00000001, 1, 13, false};
-struct pin status_led_r = {0b10000000, 0, 11, false};
-struct pin up_btn = {0b01000000, 1, 19, false};
-struct pin dwn_btn = {0b00100000, 1, 18, false};
-struct pin ent_btn = {0b00010000, 1, 17, false};
-struct pin io_00 = {0b00000001, 0, 4, false};
-struct pin io_01 = {0b00000010, 0, 5, false};
-struct pin io_02 = {0b00000100, 0, 6, false};
-struct pin io_03 = {0b00001000, 0, 7, false};
-struct pin io_04 = {0b00010000, 0, 8, false};
-struct pin io_05 = {0b00100000, 0, 9, false};
-struct pin io_06 = {0b01000000, 0, 10, false};
+struct pin sda {0x00, 0, 0, 4, bi_dir, true};
+struct pin scl {0x00, 0, 0, 5, bi_dir, true};
+struct pin can_rx {0x00, 0, 0, 12, in, true};
+struct pin can_tx {0x00, 0, 0, 13, out, true};
+struct pin can_silent {0x80, 1, 1, 20, out, false};
+struct pin iox_0_int {0x00, 0, 1, 14, in, true};
+struct pin iox_1_int {0x80, 1, 0, 20, in, false};
+struct pin pgood_21V {0x40, 1, 1, 19, in, false};
+struct pin b_usbc_pgood {0x20, 1, 1, 18, in, false};
+struct pin b_usbc_buck_en {0x08, 1, 1, 16, out, false};
+struct pin b_usbc_5V_sel {0x02, 1, 1, 14, out, false};
+struct pin b_usbc_9V_sel {0x01, 1, 1, 13, out, false};
+struct pin b_usbc_12V_sel {0x80, 0, 1, 11, out, false};
+struct pin b_usbc_15V_sel {0x40, 0, 1, 10, out, false};
+struct pin b_usbc_20V_sel {0x20, 0, 1, 9, out, false};
+struct pin f_usbc_pgood {0x10, 1, 1, 17, in, false};
+struct pin f_usbc_buck_en {0x04, 1, 1, 15, out, false};
+struct pin f_usbc_5V_sel {0x10, 0, 1, 8, out, false};
+struct pin f_usbc_9V_sel {0x08, 0, 1, 7, out, false};
+struct pin f_usbc_12V_sel {0x04, 0, 1, 6, out, false};
+struct pin f_usbc_15V_sel {0x02, 0, 1, 5, out, false};
+struct pin f_usbc_20V_sel {0x01, 0, 1, 4, out, false};
+
+//pin struct names for auto pin init
+struct pin* pin_names[] = {
+  &sda,
+  &scl,
+  &can_rx,
+  &can_tx,
+  &can_silent,
+  &iox_0_int,
+  &iox_1_int,
+  &pgood_21V,
+  &b_usbc_pgood,
+  &b_usbc_buck_en,
+  &b_usbc_5V_sel,
+  &b_usbc_9V_sel,
+  &b_usbc_12V_sel,
+  &b_usbc_15V_sel,
+  &b_usbc_20V_sel,
+  &f_usbc_pgood,
+  &f_usbc_buck_en,
+  &f_usbc_5V_sel,
+  &f_usbc_9V_sel,
+  &f_usbc_12V_sel,
+  &f_usbc_15V_sel,
+  &f_usbc_20V_sel
+} 
+
 
 // read write enum define for io_call function
 enum read_write {
@@ -103,9 +132,41 @@ enum high_low {
   read_mode
 };
 
-// reads current pin state of the io expander outputs
-// port: port of iox to read
-// iox_num: number of iox to read from
+
+//pin auto init
+void pin_init() {
+
+  //init vars
+  u_int8_t iox_0_port_0_pinmode = 0x00;
+  u_int8_t iox_0_port_1_pinmode = 0x00;
+  u_int8_t iox_1_port_0_pinmode = 0x00;
+  u_int8_t iox_1_port_1_pinmode = 0x00;
+
+  //begin iterationg thru pins
+  for (int i = 1; i < sizeof(pin_names); i++) {
+
+    //init local loop vars
+    struct pin* curent_pin = pin_names[i];
+
+    switch (curent_pin->pin_mode)
+    {
+    case in:
+      /* code */
+      break;
+    
+    case out:
+      /* code */
+      break;
+
+    case bi_dir:
+      /* code */
+      break;
+    
+
+
+  }
+}
+
 
 // reads current pin state of the io expander outputs
 // port: port of iox to read
