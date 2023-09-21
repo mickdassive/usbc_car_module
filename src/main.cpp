@@ -21,9 +21,11 @@
 #include <Wire.h>
 #include <iostream>
 
+#include "bu"
+
 
 // firmware version
-const char* firmware_version = "V 0.1"
+const char* firmware_version = "V 0.1";
 
 
 //iox defines
@@ -394,7 +396,7 @@ void setup() {
   Serial.print("firmware version : ");
   Serial.print(firmware_version);
   Serial.print(" | biult at: ");
-  Serial.print(BUILD_DATETIME);
+  Serial.print("");
 
   //begin i2c
   Wire.begin(sda.pin_number, scl.pin_number);
