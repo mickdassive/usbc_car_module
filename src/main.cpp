@@ -13,7 +13,6 @@
 //You should have received a copy of the GNU General Public License
 //along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // usbc car module
-// v0.1
 // 15/09/2023
 // Tokyo Andreana
 
@@ -23,9 +22,13 @@
 #include <iostream>
 
 
+// firmware version
+const char* firmware_version = "V 0.1"
+
+
 //iox defines
-const uint8_t iox_0_add = 0x00;
-const uint8_t iox_1_add = 0x20;
+const uint8_t iox_0_add = 0x20; //???? notshire about the addresess not shure they make sence
+const uint8_t iox_1_add = 0x21;
 const uint8_t iox_input_port_0 = 0x00;
 const uint8_t iox_input_port_1 = 0x01;
 const uint8_t iox_output_port_0 = 0x02;
@@ -71,6 +74,7 @@ struct pin {
 //struct defines  {mask, port, iox#, pin, pin_mode, onboard}
 struct pin sda {0x00, 0, 0, 4, bi_dir, true};
 struct pin scl {0x00, 0, 0, 5, bi_dir, true};
+struct pin onboard_led {0x00, 0, 0, 2, out, true};
 struct pin can_rx {0x00, 0, 0, 12, in, true};
 struct pin can_tx {0x00, 0, 0, 13, out, true};
 struct pin can_silent {0x80, 1, 1, 20, out, false};
@@ -96,6 +100,7 @@ struct pin f_usbc_20V_sel {0x01, 0, 1, 4, out, false};
 struct pin* pin_names[] = {
   &sda,
   &scl,
+  &onboard_led,
   &can_rx,
   &can_tx,
   &can_silent,
@@ -116,7 +121,7 @@ struct pin* pin_names[] = {
   &f_usbc_12V_sel,
   &f_usbc_15V_sel,
   &f_usbc_20V_sel
-} 
+} ;
 
 
 // read write enum define for io_call function
@@ -132,8 +137,15 @@ enum high_low {
   read_mode
 };
 
+//adc defines
 
-//pin auto init
+
+
+
+
+
+
+//pin auto init for both iox and onborad pins
 void pin_init() {
 
   //init vars
@@ -151,21 +163,94 @@ void pin_init() {
     switch (curent_pin->pin_mode)
     {
     case in:
-      /* code */
+      if (curent_pin->onboard) {
+        pinMode(curent_pin->pin_number, INPUT);
+      } else {
+        if (curent_pin->iox_number == 0) {
+          if (curent_pin->port == 0){
+            iox_0_port_0_pinmode = curent_pin->mask | iox_0_port_0_pinmode;
+          } else {
+            iox_0_port_1_pinmode = curent_pin->mask | iox_0_port_1_pinmode;
+          }
+        } else {
+          if (curent_pin->port == 0) {
+            iox_1_port_0_pinmode = curent_pin->mask | iox_1_port_0_pinmode;
+          } else {
+            iox_1_port_1_pinmode = curent_pin->mask | iox_1_port_1_pinmode;
+          }
+        }
+      }
       break;
     
     case out:
-      /* code */
+      if (curent_pin->onboard) {
+        pinMode(curent_pin->pin_number, OUTPUT);
+      }
+      //no need to do anything to the iox all pins defult to output
       break;
 
     case bi_dir:
-      /* code */
+      //do nothing only used for i2c coms witch are defined else-ware 
       break;
-    
-
-
+    }    
   }
-}
+
+
+  //begin writeing to ioxs 
+  //write to iox 0 port 0 
+  Wire.beginTransmission(iox_0_add);
+  Wire.write(iox_config_port_0);
+  Wire.write(iox_0_port_0_pinmode);
+  Wire.endTransmission();
+
+  //write to iox 0 port 1 
+  Wire.beginTransmission(iox_0_add);
+  Wire.write(iox_config_port_1);
+  Wire.write(iox_0_port_1_pinmode);
+  Wire.endTransmission();
+
+  //write to iox 1 port 0 
+  Wire.beginTransmission(iox_1_add);
+  Wire.write(iox_config_port_0);
+  Wire.write(iox_1_port_0_pinmode);
+  Wire.endTransmission();
+
+  //write to iox 1 port 1 
+  Wire.beginTransmission(iox_1_add);
+  Wire.write(iox_config_port_1);
+  Wire.write(iox_1_port_1_pinmode);
+  Wire.endTransmission();
+
+
+  //set all outputs of ioxs low
+  //write to iox 0 port 0
+  Wire.beginTransmission(iox_0_add);
+  Wire.write(iox_output_port_0);
+  Wire.write(0x00);
+  Wire.endTransmission();
+
+  //write to iox 0 port 1
+  Wire.beginTransmission(iox_0_add);
+  Wire.write(iox_output_port_1);
+  Wire.write(0x00);
+  Wire.endTransmission();
+
+  //write to iox 1 port 0
+  Wire.beginTransmission(iox_1_add);
+  Wire.write(iox_output_port_0);
+  Wire.write(0x00);
+  Wire.endTransmission();
+
+  //write to iox 1 port 1
+  Wire.beginTransmission(iox_1_add);
+  Wire.write(iox_output_port_1);
+  Wire.write(0x00);
+  Wire.endTransmission();
+
+
+
+  return;
+};
 
 
 // reads current pin state of the io expander outputs
@@ -236,7 +321,7 @@ int io_call(struct pin pin_needed, enum read_write read_write, enum high_low hig
         Wire.beginTransmission(iox_1_add);
       }
         
-      // write to slected port
+      // write to selcted port
       if (pin_needed.port = 0) {
         Wire.write(iox_output_port_0);
       } else {
@@ -300,6 +385,26 @@ int io_call(struct pin pin_needed, enum read_write read_write, enum high_low hig
 
 
 void setup() {
+
+  // begin serial
+  Serial.begin(115200);
+  Serial.println(" ");
+  Serial.println(" ");
+  Serial.println("serial started");
+  Serial.print("firmware version : ");
+  Serial.print(firmware_version);
+  Serial.print(" | biult at: ");
+  Serial.print(BUILD_DATETIME);
+
+  //begin i2c
+  Wire.begin(sda.pin_number, scl.pin_number);
+  Wire.setClock(400000);
+  Serial.println("I2c strated");
+
+  //begin pin inits for on and offboard 
+  pin_init();
+  Serial.println("pins init complete");
+
   
 }
 
