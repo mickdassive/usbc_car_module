@@ -46,7 +46,7 @@ const uint8_t adc_channel_sel = 0x11;
 const uint8_t adc_auto_sequence_channel_sel = 0x12;
 const uint8_t adc_alert_channel_sel = 0x14;
 const uint8_t adc_alert_map = 0x16;
-const uint8_t adc_pin_config = 0x17;
+const uint8_t adc_alert_pin_config = 0x17;
 const uint8_t adc_event_flag = 0x18;
 const uint8_t adc_event_high_flag = 0x1A;
 const uint8_t adc_event_low_flag = 0x1C;
@@ -156,6 +156,43 @@ const uint8_t adc_op_clr_bit = 0x20;
 const uint8_t adc_op_continuous_read = 0x30;
 const uint8_t adc_op_continuous_write = 0x28;
 
+//adc ch config values
+//adc_chX_high_treshold 12bits max defult 16383
+//adc_chX_low_treshold 12bits max defult 0
+//adc_chX_event_count 4bits max defult 0 number of events that pass the threshold values before the event flag is rased
+//adc_chX_hysteresis 4bits max defult 0
+const uint16_t adc_ch0_high_threshold = 0b111111111111;
+const uint16_t adc_ch0_low_threshold = 0b0;
+const uint8_t adc_ch0_event_count = 0b0;
+const uint8_t adc_ch0_hysteresis = 0b0;
+const uint16_t adc_ch1_high_threshold = 0b111111111111;
+const uint16_t adc_ch1_low_threshold = 0b0;
+const uint8_t adc_ch1_event_count = 0b0;
+const uint8_t adc_ch1_hysteresis = 0b0;
+const uint16_t adc_ch2_high_threshold = 0b111111111111;
+const uint16_t adc_ch2_low_threshold = 0b0;
+const uint8_t adc_ch2_event_count = 0b0;
+const uint8_t adc_ch2_hysteresis = 0b0;
+const uint16_t adc_ch3_high_threshold = 0b111111111111;
+const uint16_t adc_ch3_low_threshold = 0b0;
+const uint8_t adc_ch3_event_count = 0b0;
+const uint8_t adc_ch3_hysteresis = 0b0;
+const uint16_t adc_ch4_high_threshold = 0b111111111111;
+const uint16_t adc_ch4_low_threshold = 0b0;
+const uint8_t adc_ch4_event_count = 0b0;
+const uint8_t adc_ch4_hysteresis = 0b0;
+const uint16_t adc_ch5_high_threshold = 0b111111111111;
+const uint16_t adc_ch5_low_threshold = 0b0;
+const uint8_t adc_ch5_event_count = 0b0;
+const uint8_t adc_ch5_hysteresis = 0b0;
+const uint16_t adc_ch6_high_threshold = 0b111111111111;
+const uint16_t adc_ch6_low_threshold = 0b0;
+const uint8_t adc_ch6_event_count = 0b0;
+const uint8_t adc_ch6_hysteresis = 0b0;
+const uint16_t adc_ch7_high_threshold = 0b111111111111;
+const uint16_t adc_ch7_low_threshold = 0b0;
+const uint8_t adc_ch7_event_count = 0b0;
+const uint8_t adc_ch7_hysteresis = 0b0;
 
 //iox defines
 const uint8_t iox_0_add = 0x20; //???? notshire about the addresess not shure they make sence
@@ -573,7 +610,42 @@ void adc_self_cal () {
 }
 
 //adc bootup init
-void adc_init() {
+//fast_mode: when set to true the i2c bus will be jump up to fast mode speed when sending channel config data to the adc
+void adc_init(bool fast_mode) {
+  //init local vars
+  uint8_t ch0_hysteresis = 0b0;
+  uint8_t ch0_high_threshold = 0b0;
+  uint8_t ch0_event_count = 0b0;
+  uint8_t ch0_low_threshold =0b0;
+  uint8_t ch1_hysteresis = 0b0;
+  uint8_t ch1_high_threshold = 0b0;
+  uint8_t ch1_event_count = 0b0;
+  uint8_t ch1_low_threshold =0b0;
+  uint8_t ch2_hysteresis = 0b0;
+  uint8_t ch2_high_threshold = 0b0;
+  uint8_t ch2_event_count = 0b0;
+  uint8_t ch2_low_threshold =0b0;
+  uint8_t ch3_hysteresis = 0b0;
+  uint8_t ch3_high_threshold = 0b0;
+  uint8_t ch3_event_count = 0b0;
+  uint8_t ch3_low_threshold =0b0;
+  uint8_t ch4_hysteresis = 0b0;
+  uint8_t ch4_high_threshold = 0b0;
+  uint8_t ch4_event_count = 0b0;
+  uint8_t ch4_low_threshold =0b0;
+  uint8_t ch5_hysteresis = 0b0;
+  uint8_t ch5_high_threshold = 0b0;
+  uint8_t ch5_event_count = 0b0;
+  uint8_t ch5_low_threshold =0b0;
+  uint8_t ch6_hysteresis = 0b0;
+  uint8_t ch6_high_threshold = 0b0;
+  uint8_t ch6_event_count = 0b0;
+  uint8_t ch6_low_threshold =0b0;
+  uint8_t ch7_hysteresis = 0b0;
+  uint8_t ch7_high_threshold = 0b0;
+  uint8_t ch7_event_count = 0b0;
+  uint8_t ch7_low_threshold =0b0;
+
   //bordcast on i2c bus for adc self addresing
   Wire.beginTransmission(0x00);
   Wire.write(0x04);
@@ -635,6 +707,95 @@ void adc_init() {
   //resv, resv, resv, seq_start, resv, resv, seq_mode_b1, seq_mode_b0
   Wire.write(0b00000000);//no seqwinceing of anykind
   Wire.endTransmission();
+
+  //remove all analouge inputs form the auto seqwincer
+  Wire.beginTransmission(adc_add);
+  Wire.write(adc_op_single_write);
+  Wire.write(adc_auto_sequence_channel_sel);
+  //adc datasheet page 39
+  //ain_7, ain_6, ain_5, ain_4, ain_3, ain_2, ain_1, ain_0
+  Wire.write(0b00000000);
+  Wire.endTransmission();
+
+  //setup witch channels will be allowed to asert the alert pin
+  Wire.beginTransmission(adc_add);
+  Wire.write(adc_op_single_write);
+  Wire.write(adc_alert_channel_sel);
+  //adc datasheet page 39
+  //ch7, ch6, ch5, ch4, ch3, ch2, ch1, ch0
+  Wire.write(0b11111111);//all channels can asert
+  Wire.endTransmission();
+
+  //setup other alert assert conditions 
+  Wire.beginTransmission(adc_add);
+  Wire.write(adc_op_single_write);
+  Wire.write(adc_alert_map);
+  //adc datasheet page 40
+  //resv, resv, resv, resv, resv, resv, alert_rms, alert_crc
+  Wire.write(0b00000001);
+  Wire.endTransmission();
+
+  //setup alert pin config
+  Wire.beginTransmission(adc_add);
+  Wire.write(adc_op_single_write);
+  Wire.write(adc_alert_pin_config);
+  //adc datasheet page 40
+  //resv, resv, resv, resv, resv, alert_drive, alert_logic_b1, alert_logic_b0
+  Wire.write(0b00000101);
+  Wire.endTransmission();
+
+  //begin configureing bytes to be sent for channel config
+  //ch0 bitwise opertations
+  ch0_hysteresis = (adc_ch0_hysteresis << 4) | (adc_ch0_high_threshold & 0x000F);
+  ch0_high_threshold = (adc_ch0_high_threshold >> 4);
+  ch0_event_count = ((adc_ch0_low_threshold & 0x00F0) >> 4) | (adc_ch0_event_count << 4);
+  ch0_low_threshold = (adc_ch0_low_threshold >> 4);
+
+  //ch1 bitwise operations
+  ch1_hysteresis = (adc_ch1_hysteresis << 4) | (adc_ch1_high_threshold & 0x000F);
+  ch1_high_threshold = (adc_ch1_high_threshold >> 4);
+  ch1_event_count = ((adc_ch1_low_threshold & 0x00F0) >> 4) | (adc_ch1_event_count << 4);
+  ch1_low_threshold = (adc_ch1_low_threshold >> 4);
+
+  //ch2 bitwise opertations
+  ch2_hysteresis = (adc_ch2_hysteresis << 4) | (adc_ch2_high_threshold & 0x000F);
+  ch2_high_threshold = (adc_ch2_high_threshold >> 4);
+  ch2_event_count = ((adc_ch2_low_threshold & 0x00F0) >> 4) | (adc_ch2_event_count << 4);
+  ch2_low_threshold = (adc_ch2_low_threshold >> 4);
+
+  //ch3 bitwise opertations
+  ch3_hysteresis = (adc_ch3_hysteresis << 4) | (adc_ch3_high_threshold & 0x000F);
+  ch3_high_threshold = (adc_ch3_high_threshold >> 4);
+  ch3_event_count = ((adc_ch3_low_threshold & 0x00F0) >> 4) | (adc_ch3_event_count << 4);
+  ch3_low_threshold = (adc_ch3_low_threshold >> 4);
+
+  //ch4 bitwise opertations
+  ch4_hysteresis = (adc_ch4_hysteresis << 4) | (adc_ch4_high_threshold & 0x000F);
+  ch4_high_threshold = (adc_ch4_high_threshold >> 4);
+  ch4_event_count = ((adc_ch4_low_threshold & 0x00F0) >> 4) | (adc_ch4_event_count << 4);
+  ch4_low_threshold = (adc_ch4_low_threshold >> 4);
+
+  //ch5 bitwise opertations
+  ch5_hysteresis = (adc_ch5_hysteresis << 4) | (adc_ch5_high_threshold & 0x000F);
+  ch5_high_threshold = (adc_ch5_high_threshold >> 4);
+  ch5_event_count = ((adc_ch5_low_threshold & 0x00F0) >> 4) | (adc_ch5_event_count << 4);
+  ch5_low_threshold = (adc_ch5_low_threshold >> 4);
+
+  //ch6 bitwise opertations
+  ch6_hysteresis = (adc_ch6_hysteresis << 4) | (adc_ch6_high_threshold & 0x000F);
+  ch6_high_threshold = (adc_ch6_high_threshold >> 4);
+  ch6_event_count = ((adc_ch6_low_threshold & 0x00F0) >> 4) | (adc_ch6_event_count << 4);
+  ch6_low_threshold = (adc_ch6_low_threshold >> 4);
+
+  //ch7 bitwise opertations
+  ch7_hysteresis = (adc_ch7_hysteresis << 4) | (adc_ch7_high_threshold & 0x000F);
+  ch7_high_threshold = (adc_ch7_high_threshold >> 4);
+  ch7_event_count = ((adc_ch7_low_threshold & 0x00F0) >> 4) | (adc_ch7_event_count << 4);
+  ch7_low_threshold = (adc_ch7_low_threshold >> 4);
+
+  //begin sending all the config data to the adc
+  Wire.beginTransmission
+
 
 
 }
