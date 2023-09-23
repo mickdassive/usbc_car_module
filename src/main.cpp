@@ -17,9 +17,14 @@
 //Tokyo Andreana
 
 
+extern "C" {
+  #include "user_interface.h"
+}
+
 #include <Arduino.h>
 #include <Wire.h>
 #include <iostream>
+
 
 
 
@@ -194,6 +199,17 @@ const uint16_t adc_ch7_low_threshold = 0b0;
 const uint8_t adc_ch7_event_count = 0b0;
 const uint8_t adc_ch7_hysteresis = 0b0;
 
+enum adc_channel {
+  ch0,
+  ch1,
+  ch2,
+  ch3,
+  ch4,
+  ch5,
+  ch6,
+  ch7
+};
+
 //iox defines
 const uint8_t iox_0_add = 0x20; //???? notshire about the addresess not shure they make sence
 const uint8_t iox_1_add = 0x21;
@@ -223,46 +239,49 @@ const uint8_t iox_out_port_config_register = 0x4f;
 
 //struct setup for pin cals
 enum in_out {
-  in,
-  out,
-  bi_dir
+  in,       //input
+  out,      //output
+  bi_dir,   //bi-directional pin only used for i2c comms
+  intr      //used for software interupts only works with onboard pins
 };
 
 struct pin {
-  uint8_t mask;    //mask for iox
-  int port;        //port on iox (can be 0 or 1 only)
-  int iox_number;  //iox number
-  int pin_number;  //pin number, for ESP-12F: GPIO#, for iox: phisical pin#
-  in_out pin_mode;  //defines weather a given pin is an out put or an input
-  bool onboard;    //If true, IO is on ESP8266; if false, IO is on IO expander
+  uint8_t mask;          //mask for iox
+  int port;              //port on iox (can be 0 or 1 only)
+  int iox_number;        //iox number
+  int pin_number;        //pin number, for ESP-12F: GPIO#, for iox: phisical pin#
+  in_out pin_mode;       //defines pinmode see enum above for deatails
+  bool onboard;          //If true, IO is on ESP8266; if false, IO is on IO expander
+  bool allow_interrupt;  //allow a given input pin to assert an interrupt only relivent for offboard pins 
   
 };
 
 //BE SHURE TO ADD PINS TO BOTH THE "pin" STRUCT AND THE "pin_names" ARRAY THEY MUST MATCH
-//struct defines  {mask, port, iox#, pin, pin_mode, onboard}
-struct pin sda {0x00, 0, 0, 4, bi_dir, true};
-struct pin scl {0x00, 0, 0, 5, bi_dir, true};
-struct pin onboard_led {0x00, 0, 0, 2, out, true};
-struct pin can_rx {0x00, 0, 0, 12, in, true};
-struct pin can_tx {0x00, 0, 0, 13, out, true};
-struct pin can_silent {0x80, 1, 1, 20, out, false};
-struct pin iox_0_int {0x00, 0, 1, 14, in, true};
-struct pin iox_1_int {0x80, 1, 0, 20, in, false};
-struct pin pgood_21V {0x40, 1, 1, 19, in, false};
-struct pin b_usbc_pgood {0x20, 1, 1, 18, in, false};
-struct pin b_usbc_buck_en {0x08, 1, 1, 16, out, false};
-struct pin b_usbc_5V_sel {0x02, 1, 1, 14, out, false};
-struct pin b_usbc_9V_sel {0x01, 1, 1, 13, out, false};
-struct pin b_usbc_12V_sel {0x80, 0, 1, 11, out, false};
-struct pin b_usbc_15V_sel {0x40, 0, 1, 10, out, false};
-struct pin b_usbc_20V_sel {0x20, 0, 1, 9, out, false};
-struct pin f_usbc_pgood {0x10, 1, 1, 17, in, false};
-struct pin f_usbc_buck_en {0x04, 1, 1, 15, out, false};
-struct pin f_usbc_5V_sel {0x10, 0, 1, 8, out, false};
-struct pin f_usbc_9V_sel {0x08, 0, 1, 7, out, false};
-struct pin f_usbc_12V_sel {0x04, 0, 1, 6, out, false};
-struct pin f_usbc_15V_sel {0x02, 0, 1, 5, out, false};
-struct pin f_usbc_20V_sel {0x01, 0, 1, 4, out, false};
+//struct defines  {mask, port, iox#, pin, pin_mode, onboard, allow_interrupt}
+struct pin sda {0x00, 0, 0, 4, bi_dir, true, false};
+struct pin scl {0x00, 0, 0, 5, bi_dir, true, false};
+struct pin onboard_led {0x00, 0, 0, 2, out, true, false};
+struct pin can_rx {0x00, 0, 0, 12, in, true, false};
+struct pin can_tx {0x00, 0, 0, 13, out, true, false};
+struct pin can_silent {0x80, 1, 1, 20, out, false, false};
+struct pin iox_0_int {0x00, 0, 1, 14, intr, true, true};
+struct pin iox_1_int {0x80, 1, 0, 20, in, false, true};
+struct pin pgood_21V {0x40, 1, 1, 19, in, false, false};
+struct pin b_usbc_pgood {0x20, 1, 1, 18, in, false, true};
+struct pin b_usbc_buck_en {0x08, 1, 1, 16, out, false, false};
+struct pin b_usbc_5V_sel {0x02, 1, 1, 14, out, false, false};
+struct pin b_usbc_9V_sel {0x01, 1, 1, 13, out, false, false};
+struct pin b_usbc_12V_sel {0x80, 0, 1, 11, out, false, false};
+struct pin b_usbc_15V_sel {0x40, 0, 1, 10, out, false, false};
+struct pin b_usbc_20V_sel {0x20, 0, 1, 9, out, false, false};
+struct pin f_usbc_pgood {0x10, 1, 1, 17, in, false, true};
+struct pin f_usbc_buck_en {0x04, 1, 1, 15, out, false, false};
+struct pin f_usbc_5V_sel {0x10, 0, 1, 8, out, false, false};
+struct pin f_usbc_9V_sel {0x08, 0, 1, 7, out, false, false};
+struct pin f_usbc_12V_sel {0x04, 0, 1, 6, out, false, false};
+struct pin f_usbc_15V_sel {0x02, 0, 1, 5, out, false, false};
+struct pin f_usbc_20V_sel {0x01, 0, 1, 4, out, false, false};
+struct pin adc_alert {0x40, 1, 0, 19, in, false, false};
 
 //pin struct names for auto pin init
 struct pin* pin_names[] = {
@@ -288,7 +307,8 @@ struct pin* pin_names[] = {
   &f_usbc_9V_sel,
   &f_usbc_12V_sel,
   &f_usbc_15V_sel,
-  &f_usbc_20V_sel
+  &f_usbc_20V_sel,
+  &adc_alert,
 } ;
 
 
@@ -306,119 +326,9 @@ enum high_low {
 };
 
 
+void IRAM_ATTR ioISR() {
 
-
-
-
-
-
-
-//pin auto init for both iox and onborad pins
-void pin_init() {
-
-  //init vars
-  u_int8_t iox_0_port_0_pinmode = 0x00;
-  u_int8_t iox_0_port_1_pinmode = 0x00;
-  u_int8_t iox_1_port_0_pinmode = 0x00;
-  u_int8_t iox_1_port_1_pinmode = 0x00;
-
-  //begin iterationg thru pins
-  for (int i = 1; i < sizeof(pin_names); i++) {
-
-    //init local loop vars
-    struct pin* curent_pin = pin_names[i];
-
-    switch (curent_pin->pin_mode)
-    {
-    case in:
-      if (curent_pin->onboard) {
-        pinMode(curent_pin->pin_number, INPUT);
-      } else {
-        if (curent_pin->iox_number == 0) {
-          if (curent_pin->port == 0){
-            iox_0_port_0_pinmode = curent_pin->mask | iox_0_port_0_pinmode;
-          } else {
-            iox_0_port_1_pinmode = curent_pin->mask | iox_0_port_1_pinmode;
-          }
-        } else {
-          if (curent_pin->port == 0) {
-            iox_1_port_0_pinmode = curent_pin->mask | iox_1_port_0_pinmode;
-          } else {
-            iox_1_port_1_pinmode = curent_pin->mask | iox_1_port_1_pinmode;
-          }
-        }
-      }
-      break;
-    
-    case out:
-      if (curent_pin->onboard) {
-        pinMode(curent_pin->pin_number, OUTPUT);
-      }
-      //no need to do anything to the iox all pins defult to output
-      break;
-
-    case bi_dir:
-      //do nothing only used for i2c coms witch are defined else-ware 
-      break;
-    }    
-  }
-
-
-  //begin writeing to ioxs 
-  //write to iox 0 port 0 
-  Wire.beginTransmission(iox_0_add);
-  Wire.write(iox_config_port_0);
-  Wire.write(iox_0_port_0_pinmode);
-  Wire.endTransmission();
-
-  //write to iox 0 port 1 
-  Wire.beginTransmission(iox_0_add);
-  Wire.write(iox_config_port_1);
-  Wire.write(iox_0_port_1_pinmode);
-  Wire.endTransmission();
-
-  //write to iox 1 port 0 
-  Wire.beginTransmission(iox_1_add);
-  Wire.write(iox_config_port_0);
-  Wire.write(iox_1_port_0_pinmode);
-  Wire.endTransmission();
-
-  //write to iox 1 port 1 
-  Wire.beginTransmission(iox_1_add);
-  Wire.write(iox_config_port_1);
-  Wire.write(iox_1_port_1_pinmode);
-  Wire.endTransmission();
-
-
-  //set all outputs of ioxs low
-  //write to iox 0 port 0
-  Wire.beginTransmission(iox_0_add);
-  Wire.write(iox_output_port_0);
-  Wire.write(0x00);
-  Wire.endTransmission();
-
-  //write to iox 0 port 1
-  Wire.beginTransmission(iox_0_add);
-  Wire.write(iox_output_port_1);
-  Wire.write(0x00);
-  Wire.endTransmission();
-
-  //write to iox 1 port 0
-  Wire.beginTransmission(iox_1_add);
-  Wire.write(iox_output_port_0);
-  Wire.write(0x00);
-  Wire.endTransmission();
-
-  //write to iox 1 port 1
-  Wire.beginTransmission(iox_1_add);
-  Wire.write(iox_output_port_1);
-  Wire.write(0x00);
-  Wire.endTransmission();
-
-
-
-  return;
-};
+}
 
 
 //reads current pin state of the io expander outputs
@@ -490,7 +400,7 @@ int io_call(struct pin pin_needed, enum read_write read_write, enum high_low hig
       }
         
       //write to selcted port
-      if (pin_needed.port = 0) {
+      if (pin_needed.port == 0) {
         Wire.write(iox_output_port_0);
       } else {
         Wire.write(iox_output_port_1);
@@ -657,7 +567,7 @@ void adc_init(bool fast_mode) {
   Wire.write(adc_gen_config);
   //adc datasheet page 34
   //rms_en, crc_en, stats_en, dwc_en, cnvst, ch_rst, cal, rst
-  Wire.write(0b011010100);
+  Wire.write(0b00011100);
   Wire.endTransmission();
 
   //self cal the adc
@@ -678,7 +588,7 @@ void adc_init(bool fast_mode) {
   Wire.write(adc_osr_config);
   //adc datasheet page 35
   //resv, resv, resv, resv, resv, osr_b2, osr_b1, osr_b0
-  Wire.write(0b00000101);//32 oversampels
+  Wire.write(0b00000111);//128 oversampels
   Wire.endTransmission();
 
   //begin mode and clock setup
@@ -732,7 +642,7 @@ void adc_init(bool fast_mode) {
   Wire.write(adc_alert_map);
   //adc datasheet page 40
   //resv, resv, resv, resv, resv, resv, alert_rms, alert_crc
-  Wire.write(0b00000001);
+  Wire.write(0b00000000);
   Wire.endTransmission();
 
   //setup alert pin config
@@ -794,11 +704,268 @@ void adc_init(bool fast_mode) {
   ch7_low_threshold = (adc_ch7_low_threshold >> 4);
 
   //begin sending all the config data to the adc
-  Wire.beginTransmission
-
+  Wire.beginTransmission(adc_add);
+  if (fast_mode) { //jump to fast mode if enabeld
+    Wire.write(0xB0);
+    Wire.setClock(3400000);
+  }
+  Wire.write(adc_op_continuous_write);
+  Wire.write(adc_hysteresis_ch0);
+  Wire.write(ch0_hysteresis);
+  Wire.write(ch0_high_threshold);
+  Wire.write(ch0_event_count);
+  Wire.write(ch0_low_threshold);
+  Wire.write(ch1_hysteresis);
+  Wire.write(ch1_high_threshold);
+  Wire.write(ch1_event_count);
+  Wire.write(ch1_low_threshold);
+  Wire.write(ch2_hysteresis);
+  Wire.write(ch2_high_threshold);
+  Wire.write(ch2_event_count);
+  Wire.write(ch2_low_threshold);
+  Wire.write(ch3_hysteresis);
+  Wire.write(ch3_high_threshold);
+  Wire.write(ch3_event_count);
+  Wire.write(ch3_low_threshold);
+  Wire.write(ch4_hysteresis);
+  Wire.write(ch4_high_threshold);
+  Wire.write(ch4_event_count);
+  Wire.write(ch4_low_threshold);
+  Wire.write(ch5_hysteresis);
+  Wire.write(ch5_high_threshold);
+  Wire.write(ch5_event_count);
+  Wire.write(ch5_low_threshold);
+  Wire.write(ch6_hysteresis);
+  Wire.write(ch6_high_threshold);
+  Wire.write(ch6_event_count);
+  Wire.write(ch6_low_threshold);
+  Wire.write(ch7_hysteresis);
+  Wire.write(ch7_high_threshold);
+  Wire.write(ch7_event_count);
+  Wire.write(ch7_low_threshold);
+  Wire.endTransmission();
+  if (fast_mode) {
+    Wire.setClock(400000);
+  }
+  
+  return;
 
 
 }
+
+//reads from the i2c adc returns value in raw 16bit adc counts
+//adc_channel: select the desired channel to read from
+int adc_read(enum adc_channel adc_channel){
+  //init local vars
+  uint8_t read_byte_0 = 0b0;
+  uint8_t read_byte_1 = 0b0;
+  uint16_t output = 0b0;
+
+  Wire.beginTransmission(adc_add);
+  Wire.write(adc_op_single_write);
+
+  switch (adc_channel){
+  case ch0:
+    Wire.write(adc_recent_ch0_lsb);
+    break;
+  case ch1:
+    Wire.write(adc_recent_ch1_lsb);
+    break;
+  case ch2:
+    Wire.write(adc_recent_ch2_lsb);
+    break;
+  case ch3:
+    Wire.write(adc_recent_ch3_lsb);
+    break;
+  case ch4:
+    Wire.write(adc_recent_ch4_lsb);
+    break;
+  case ch5:
+    Wire.write(adc_recent_ch5_lsb);
+    break;
+  case ch6:
+    Wire.write(adc_recent_ch6_lsb);
+    break;
+  case ch7:
+    Wire.write(adc_recent_ch6_lsb);
+    break;
+  }
+  
+  Wire.endTransmission();
+
+  Wire.requestFrom(adc_add, 2);
+  read_byte_0 = Wire.read();
+  read_byte_1 = Wire.read();
+  Wire.endTransmission();
+
+  output = (int16_t)((read_byte_0 << 8) | read_byte_1);
+
+  return output;
+
+}
+
+
+
+//pin auto init for both iox and onborad pins
+void gpio_init() {
+
+  //init vars
+  uint8_t iox_0_port_0_pinmode = 0x00;
+  uint8_t iox_0_port_1_pinmode = 0x00;
+  uint8_t iox_1_port_0_pinmode = 0x00;
+  uint8_t iox_1_port_1_pinmode = 0x00;
+
+  uint8_t iox_0_port_0_interrupt = 0xFF;
+  uint8_t iox_0_port_1_interrupt = 0xFF;
+  uint8_t iox_1_port_0_interrupt = 0xFF;
+  uint8_t iox_1_port_1_interrupt = 0xFF;
+
+  //begin iterationg thru pins
+  for (uint i = 1; i < sizeof(pin_names[0]); i++) {
+
+    //init local loop vars
+    //struct pin* curent_pin = pin_names[i];
+
+    switch (pin_names[i]->pin_mode)
+    {
+    case in:
+      if (pin_names[i]->onboard) {
+        pinMode(pin_names[i]->pin_number, INPUT);
+      } else {
+        if (pin_names[i]->iox_number == 0) {
+          if (pin_names[i]->port == 0){
+            iox_0_port_0_pinmode = pin_names[i]->mask | iox_0_port_0_pinmode;
+          } else {
+            iox_0_port_1_pinmode = pin_names[i]->mask | iox_0_port_1_pinmode;
+          }
+        } else {
+          if (pin_names[i]->port == 0) {
+            iox_1_port_0_pinmode = pin_names[i]->mask | iox_1_port_0_pinmode;
+          } else {
+            iox_1_port_1_pinmode = pin_names[i]->mask | iox_1_port_1_pinmode;
+          }
+        }
+      }
+      break;
+    
+    case out:
+      if (pin_names[i]->onboard) {
+        pinMode(pin_names[i]->pin_number, OUTPUT);
+      }
+      //no need to do anything to the iox all pins defult to output
+      break;
+
+    case bi_dir:
+      //do nothing only used for i2c coms witch are defined else-ware 
+      break;
+    
+    case intr: //setup iterups for cheking when io state is changed
+      if(pin_names[i]->onboard) {
+        pinMode(pin_names[i]->pin_number, INPUT);
+        attachInterrupt(digitalPinToInterrupt(pin_names[i]->pin_number), ioISR, FALLING);
+      }      
+      break;
+    }  
+
+    // setup the interrupt masks for the io expanders
+    if (pin_names[i]->allow_interrupt && !pin_names[i]->onboard) {
+      if (pin_names[i]->iox_number == 0) {
+        if (pin_names[i]->port == 0) {
+          iox_0_port_0_interrupt = iox_0_port_0_interrupt ^ pin_names[i]->mask;
+        } else {
+          iox_0_port_1_interrupt = iox_0_port_1_interrupt ^ pin_names[i]->mask;
+        }
+      } else {
+        if (pin_names[i]->port == 0) {
+          iox_1_port_0_interrupt = iox_1_port_0_interrupt ^ pin_names[i]->mask;
+        } else {
+          iox_1_port_1_interrupt = iox_1_port_1_interrupt ^ pin_names[i]->mask;
+        }
+      }
+    }
+
+  }
+
+  //set all outputs of ioxs low
+  //write to output at iox 0 port 0
+  Wire.beginTransmission(iox_0_add);
+  Wire.write(iox_output_port_0);
+  Wire.write(0x00);
+  Wire.endTransmission();
+
+  //write to output at iox 0 port 1
+  Wire.beginTransmission(iox_0_add);
+  Wire.write(iox_output_port_1);
+  Wire.write(0x00);
+  Wire.endTransmission();
+
+  //write to output at iox 1 port 0
+  Wire.beginTransmission(iox_1_add);
+  Wire.write(iox_output_port_0);
+  Wire.write(0x00);
+  Wire.endTransmission();
+
+  //write to output at iox 1 port 1
+  Wire.beginTransmission(iox_1_add);
+  Wire.write(iox_output_port_1);
+  Wire.write(0x00);
+  Wire.endTransmission();
+
+
+  //begin writeing pinmodes to ioxs 
+  //write pinmode to iox 0 port 0 
+  Wire.beginTransmission(iox_0_add);
+  Wire.write(iox_config_port_0);
+  Wire.write(iox_0_port_0_pinmode);
+  Wire.endTransmission();
+
+  //write pinmode to iox 0 port 1 
+  Wire.beginTransmission(iox_0_add);
+  Wire.write(iox_config_port_1);
+  Wire.write(iox_0_port_1_pinmode);
+  Wire.endTransmission();
+
+  //write pinmode to iox 1 port 0 
+  Wire.beginTransmission(iox_1_add);
+  Wire.write(iox_config_port_0);
+  Wire.write(iox_1_port_0_pinmode);
+  Wire.endTransmission();
+
+  //write pinmode to iox 1 port 1 
+  Wire.beginTransmission(iox_1_add);
+  Wire.write(iox_config_port_1);
+  Wire.write(iox_1_port_1_pinmode);
+  Wire.endTransmission();
+
+
+  //write to ioxs interup mask registers
+  //write mask to iox 0 port 0
+  Wire.beginTransmission(iox_0_add);
+  Wire.write(iox_int_mask_register_0);
+  Wire.write(iox_0_port_0_interrupt);
+  Wire.endTransmission();
+
+  //write mask to iox 0 port 1
+  Wire.beginTransmission(iox_0_add);
+  Wire.write(iox_int_mask_register_1);
+  Wire.write(iox_0_port_1_interrupt);
+  Wire.endTransmission();
+
+  //write mask to iox 1 port 0
+  Wire.beginTransmission(iox_1_add);
+  Wire.write(iox_int_mask_register_0);
+  Wire.write(iox_1_port_0_interrupt);
+  Wire.endTransmission();
+
+  //write mask to iox 1 port 1
+  Wire.beginTransmission(iox_1_add);
+  Wire.write(iox_int_mask_register_1);
+  Wire.write(iox_1_port_1_interrupt);
+  Wire.endTransmission();
+
+
+  return;
+};
 
 void setup() {
 
@@ -806,21 +973,32 @@ void setup() {
   Serial.begin(115200);
   Serial.println(" ");
   Serial.println(" ");
-  Serial.println("serial started");
-
+  Serial.println("Serial started");
+  Serial.print("Firmware version: ");
+  Serial.print(firmware_version);
+  Serial.println(" ");
 
   //begin i2c
   Wire.begin(sda.pin_number, scl.pin_number);
   Wire.setClock(400000);
   Serial.println("I2c strated");
 
-  //begin pin inits for on and offboard 
-  pin_init();
-  Serial.println("pins init complete");
+  //begin gpio inits for on and offboard 
+  gpio_init();
+  Serial.println("GPIO init complete");
+
+  //bgegin init for adc
+  //adc_init(false);
+  Serial.println("ADC init and self cal complete");
 
   
 }
 
 void loop() {
+  io_call(onboard_led, write, high);
+  delay(rand() % (1000-1+1)+1);
+  io_call(onboard_led, write, low);
+  delay(rand() % (1000-1+1)+1);
 }
+
 

@@ -593,6 +593,23 @@
     )
   )
 
+  (sheet (at 133.35 29.21) (size 17.78 22.86) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid bb20a659-2b02-48fa-8ef7-389a14e86ba7)
+    (property "Sheetname" "BACK_UFP_USB_C_PORT" (at 133.35 28.4984 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "BACK_UFP_USB_C_PORT.kicad_sch" (at 133.35 52.6546 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "usbc-car-module"
+        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43" (page "11"))
+      )
+    )
+  )
+
   (sheet (at 44.45 102.87) (size 22.86 6.35) (fields_autoplaced)
     (stroke (width 0.1524) (type solid))
     (fill (color 0 0 0 0.0000))
@@ -623,6 +640,23 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43" (page "7"))
+      )
+    )
+  )
+
+  (sheet (at 80.01 22.86) (size 35.56 8.89) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid fe8e7353-13b3-4aa6-97f7-d88e32d23b04)
+    (property "Sheetname" "USBA_PORTS" (at 80.01 22.1484 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "USBA_PORS.kicad_sch" (at 80.01 32.3346 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "usbc-car-module"
+        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43" (page "10"))
       )
     )
   )

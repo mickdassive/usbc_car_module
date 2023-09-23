@@ -368,6 +368,14 @@
     [
       "115036d9-3633-4f5d-a259-54a6f0cf58ce",
       "USB_UART"
+    ],
+    [
+      "fe8e7353-13b3-4aa6-97f7-d88e32d23b04",
+      "USBA_PORTS"
+    ],
+    [
+      "bb20a659-2b02-48fa-8ef7-389a14e86ba7",
+      "BACK_UFP_USB_C_PORT"
     ]
   ],
   "text_variables": {}
