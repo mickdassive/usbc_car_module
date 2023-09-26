@@ -35,5 +35,8 @@ fp-info-cache
 *.xml
 *.csv
 
+# User lock files
+*.lck
+
 #platform io setup ignore
 #platformio.ini
