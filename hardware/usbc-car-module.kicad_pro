@@ -376,6 +376,18 @@
     [
       "bb20a659-2b02-48fa-8ef7-389a14e86ba7",
       "BACK_UFP_USB_C_PORT"
+    ],
+    [
+      "ad0dde3f-c33d-40ce-8876-17a95cda421b",
+      "FRONT_DFP_USB_C_PORT"
+    ],
+    [
+      "ba7fd60c-2f9a-4947-88c0-3b779b991f83",
+      "FRONT_PANNEL_DISPLAY"
+    ],
+    [
+      "67a132ab-d248-4cef-8ed8-9da8a5ccfd64",
+      "CAR_12V_IN"
     ]
   ],
   "text_variables": {}

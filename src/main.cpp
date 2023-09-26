@@ -282,6 +282,12 @@ struct pin f_usbc_12V_sel {0x04, 0, 1, 6, out, false, false};
 struct pin f_usbc_15V_sel {0x02, 0, 1, 5, out, false, false};
 struct pin f_usbc_20V_sel {0x01, 0, 1, 4, out, false, false};
 struct pin adc_alert {0x40, 1, 0, 19, in, false, false};
+struct pin ufp_c_attach_0 {0x20, 1, 0, 18, out, false, false};
+struct pin hub_vbus_det {0x10, 1, 0, 17, out, false, false};
+struct pin dfp_c_attach_1 {0x08, 1, 0, 16, out, false, false};
+struct pin disp_irq {0x04, 1, 0, 15, in, false, true};
+struct pin unit_btn {0x02, 1, 0, 14, in, false, true};
+struct pin src_btn {0x01, 1, 0, 13, in, false, true};
 
 //pin struct names for auto pin init
 struct pin* pin_names[] = {
@@ -309,6 +315,12 @@ struct pin* pin_names[] = {
   &f_usbc_15V_sel,
   &f_usbc_20V_sel,
   &adc_alert,
+  &ufp_c_attach_0,
+  &hub_vbus_det,
+  &dfp_c_attach_1,
+  &disp_irq,
+  &unit_btn,
+  &src_btn,
 } ;
 
 
