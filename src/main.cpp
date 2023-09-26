@@ -337,7 +337,63 @@ enum high_low {
   read_mode
 };
 
+//7 seg front diplay defines
+uint8_t disp_intense_defult = 0xff; //set this number in hex to set 7 segment display brightness
 
+//disp addresses
+const uint8_t disp_base_add = 0x00;
+const uint8_t disp_add = 0x02;
+
+//config registers
+const uint8_t disp_decode_mode = 0x09;
+const uint8_t disp_global_intensity = 0x0A;
+const uint8_t disp_scan_limit = 0x0B;
+const uint8_t disp_shutdown = 0x0C;
+const uint8_t disp_self_add = 0x2D; 
+const uint8_t disp_feature = 0x0E;
+const uint8_t disp_test = 0x0F;
+const uint8_t disp_dig01_int = 0x10;
+const uint8_t disp_dig23_int = 0x11;
+const uint8_t disp_dig45_int = 0x12;
+const uint8_t disp_dig67_int = 0x13;
+
+//digit write registers
+const uint8_t disp_digit_0 = 0x01;
+const uint8_t disp_digit_1 = 0x02;
+const uint8_t disp_digit_2 = 0x03;
+const uint8_t disp_digit_3 = 0x04;
+const uint8_t disp_digit_4 = 0x05;
+const uint8_t disp_digit_5 = 0x06;
+const uint8_t disp_digit_6 = 0x07;
+const uint8_t disp_digit_7 = 0x08;
+
+//dig diag registers
+const uint8_t disp_dig0_diag = 0x14;
+const uint8_t disp_dig1_diag = 0x15;
+const uint8_t disp_dig2_diag = 0x16;
+const uint8_t disp_dig3_diag = 0x17;
+const uint8_t disp_dig4_diag = 0x18;
+const uint8_t disp_dig5_diag = 0x19;
+const uint8_t disp_dig6_diag = 0x1A;
+const uint8_t disp_dig7_diag = 0x1B;
+const uint8_t disp_keya = 0x1C;
+const uint8_t disp_keyb = 0x1D;
+
+//shurtdown modes
+const uint8_t disp_down_rst = 0x00;
+const uint8_t disp_down = 0x80;
+const uint8_t disp_up_rst = 0x01;
+const uint8_t disp_up = 0x81;
+
+
+
+
+
+
+
+
+
+//io intrupt rutine
 void IRAM_ATTR ioISR() {
 
 }
@@ -765,7 +821,7 @@ void adc_init(bool fast_mode) {
 
 }
 
-//reads from the i2c adc returns value in raw 16bit adc counts
+//reads from the i2c ADC returns value in raw 16bit ADC counts
 //adc_channel: select the desired channel to read from
 int adc_read(enum adc_channel adc_channel){
   //init local vars
@@ -816,9 +872,77 @@ int adc_read(enum adc_channel adc_channel){
 
 }
 
+//display init function
+void disp_init() {
+  //wake up display controler
+  Wire.beginTransmission(disp_base_add);
+  Wire.write(disp_shutdown);
+  Wire.write(disp_up_rst);
+  Wire.endTransmission();
 
+  //tell display controler to self address
+  Wire.beginTransmission(disp_base_add);
+  Wire.write(disp_self_add);
+  Wire.write(0x01);
+  Wire.endTransmission();
 
-//pin auto init for both iox and onborad pins
+  //wake display from shutdown after self addressing
+  Wire.beginTransmission(disp_add);
+  Wire.write(disp_shutdown);
+  Wire.write(disp_up);
+  Wire.endTransmission();
+
+  //set disp controler decode mode to raw
+  Wire.beginTransmission(disp_add);
+  Wire.write(disp_decode_mode);
+  Wire.write(0x00); //decode mode raw
+  Wire.endTransmission();
+
+  //set display scan limit
+  Wire.beginTransmission(disp_add);
+  Wire.write(disp_scan_limit);
+  Wire.write(0x07); //scan all digits
+  Wire.endTransmission();
+
+  //set display intensity
+  Wire.beginTransmission(disp_add);
+  Wire.write(disp_global_intensity);
+  Wire.write(disp_intense_defult);
+  Wire.endTransmission();
+
+  return;
+}
+
+//display balnk function just writes 0s to the first 4 digit registers but keeps the status leds
+void disp_blank() {
+  Wire.beginTransmission(disp_add);
+  Wire.write(disp_digit_0);
+  Wire.write(0x00);
+  Wire.write(0x00);
+  Wire.write(0x00);
+  Wire.write(0x00);
+  Wire.endTransmission();
+  return;
+}
+
+//set disply brightness
+//desired_brightness: brightness of display from 0-255
+void disp_bright(uint8_t desired_brightness) {
+  Wire.beginTransmission(disp_add);
+  Wire.write(disp_global_intensity);
+  Wire.write(desired_brightness);
+  Wire.endTransmission();
+
+  return;
+}
+
+//display write command
+//will only work with flaots and ints
+void disp_write(float input) {
+  
+}
+
+//GPIO pin auto init for both iox and onborad pins
 void gpio_init() {
 
   //init vars
@@ -995,13 +1119,29 @@ void setup() {
   Wire.setClock(400000);
   Serial.println("I2c strated");
 
-  //begin gpio inits for on and offboard 
+  //begin GPIO inits for on and offboard 
   gpio_init();
   Serial.println("GPIO init complete");
 
-  //bgegin init for adc
+  //bgegin init for ADC
   //adc_init(false);
   Serial.println("ADC init and self cal complete");
+
+  //begin init for display
+  disp_init();
+  Serial.println("Front display init complete");
+
+  //begin USB hub chip init
+
+  Serial.println("USB-hub init complete");
+
+  //begin init for USB-PD PHYs
+
+  Serial.println("USB-PD PHY UFP&DFP init complete");
+
+  //begin USB-PD power supply check 
+
+  Serial.println("UFP&DFP voltage outputs within safe range");
 
   
 }
