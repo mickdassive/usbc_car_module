@@ -1710,7 +1710,7 @@
   (symbol (lib_id "power:GND") (at 96.52 88.9 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 019334c9-7d6b-475c-b127-55dd79710c03)
-    (property "Reference" "#PWR021" (at 96.52 95.25 0)
+    (property "Reference" "#PWR029" (at 96.52 95.25 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 96.52 92.71 0)
@@ -1726,7 +1726,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "#PWR021") (unit 1)
+          (reference "#PWR029") (unit 1)
         )
       )
     )
@@ -1735,13 +1735,13 @@
   (symbol (lib_id "Device:C") (at 151.13 45.72 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 06f752d0-0b6e-4e6c-ac2b-9bc74e5e6adc)
-    (property "Reference" "C29" (at 154.051 45.0763 0)
+    (property "Reference" "C33" (at 154.051 45.0763 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "2uF2" (at 154.051 46.9973 0)
+    (property "Value" "2.2uF" (at 154.051 46.9973 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "" (at 152.0952 49.53 0)
+    (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 152.0952 49.53 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 151.13 45.72 0)
@@ -1752,7 +1752,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "C29") (unit 1)
+          (reference "C33") (unit 1)
         )
       )
     )
@@ -1761,7 +1761,7 @@
   (symbol (lib_id "CARTHING:LM5143-Q1") (at 139.7 92.71 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 0f20a465-a99f-4941-b454-46d33f4459b9)
-    (property "Reference" "U6" (at 124.46 60.96 0)
+    (property "Reference" "U7" (at 124.46 60.96 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "~" (at 149.86 76.2 0)
@@ -1817,7 +1817,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "U6") (unit 1)
+          (reference "U7") (unit 1)
         )
       )
     )
@@ -1826,13 +1826,13 @@
   (symbol (lib_id "Device:D_Shockley") (at 161.29 45.72 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 0ff6bf46-ea2a-4b3c-bcdf-8c0a3e67ad37)
-    (property "Reference" "D3" (at 163.322 45.0763 90)
+    (property "Reference" "D4" (at 163.322 45.0763 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D_Shockley" (at 163.322 46.9973 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
-    (property "Footprint" "" (at 161.29 45.72 0)
+    (property "Footprint" "Diode_SMD:D_SMA" (at 161.29 45.72 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 161.29 45.72 0)
@@ -1843,7 +1843,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "D3") (unit 1)
+          (reference "D4") (unit 1)
         )
       )
     )
@@ -1852,7 +1852,7 @@
   (symbol (lib_id "Device:R") (at 224.79 105.41 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 1225c9b8-fc20-42a3-8c74-228e781246f9)
-    (property "Reference" "R23" (at 224.79 101.3841 90)
+    (property "Reference" "R27" (at 224.79 101.3841 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "5.9K" (at 224.79 103.3051 90)
@@ -1869,7 +1869,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "R23") (unit 1)
+          (reference "R27") (unit 1)
         )
       )
     )
@@ -1878,7 +1878,7 @@
   (symbol (lib_id "Device:R") (at 58.42 72.39 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 1a9d06d5-4d48-4414-acd8-28d2de7fcb2f)
-    (property "Reference" "R15" (at 58.42 68.3641 90)
+    (property "Reference" "R18" (at 58.42 68.3641 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "10mR" (at 58.42 70.2851 90)
@@ -1895,7 +1895,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "R15") (unit 1)
+          (reference "R18") (unit 1)
         )
       )
     )
@@ -1904,7 +1904,7 @@
   (symbol (lib_id "Device:R") (at 115.57 129.54 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 1e448da2-4b1d-4ee9-be4c-e01bd9fd024d)
-    (property "Reference" "R51" (at 115.57 125.5141 90)
+    (property "Reference" "R21" (at 115.57 125.5141 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "0R" (at 115.57 127.4351 90)
@@ -1921,7 +1921,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "R51") (unit 1)
+          (reference "R21") (unit 1)
         )
       )
     )
@@ -1930,7 +1930,7 @@
   (symbol (lib_id "power:GND") (at 39.37 118.11 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 208b0000-38b8-4a9d-9bef-624bbf2021ab)
-    (property "Reference" "#PWR017" (at 39.37 124.46 0)
+    (property "Reference" "#PWR025" (at 39.37 124.46 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 39.37 122.2455 0)
@@ -1946,7 +1946,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "#PWR017") (unit 1)
+          (reference "#PWR025") (unit 1)
         )
       )
     )
@@ -1955,7 +1955,7 @@
   (symbol (lib_id "power:+3V3") (at 73.66 114.3 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 2349aeee-1a79-4689-af68-477c703b4f2a)
-    (property "Reference" "#PWR019" (at 77.47 114.3 0)
+    (property "Reference" "#PWR027" (at 77.47 114.3 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+3V3" (at 70.485 114.6168 90)
@@ -1971,7 +1971,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "#PWR019") (unit 1)
+          (reference "#PWR027") (unit 1)
         )
       )
     )
@@ -1980,7 +1980,7 @@
   (symbol (lib_id "Device:R") (at 223.52 73.66 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 250640f4-3efd-4d30-802d-b9666074e150)
-    (property "Reference" "R22" (at 223.52 69.6341 90)
+    (property "Reference" "R26" (at 223.52 69.6341 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "10mR" (at 223.52 71.5551 90)
@@ -1997,7 +1997,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "R22") (unit 1)
+          (reference "R26") (unit 1)
         )
       )
     )
@@ -2006,7 +2006,7 @@
   (symbol (lib_id "power:GND") (at 90.17 121.92 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 28c8a58d-401c-4569-a0e3-9780861b22e5)
-    (property "Reference" "#PWR020" (at 90.17 128.27 0)
+    (property "Reference" "#PWR028" (at 90.17 128.27 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 90.17 126.0555 0)
@@ -2022,7 +2022,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "#PWR020") (unit 1)
+          (reference "#PWR028") (unit 1)
         )
       )
     )
@@ -2031,13 +2031,13 @@
   (symbol (lib_id "Device:C") (at 138.43 143.51 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 2e741d47-786f-48a6-8152-44b411607646)
-    (property "Reference" "C28" (at 138.43 138.3411 90)
+    (property "Reference" "C32" (at 138.43 138.3411 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "470nF" (at 138.43 140.2621 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "" (at 142.24 142.5448 0)
+    (property "Footprint" "Capacitor_SMD:C_0805_2012Metric" (at 142.24 142.5448 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 138.43 143.51 0)
@@ -2048,7 +2048,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "C28") (unit 1)
+          (reference "C32") (unit 1)
         )
       )
     )
@@ -2057,7 +2057,7 @@
   (symbol (lib_id "Device:R") (at 204.47 114.3 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 35ec2c20-7126-4085-ace9-c6cf75865643)
-    (property "Reference" "R21" (at 204.47 110.2741 90)
+    (property "Reference" "R25" (at 204.47 110.2741 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "100K" (at 204.47 112.1951 90)
@@ -2074,7 +2074,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "R21") (unit 1)
+          (reference "R25") (unit 1)
         )
       )
     )
@@ -2083,13 +2083,13 @@
   (symbol (lib_id "Device:C") (at 237.49 78.74 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 3b8e6eae-5e1a-4de1-9f5f-a3d873a16321)
-    (property "Reference" "C34" (at 240.411 78.0963 0)
+    (property "Reference" "C38" (at 240.411 78.0963 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "4.7uF" (at 240.411 80.0173 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "" (at 238.4552 82.55 0)
+    (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 238.4552 82.55 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 237.49 78.74 0)
@@ -2100,7 +2100,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "C34") (unit 1)
+          (reference "C38") (unit 1)
         )
       )
     )
@@ -2115,7 +2115,7 @@
     (property "Value" "PMPB11EN,115" (at 93.8531 66.0327 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "" (at 93.98 64.77 0)
+    (property "Footprint" "CARTHING:TRANS_PMPB11EN_115" (at 93.98 64.77 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 99.06 67.31 0)
@@ -2136,13 +2136,13 @@
   (symbol (lib_id "Device:C") (at 100.33 119.38 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 469b698c-6b0f-4117-a090-5c4dfcfc85ed)
-    (property "Reference" "C24" (at 100.33 114.2111 90)
+    (property "Reference" "C28" (at 100.33 114.2111 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "470nF" (at 100.33 116.1321 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "" (at 104.14 118.4148 0)
+    (property "Footprint" "Capacitor_SMD:C_0805_2012Metric" (at 104.14 118.4148 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 100.33 119.38 0)
@@ -2153,7 +2153,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "C24") (unit 1)
+          (reference "C28") (unit 1)
         )
       )
     )
@@ -2162,13 +2162,13 @@
   (symbol (lib_id "Device:C") (at 102.87 53.34 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 47fbc9e9-ff0e-460b-999f-f914f8d9ba86)
-    (property "Reference" "C25" (at 102.87 48.1711 90)
+    (property "Reference" "C29" (at 102.87 48.1711 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "0.1uF" (at 102.87 50.0921 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "" (at 106.68 52.3748 0)
+    (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 106.68 52.3748 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 102.87 53.34 0)
@@ -2179,7 +2179,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "C25") (unit 1)
+          (reference "C29") (unit 1)
         )
       )
     )
@@ -2194,7 +2194,7 @@
     (property "Value" "PMPB11EN,115" (at 188.087 68.5873 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "" (at 187.96 64.77 0)
+    (property "Footprint" "CARTHING:TRANS_PMPB11EN_115" (at 187.96 64.77 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 182.88 67.31 0)
@@ -2215,13 +2215,13 @@
   (symbol (lib_id "Device:C") (at 90.17 113.03 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 4d17d351-2198-4de3-876b-d983f26a7a98)
-    (property "Reference" "C23" (at 93.091 112.3863 0)
+    (property "Reference" "C27" (at 93.091 112.3863 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "1uF" (at 93.091 114.3073 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
-    (property "Footprint" "" (at 89.2048 109.22 0)
+    (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 89.2048 109.22 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 90.17 113.03 0)
@@ -2232,7 +2232,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "C23") (unit 1)
+          (reference "C27") (unit 1)
         )
       )
     )
@@ -2241,7 +2241,7 @@
   (symbol (lib_id "Device:R") (at 168.91 71.12 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 53da3837-29d1-4cd1-b7ff-512888f60e55)
-    (property "Reference" "R19" (at 168.91 67.0941 90)
+    (property "Reference" "R23" (at 168.91 67.0941 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "RHO2" (at 168.91 69.0151 90)
@@ -2258,7 +2258,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "R19") (unit 1)
+          (reference "R23") (unit 1)
         )
       )
     )
@@ -2267,7 +2267,7 @@
   (symbol (lib_id "Device:R") (at 111.76 71.12 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 57954a54-c4fd-497d-960a-2538be5a7bf2)
-    (property "Reference" "R17" (at 111.76 67.0941 90)
+    (property "Reference" "R20" (at 111.76 67.0941 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "RHO1" (at 111.76 69.0151 90)
@@ -2284,7 +2284,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "R17") (unit 1)
+          (reference "R20") (unit 1)
         )
       )
     )
@@ -2293,7 +2293,7 @@
   (symbol (lib_id "power:GND") (at 132.08 160.02 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 5f0009ce-5969-47cd-b625-edcf238f8b3c)
-    (property "Reference" "#PWR024" (at 132.08 166.37 0)
+    (property "Reference" "#PWR032" (at 132.08 166.37 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 132.08 164.1555 0)
@@ -2309,7 +2309,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "#PWR024") (unit 1)
+          (reference "#PWR032") (unit 1)
         )
       )
     )
@@ -2318,13 +2318,13 @@
   (symbol (lib_id "Device:C") (at 234.95 105.41 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 619a0191-75d4-417c-acfb-a27008e3ac90)
-    (property "Reference" "C33" (at 234.95 100.2411 90)
+    (property "Reference" "C37" (at 234.95 100.2411 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "4.7uF" (at 234.95 102.1621 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "" (at 238.76 104.4448 0)
+    (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 238.76 104.4448 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 234.95 105.41 0)
@@ -2335,7 +2335,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "C33") (unit 1)
+          (reference "C37") (unit 1)
         )
       )
     )
@@ -2350,7 +2350,7 @@
     (property "Value" "PMPB11EN,115" (at 188.087 82.5573 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "" (at 187.96 78.74 0)
+    (property "Footprint" "CARTHING:TRANS_PMPB11EN_115" (at 187.96 78.74 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 182.88 81.28 0)
@@ -2371,7 +2371,7 @@
   (symbol (lib_id "Device:R") (at 165.1 116.84 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 6d511e95-3f1b-4c7f-9045-a5e4c0a5d469)
-    (property "Reference" "R18" (at 165.1 112.8141 90)
+    (property "Reference" "R22" (at 165.1 112.8141 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "10K" (at 165.1 114.7351 90)
@@ -2388,7 +2388,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "R18") (unit 1)
+          (reference "R22") (unit 1)
         )
       )
     )
@@ -2397,13 +2397,13 @@
   (symbol (lib_id "Device:C") (at 187.96 113.03 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 70558b99-5f27-4ad5-9e97-d41b39c4dd90)
-    (property "Reference" "C31" (at 190.881 112.3863 0)
+    (property "Reference" "C35" (at 190.881 112.3863 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "1uF" (at 190.881 114.3073 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
-    (property "Footprint" "" (at 186.9948 109.22 0)
+    (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 186.9948 109.22 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 187.96 113.03 0)
@@ -2414,7 +2414,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "C31") (unit 1)
+          (reference "C35") (unit 1)
         )
       )
     )
@@ -2423,7 +2423,7 @@
   (symbol (lib_id "power:GND") (at 237.49 85.09 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 7361b8ce-e6be-42d5-8eae-0b04bca28d91)
-    (property "Reference" "#PWR030" (at 237.49 91.44 0)
+    (property "Reference" "#PWR038" (at 237.49 91.44 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 237.49 89.2255 0)
@@ -2439,7 +2439,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "#PWR030") (unit 1)
+          (reference "#PWR038") (unit 1)
         )
       )
     )
@@ -2477,7 +2477,7 @@
   (symbol (lib_id "power:GND") (at 119.38 25.4 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 76efc7e1-6e51-4d59-abe3-3514572ba9f4)
-    (property "Reference" "#PWR022" (at 113.03 25.4 0)
+    (property "Reference" "#PWR030" (at 113.03 25.4 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 116.2051 25.7168 90)
@@ -2493,7 +2493,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "#PWR022") (unit 1)
+          (reference "#PWR030") (unit 1)
         )
       )
     )
@@ -2502,7 +2502,7 @@
   (symbol (lib_id "power:GND") (at 44.45 83.82 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 7d73663e-283e-44fa-8001-264fec342cbc)
-    (property "Reference" "#PWR018" (at 44.45 90.17 0)
+    (property "Reference" "#PWR026" (at 44.45 90.17 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 44.45 87.9555 0)
@@ -2518,7 +2518,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "#PWR018") (unit 1)
+          (reference "#PWR026") (unit 1)
         )
       )
     )
@@ -2527,13 +2527,13 @@
   (symbol (lib_id "Device:C") (at 168.91 54.61 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 88e818eb-2a06-4666-a030-db2c8b104876)
-    (property "Reference" "C30" (at 168.91 49.4411 90)
+    (property "Reference" "C34" (at 168.91 49.4411 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "0.1uF" (at 168.91 51.3621 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "" (at 172.72 53.6448 0)
+    (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 172.72 53.6448 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 168.91 54.61 0)
@@ -2544,7 +2544,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "C30") (unit 1)
+          (reference "C34") (unit 1)
         )
       )
     )
@@ -2553,7 +2553,7 @@
   (symbol (lib_id "power:+5V") (at 146.05 138.43 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 8943446d-c763-4108-9c23-335e49127922)
-    (property "Reference" "#PWR025" (at 146.05 134.62 0)
+    (property "Reference" "#PWR033" (at 146.05 134.62 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 146.05 142.5655 0)
@@ -2569,7 +2569,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "#PWR025") (unit 1)
+          (reference "#PWR033") (unit 1)
         )
       )
     )
@@ -2578,13 +2578,13 @@
   (symbol (lib_id "Device:C") (at 52.07 115.57 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 899129cf-61de-4aca-b9fc-405aae3ff3d4)
-    (property "Reference" "C22" (at 52.07 110.4011 90)
+    (property "Reference" "C26" (at 52.07 110.4011 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "18pF" (at 52.07 112.3221 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "" (at 55.88 114.6048 0)
+    (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 55.88 114.6048 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 52.07 115.57 0)
@@ -2595,7 +2595,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "C22") (unit 1)
+          (reference "C26") (unit 1)
         )
       )
     )
@@ -2604,7 +2604,7 @@
   (symbol (lib_id "power:GND") (at 151.13 50.8 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 8efc6b80-8d31-4994-9762-373b00270d20)
-    (property "Reference" "#PWR026" (at 151.13 57.15 0)
+    (property "Reference" "#PWR034" (at 151.13 57.15 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 151.13 54.9355 0)
@@ -2620,7 +2620,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "#PWR026") (unit 1)
+          (reference "#PWR034") (unit 1)
         )
       )
     )
@@ -2629,7 +2629,7 @@
   (symbol (lib_id "Device:R") (at 173.99 116.84 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 91457f30-f130-45c9-8452-ac5d3a9cc854)
-    (property "Reference" "R20" (at 173.99 112.8141 90)
+    (property "Reference" "R24" (at 173.99 112.8141 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "470R" (at 173.99 114.7351 90)
@@ -2646,7 +2646,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "R20") (unit 1)
+          (reference "R24") (unit 1)
         )
       )
     )
@@ -2655,13 +2655,13 @@
   (symbol (lib_id "Device:C") (at 44.45 77.47 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 9496a231-2312-4873-9647-63b6968b8f59)
-    (property "Reference" "C20" (at 47.371 76.8263 0)
+    (property "Reference" "C24" (at 47.371 76.8263 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "4.7uF" (at 47.371 78.7473 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "" (at 45.4152 81.28 0)
+    (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 45.4152 81.28 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 44.45 77.47 0)
@@ -2672,7 +2672,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "C20") (unit 1)
+          (reference "C24") (unit 1)
         )
       )
     )
@@ -2681,7 +2681,7 @@
   (symbol (lib_id "power:GND") (at 187.96 119.38 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 9b4d55fd-dd9f-4bfa-973a-f01a7beea4f0)
-    (property "Reference" "#PWR028" (at 187.96 125.73 0)
+    (property "Reference" "#PWR036" (at 187.96 125.73 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 187.96 123.5155 0)
@@ -2697,7 +2697,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "#PWR028") (unit 1)
+          (reference "#PWR036") (unit 1)
         )
       )
     )
@@ -2706,7 +2706,7 @@
   (symbol (lib_id "Device:R") (at 57.15 106.68 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid a4097325-df20-4efa-871c-aaa176c47350)
-    (property "Reference" "R14" (at 57.15 102.6541 90)
+    (property "Reference" "R17" (at 57.15 102.6541 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "5.9K" (at 57.15 104.5751 90)
@@ -2723,7 +2723,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "R14") (unit 1)
+          (reference "R17") (unit 1)
         )
       )
     )
@@ -2732,13 +2732,13 @@
   (symbol (lib_id "Device:C") (at 229.87 114.3 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid a52155a2-0388-4d8d-bc16-46630decfcdb)
-    (property "Reference" "C32" (at 229.87 109.1311 90)
+    (property "Reference" "C36" (at 229.87 109.1311 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "18pF" (at 229.87 111.0521 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "" (at 233.68 113.3348 0)
+    (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 233.68 113.3348 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 229.87 114.3 0)
@@ -2749,7 +2749,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "C32") (unit 1)
+          (reference "C36") (unit 1)
         )
       )
     )
@@ -2758,13 +2758,13 @@
   (symbol (lib_id "Device:C") (at 127 25.4 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid a7807f33-f663-416c-9805-4bd692881ecb)
-    (property "Reference" "C26" (at 127 20.2311 90)
+    (property "Reference" "C30" (at 127 20.2311 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "50uF" (at 127 22.1521 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "" (at 130.81 24.4348 0)
+    (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 130.81 24.4348 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 127 25.4 0)
@@ -2775,7 +2775,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "C26") (unit 1)
+          (reference "C30") (unit 1)
         )
       )
     )
@@ -2784,7 +2784,7 @@
   (symbol (lib_id "power:+3V3") (at 209.55 114.3 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid a7f59542-c11e-495c-873d-82e457c875b4)
-    (property "Reference" "#PWR029" (at 205.74 114.3 0)
+    (property "Reference" "#PWR037" (at 205.74 114.3 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+3V3" (at 212.725 114.6168 90)
@@ -2800,7 +2800,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "#PWR029") (unit 1)
+          (reference "#PWR037") (unit 1)
         )
       )
     )
@@ -2809,13 +2809,13 @@
   (symbol (lib_id "Device:D_Shockley") (at 113.03 45.72 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid aa91820e-7db3-43da-9f8f-0556b68f4571)
-    (property "Reference" "D2" (at 115.062 45.0763 90)
+    (property "Reference" "D3" (at 115.062 45.0763 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D_Shockley" (at 115.062 46.9973 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
-    (property "Footprint" "" (at 113.03 45.72 0)
+    (property "Footprint" "Diode_SMD:D_SMA" (at 113.03 45.72 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 113.03 45.72 0)
@@ -2826,7 +2826,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "D2") (unit 1)
+          (reference "D3") (unit 1)
         )
       )
     )
@@ -2835,7 +2835,7 @@
   (symbol (lib_id "power:GND") (at 241.3 116.84 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid b5d94a25-c9a1-4970-9809-b122497727f7)
-    (property "Reference" "#PWR031" (at 241.3 123.19 0)
+    (property "Reference" "#PWR039" (at 241.3 123.19 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 241.3 120.9755 0)
@@ -2851,7 +2851,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "#PWR031") (unit 1)
+          (reference "#PWR039") (unit 1)
         )
       )
     )
@@ -2860,13 +2860,13 @@
   (symbol (lib_id "Device:C") (at 129.54 45.72 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid c611b67e-7833-4bcf-967c-c24e78f68cd0)
-    (property "Reference" "C27" (at 132.461 45.0763 0)
+    (property "Reference" "C31" (at 132.461 45.0763 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "2uF2" (at 132.461 46.9973 0)
+    (property "Value" "2.2uF" (at 132.461 46.9973 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "" (at 130.5052 49.53 0)
+    (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 130.5052 49.53 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 129.54 45.72 0)
@@ -2877,7 +2877,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "C27") (unit 1)
+          (reference "C31") (unit 1)
         )
       )
     )
@@ -2892,7 +2892,7 @@
     (property "Value" "PMPB11EN,115" (at 93.8531 80.0027 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "" (at 93.98 78.74 0)
+    (property "Footprint" "CARTHING:TRANS_PMPB11EN_115" (at 93.98 78.74 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 99.06 81.28 0)
@@ -2913,7 +2913,7 @@
   (symbol (lib_id "power:GND") (at 185.42 88.9 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid d21f3cc3-1d4f-43a6-b46d-2c29b5ccf260)
-    (property "Reference" "#PWR027" (at 185.42 95.25 0)
+    (property "Reference" "#PWR035" (at 185.42 95.25 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 185.42 93.0355 0)
@@ -2929,7 +2929,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "#PWR027") (unit 1)
+          (reference "#PWR035") (unit 1)
         )
       )
     )
@@ -2938,7 +2938,7 @@
   (symbol (lib_id "Device:R") (at 78.74 114.3 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid d2809b0e-afd2-4c70-bcaf-87409e260fab)
-    (property "Reference" "R16" (at 78.74 110.2741 90)
+    (property "Reference" "R19" (at 78.74 110.2741 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "100K" (at 78.74 112.1951 90)
@@ -2955,7 +2955,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "R16") (unit 1)
+          (reference "R19") (unit 1)
         )
       )
     )
@@ -2993,13 +2993,13 @@
   (symbol (lib_id "Device:C") (at 46.99 106.68 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid f76ebd8c-0432-4752-9465-a696ba6b1e1c)
-    (property "Reference" "C21" (at 46.99 101.5111 90)
+    (property "Reference" "C25" (at 46.99 101.5111 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "4.7uF" (at 46.99 103.4321 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "" (at 50.8 105.7148 0)
+    (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 50.8 105.7148 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 46.99 106.68 0)
@@ -3010,7 +3010,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "C21") (unit 1)
+          (reference "C25") (unit 1)
         )
       )
     )
@@ -3019,7 +3019,7 @@
   (symbol (lib_id "power:GND") (at 129.54 50.8 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid f86f8c97-83dc-4925-88d5-d73de973cf30)
-    (property "Reference" "#PWR023" (at 129.54 57.15 0)
+    (property "Reference" "#PWR031" (at 129.54 57.15 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 129.54 54.9355 0)
@@ -3035,7 +3035,7 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210"
-          (reference "#PWR023") (unit 1)
+          (reference "#PWR031") (unit 1)
         )
       )
     )

@@ -288,6 +288,9 @@ struct pin dfp_c_attach_1 {0x08, 1, 0, 16, out, false, false};
 struct pin disp_irq {0x04, 1, 0, 15, in, false, true};
 struct pin unit_btn {0x02, 1, 0, 14, in, false, true};
 struct pin src_btn {0x01, 1, 0, 13, in, false, true};
+struct pin mode_btn {0x80, 0, 0, 11, in, false, true};
+struct pin iox_0_p_0_0 {0X01, 0, 0, 4, in, false, false};
+struct pin iox_0_p_0_1 {0X02, 0, 0, 5, in, false, false};
 
 //pin struct names for auto pin init
 struct pin* pin_names[] = {
@@ -321,6 +324,9 @@ struct pin* pin_names[] = {
   &disp_irq,
   &unit_btn,
   &src_btn,
+  &mode_btn,
+  &iox_0_p_0_0,
+  &iox_0_p_0_1,
 } ;
 
 

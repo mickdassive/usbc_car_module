@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "CARTHING")(type "KiCad")(uri "${KIPRJMOD}/FOOTPRINTS/CARTHING.pretty")(options "")(descr ""))
+)

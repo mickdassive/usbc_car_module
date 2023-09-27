@@ -1,0 +1,188 @@
+
+(kicad_symbol_lib (version 20211014) (generator kicad_symbol_editor)
+  (symbol "PMPB11EN_115" (pin_names (offset 1.016)) (in_bom yes) (on_board yes)
+    (property "Reference" "Q" (id 0) (at -8.89 2.54 0)
+      (effects (font (size 1.27 1.27)) (justify bottom left))
+    )
+    (property "Value" "PMPB11EN_115" (id 1) (at -8.89 -7.62 0)
+      (effects (font (size 1.27 1.27)) (justify bottom left))
+    )
+    (property "Footprint" "PMPB11EN_115:TRANS_PMPB11EN_115" (id 2) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "DigiKey_Part_Number" "1727-1244-2-ND" (id 4) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "MF" "Nexperia USA Inc." (id 5) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "Purchase-URL" "https://www.snapeda.com/api/url_track_click_mouser/?unipart_id=5628287&manufacturer=Nexperia USA Inc.&part_name=PMPB11EN,115&search_term=None" (id 6) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "Package" "DFN2020MD?6-6 Nexperia USA Inc." (id 7) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "Check_prices" "https://www.snapeda.com/parts/PMPB11EN,115/Nexperia/view-part/?ref=eda" (id 8) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "STANDARD" "Manufacturer Recommendations" (id 9) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "SnapEDA_Link" "https://www.snapeda.com/parts/PMPB11EN,115/Nexperia/view-part/?ref=snap" (id 10) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "MP" "PMPB11EN,115" (id 11) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "Description" "\nN-Channel 30 V 9A (Ta) 1.7W (Ta), 12.5W (Tc) Surface Mount DFN2020MD-6\n" (id 12) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "MANUFACTURER" "Nexperia USA Inc." (id 13) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (symbol "PMPB11EN_115_0_0"
+      (polyline
+        (pts (xy 0.762 0.762) (xy 0.762 0.0)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy 0.762 0.0) (xy 0.762 -0.762)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy 0.762 3.175) (xy 0.762 2.54)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy 0.762 2.54) (xy 0.762 1.905)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy 0.762 0.0) (xy 2.54 0.0)) (stroke (width 0.1524))
+      )
+      (polyline
+        (pts (xy 2.54 0.0) (xy 2.54 -2.54)) (stroke (width 0.1524))
+      )
+      (polyline
+        (pts (xy 0.762 -1.905) (xy 0.762 -2.54)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy 0.762 -2.54) (xy 0.762 -3.175)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy 0.0 2.54) (xy 0.0 -2.54)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy 2.54 -2.54) (xy 0.762 -2.54)) (stroke (width 0.1524))
+      )
+      (polyline
+        (pts (xy 3.81 2.54) (xy 3.81 0.508)) (stroke (width 0.1524))
+      )
+      (polyline
+        (pts (xy 3.81 0.508) (xy 3.81 -2.54)) (stroke (width 0.1524))
+      )
+      (polyline
+        (pts (xy 2.54 -2.54) (xy 3.81 -2.54)) (stroke (width 0.1524))
+      )
+      (polyline
+        (pts (xy 0.762 2.54) (xy 3.81 2.54)) (stroke (width 0.1524))
+      )
+      (polyline
+        (pts (xy 4.572 0.762) (xy 4.318 0.508)) (stroke (width 0.1524))
+      )
+      (polyline
+        (pts (xy 4.318 0.508) (xy 3.81 0.508)) (stroke (width 0.1524))
+      )
+      (polyline
+        (pts (xy 3.81 0.508) (xy 3.302 0.508)) (stroke (width 0.1524))
+      )
+      (polyline
+        (pts (xy 3.302 0.508) (xy 3.048 0.254)) (stroke (width 0.1524))
+      )
+      (circle (center 2.54 -2.54) (radius 0.3592)
+        (stroke (width 0.0)) (fill (type none))
+      )
+      (circle (center 2.54 2.54) (radius 0.3592)
+        (stroke (width 0.0)) (fill (type none))
+      )
+      (polyline
+        (pts
+          (xy 3.81 0.508)
+          (xy 3.302 -0.254)
+          (xy 4.318 -0.254)
+          (xy 3.81 0.508)
+        )
+        (stroke (width 0.1524)) (fill (type outline))
+      )
+      (polyline
+        (pts
+          (xy 1.016 0.0)
+          (xy 2.032 0.762)
+          (xy 2.032 -0.762)
+          (xy 1.016 0.0)
+        )
+        (stroke (width 0.1524)) (fill (type outline))
+      )
+      (pin passive line (at 2.54 -5.08 90.0) (length 2.54)
+        (name "~"
+          (effects (font (size 1.016 1.016)))
+        )
+        (number "4"
+          (effects (font (size 1.016 1.016)))
+        )
+      )
+      (pin passive line (at 2.54 -5.08 90.0) (length 2.54)
+        (name "~"
+          (effects (font (size 1.016 1.016)))
+        )
+        (number "8"
+          (effects (font (size 1.016 1.016)))
+        )
+      )
+      (pin passive line (at -2.54 -2.54 0) (length 2.54)
+        (name "~"
+          (effects (font (size 1.016 1.016)))
+        )
+        (number "3"
+          (effects (font (size 1.016 1.016)))
+        )
+      )
+      (pin passive line (at 2.54 5.08 270.0) (length 2.54)
+        (name "~"
+          (effects (font (size 1.016 1.016)))
+        )
+        (number "1"
+          (effects (font (size 1.016 1.016)))
+        )
+      )
+      (pin passive line (at 2.54 5.08 270.0) (length 2.54)
+        (name "~"
+          (effects (font (size 1.016 1.016)))
+        )
+        (number "2"
+          (effects (font (size 1.016 1.016)))
+        )
+      )
+      (pin passive line (at 2.54 5.08 270.0) (length 2.54)
+        (name "~"
+          (effects (font (size 1.016 1.016)))
+        )
+        (number "5"
+          (effects (font (size 1.016 1.016)))
+        )
+      )
+      (pin passive line (at 2.54 5.08 270.0) (length 2.54)
+        (name "~"
+          (effects (font (size 1.016 1.016)))
+        )
+        (number "6"
+          (effects (font (size 1.016 1.016)))
+        )
+      )
+      (pin passive line (at 2.54 5.08 270.0) (length 2.54)
+        (name "~"
+          (effects (font (size 1.016 1.016)))
+        )
+        (number "7"
+          (effects (font (size 1.016 1.016)))
+        )
+      )
+    )
+  )
+)
