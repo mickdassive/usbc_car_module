@@ -1729,7 +1729,7 @@
     (property "Value" "LMR14050-Q1" (at 87.63 54.61 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "" (at 85.09 48.26 0)
+    (property "Footprint" "CARTHING:LMR14050" (at 85.09 48.26 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "" (at 85.09 48.26 0)
