@@ -55,6 +55,10 @@
           (name "AIN1/GPIO1" (effects (font (size 1.27 1.27))))
           (number "16" (effects (font (size 1.27 1.27))))
         )
+        (pin free line (at -2.54 -17.78 90) (length 2.54)
+          (name "EP" (effects (font (size 1.27 1.27))))
+          (number "17" (effects (font (size 1.27 1.27))))
+        )
         (pin bidirectional line (at 17.78 1.27 180) (length 2.54)
           (name "AIN3/GPIO3" (effects (font (size 1.27 1.27))))
           (number "2" (effects (font (size 1.27 1.27))))
@@ -86,10 +90,6 @@
         (pin power_in line (at 0 -17.78 90) (length 2.54)
           (name "GND" (effects (font (size 1.27 1.27))))
           (number "9" (effects (font (size 1.27 1.27))))
-        )
-        (pin free line (at -2.54 -17.78 90) (length 2.54)
-          (name "EP" (effects (font (size 1.27 1.27))))
-          (number "EP" (effects (font (size 1.27 1.27))))
         )
       )
     )
@@ -1071,6 +1071,7 @@
     (pin "14" (uuid f7af3266-1641-4f2a-b88e-e6e954f4225b))
     (pin "15" (uuid 31468313-580c-4846-9c14-c090be7a7114))
     (pin "16" (uuid 1ca51bb5-547c-4c64-a692-ca23f8629862))
+    (pin "17" (uuid 56852090-d44c-43fa-ab77-f0ddbb450554))
     (pin "2" (uuid 0691ec1c-b893-42e6-b0ce-00140ebdbb11))
     (pin "3" (uuid 342436a8-6626-48f4-ab2c-99d793525a21))
     (pin "4" (uuid fc0759dd-39a1-4a34-ac25-d31e043b5e7b))
@@ -1079,7 +1080,6 @@
     (pin "7" (uuid 79ce7442-8a97-4a90-b19f-e0129a2c2623))
     (pin "8" (uuid 4a95db32-4172-4b27-8527-07b73c6f6e7d))
     (pin "9" (uuid 828dc1a3-315a-4453-beac-eece4a4047c5))
-    (pin "EP" (uuid f185da49-d7a7-465c-8b80-0bfc416d5bee))
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/dac2668f-7079-40dd-965e-c6c89da01341"

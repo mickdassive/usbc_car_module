@@ -962,11 +962,11 @@
     (property "Sim.Pins" "1=D 2=G 3=S" (at 72.39 43.18 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "5" (uuid 3865f70e-4afa-4a8f-a92b-3a74da5d461f))
     (pin "1" (uuid 25f3c72a-3f7a-4e22-864a-528d5ee35d67))
-    (pin "3" (uuid c53a44e1-bce0-43f2-a519-970ce4835481))
     (pin "2" (uuid 8d838249-4ef5-40b0-bb75-b9a31c1443e7))
+    (pin "3" (uuid c53a44e1-bce0-43f2-a519-970ce4835481))
     (pin "4" (uuid 54448b81-1759-4bbd-8949-fdf14edf11b1))
+    (pin "5" (uuid 3865f70e-4afa-4a8f-a92b-3a74da5d461f))
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/67a132ab-d248-4cef-8ed8-9da8a5ccfd64"
@@ -1101,9 +1101,9 @@
     (property "Sim.Pins" "1=D 2=G 3=S" (at 85.09 73.66 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "3" (uuid 5ec8b67e-d012-43cd-806a-4c08ad46edec))
     (pin "1" (uuid 5f104e03-c9c3-4423-8cd4-a397be1c11dc))
     (pin "2" (uuid c5307981-8256-42a9-a306-ef6a7d08b637))
+    (pin "3" (uuid 5ec8b67e-d012-43cd-806a-4c08ad46edec))
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/67a132ab-d248-4cef-8ed8-9da8a5ccfd64"
