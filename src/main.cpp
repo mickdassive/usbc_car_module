@@ -279,7 +279,7 @@ struct pin f_usbc_buck_en {0x04, 1, 1, 15, out, false, false};
 struct pin f_usbc_5V_sel {0x10, 0, 1, 8, out, false, false};
 struct pin f_usbc_9V_sel {0x08, 0, 1, 7, out, false, false};
 struct pin f_usbc_12V_sel {0x04, 0, 1, 6, out, false, false};
-struct pin f_usbc_15V_sel {0x02, 0, 1, 5, out, false, false};
+struct pin f_usbc_15V_sel {0x02, 0, 1, 5, out, false, false};   // all these pin positions are gunna be wrong im just gunna wait till im done with the hrdware desighn to fix them
 struct pin f_usbc_20V_sel {0x01, 0, 1, 4, out, false, false};
 struct pin adc_alert {0x40, 1, 0, 19, in, false, false};
 struct pin ufp_c_attach_0 {0x20, 1, 0, 18, out, false, false};
