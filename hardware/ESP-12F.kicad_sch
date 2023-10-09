@@ -4,6 +4,16 @@
 
   (paper "A4")
 
+  (title_block
+    (title "200W USB PD 3.1 HUB")
+    (date "2023-10-03")
+    (rev "A")
+    (company "MICK MAKE")
+    (comment 1 "THIS IS A 2X 100W USB PD SOURCE ")
+    (comment 2 "HUB USB SPEC 3.1")
+    (comment 3 "TOTAL SYSTEM POWER IS ~275w")
+  )
+
   (lib_symbols
     (symbol "Connector_Generic:Conn_02x03_Odd_Even" (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
       (property "Reference" "J" (at 1.27 5.08 0)

@@ -4,6 +4,16 @@
 
   (paper "A4")
 
+  (title_block
+    (title "200W USB PD 3.1 HUB")
+    (date "2023-10-03")
+    (rev "A")
+    (company "MICK MAKE")
+    (comment 1 "THIS IS A 2X 100W USB PD SOURCE ")
+    (comment 2 "HUB USB SPEC 3.1")
+    (comment 3 "TOTAL SYSTEM POWER IS ~275w")
+  )
+
   (lib_symbols
     (symbol "CARTHING:USB5916C" (in_bom yes) (on_board yes)
       (property "Reference" "U13" (at -1.27 12.3919 0)
@@ -1579,7 +1589,7 @@
     (pin "32" (uuid 8174571b-9448-42c0-9b2d-c0d6a88d1bfe))
     (pin "39" (uuid 6bec96db-be46-4b4e-a75f-adbec4f7a4cc))
     (pin "42" (uuid 1b018e95-0546-4073-8350-d82cf233f4ba))
-    (pin "47" (uuid 616aa371-a543-418a-9350-609c11963057))
+    (pin "47" (uuid 616aa371-a543-418a-9350-609c11963058))
     (pin "5" (uuid 8745932e-14b3-41fd-a192-3748bd46f361))
     (pin "54" (uuid c9d910a2-8d37-4b1f-902d-68ca9e4b0f76))
     (pin "59" (uuid 885a5a1c-c2a8-4b0b-8191-4bef8f93f6cf))
@@ -1601,7 +1611,7 @@
     (pin "61" (uuid d8688933-14de-432e-ba2f-e18a94e42cc2))
     (pin "63" (uuid 2301a0ef-b640-4786-a685-2dec63764048))
     (pin "77" (uuid b7c86c6c-4cc1-497f-b788-09bf1cc09ba8))
-    (pin "47" (uuid 616aa371-a543-418a-9350-609c11963057))
+    (pin "47" (uuid 616aa371-a543-418a-9350-609c11963058))
     (pin "65" (uuid 4cc4964a-0eb4-4477-a09d-d68a9efd0d25))
     (pin "66" (uuid 98850a34-7d45-43c1-892e-cbf5391e557f))
     (pin "67" (uuid 600a7e45-342a-4608-a398-4d1b3ef771c7))
