@@ -427,8 +427,6 @@ uint8_t read_current_io_state(int port, int iox_num) {
 //high_low: a high_low enum value that specifies if the function should write a high or low value
 int io_call(struct pin pin_needed, enum read_write read_write, enum high_low high_low) {
 
-  
-
   //Check if the pin is onboard or offboard
   if (pin_needed.onboard == true) {
     //If the pin is onboard, check if we need to read or write
@@ -827,7 +825,7 @@ void adc_init(bool fast_mode) {
 
 }
 
-//reads from the i2c ADC returns value in raw 16bit ADC counts
+//reads from the i2c ADC returns value in 16bit ADC counts
 //adc_channel: select the desired channel to read from
 int adc_read(enum adc_channel adc_channel){
   //init local vars
