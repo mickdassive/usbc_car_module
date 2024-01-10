@@ -379,4 +379,34 @@ const uint8_t disp_up_rst = 0x01;
 const uint8_t disp_up = 0x81;
 
 
+//led control defines
+
+enum led_location {
+  dig_7,
+  dig_6
+};
+struct leds {
+  uint8_t mask;
+  led_location location;
+};
+
+struct leds amps {0x40, dig_7};
+struct leds watts {0x80, dig_7};
+struct leds volts {0x20, dig_7};
+struct leds usb_c_back {0x10, dig_7};
+struct leds usb_c_front {0x08, dig_7};
+struct leds usb_a {0x04, dig_7};
+struct leds system_power {0x02, dig_7};
+struct leds watts_10 {0x80, dig_6};
+struct leds watts_20 {0x40, dig_6};
+struct leds watts_40 {0x20, dig_6};
+struct leds watts_65 {0x10, dig_6};
+struct leds watts_100 {0x08, dig_6};
+
+
+//led on/off enum
+enum led_on_off {
+  on,
+  off
+};
 

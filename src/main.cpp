@@ -571,11 +571,69 @@ void disp_bright(uint8_t desired_brightness) {
   return;
 }
 
-//display write command
+//display write function
 //will only work with flaots and ints
 void disp_write(float input) {
   
 }
+
+//read current led state
+uint8_t read_current_led_state (enum led_names){
+  
+}
+
+
+//led control
+//led_names: name of led to control
+//led_on_off: set desired led state
+void led_control(enum led_names,enum led_on_off){
+
+  if (led_on_off = on) {
+    switch (led_names) {
+      case (watts):
+
+      break;
+      case (amps):
+
+      break;
+      case (volts):
+
+      break;
+      case (usb_c_back):
+
+      break;
+      case (usb_c_front):
+
+      break;
+      case (usb_a):
+
+      break;
+      case (system_power):
+
+      break;
+      case (watts_10):
+
+      break;
+      case (watts_20):
+
+      break;
+      case (watts_40):
+
+      break;
+      case (watts_65):
+
+      break;
+      case (watts_100):
+
+      break;
+    }
+  } else if (led_on_off = off) {
+
+  }
+  return 0;
+}
+
+
 
 //GPIO pin auto init for both iox and onborad pins
 void gpio_init() {
