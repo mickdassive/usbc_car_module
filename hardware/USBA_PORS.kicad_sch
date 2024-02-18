@@ -3179,7 +3179,7 @@
   (symbol (lib_id "Device:C") (at 74.93 132.08 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 15ee350a-c6f4-45c6-adea-36c37c2bb759)
-    (property "Reference" "C98" (at 74.93 135.89 90)
+    (property "Reference" "C83" (at 74.93 135.89 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "0.1uF" (at 74.93 137.811 90)
@@ -3195,9 +3195,6 @@
     (pin "2" (uuid f153c347-379e-4310-b411-4f9192b2306c))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "C98") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/fe8e7353-13b3-4aa6-97f7-d88e32d23b04"
           (reference "C83") (unit 1)
         )
@@ -3208,10 +3205,10 @@
   (symbol (lib_id "Device:Polyfuse") (at 118.11 156.21 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 1b2e8cb3-927a-40d9-8b4f-7375ad3b0770)
-    (property "Reference" "F2" (at 120.269 155.5663 0)
+    (property "Reference" "F2" (at 120.269 154.9979 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "1A" (at 120.269 157.4873 0)
+    (property "Value" "2A" (at 120.269 157.4221 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Fuse:Fuse_1812_4532Metric" (at 119.38 161.29 0)
@@ -3234,7 +3231,7 @@
   (symbol (lib_id "Device:C") (at 220.98 46.99 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 1b7d911d-2cd3-4cfc-bdc9-2deab755798b)
-    (property "Reference" "C97" (at 220.98 41.8211 90)
+    (property "Reference" "C88" (at 220.98 41.8211 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "0.1uF" (at 220.98 43.7421 90)
@@ -3250,9 +3247,6 @@
     (pin "2" (uuid 0f91097a-0105-433a-b407-ba89f0aa3390))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "C97") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/fe8e7353-13b3-4aa6-97f7-d88e32d23b04"
           (reference "C88") (unit 1)
         )
@@ -3356,7 +3350,7 @@
     (pin "61" (uuid 30a92de4-4df5-434e-ba3e-76bd94de680d))
     (pin "63" (uuid a80c6dab-22ae-4279-8f41-757904fdfabd))
     (pin "77" (uuid c9fb10a4-0cd6-4012-997f-23b2933f0eae))
-    (pin "47" (uuid 51e75072-d597-4964-bcf3-f4517faf4410))
+    (pin "47" (uuid 51e75072-d597-4964-bcf3-f4517faf4411))
     (pin "65" (uuid 92547f45-25ac-4f5b-ae7c-0a11ede5b4d4))
     (pin "66" (uuid e6ef2a59-80a0-4349-ba65-032e71bb3166))
     (pin "67" (uuid a17c03af-5fb0-49ec-84be-3bf453c51084))
@@ -3426,9 +3420,6 @@
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/fe8e7353-13b3-4aa6-97f7-d88e32d23b04"
           (reference "U13") (unit 7)
         )
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/7a7a6512-c96f-448a-bb8d-4d6e185adf7f"
-          (reference "U13") (unit 7)
-        )
       )
     )
   )
@@ -3479,7 +3470,7 @@
     (pin "61" (uuid ad6350c6-e630-4a04-beaa-ebb3c5431bc5))
     (pin "63" (uuid 86205119-3d63-4e69-afe9-b41541c37377))
     (pin "77" (uuid e5923c62-ae5f-4f05-bbfc-a4bf09daaaf8))
-    (pin "47" (uuid a7151a36-d87e-4b19-835a-6d352fbd1888))
+    (pin "47" (uuid a7151a36-d87e-4b19-835a-6d352fbd1889))
     (pin "65" (uuid 04cab50a-1211-4a8c-a3b8-9011ca625117))
     (pin "66" (uuid d2fcc012-3181-4eca-b7c3-bde364dfbf85))
     (pin "67" (uuid f4dcae29-8946-4c8e-8d59-d05c9645c4d3))
@@ -3547,9 +3538,6 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/fe8e7353-13b3-4aa6-97f7-d88e32d23b04"
-          (reference "U13") (unit 6)
-        )
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/7a7a6512-c96f-448a-bb8d-4d6e185adf7f"
           (reference "U13") (unit 6)
         )
       )
@@ -3864,7 +3852,7 @@
   (symbol (lib_id "Device:C") (at 82.55 46.99 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 65c647ba-3482-4ca5-9826-296e1ec35f81)
-    (property "Reference" "C97" (at 82.55 41.8211 90)
+    (property "Reference" "C84" (at 82.55 41.8211 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "0.1uF" (at 82.55 43.7421 90)
@@ -3880,9 +3868,6 @@
     (pin "2" (uuid b30009ea-7717-411a-9fbb-2aced6693b06))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "C97") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/fe8e7353-13b3-4aa6-97f7-d88e32d23b04"
           (reference "C84") (unit 1)
         )
@@ -4057,7 +4042,7 @@
   (symbol (lib_id "Device:C") (at 215.9 127 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 89c0dc29-04cf-410d-8563-ac1636977104)
-    (property "Reference" "C98" (at 215.9 130.81 90)
+    (property "Reference" "C87" (at 215.9 130.81 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "0.1uF" (at 215.9 132.731 90)
@@ -4073,9 +4058,6 @@
     (pin "2" (uuid 56ed16b6-b6e8-4242-9e09-29cc00c901e6))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "C98") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/fe8e7353-13b3-4aa6-97f7-d88e32d23b04"
           (reference "C87") (unit 1)
         )
@@ -4269,7 +4251,7 @@
     (pin "61" (uuid 7d927ad8-ac83-4c40-9b08-0d3372ef104f))
     (pin "63" (uuid 794aae8d-ed15-4c1b-b36a-466f6362bf58))
     (pin "77" (uuid 89aecfa6-0713-4fac-8d01-5794d7ebfab7))
-    (pin "47" (uuid 8cecafce-e6f1-46bd-9553-c3ffbab4a396))
+    (pin "47" (uuid 8cecafce-e6f1-46bd-9553-c3ffbab4a397))
     (pin "65" (uuid 24b85e15-b711-435a-94a8-5c80b4595949))
     (pin "66" (uuid 4dbda9da-bdfb-42e1-adcf-cf2db43ce0b3))
     (pin "67" (uuid 050d1c31-58c1-4e28-9c25-61bd60f39c29))
@@ -4337,9 +4319,6 @@
     (instances
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/fe8e7353-13b3-4aa6-97f7-d88e32d23b04"
-          (reference "U13") (unit 9)
-        )
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/7a7a6512-c96f-448a-bb8d-4d6e185adf7f"
           (reference "U13") (unit 9)
         )
       )
@@ -4467,7 +4446,7 @@
     (pin "61" (uuid 53ca0ef5-c796-47dc-8a84-fc6531ea0404))
     (pin "63" (uuid 26e4fce5-b89d-49e0-b29c-b1c3dc60f7c1))
     (pin "77" (uuid 51a2fc0f-8f1d-4ae1-a34f-2ab45c8fc19c))
-    (pin "47" (uuid 6e437fd3-d9f5-49f8-a513-a456f51c4f25))
+    (pin "47" (uuid 6e437fd3-d9f5-49f8-a513-a456f51c4f26))
     (pin "65" (uuid 3b47ee6f-8973-4684-9f7d-9f3cb9d62e27))
     (pin "66" (uuid 9da22945-d62d-480d-875a-8b22d8ef313f))
     (pin "67" (uuid 3f1cd01a-65ef-4990-b148-a2fa2cb511b8))
@@ -4537,9 +4516,6 @@
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/fe8e7353-13b3-4aa6-97f7-d88e32d23b04"
           (reference "U13") (unit 8)
         )
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/7a7a6512-c96f-448a-bb8d-4d6e185adf7f"
-          (reference "U13") (unit 8)
-        )
       )
     )
   )
@@ -4547,7 +4523,7 @@
   (symbol (lib_id "Device:C") (at 220.98 52.07 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid bef5da00-7e4d-4434-97cd-ea3840e87603)
-    (property "Reference" "C98" (at 220.98 55.88 90)
+    (property "Reference" "C89" (at 220.98 55.88 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "0.1uF" (at 220.98 57.801 90)
@@ -4563,9 +4539,6 @@
     (pin "2" (uuid c3b89e2d-d496-4492-a4cd-724ff5706cd9))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "C98") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/fe8e7353-13b3-4aa6-97f7-d88e32d23b04"
           (reference "C89") (unit 1)
         )
@@ -4849,7 +4822,7 @@
   (symbol (lib_id "Device:C") (at 215.9 121.92 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid dd8df582-72b8-41f3-9c3d-e46b68e7c4c1)
-    (property "Reference" "C97" (at 215.9 116.7511 90)
+    (property "Reference" "C86" (at 215.9 116.7511 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "0.1uF" (at 215.9 118.6721 90)
@@ -4865,9 +4838,6 @@
     (pin "2" (uuid 7cdf89bf-ea78-46aa-a854-6ea10609cc84))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "C97") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/fe8e7353-13b3-4aa6-97f7-d88e32d23b04"
           (reference "C86") (unit 1)
         )
@@ -4903,7 +4873,7 @@
   (symbol (lib_id "Device:C") (at 74.93 127 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid df65cd51-d430-4de3-a12a-cca10c733374)
-    (property "Reference" "C97" (at 74.93 121.8311 90)
+    (property "Reference" "C82" (at 74.93 121.8311 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "0.1uF" (at 74.93 123.7521 90)
@@ -4919,9 +4889,6 @@
     (pin "2" (uuid ede8bc7c-e58f-4021-a082-cc1192af5800))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "C97") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/fe8e7353-13b3-4aa6-97f7-d88e32d23b04"
           (reference "C82") (unit 1)
         )
@@ -4958,7 +4925,7 @@
   (symbol (lib_id "Device:C") (at 82.55 52.07 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid ed0d2480-8d6a-4e7b-a861-68a52bc283fe)
-    (property "Reference" "C98" (at 82.55 55.88 90)
+    (property "Reference" "C85" (at 82.55 55.88 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "0.1uF" (at 82.55 57.801 90)
@@ -4974,9 +4941,6 @@
     (pin "2" (uuid e4ddc5d1-21ff-4d76-b584-b9dd92b5c87d))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "C98") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/fe8e7353-13b3-4aa6-97f7-d88e32d23b04"
           (reference "C85") (unit 1)
         )
@@ -4987,10 +4951,10 @@
   (symbol (lib_id "Device:Polyfuse") (at 261.62 151.13 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid f5a2daf7-6ed6-46bf-9539-0b7ef909b95a)
-    (property "Reference" "F4" (at 263.779 150.4863 0)
+    (property "Reference" "F4" (at 263.779 149.9179 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "1A" (at 263.779 152.4073 0)
+    (property "Value" "2A" (at 263.779 152.3421 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Fuse:Fuse_1812_4532Metric" (at 262.89 156.21 0)

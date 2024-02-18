@@ -1763,10 +1763,6 @@
     (stroke (width 0) (type default))
     (uuid 4f3f67fc-2575-425e-96d4-2d891d752c6e)
   )
-  (wire (pts (xy 147.32 54.61) (xy 147.32 55.88))
-    (stroke (width 0) (type default))
-    (uuid 538104b2-ec2a-4b19-ba91-af92892da6b9)
-  )
   (wire (pts (xy 80.01 69.85) (xy 80.01 68.58))
     (stroke (width 0) (type default))
     (uuid 54b2d390-5562-48ce-b7d2-4eec51da3d8f)
@@ -2161,20 +2157,6 @@
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
   )
-  (global_label "DFP_3_RXA_P" (shape input) (at 137.16 68.58 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid 170ab1b5-069f-4fa6-b52b-2baf17c05dbb)
-    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 121.6752 68.58 0)
-      (effects (font (size 1.27 1.27)) (justify right) hide)
-    )
-  )
-  (global_label "DFP_3_RXA_N" (shape input) (at 137.16 71.12 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid 1924a4ad-c580-4d40-904b-2b441e486295)
-    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 121.6147 71.12 0)
-      (effects (font (size 1.27 1.27)) (justify right) hide)
-    )
-  )
   (global_label "DFP_3_TXA_P" (shape input) (at 198.12 64.77 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid 207b95bf-51e9-4540-9c7f-69feb2a04096)
@@ -2217,13 +2199,6 @@
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
   )
-  (global_label "DFP_3_TXB_P" (shape input) (at 137.16 48.26 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid 3757bfb1-dc61-4e50-9c46-f0a25be6a23f)
-    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 121.7962 48.26 0)
-      (effects (font (size 1.27 1.27)) (justify right) hide)
-    )
-  )
   (global_label "DFP_CC2" (shape input) (at 148.59 162.56 0) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left))
     (uuid 3a8caead-6c71-4a53-be8f-f7b74db68c0a)
@@ -2259,24 +2234,10 @@
       (effects (font (size 1.27 1.27)) (justify right) hide)
     )
   )
-  (global_label "DFP_3_TXB_N" (shape input) (at 137.16 45.72 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid 54801643-e804-4e7b-929d-ac82061e9fcc)
-    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 121.7357 45.72 0)
-      (effects (font (size 1.27 1.27)) (justify right) hide)
-    )
-  )
-  (global_label "DFP_2_N" (shape input) (at 137.16 50.8 180) (fields_autoplaced)
+  (global_label "DFP_2_N" (shape input) (at 137.16 73.66 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid 5e4e2294-affe-46d5-bb5b-099725d2940a)
-    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 126.1504 50.8 0)
-      (effects (font (size 1.27 1.27)) (justify right) hide)
-    )
-  )
-  (global_label "DFP_3_RXB_P" (shape input) (at 137.16 40.64 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid 643f9a01-58bc-47c9-b6c2-5ab5ec416d85)
-    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 121.4938 40.64 0)
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 126.1504 73.66 0)
       (effects (font (size 1.27 1.27)) (justify right) hide)
     )
   )
@@ -2315,13 +2276,6 @@
       (effects (font (size 1.27 1.27)) (justify right) hide)
     )
   )
-  (global_label "DFP_3_TXA_P" (shape input) (at 137.16 76.2 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid 7f773d25-1c9a-4f97-b8f8-2688f73bfd8c)
-    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 121.9776 76.2 0)
-      (effects (font (size 1.27 1.27)) (justify right) hide)
-    )
-  )
   (global_label "DFP_3_RXB_N" (shape input) (at 199.39 31.75 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid 8a08c57f-4d91-4071-8251-79d8555f9a62)
@@ -2334,13 +2288,6 @@
     (uuid 90f6dbf8-6a18-4aa2-9a69-540f987bc0e7)
     (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 148.2906 130.81 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
-    )
-  )
-  (global_label "DFP_3_TXA_N" (shape input) (at 137.16 73.66 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid 961230be-09ce-4043-aca8-6e60d63c295a)
-    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 121.9171 73.66 0)
-      (effects (font (size 1.27 1.27)) (justify right) hide)
     )
   )
   (global_label "DFP_3_RXB_P" (shape input) (at 199.39 34.29 180) (fields_autoplaced)
@@ -2420,13 +2367,6 @@
       (effects (font (size 1.27 1.27)) (justify right) hide)
     )
   )
-  (global_label "DFP_3_RXB_N" (shape input) (at 137.16 43.18 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid de742989-0a3e-42f7-b9be-bebb2f846085)
-    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 121.4333 43.18 0)
-      (effects (font (size 1.27 1.27)) (justify right) hide)
-    )
-  )
   (global_label "DFP_CC_CTRL" (shape input) (at 43.18 152.4 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid df2a947b-ace9-4f64-952b-e4251a857dad)
@@ -2469,10 +2409,10 @@
       (effects (font (size 1.27 1.27)) (justify right) hide)
     )
   )
-  (global_label "DFP_2_P" (shape input) (at 137.16 38.1 180) (fields_autoplaced)
+  (global_label "DFP_2_P" (shape input) (at 137.16 71.12 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid f540a4a6-7dc6-48d0-bd8e-45041dc9bcff)
-    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 126.2109 38.1 0)
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 126.2109 71.12 0)
       (effects (font (size 1.27 1.27)) (justify right) hide)
     )
   )
@@ -2494,7 +2434,7 @@
   (symbol (lib_id "power:GND") (at 40.64 95.25 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 0131c5e8-4d95-40ad-92a3-65fb0f3a2ef8)
-    (property "Reference" "#PWR0102" (at 40.64 101.6 0)
+    (property "Reference" "#PWR0120" (at 40.64 101.6 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 40.64 99.3855 0)
@@ -2509,9 +2449,6 @@
     (pin "1" (uuid 15d4fbe5-81f6-469a-9bfe-067294ce2dcf))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "#PWR0102") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "#PWR0120") (unit 1)
         )
@@ -2547,7 +2484,7 @@
   (symbol (lib_id "Device:R") (at 195.58 144.78 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 077ce594-8831-4de4-b63f-474f8fc7cff3)
-    (property "Reference" "R93" (at 197.358 144.1363 0)
+    (property "Reference" "R98" (at 197.358 144.1363 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "10K" (at 197.358 146.0573 0)
@@ -2563,9 +2500,6 @@
     (pin "2" (uuid 3e02f804-1ece-493b-8487-084fc42e595b))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "R93") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "R98") (unit 1)
         )
@@ -2576,7 +2510,7 @@
   (symbol (lib_id "Connector:TestPoint") (at 264.16 36.83 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 161b1dca-6382-4363-972e-ea55182b4681)
-    (property "Reference" "TP1" (at 268.859 36.1863 90)
+    (property "Reference" "TP9" (at 268.859 36.1863 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "TestPoint" (at 268.859 38.1073 90)
@@ -2591,9 +2525,6 @@
     (pin "1" (uuid 73e7f9f4-1d43-43b8-8701-dc1567d012aa))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "TP1") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "TP9") (unit 1)
         )
@@ -2604,7 +2535,7 @@
   (symbol (lib_id "power:+5V") (at 135.89 116.84 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 240edab5-0c3b-4e31-83eb-c3e0f79cdfe7)
-    (property "Reference" "#PWR0107" (at 132.08 116.84 0)
+    (property "Reference" "#PWR0128" (at 132.08 116.84 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 139.065 117.1568 90)
@@ -2619,9 +2550,6 @@
     (pin "1" (uuid 503e018e-fdab-4fb1-868f-4aae1b069014))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "#PWR0107") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "#PWR0128") (unit 1)
         )
@@ -2632,7 +2560,7 @@
   (symbol (lib_id "Simulation_SPICE:PMOS") (at 204.47 118.11 270) (mirror x) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 2ae9180d-84a1-4bd5-9505-272c98a02917)
-    (property "Reference" "Q18" (at 204.47 110.6551 90)
+    (property "Reference" "Q24" (at 204.47 110.6551 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "PMOS" (at 204.47 112.5761 90)
@@ -2663,9 +2591,6 @@
     (pin "8" (uuid ea771e1c-925c-4448-82e0-b81ca06ef168))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "Q18") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "Q24") (unit 1)
         )
@@ -2676,7 +2601,7 @@
   (symbol (lib_id "power:GNDS") (at 33.02 95.25 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 37f79d27-d62b-4fe9-9567-3da640853533)
-    (property "Reference" "#PWR0103" (at 33.02 101.6 0)
+    (property "Reference" "#PWR0119" (at 33.02 101.6 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GNDS" (at 33.02 99.3855 0)
@@ -2691,9 +2616,6 @@
     (pin "1" (uuid 4e111717-5e15-4a98-8950-1c67de07dc3a))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "#PWR0103") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "#PWR0119") (unit 1)
         )
@@ -2704,7 +2626,7 @@
   (symbol (lib_id "Device:R") (at 177.8 127 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 4cc94787-0009-4662-ad7e-158c6dc55b98)
-    (property "Reference" "R91" (at 177.8 122.9741 90)
+    (property "Reference" "R95" (at 177.8 122.9741 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "15R" (at 177.8 124.8951 90)
@@ -2720,9 +2642,6 @@
     (pin "2" (uuid 5f6fc28d-4c8a-41b3-ad3b-7464b0352370))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "R91") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "R95") (unit 1)
         )
@@ -2733,7 +2652,7 @@
   (symbol (lib_id "Device:C") (at 137.16 125.73 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 5929ccf4-a236-4220-92ad-8b04346e9ae8)
-    (property "Reference" "C84" (at 137.16 120.5611 90)
+    (property "Reference" "C109" (at 137.16 120.5611 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "0.1uF" (at 137.16 122.4821 90)
@@ -2749,9 +2668,6 @@
     (pin "2" (uuid 84c734a6-2e2b-4324-94d1-410a6db1d7ac))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "C84") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "C109") (unit 1)
         )
@@ -2762,7 +2678,7 @@
   (symbol (lib_id "power:GND") (at 128.27 190.5 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 630f7100-f141-4bd8-9b6d-a80298858a8e)
-    (property "Reference" "#PWR0104" (at 128.27 196.85 0)
+    (property "Reference" "#PWR0127" (at 128.27 196.85 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 128.27 194.6355 0)
@@ -2777,9 +2693,6 @@
     (pin "1" (uuid 992665d7-a730-4144-a8d3-39681a11d495))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "#PWR0104") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "#PWR0127") (unit 1)
         )
@@ -2790,7 +2703,7 @@
   (symbol (lib_id "Simulation_SPICE:PMOS") (at 186.69 118.11 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 6a0a34f4-e2ea-4a1b-8540-9d37d10ae7c2)
-    (property "Reference" "Q18" (at 186.69 110.6551 90)
+    (property "Reference" "Q22" (at 186.69 110.6551 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "PMOS" (at 186.69 112.5761 90)
@@ -2821,9 +2734,6 @@
     (pin "8" (uuid b3060e3f-f966-4825-a536-089bb7fe8665))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "Q18") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "Q22") (unit 1)
         )
@@ -2834,7 +2744,7 @@
   (symbol (lib_id "Jumper:SolderJumper_3_Open") (at 168.91 152.4 90) (mirror x) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 73c5d964-3a06-4b32-9f97-4a2d41228744)
-    (property "Reference" "JP2" (at 167.2591 152.0832 90)
+    (property "Reference" "JP17" (at 167.2591 152.0832 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "~" (at 167.259 151.1227 90)
@@ -2851,9 +2761,6 @@
     (pin "3" (uuid 8a11c8de-8933-4e70-8c3a-df9dd8f70a80))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "JP2") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "JP17") (unit 1)
         )
@@ -2864,7 +2771,7 @@
   (symbol (lib_id "Jumper:SolderJumper_3_Open") (at 214.63 115.57 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 78197d3b-72f3-4e5c-856b-26beb6d79bd6)
-    (property "Reference" "JP1" (at 216.281 115.8868 90)
+    (property "Reference" "JP18" (at 216.281 115.8868 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "~" (at 216.281 116.8473 90)
@@ -2881,9 +2788,6 @@
     (pin "3" (uuid e2cab035-c463-4aad-91eb-5f782bbee012))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "JP1") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "JP18") (unit 1)
         )
@@ -2894,7 +2798,7 @@
   (symbol (lib_id "power:GND") (at 49.53 158.75 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 785e425f-cb47-4e1a-883e-68a4c9c05db4)
-    (property "Reference" "#PWR0111" (at 49.53 165.1 0)
+    (property "Reference" "#PWR0121" (at 49.53 165.1 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 49.53 162.8855 0)
@@ -2909,9 +2813,6 @@
     (pin "1" (uuid 56d5b550-fbda-4dc8-b6e8-941de1180e1c))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "#PWR0111") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "#PWR0121") (unit 1)
         )
@@ -2922,7 +2823,7 @@
   (symbol (lib_id "Device:R") (at 74.93 170.18 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 7f7b62f7-fd16-49f6-b1e6-4d2145fa9a42)
-    (property "Reference" "R89" (at 76.708 169.5363 0)
+    (property "Reference" "R94" (at 76.708 169.5363 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "10K" (at 76.708 171.4573 0)
@@ -2938,9 +2839,6 @@
     (pin "2" (uuid afab8fdb-32c9-4801-8ea2-c2beb99fbfff))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "R89") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "R94") (unit 1)
         )
@@ -2951,7 +2849,7 @@
   (symbol (lib_id "Device:C") (at 80.01 58.42 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 83ec18cb-b70b-4dd6-9192-81ce1b34278c)
-    (property "Reference" "C100" (at 80.01 62.23 90)
+    (property "Reference" "C102" (at 80.01 62.23 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "0.1uF" (at 80.01 64.151 90)
@@ -2967,9 +2865,6 @@
     (pin "2" (uuid 26bfec18-ac2b-4178-a379-93589e35c55a))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "C100") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "C102") (unit 1)
         )
@@ -2980,7 +2875,7 @@
   (symbol (lib_id "Device:C") (at 99.06 132.08 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 8f4a1a59-0fea-414d-82e8-5bf9f446f79d)
-    (property "Reference" "C81" (at 101.981 131.4363 0)
+    (property "Reference" "C108" (at 101.981 131.4363 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "0.1uF" (at 101.981 133.3573 0)
@@ -2996,9 +2891,6 @@
     (pin "2" (uuid e503fcae-55d2-427f-ba80-f184d25f5dd5))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "C81") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "C108") (unit 1)
         )
@@ -3009,7 +2901,7 @@
   (symbol (lib_id "power:GND") (at 143.51 125.73 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 8fe13d99-7c75-4cdb-b7bd-25c90777f7cf)
-    (property "Reference" "#PWR0108" (at 149.86 125.73 0)
+    (property "Reference" "#PWR0129" (at 149.86 125.73 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 146.685 126.0468 90)
@@ -3024,9 +2916,6 @@
     (pin "1" (uuid 814b5e5f-7d1f-4688-ac59-3ca551d3634e))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "#PWR0108") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "#PWR0129") (unit 1)
         )
@@ -3037,7 +2926,7 @@
   (symbol (lib_id "Connector:USB_C_Receptacle") (at 40.64 54.61 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 99e77236-f853-4b41-8ba4-da0db97a8e42)
-    (property "Reference" "J5" (at 40.64 23.6601 0)
+    (property "Reference" "J8" (at 40.64 23.6601 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "USB4200-03-A (VIRT FLAG MOUNTING)" (at 40.64 25.5811 0)
@@ -3076,9 +2965,6 @@
     (pin "S" (uuid 77da8968-6439-4e8c-892d-527b5ccaa6d1))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "J5") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "J8") (unit 1)
         )
@@ -3089,7 +2975,7 @@
   (symbol (lib_id "Device:R") (at 177.8 152.4 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid a52d6bec-86ba-4660-99f4-59150410721b)
-    (property "Reference" "R92" (at 177.8 148.3741 90)
+    (property "Reference" "R96" (at 177.8 148.3741 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "15R" (at 177.8 150.2951 90)
@@ -3105,48 +2991,8 @@
     (pin "2" (uuid 79f47df6-3f76-456b-9d4f-e696366c29be))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "R92") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "R96") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "CARTHING:PUSB3FR6") (at 144.78 43.18 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid a5d7a56a-2113-4e95-ac2e-781e95521c15)
-    (property "Reference" "D11" (at 151.13 44.45 90)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Value" "~" (at 138.43 25.4 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "CARTHING:PUSB3AB6Z_NEX" (at 138.43 25.4 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "" (at 138.43 25.4 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 78eba1b6-16db-43c4-9dc0-bb4b77309204))
-    (pin "2" (uuid 2bd5ce71-d7b6-4362-a6e2-5fb14a618e67))
-    (pin "3" (uuid 5d03b66a-ac69-44a6-b10b-da53c1f7a53e))
-    (pin "4" (uuid 84fb056a-a1f1-4dde-8ed6-7c93a82c6c53))
-    (pin "5" (uuid 49dee65c-a0f9-4285-8c17-0d1fd6ff0ead))
-    (pin "6" (uuid 508a4a21-78bc-47d9-b257-d7577bd6f819))
-    (pin "7" (uuid 81f01f2d-77ae-4e90-9a7b-94e38f4f0e89))
-    (instances
-      (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/fe8e7353-13b3-4aa6-97f7-d88e32d23b04"
-          (reference "D11") (unit 1)
-        )
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "D19") (unit 1)
-        )
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
-          (reference "D21") (unit 1)
         )
       )
     )
@@ -3155,7 +3001,7 @@
   (symbol (lib_id "Device:C") (at 76.2 132.08 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid a61aa33e-e77a-4a49-8c1a-d607b9febc4f)
-    (property "Reference" "C83" (at 79.121 131.4363 0)
+    (property "Reference" "C100" (at 79.121 131.4363 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "10uF" (at 79.121 133.3573 0)
@@ -3171,9 +3017,6 @@
     (pin "2" (uuid 1bf1c649-b546-4f84-8b8a-d1782e4a233f))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "C83") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "C100") (unit 1)
         )
@@ -3209,7 +3052,7 @@
   (symbol (lib_id "Simulation_SPICE:PMOS") (at 186.69 143.51 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid ab9049b0-6de0-48e3-ba8f-fc14675a2df7)
-    (property "Reference" "Q18" (at 186.69 136.0551 90)
+    (property "Reference" "Q23" (at 186.69 136.0551 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "PMOS" (at 186.69 137.9761 90)
@@ -3240,9 +3083,6 @@
     (pin "8" (uuid fbea6208-fc02-46ef-8026-96042bd55685))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "Q18") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "Q23") (unit 1)
         )
@@ -3253,7 +3093,7 @@
   (symbol (lib_id "power:+3V3") (at 55.88 140.97 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid ae1b7006-23ad-469d-a0e7-143db2acd265)
-    (property "Reference" "#PWR0112" (at 52.07 140.97 0)
+    (property "Reference" "#PWR0122" (at 52.07 140.97 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+3V3" (at 59.055 141.2868 90)
@@ -3268,9 +3108,6 @@
     (pin "1" (uuid dda2c334-8cef-42ca-906b-7cff5276e056))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "#PWR0112") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "#PWR0122") (unit 1)
         )
@@ -3306,7 +3143,7 @@
   (symbol (lib_id "Simulation_SPICE:PMOS") (at 204.47 143.51 270) (mirror x) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid b8dcd649-2979-435b-99ae-5f0ffd4a2c18)
-    (property "Reference" "Q18" (at 204.47 136.0551 90)
+    (property "Reference" "Q25" (at 204.47 136.0551 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "PMOS" (at 204.47 137.9761 90)
@@ -3337,9 +3174,6 @@
     (pin "8" (uuid daebcb8c-ed50-4adf-92a2-9b0c6dbc25dd))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "Q18") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "Q25") (unit 1)
         )
@@ -3350,7 +3184,7 @@
   (symbol (lib_id "Device:C") (at 86.36 73.66 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid b8e3fea4-f0b6-47aa-9b10-c2ad5472e625)
-    (property "Reference" "C100" (at 86.36 77.47 90)
+    (property "Reference" "C104" (at 86.36 77.47 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "0.1uF" (at 86.36 79.391 90)
@@ -3366,9 +3200,6 @@
     (pin "2" (uuid 8a2de2d7-5cc1-450b-91ce-b82f214f45c8))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "C100") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "C104") (unit 1)
         )
@@ -3379,7 +3210,7 @@
   (symbol (lib_id "Device:C") (at 87.63 132.08 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid b9637529-e157-4bb4-abb4-f22fda666533)
-    (property "Reference" "C82" (at 90.551 131.4363 0)
+    (property "Reference" "C106" (at 90.551 131.4363 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "0.1uF" (at 90.551 133.3573 0)
@@ -3395,9 +3226,6 @@
     (pin "2" (uuid efb8865c-5199-4b7f-8277-91881ef2ac63))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "C82") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "C106") (unit 1)
         )
@@ -3408,7 +3236,7 @@
   (symbol (lib_id "Jumper:SolderJumper_3_Open") (at 49.53 152.4 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid bc6417f4-2f55-4a6d-beba-1abf6d4c2082)
-    (property "Reference" "JP6" (at 51.181 152.7168 90)
+    (property "Reference" "JP15" (at 51.181 152.7168 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "~" (at 51.181 151.1227 90)
@@ -3425,9 +3253,6 @@
     (pin "3" (uuid 0acc0d66-5f9e-4be7-ae41-d799be7ed7ec))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "JP6") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "JP15") (unit 1)
         )
@@ -3481,7 +3306,7 @@
     (pin "61" (uuid a371966a-f9bd-48b1-830b-8ecb8c0f2510))
     (pin "63" (uuid 6ebc627a-c64f-4596-b7a9-509498738ed6))
     (pin "77" (uuid 1a6ddf7b-9495-44a6-ad7e-6cc5485235f1))
-    (pin "47" (uuid bd5ab1fb-4a8d-4f49-8c1b-5ab426e6d868))
+    (pin "47" (uuid bd5ab1fb-4a8d-4f49-8c1b-5ab426e6d869))
     (pin "65" (uuid 641ac6c2-da20-490a-8f12-f14580d97511))
     (pin "66" (uuid b4aa3dbb-5604-4e80-87dc-dca0deb2a233))
     (pin "67" (uuid 425bb70a-6331-4b25-9940-208b0f04ebe5))
@@ -3551,9 +3376,6 @@
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "U13") (unit 5)
         )
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/7a7a6512-c96f-448a-bb8d-4d6e185adf7f"
-          (reference "U13") (unit 5)
-        )
       )
     )
   )
@@ -3561,7 +3383,7 @@
   (symbol (lib_id "power:+5V") (at 218.44 120.65 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid c20d3eb3-0e14-4c58-9c70-aeea373def2c)
-    (property "Reference" "#PWR0110" (at 214.63 120.65 0)
+    (property "Reference" "#PWR0132" (at 214.63 120.65 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 221.615 120.9668 90)
@@ -3576,9 +3398,6 @@
     (pin "1" (uuid 4ea9e8ab-3c4c-4ed3-a2a3-8bbd7bfe074b))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "#PWR0110") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "#PWR0132") (unit 1)
         )
@@ -3589,7 +3408,7 @@
   (symbol (lib_id "CARTHING:PUSB3FR6") (at 144.78 71.12 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid c28e3622-7075-44fc-a179-abda29d198c3)
-    (property "Reference" "D11" (at 151.13 72.39 90)
+    (property "Reference" "D22" (at 151.13 72.39 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "~" (at 138.43 53.34 0)
@@ -3610,12 +3429,6 @@
     (pin "7" (uuid c527758e-34b9-475f-bfcf-86bb53244aeb))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/fe8e7353-13b3-4aa6-97f7-d88e32d23b04"
-          (reference "D11") (unit 1)
-        )
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "D18") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "D22") (unit 1)
         )
@@ -3626,7 +3439,7 @@
   (symbol (lib_id "Device:C") (at 86.36 181.61 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid d0801603-accc-4eb7-8360-282f3827f281)
-    (property "Reference" "C85" (at 89.281 180.9663 0)
+    (property "Reference" "C105" (at 89.281 180.9663 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "2.2uF" (at 89.281 182.8873 0)
@@ -3642,9 +3455,6 @@
     (pin "2" (uuid ef93584c-978e-4dee-b2be-252206965dd5))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "C85") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "C105") (unit 1)
         )
@@ -3655,7 +3465,7 @@
   (symbol (lib_id "CARTHING:PTN5100") (at 128.27 158.75 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid d5a036ad-7760-49fd-a298-9395d0122dee)
-    (property "Reference" "U14" (at 130.2259 183.2055 0)
+    (property "Reference" "U16" (at 130.2259 183.2055 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "~" (at 102.87 127 0)
@@ -3690,9 +3500,6 @@
     (pin "9" (uuid 4b7f97b7-9c13-4370-8902-25113a3d1531))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "U14") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "U16") (unit 1)
         )
@@ -3703,7 +3510,7 @@
   (symbol (lib_id "Device:R") (at 195.58 119.38 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid d6256e90-c3b0-4b8d-9144-4329ba7de67c)
-    (property "Reference" "R90" (at 197.358 118.7363 0)
+    (property "Reference" "R97" (at 197.358 118.7363 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "10K" (at 197.358 120.6573 0)
@@ -3719,9 +3526,6 @@
     (pin "2" (uuid 67e5c883-2639-4729-98d5-3999e3392723))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "R90") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "R97") (unit 1)
         )
@@ -3732,7 +3536,7 @@
   (symbol (lib_id "Device:C") (at 97.79 181.61 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid da9d8aad-954d-4ec3-b584-172892002550)
-    (property "Reference" "C80" (at 100.711 180.9663 0)
+    (property "Reference" "C107" (at 100.711 180.9663 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "2.2uF" (at 100.711 182.8873 0)
@@ -3748,9 +3552,6 @@
     (pin "2" (uuid 22f7e9c0-b709-45b5-bded-9256a61436d8))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "C80") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "C107") (unit 1)
         )
@@ -3761,7 +3562,7 @@
   (symbol (lib_id "power:+3V3") (at 82.55 121.92 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid e108ce20-b3c2-413a-9add-565ba09d37f5)
-    (property "Reference" "#PWR0105" (at 82.55 125.73 0)
+    (property "Reference" "#PWR0124" (at 82.55 125.73 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+3V3" (at 82.55 118.4181 0)
@@ -3776,9 +3577,6 @@
     (pin "1" (uuid 340fb225-35b9-4333-8073-e992f49397cd))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "#PWR0105") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "#PWR0124") (unit 1)
         )
@@ -3789,7 +3587,7 @@
   (symbol (lib_id "Connector:TestPoint") (at 41.91 140.97 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid e395813c-0375-4790-8e46-cecdb826c5d1)
-    (property "Reference" "TP1" (at 38.608 137.3251 90)
+    (property "Reference" "TP5" (at 38.608 137.3251 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "TestPoint" (at 38.608 139.2461 90)
@@ -3804,9 +3602,6 @@
     (pin "1" (uuid f7deaf2f-f3ca-47b3-9363-4c26b34d470f))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "TP1") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "TP5") (unit 1)
         )
@@ -3817,7 +3612,7 @@
   (symbol (lib_id "Jumper:SolderJumper_3_Open") (at 128.27 116.84 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid e5154c1c-eee7-4873-a405-31d34c077f43)
-    (property "Reference" "JP5" (at 128.27 114.8621 0)
+    (property "Reference" "JP16" (at 128.27 114.8621 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "~" (at 129.5473 115.189 90)
@@ -3834,9 +3629,6 @@
     (pin "3" (uuid 5ed0d816-cae3-465b-95e2-a74646c460db))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "JP5") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "JP16") (unit 1)
         )
@@ -3847,7 +3639,7 @@
   (symbol (lib_id "Jumper:SolderJumper_3_Open") (at 49.53 140.97 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid e5ba3b94-e5ef-4042-823b-c306f4abf05c)
-    (property "Reference" "JP7" (at 49.53 138.9921 0)
+    (property "Reference" "JP14" (at 49.53 138.9921 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "~" (at 48.2527 139.319 90)
@@ -3864,9 +3656,6 @@
     (pin "3" (uuid c3658e86-5dde-44a8-9abb-12e4a7acb164))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "JP7") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "JP14") (unit 1)
         )
@@ -3877,7 +3666,7 @@
   (symbol (lib_id "power:GND") (at 82.55 138.43 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid e5c7cd7d-7d4a-4642-803e-1f5f9c58f504)
-    (property "Reference" "#PWR0106" (at 82.55 144.78 0)
+    (property "Reference" "#PWR0125" (at 82.55 144.78 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 82.55 142.5655 0)
@@ -3892,9 +3681,6 @@
     (pin "1" (uuid aab0053f-475d-4824-a545-0bcf8b161ac3))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "#PWR0106") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "#PWR0125") (unit 1)
         )
@@ -3905,7 +3691,7 @@
   (symbol (lib_id "Device:C") (at 86.36 68.58 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid ed662a69-0efb-4c49-be9b-828b90422b28)
-    (property "Reference" "C99" (at 86.36 63.4111 90)
+    (property "Reference" "C103" (at 86.36 63.4111 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "0.1uF" (at 86.36 65.3321 90)
@@ -3921,36 +3707,8 @@
     (pin "2" (uuid c8064540-15d9-4559-a6ea-0a2c461b081a))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "C99") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "C103") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "power:GND") (at 147.32 55.88 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid f82610ce-bb05-4780-90d9-a02d4d1855bb)
-    (property "Reference" "#PWR0130" (at 147.32 62.23 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Value" "GND" (at 147.32 60.0155 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 147.32 55.88 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "" (at 147.32 55.88 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid e382e52c-d7d1-4821-8754-efdf1239e342))
-    (instances
-      (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
-          (reference "#PWR0130") (unit 1)
         )
       )
     )
@@ -3959,7 +3717,7 @@
   (symbol (lib_id "Device:C") (at 80.01 53.34 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid f9a270d7-b7b2-43ca-ad4b-b5b4cb2cced0)
-    (property "Reference" "C99" (at 80.01 48.1711 90)
+    (property "Reference" "C101" (at 80.01 48.1711 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "0.1uF" (at 80.01 50.0921 90)
@@ -3975,9 +3733,6 @@
     (pin "2" (uuid 8008c836-c819-434b-9e6b-045c1b2c101b))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "C99") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
           (reference "C101") (unit 1)
         )

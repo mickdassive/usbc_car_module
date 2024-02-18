@@ -351,7 +351,7 @@
         (stroke (width 0) (type default))
         (fill (type background))
       )
-      (text "LM6143-Q1\n" (at 11.43 31.75 0)
+      (text "LM5143-Q1\n" (at 11.43 31.75 0)
         (effects (font (size 1.27 1.27)))
       )
       (pin input line (at 19.05 -13.97 180) (length 2.54)

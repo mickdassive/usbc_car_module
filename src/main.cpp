@@ -586,10 +586,10 @@ uint8_t read_current_led_state (enum led_names){
 //led control
 //led_names: name of led to control
 //led_on_off: set desired led state
-void led_control(enum led_names,enum led_on_off){
+void led_control(struct leds, enum led_on_off){
 
-  if (led_on_off = on) {
-    switch (led_names) {
+  if (led_on_off == on) {
+    switch (leds) {
       case (watts):
 
       break;
@@ -822,7 +822,7 @@ void setup() {
 
   //begin init for display
   disp_init();
-  Serial.println("Front display init complete");
+  Serial.println("Display init complete");
 
   //begin USB hub chip init
 

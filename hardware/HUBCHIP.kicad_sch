@@ -506,50 +506,6 @@
         )
       )
     )
-    (symbol "Connector:Conn_01x01_Pin" (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
-      (property "Reference" "J" (at 0 2.54 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Value" "Conn_01x01_Pin" (at 0 -2.54 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Footprint" "" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "Datasheet" "~" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_locked" "" (at 0 0 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "ki_keywords" "connector" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_description" "Generic connector, single row, 01x01, script generated" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_fp_filters" "Connector*:*_1x??_*" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (symbol "Conn_01x01_Pin_1_1"
-        (polyline
-          (pts
-            (xy 1.27 0)
-            (xy 0.8636 0)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (rectangle (start 0.8636 0.127) (end 0 -0.127)
-          (stroke (width 0.1524) (type default))
-          (fill (type outline))
-        )
-        (pin passive line (at 5.08 0 180) (length 3.81)
-          (name "Pin_1" (effects (font (size 1.27 1.27))))
-          (number "1" (effects (font (size 1.27 1.27))))
-        )
-      )
-    )
     (symbol "Connector:TestPoint" (pin_numbers hide) (pin_names (offset 0.762) hide) (in_bom yes) (on_board yes)
       (property "Reference" "TP" (at 0 6.858 0)
         (effects (font (size 1.27 1.27)))
@@ -2196,6 +2152,8 @@
   (no_connect (at 119.38 144.78) (uuid 009f10b1-9ad3-4424-b707-b648eb119ab7))
   (no_connect (at 119.38 147.32) (uuid 27956cca-851a-45b6-b89c-e8d9c22ff795))
   (no_connect (at 182.88 110.49) (uuid 64ba2311-5b46-47cc-9116-fdbf437b409c))
+  (no_connect (at 189.23 149.86) (uuid 6c705215-a0d3-460d-bc0d-750601b2b7d0))
+  (no_connect (at 189.23 147.32) (uuid ac53882a-c973-4e75-b211-a928f0a0609d))
 
   (wire (pts (xy 86.36 48.26) (xy 86.36 50.8))
     (stroke (width 0) (type default))
@@ -3072,13 +3030,6 @@
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
   )
-  (global_label "USB_HUB_GPIO69" (shape input) (at 189.23 147.32 0) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify left))
-    (uuid 164a0e03-c5ac-40ab-8bd0-ed126fef5379)
-    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 208.7063 147.32 0)
-      (effects (font (size 1.27 1.27)) (justify left) hide)
-    )
-  )
   (global_label "I2C_SCL" (shape input) (at 189.23 142.24 0) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left))
     (uuid 203da211-0497-4ed4-b578-e52847d3d924)
@@ -3090,13 +3041,6 @@
     (effects (font (size 1.27 1.27)) (justify left))
     (uuid d84d75f8-22f1-43de-a96c-f72acb38e035)
     (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 199.7558 139.7 0)
-      (effects (font (size 1.27 1.27)) (justify left) hide)
-    )
-  )
-  (global_label "USB_HUB_GPIO66" (shape input) (at 189.23 149.86 0) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify left))
-    (uuid d860c105-9c75-4b64-b286-e0cd192aeb9c)
-    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 208.7063 149.86 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
   )
@@ -3173,31 +3117,6 @@
       (project "usbc-car-module"
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/7a7a6512-c96f-448a-bb8d-4d6e185adf7f"
           (reference "R85") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Connector:Conn_01x01_Pin") (at 58.42 124.46 90) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid 06b343f9-8062-46b4-bece-4728d7e1caae)
-    (property "Reference" "J1" (at 59.2582 124.1418 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Value" "~" (at 59.2582 125.1023 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" (at 58.42 124.46 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 58.42 124.46 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 8fccc5e8-ab93-4dda-8b5d-ce9b58906045))
-    (instances
-      (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/7a7a6512-c96f-448a-bb8d-4d6e185adf7f"
-          (reference "J1") (unit 1)
         )
       )
     )
@@ -3860,7 +3779,7 @@
     (pin "61" (uuid 2decdda2-dbca-44ab-8748-253427a1d4ef))
     (pin "63" (uuid bbe2f220-9c9b-4471-a556-59a23fc49915))
     (pin "77" (uuid c33d0af4-b36c-43a7-9696-b9ed9ae0935c))
-    (pin "47" (uuid a3f5282c-3906-4563-99d9-248ca44aa15c))
+    (pin "47" (uuid a3f5282c-3906-4563-99d9-248ca44aa15d))
     (pin "65" (uuid 5536344e-1b53-41a5-9c17-ffaae4d05f44))
     (pin "66" (uuid 8f6f54d0-e65a-40b8-bbab-0394cc8b7e59))
     (pin "67" (uuid ec440743-be3e-4338-8852-a17b96999f0b))
@@ -4064,7 +3983,7 @@
   (symbol (lib_id "Jumper:SolderJumper_3_Open") (at 210.82 85.09 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 89ff8149-a082-483d-8972-1790f11559b6)
-    (property "Reference" "JP5" (at 210.82 83.1121 0)
+    (property "Reference" "JP6" (at 210.82 83.1121 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "~" (at 209.5427 83.439 90)
@@ -4081,12 +4000,6 @@
     (pin "3" (uuid 80abef38-9f50-4e43-874a-8907724e80c9))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "JP5") (unit 1)
-        )
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
-          (reference "JP10") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/7a7a6512-c96f-448a-bb8d-4d6e185adf7f"
           (reference "JP6") (unit 1)
         )
@@ -4430,7 +4343,7 @@
   (symbol (lib_id "Jumper:SolderJumper_3_Open") (at 241.3 85.09 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid e283730f-a2fe-402d-bd15-6084a8013b73)
-    (property "Reference" "JP5" (at 241.3 83.1121 0)
+    (property "Reference" "JP8" (at 241.3 83.1121 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "~" (at 240.0227 83.439 90)
@@ -4447,12 +4360,6 @@
     (pin "3" (uuid 94edd1a3-d590-4bde-90e2-49baf2049fca))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "JP5") (unit 1)
-        )
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
-          (reference "JP10") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/7a7a6512-c96f-448a-bb8d-4d6e185adf7f"
           (reference "JP8") (unit 1)
         )
@@ -4515,7 +4422,7 @@
   (symbol (lib_id "Jumper:SolderJumper_3_Open") (at 226.06 85.09 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid ed4f3a5f-2dce-4301-bf07-5bdb5460d99d)
-    (property "Reference" "JP5" (at 226.06 83.1121 0)
+    (property "Reference" "JP7" (at 226.06 83.1121 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "~" (at 224.7827 83.439 90)
@@ -4532,12 +4439,6 @@
     (pin "3" (uuid aafafc44-7db1-45ef-a777-3b0d911fdeb6))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "JP5") (unit 1)
-        )
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
-          (reference "JP10") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/7a7a6512-c96f-448a-bb8d-4d6e185adf7f"
           (reference "JP7") (unit 1)
         )
@@ -4822,7 +4723,7 @@
     (pin "61" (uuid 49620f8c-c1e6-4ec3-a5b4-d7be808019f6))
     (pin "63" (uuid 8d5f5334-3744-45fb-940d-93a3cf13f4b3))
     (pin "77" (uuid 4ba90067-65b1-420a-b885-3997dcc05883))
-    (pin "47" (uuid cd8aa0db-f544-492d-a309-398e45cee41b))
+    (pin "47" (uuid cd8aa0db-f544-492d-a309-398e45cee41c))
     (pin "65" (uuid 42b45365-daf3-4f3a-94fb-8ab4c3737998))
     (pin "66" (uuid 3099ee55-4c3e-403f-9111-524d1e0a226a))
     (pin "67" (uuid 557cee6a-101a-4b7b-97e1-1405f0e02f23))
@@ -4916,12 +4817,6 @@
     (pin "3" (uuid 56429876-8593-4dfd-a600-b770b731b2c2))
     (instances
       (project "usbc-car-module"
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
-          (reference "JP5") (unit 1)
-        )
-        (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
-          (reference "JP10") (unit 1)
-        )
         (path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/7a7a6512-c96f-448a-bb8d-4d6e185adf7f"
           (reference "JP5") (unit 1)
         )
