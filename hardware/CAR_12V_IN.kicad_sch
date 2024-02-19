@@ -1453,7 +1453,7 @@
     (property "Reference" "Q26" (at 90.297 57.7763 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "NMOS" (at 90.297 59.6973 0)
+    (property "Value" "NTA7002NT1G" (at 90.297 59.6973 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Package_TO_SOT_SMD:SOT-416" (at 90.17 55.88 0)

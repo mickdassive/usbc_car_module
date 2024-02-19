@@ -1064,7 +1064,7 @@
     (property "Reference" "U12" (at 58.42 76.2 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "~" (at 59.69 76.2 0)
+    (property "Value" "ADS7128 " (at 82.55 76.2 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Footprint" "Package_DFN_QFN:WQFN-16-1EP_3x3mm_P0.5mm_EP1.6x1.6mm_ThermalVias" (at 59.69 76.2 0)

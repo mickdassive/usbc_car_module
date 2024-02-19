@@ -420,6 +420,10 @@
     (uuid 90d9e650-2ef4-475b-b743-8a7a37b7ba83)
   )
 
+  (text "JLC04161H-7628\nCONTROLLED IMPEEDANCE" (at 199.39 30.48 0)
+    (effects (font (size 3 3)) (justify left bottom))
+    (uuid 04a4cd89-f925-4ecd-9016-5a10060194bc)
+  )
   (text "BACK (UFP)\nUSB-C" (at 135.89 49.53 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 09de8c30-419d-4547-98ae-89e6e4e9eda7)
