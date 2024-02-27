@@ -229,7 +229,7 @@ void adc_init(bool fast_mode) {
   uint8_t ch0_hysteresis = 0b0;
   uint8_t ch0_high_threshold = 0b0;
   uint8_t ch0_event_count = 0b0;
-  uint8_t ch0_low_threshold =0b0;
+  uint8_t ch0_low_threshold = 0b0;
   uint8_t ch1_hysteresis = 0b0;
   uint8_t ch1_high_threshold = 0b0;
   uint8_t ch1_event_count = 0b0;
@@ -456,9 +456,227 @@ void adc_init(bool fast_mode) {
 
 }
 
+//adc_threshold set
+//set the treshold vlaues for a given channel
+//adc_channel: disired channel on adc to change threshold values
+//high_th: upper threshold vale to set (max 12 bit number)
+//low_th: lower threshold vale to set (max 12 bit number) 
+void adc_threshold_set(enum adc_channel adc_channel, uint16_t high_th, uint16_t low_th) {
+  //init local vars
+  uint8_t chx_hysteresis = 0b0;
+  uint8_t chx_high_th = 0b0;
+  uint8_t chx_event_count = 0b0;
+  uint8_t chx_low_th = 0b0;
+  uint8_t current_hysteresis_val = 0b0;
+  uint8_t current_event_count = 0b0;
+
+  //read current hysteresis & event count values
+  //begin hysteresis read
+  Wire.beginTransmission(adc_add);
+  Wire.write(adc_op_single_write);
+
+  switch (adc_channel){
+  case ch0:
+    Wire.write(adc_ch0_hysteresis);
+    break;
+  case ch1:
+    Wire.write(adc_ch1_hysteresis);
+    break;
+  case ch2:
+    Wire.write(adc_ch2_hysteresis);
+    break;
+  case ch3:
+    Wire.write(adc_ch3_hysteresis);
+    break;
+  case ch4:
+    Wire.write(adc_ch4_hysteresis);
+    break;
+  case ch5:
+    Wire.write(adc_ch5_hysteresis);
+    break;
+  case ch6:
+    Wire.write(adc_ch6_hysteresis);
+    break;
+  case ch7:
+    Wire.write(adc_ch7_hysteresis);
+    break;
+  }
+
+  Wire.endTransmission();
+
+  Wire.requestFrom(adc_add, 1);
+  current_hysteresis_val = (Wire.read() & 0x0F);
+  Wire.endTransmission();
+  
+  //begin event count read
+  Wire.beginTransmission(adc_add);
+  Wire.write(adc_op_single_write);
+
+  switch (adc_channel){
+  case ch0:
+    Wire.write(adc_ch0_event_count);
+    break;
+  case ch1:
+    Wire.write(adc_ch1_event_count);
+    break;
+  case ch2:
+    Wire.write(adc_ch2_event_count);
+    break;
+  case ch3:
+    Wire.write(adc_ch3_event_count);
+    break;
+  case ch4:
+    Wire.write(adc_ch4_event_count);
+    break;
+  case ch5:
+    Wire.write(adc_ch5_event_count);
+    break;
+  case ch6:
+    Wire.write(adc_ch6_event_count);
+    break;
+  case ch7:
+    Wire.write(adc_ch7_event_count);
+    break;
+  }
+
+  Wire.endTransmission();
+
+  Wire.requestFrom(adc_add, 1);
+  current_event_count = (Wire.read() & 0x0F);
+  Wire.endTransmission();
+
+  //convert values to format the adc accepts 
+  chx_hysteresis = (((high_th & 0x000F) << 4) | current_hysteresis_val);
+  chx_high_th = (high_th >> 4);
+  chx_event_count = (((low_th & 0x000F) << 4) | current_event_count);
+  chx_low_th = (low_th >> 4);
+
+  // begin writeing to adc
+  Wire.beginTransmission(adc_add);
+  Wire.write(adc_op_continuous_write);
+
+  switch (adc_channel){
+  case ch0:
+    Wire.write(adc_ch0_hysteresis);
+    break;
+  case ch1:
+    Wire.write(adc_ch1_hysteresis);
+    break;
+  case ch2:
+    Wire.write(adc_ch2_hysteresis);
+    break;
+  case ch3:
+    Wire.write(adc_ch3_hysteresis);
+    break;
+  case ch4:
+    Wire.write(adc_ch4_hysteresis);
+    break;
+  case ch5:
+    Wire.write(adc_ch5_hysteresis);
+    break;
+  case ch6:
+    Wire.write(adc_ch6_hysteresis);
+    break;
+  case ch7:
+    Wire.write(adc_ch7_hysteresis);
+    break;
+  }
+  
+  Wire.write(chx_hysteresis);
+  Wire.write(chx_high_th);
+  Wire.write(chx_event_count);
+  Wire.write(chx_low_th);
+  Wire.endTransmission();
+
+}
+
+//adc_hysteresis_set
+//adc_channel: disired channel on adc to set hysteresis value 
+//hysteresis_set: value to set hysteresis for a given cnannel (4 bit number max)
+void adc_hysteresis_set(enum adc_channel adc_channel, uint8_t hysteresis_set) {
+  //init local vars
+  uint8_t curent_hysteresis_reg_val = 0x00;
+  uint8_t chx_hysteresis = 0x00;
+
+  //read current hysteresis register value
+  //begin hysteresis read
+  Wire.beginTransmission(adc_add);
+  Wire.write(adc_op_single_write);
+
+  switch (adc_channel){
+  case ch0:
+    Wire.write(adc_ch0_hysteresis);
+    break;
+  case ch1:
+    Wire.write(adc_ch1_hysteresis);
+    break;
+  case ch2:
+    Wire.write(adc_ch2_hysteresis);
+    break;
+  case ch3:
+    Wire.write(adc_ch3_hysteresis);
+    break;
+  case ch4:
+    Wire.write(adc_ch4_hysteresis);
+    break;
+  case ch5:
+    Wire.write(adc_ch5_hysteresis);
+    break;
+  case ch6:
+    Wire.write(adc_ch6_hysteresis);
+    break;
+  case ch7:
+    Wire.write(adc_ch7_hysteresis);
+    break;
+  }
+
+  Wire.endTransmission();
+
+  Wire.requestFrom(adc_add, 1);
+  curent_hysteresis_reg_val = (Wire.read() & 0xF0);
+  Wire.endTransmission();
+
+  //calculate value to write to the hysteresis register
+  chx_hysteresis = curent_hysteresis_reg_val | (hysteresis_set & 0x0F);
+
+  //begin write to hysteresis register
+  Wire.beginTransmission(adc_add);
+  Wire.write(adc_op_single_write);
+  switch (adc_channel){
+  case ch0:
+    Wire.write(adc_ch0_hysteresis);
+    break;
+  case ch1:
+    Wire.write(adc_ch1_hysteresis);
+    break;
+  case ch2:
+    Wire.write(adc_ch2_hysteresis);
+    break;
+  case ch3:
+    Wire.write(adc_ch3_hysteresis);
+    break;
+  case ch4:
+    Wire.write(adc_ch4_hysteresis);
+    break;
+  case ch5:
+    Wire.write(adc_ch5_hysteresis);
+    break;
+  case ch6:
+    Wire.write(adc_ch6_hysteresis);
+    break;
+  case ch7:
+    Wire.write(adc_ch7_hysteresis);
+    break;
+  }
+
+  Wire.write(chx_hysteresis);
+  Wire.endTransmission();
+  
+}
+
 //reads from the i2c ADC returns value in 16bit ADC counts
 //adc_channel: select the desired channel to read from
-int adc_read(enum adc_channel adc_channel){
+int adc_read(enum adc_channel adc_channel) {
   //init local vars
   uint8_t read_byte_0 = 0b0;
   uint8_t read_byte_1 = 0b0;
@@ -570,7 +788,7 @@ void disp_bright(uint8_t desired_brightness) {
 
   return;
 }
-
+/*
 //display write function
 //will only work with flaots and ints
 void disp_write(float input) {
@@ -632,7 +850,7 @@ void led_control(struct leds, enum led_on_off){
   }
   return 0;
 }
-
+*/
 
 
 //GPIO pin auto init for both iox and onborad pins

@@ -250,34 +250,40 @@ struct pin scl {0x00, 0, 0, 5, bi_dir, true, false};
 struct pin onboard_led {0x00, 0, 0, 2, out, true, false};
 struct pin can_rx {0x00, 0, 0, 12, in, true, false};
 struct pin can_tx {0x00, 0, 0, 13, out, true, false};
-struct pin can_silent {0x80, 1, 1, 20, out, false, false};
+struct pin can_silent {0x02, 0, 0, 5, out, false, false};
 struct pin iox_0_int {0x00, 0, 1, 14, intr, true, true};
-struct pin iox_1_int {0x80, 1, 0, 20, in, false, true};
+struct pin iox_1_int {0x01, 0, 0, 4, in, false, true};
 struct pin pgood_21V {0x40, 1, 1, 19, in, false, false};
-struct pin b_usbc_pgood {0x20, 1, 1, 18, in, false, true};
-struct pin b_usbc_buck_en {0x08, 1, 1, 16, out, false, false};
+struct pin b_usbc_pgood {0x20, 0, 1, 9, in, false, true};
+struct pin b_usbc_buck_en {0x01, 1, 1, 13, out, false, false};
 struct pin b_usbc_5V_sel {0x02, 1, 1, 14, out, false, false};
-struct pin b_usbc_9V_sel {0x01, 1, 1, 13, out, false, false};
-struct pin b_usbc_12V_sel {0x80, 0, 1, 11, out, false, false};
-struct pin b_usbc_15V_sel {0x40, 0, 1, 10, out, false, false};
-struct pin b_usbc_20V_sel {0x20, 0, 1, 9, out, false, false};
-struct pin f_usbc_pgood {0x10, 1, 1, 17, in, false, true};
-struct pin f_usbc_buck_en {0x04, 1, 1, 15, out, false, false};
-struct pin f_usbc_5V_sel {0x10, 0, 1, 8, out, false, false};
-struct pin f_usbc_9V_sel {0x08, 0, 1, 7, out, false, false};
+struct pin b_usbc_9V_sel {0x04, 1, 1, 15, out, false, false};
+struct pin b_usbc_12V_sel {0x08, 1, 1, 16, out, false, false};
+struct pin b_usbc_15V_sel {0x10, 1, 1, 17, out, false, false};
+struct pin b_usbc_20V_sel {0x20, 1, 1, 18, out, false, false};
+struct pin f_usbc_pgood {0x40, 0, 1, 10, in, false, true};
+struct pin f_usbc_buck_en {0x80, 0, 1, 11, out, false, false};
+struct pin f_usbc_5V_sel {0x01, 0, 1, 4, out, false, false};
+struct pin f_usbc_9V_sel {0x02, 0, 1, 5, out, false, false};
 struct pin f_usbc_12V_sel {0x04, 0, 1, 6, out, false, false};
-struct pin f_usbc_15V_sel {0x02, 0, 1, 5, out, false, false};   // all these pin positions are gunna be wrong im just gunna wait till im done with the hrdware desighn to fix them
-struct pin f_usbc_20V_sel {0x01, 0, 1, 4, out, false, false};
-struct pin adc_alert {0x40, 1, 0, 19, in, false, false};
-struct pin ufp_c_attach_0 {0x20, 1, 0, 18, out, false, false};
-struct pin hub_vbus_det {0x10, 1, 0, 17, out, false, false};
-struct pin dfp_c_attach_1 {0x08, 1, 0, 16, out, false, false};
-struct pin disp_irq {0x04, 1, 0, 15, in, false, true};
-struct pin unit_btn {0x02, 1, 0, 14, in, false, true};
-struct pin src_btn {0x01, 1, 0, 13, in, false, true};
-struct pin mode_btn {0x80, 0, 0, 11, in, false, true};
-struct pin iox_0_p_0_0 {0X01, 0, 0, 4, in, false, false};
-struct pin iox_0_p_0_1 {0X02, 0, 0, 5, in, false, false};
+struct pin f_usbc_15V_sel {0x08, 0, 1, 7, out, false, false};
+struct pin f_usbc_20V_sel {0x10, 0, 1, 8, out, false, false};
+struct pin adc_alert {0x80, 1, 1, 20, in, false, true};
+struct pin ufp_c_attach_0 {0x80, 0, 0, 11, out, false, false};
+struct pin hub_vbus_det {0x40, 0, 0, 10, out, false, false};
+struct pin dfp_c_attach_1 {0x20, 0, 0, 9, out, false, false};
+struct pin disp_irq {0x10, 1, 0, 17, in, false, true};
+struct pin unit_btn {0x40, 1, 0, 19, in, false, true};
+struct pin src_btn {0x80, 1, 0, 20, in, false, true};
+struct pin mode_btn {0x20, 0, 0, 18, in, false, true};
+struct pin iox_0_p_0_0 {0X08, 0, 0, 7, in, false, false};
+struct pin iox_0_p_0_1 {0X04, 0, 0, 6, in, false, false};
+struct pin ufp_dbgacc {0x08, 1, 0, 16, in, false, false};
+struct pin dfp_dbgacc {0x04, 1, 0, 15, in, false, false};
+struct pin tp16 {0x02, 1, 0, 14, in, false, false};
+struct pin tp17 {0x01, 1, 0, 13, in, false, false};
+struct pin tp18 {0x10, 0, 0, 8, in, false, false};
+
 
 //io_call pin struct names for auto pin init
 struct pin* pin_names[] = {
@@ -314,6 +320,12 @@ struct pin* pin_names[] = {
   &mode_btn,
   &iox_0_p_0_0,
   &iox_0_p_0_1,
+  &ufp_dbgacc,
+  &dfp_dbgacc,
+  &tp16,
+  &tp17,
+  &tp18,
+
 } ;
 
 
