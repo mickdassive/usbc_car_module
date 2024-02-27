@@ -357,6 +357,15 @@ void adc_init(bool fast_mode) {
   Wire.write(0b00000101);
   Wire.endTransmission();
 
+  //set digital window comparitor to alert on vlaues within the upper and lower limits
+  Wire.beginTransmission(adc_add);
+  Wire.write(adc_op_single_write);
+  Wire.write(adc_event_rgn);
+  //adc datasheet page 42
+  //ch7, ch6, ch5, ch4, ch3, ch2, ch1, ch0
+  Wire.write(0b11111111);
+  Wire.endTransmission();
+
   //begin configureing bytes to be sent for channel config
   //ch0 bitwise opertations
   ch0_hysteresis = (adc_ch0_hysteresis << 4) | (adc_ch0_high_threshold & 0x000F);
@@ -473,7 +482,7 @@ void adc_threshold_set(enum adc_channel adc_channel, uint16_t high_th, uint16_t 
   //read current hysteresis & event count values
   //begin hysteresis read
   Wire.beginTransmission(adc_add);
-  Wire.write(adc_op_single_write);
+  Wire.write(adc_op_single_read);
 
   switch (adc_channel){
   case ch0:
@@ -510,7 +519,7 @@ void adc_threshold_set(enum adc_channel adc_channel, uint16_t high_th, uint16_t 
   
   //begin event count read
   Wire.beginTransmission(adc_add);
-  Wire.write(adc_op_single_write);
+  Wire.write(adc_op_single_read);
 
   switch (adc_channel){
   case ch0:
@@ -591,6 +600,7 @@ void adc_threshold_set(enum adc_channel adc_channel, uint16_t high_th, uint16_t 
 }
 
 //adc_hysteresis_set
+//sets adc channel hysteresis value
 //adc_channel: disired channel on adc to set hysteresis value 
 //hysteresis_set: value to set hysteresis for a given cnannel (4 bit number max)
 void adc_hysteresis_set(enum adc_channel adc_channel, uint8_t hysteresis_set) {
@@ -601,7 +611,7 @@ void adc_hysteresis_set(enum adc_channel adc_channel, uint8_t hysteresis_set) {
   //read current hysteresis register value
   //begin hysteresis read
   Wire.beginTransmission(adc_add);
-  Wire.write(adc_op_single_write);
+  Wire.write(adc_op_single_read);
 
   switch (adc_channel){
   case ch0:
@@ -674,7 +684,131 @@ void adc_hysteresis_set(enum adc_channel adc_channel, uint8_t hysteresis_set) {
   
 }
 
-//reads from the i2c ADC returns value in 16bit ADC counts
+//adc_event_count_read
+//read current event count for a given channel
+//adc_channel: disired channel on adc to read event count from
+int adc_event_count_read(enum adc_channel adc_channel) {
+  //init local vars 
+  uint8_t chx_current_event_count = 0x00;
+
+  //begin event count read
+  Wire.beginTransmission(adc_add);
+  Wire.write(adc_op_single_read);
+  switch (adc_channel){
+  case ch0:
+    Wire.write(adc_ch0_event_count);
+    break;
+  case ch1:
+    Wire.write(adc_ch1_event_count);
+    break;
+  case ch2:
+    Wire.write(adc_ch2_event_count);
+    break;
+  case ch3:
+    Wire.write(adc_ch3_event_count);
+    break;
+  case ch4:
+    Wire.write(adc_ch4_event_count);
+    break;
+  case ch5:
+    Wire.write(adc_ch5_event_count);
+    break;
+  case ch6:
+    Wire.write(adc_ch6_event_count);
+    break;
+  case ch7:
+    Wire.write(adc_ch7_event_count);
+    break;
+  }
+  Wire.endTransmission();
+
+  Wire.requestFrom(adc_add, 1);
+  chx_current_event_count = (Wire.read() & 0x0F);
+  return chx_current_event_count;
+}
+
+//adc_event clear
+//resets event count for given channel 
+//adc_channel: disired channel on adc to reset event count on
+void adc_event_clear(enum adc_channel adc_channel) {
+  //init local vars
+  uint8_t event_count_val = 0x00;
+
+  //begin read
+  Wire.beginTransmission(adc_add);
+  Wire.write(adc_op_single_read);
+  switch (adc_channel){
+  case ch0:
+    Wire.write(adc_ch0_event_count);
+    break;
+  case ch1:
+    Wire.write(adc_ch1_event_count);
+    break;
+  case ch2:
+    Wire.write(adc_ch2_event_count);
+    break;
+  case ch3:
+    Wire.write(adc_ch3_event_count);
+    break;
+  case ch4:
+    Wire.write(adc_ch4_event_count);
+    break;
+  case ch5:
+    Wire.write(adc_ch5_event_count);
+    break;
+  case ch6:
+    Wire.write(adc_ch6_event_count);
+    break;
+  case ch7:
+    Wire.write(adc_ch7_event_count);
+    break;
+  }
+  Wire.endTransmission();
+
+  Wire.requestFrom(adc_add, 1);
+  event_count_val = (Wire.read() & 0xF0);
+
+  //write 0 to event count register
+  Wire.beginTransmission(adc_add);
+  Wire.write(adc_op_single_write);
+  switch (adc_channel){
+  case ch0:
+    Wire.write(adc_ch0_event_count);
+    break;
+  case ch1:
+    Wire.write(adc_ch1_event_count);
+    break;
+  case ch2:
+    Wire.write(adc_ch2_event_count);
+    break;
+  case ch3:
+    Wire.write(adc_ch3_event_count);
+    break;
+  case ch4:
+    Wire.write(adc_ch4_event_count);
+    break;
+  case ch5:
+    Wire.write(adc_ch5_event_count);
+    break;
+  case ch6:
+    Wire.write(adc_ch6_event_count);
+    break;
+  case ch7:
+    Wire.write(adc_ch7_event_count);
+    break;
+  }
+  Wire.write(event_count_val);
+  Wire.endTransmission();
+  
+}
+
+//adc_alert_read
+//reads and returns 
+enum adc_alert_read() {
+
+}
+
+//reads from the ADC returns value in 16bit ADC counts
 //adc_channel: select the desired channel to read from
 int adc_read(enum adc_channel adc_channel) {
   //init local vars
@@ -682,8 +816,9 @@ int adc_read(enum adc_channel adc_channel) {
   uint8_t read_byte_1 = 0b0;
   uint16_t output = 0b0;
 
+  //begin read
   Wire.beginTransmission(adc_add);
-  Wire.write(adc_op_single_write);
+  Wire.write(adc_op_continuous_read);
 
   switch (adc_channel){
   case ch0:

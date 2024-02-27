@@ -148,7 +148,7 @@ const uint8_t adc_op_clr_bit = 0x20;
 const uint8_t adc_op_continuous_read = 0x30;
 const uint8_t adc_op_continuous_write = 0x28;
 
-//adc ch config values
+//adc defult window coparitor config values
 //adc_chX_high_treshold 12bits max defult 16383
 //adc_chX_low_treshold 12bits max defult 0
 //adc_chX_event_count 4bits max defult 0 number of events that pass the threshold values before the event flag is rased
