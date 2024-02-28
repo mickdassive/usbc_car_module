@@ -18,7 +18,9 @@
 //Tokyo Andreana
 
 #include <Arduino.h>
-#include <wire.h>
+#include <Wire.h>
+#include <iostream>
+#include <string>
 #include "display_defines.cpp"
 
 //display init function
@@ -85,65 +87,130 @@ void disp_bright(uint8_t desired_brightness) {
   return;
 }
 
-//display write function
-//will only work with flaots and ints
+//disp_write
+//writes numbers to the 7 segment display
+//input: float or int input
 void disp_write(float input) {
+  //init local vars
+  int digit_binary_array[0];
+  int digit_binary_array_dp = 0;
   
-}
 
-//read current led state
-uint8_t read_current_led_state (enum led_names){
-  
-}
+  //begin moving indvidual digits to a vector array
+  std::string numStr = std::to_string(input);
+  std::vector<int> digits;
 
-
-//led control
-//led_names: name of led to control
-//led_on_off: set desired led state
-void led_control(struct leds, enum led_on_off){
-
-  if (led_on_off == on) {
-    switch (leds.name) {
-      case ("watts"):
-
-      break;
-      case (amps):
-
-      break;
-      case (volts):
-
-      break;
-      case (usb_c_back):
-
-      break;
-      case (usb_c_front):
-
-      break;
-      case (usb_a):
-
-      break;
-      case (system_power):
-
-      break;
-      case (watts_10):
-
-      break;
-      case (watts_20):
-
-      break;
-      case (watts_40):
-
-      break;
-      case (watts_65):
-
-      break;
-      case (watts_100):
-
-      break;
+  for (char c : numStr) {
+    if (c != '.') {
+      int digit = c - '0';
+      digits.push_back(digit);
     }
-  } else if (led_on_off = off) {
-
   }
-  return 0;
+  digits.push_back(-1);
+
+  // create & calculate legth of digit array
+  int digit_array_size = digits.size();
+  int digit_array[digit_array_size];
+
+  //move digit info to a "normal" array
+  for (int i = 0; i < digit_array_size; ++i) {
+    digit_array[i] = digits[i];
+  }
+
+  //convert digits to digits that the display can output
+  for (int i = 0; i < digit_array_size; i++) {
+
+    switch (digit_array[i]){
+      case 0:
+      digit_binary_array[(i - digit_binary_array_dp)] = disp_num_0;
+      break;
+    case 1:
+      digit_binary_array[(i - digit_binary_array_dp)] = disp_num_1;
+      break;
+    case 2:
+      digit_binary_array[(i - digit_binary_array_dp)] = disp_num_2;
+      break;
+    case 3:
+      digit_binary_array[(i - digit_binary_array_dp)] = disp_num_3;
+      break;
+    case 4:
+      digit_binary_array[(i - digit_binary_array_dp)] = disp_num_4;
+      break;
+    case 5:
+      digit_binary_array[(i - digit_binary_array_dp)] = disp_num_5;
+      break;
+    case 6:
+      digit_binary_array[(i - digit_binary_array_dp)] = disp_num_6;
+      break;
+    case 7:
+      digit_binary_array[(i - digit_binary_array_dp)] = disp_num_7;
+      break;
+    case 8:
+      digit_binary_array[(i - digit_binary_array_dp)] = disp_num_8;
+      break;
+    case 9:
+      digit_binary_array[(i - digit_binary_array_dp)] = disp_num_9;
+      break;
+    case -1:
+      digit_binary_array[(i - 1)] | disp_num_dp;
+      digit_binary_array_dp++;
+      break;
+  }
+
+  //send digits to the display
+  Wire.beginTransmission(disp_add);
+  Wire.write(disp_digit_0);
+  for (int i = 0; i <= 4; ++i) {
+    Wire.write(digit_binary_array[i]);
+  }
+  Wire.endTransmission();
+  
+  }
+  return;
+
 }
 
+//led_write
+//simplt turns the info leds on and off
+//leds: name of led to turn on or off
+//led_on_off: weather to turn the led on or off
+void led_write (struct leds leds, enum led_on_off led_on_off) {
+  //init local vars
+  uint8_t current_regter_value = 0x0;
+  uint8_t value_to_write = 0x0;
+
+  //detirmine what digit of the diplay register the disired led is
+  //& read the respective didgit register
+  Wire.beginTransmission(disp_add);
+  if (leds.digit = 6) {
+    Wire.write(disp_digit_6);
+  }
+  else if (leds.digit = 7) {
+    Wire.write(disp_digit_7);
+  }
+  Wire.endTransmission();
+
+  Wire.requestFrom(disp_add, 1);
+  current_regter_value = Wire.read();
+  Wire.endTransmission();
+
+  //mask and set bits
+  if (led_on_off == on) {
+    value_to_write = current_regter_value | leds.mask;
+  } else if (led_on_off = off) {
+    value_to_write = current_regter_value ^ leds.mask;
+  } 
+
+  //write new value to registers
+  Wire.beginTransmission(disp_add);
+  if (leds.digit = 6) {
+    Wire.write(disp_digit_6);
+  } else if (leds.digit = 7) {
+    Wire.write(disp_digit_7);
+  }
+  Wire.write(value_to_write);
+  Wire.endTransmission();
+
+  
+  return;
+}

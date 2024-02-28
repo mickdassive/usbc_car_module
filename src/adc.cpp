@@ -18,7 +18,7 @@
 //Tokyo Andreana
 
 #include <Arduino.h>
-#include <wire.h>
+#include <Wire.h>
 #include "adc_defines.cpp"
 
 //initiates the self cal rutine on the adc and waits till its compltete and returns
@@ -454,6 +454,8 @@ void adc_threshold_set(enum adc_channel adc_channel, uint16_t high_th, uint16_t 
   Wire.write(chx_low_th);
   Wire.endTransmission();
 
+  return;
+
 }
 
 //adc_hysteresis_set
@@ -538,6 +540,8 @@ void adc_hysteresis_set(enum adc_channel adc_channel, uint8_t hysteresis_set) {
 
   Wire.write(chx_hysteresis);
   Wire.endTransmission();
+
+  return;
   
 }
 
@@ -657,6 +661,8 @@ void adc_event_clear(enum adc_channel adc_channel) {
   Wire.write(event_count_val);
   Wire.endTransmission();
   
+  return;
+
 }
 
 //adc_alert_read

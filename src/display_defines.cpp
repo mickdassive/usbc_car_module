@@ -67,52 +67,41 @@ const uint8_t disp_down = 0x80;
 const uint8_t disp_up_rst = 0x01;
 const uint8_t disp_up = 0x81;
 
+//display digits 
+const uint8_t disp_num_0 = 0b01111110;
+const uint8_t disp_num_1 = 0b00110000;
+const uint8_t disp_num_2 = 0b01101101;
+const uint8_t disp_num_3 = 0b01111001;
+const uint8_t disp_num_4 = 0b00110011;
+const uint8_t disp_num_5 = 0b01011011;
+const uint8_t disp_num_6 = 0b01011111;
+const uint8_t disp_num_7 = 0b01110000;
+const uint8_t disp_num_8 = 0b01111111;
+const uint8_t disp_num_9 = 0b01111011;
+const uint8_t disp_num_dp = 0b10000000;
+
 
 //led control defines
 
-enum led_location {
-  dig_7,
-  dig_6
-};
-
-enum led_names {
-  amps,
-  watts,
-  volts,
-  usb_c_back,
-  usb_c_front,
-  usb_a,
-  system_power,
-  watts_10,
-  watts_20,
-  watts_40,
-  watts_65,
-  watts_100
-};
-
-struct leds {
-  led_names name;
-  uint8_t mask;
-  led_location location;
-};
-
-struct leds amps {amps, 0x40, dig_7};
-struct leds watts {watts, 0x80, dig_7};
-struct leds volts {volts, 0x20, dig_7};
-struct leds usb_c_back {usb_c_back, 0x10, dig_7};
-struct leds usb_c_front {usb_c_front, 0x08, dig_7};
-struct leds usb_a {usb_a, 0x04, dig_7};
-struct leds system_power {system_power, 0x02, dig_7};
-struct leds watts_10 {watts_10, 0x80, dig_6};
-struct leds watts_20 {watts_20, 0x40, dig_6};
-struct leds watts_40 {watts_40, 0x20, dig_6};
-struct leds watts_65 {watts_65, 0x10, dig_6};
-struct leds watts_100 {watts_100, 0x08, dig_6};
-
-
-//led on/off enum
 enum led_on_off {
   on,
   off
 };
 
+struct leds {
+  uint8_t mask;
+  int digit;
+};
+
+struct leds watts {0x40, 7};
+struct leds amps {0x20, 7};
+struct leds volts {0x10, 7};
+struct leds back_usb_c_power {0x08, 7};
+struct leds front_usb_c_power {0x04, 7};
+struct leds usb_a_power {0x02};
+struct leds total_system_power {0x01, 7};
+struct leds watts_10 {0x40, 6};
+struct leds watts_20 {0x20, 6};
+struct leds watts_40 {0x10, 6};
+struct leds watts_65 {0x08, 6};
+struct leds watts_100 {0x04, 6};
