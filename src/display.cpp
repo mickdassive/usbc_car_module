@@ -17,14 +17,20 @@
 //15/09/2023
 //Tokyo Andreana
 
+#ifndef display_cpp
+#define display_cpp
+
 #include <Arduino.h>
 #include <Wire.h>
-#include <iostream>
+//#include <iostream>
 #include <string>
-#include "display_defines.cpp"
+#include "display_defines.h"
+//#include "disp_vars_test.cpp"
+
+uint8_t disp_intense_defult = 0xff;
 
 //display init function
-void disp_init() {
+static void disp_init() {
   //wake up display controler
   Wire.beginTransmission(disp_base_add);
   Wire.write(disp_shutdown);
@@ -65,7 +71,7 @@ void disp_init() {
 }
 
 //display balnk function just writes 0s to the first 4 digit registers but keeps the status leds
-void disp_blank() {
+static void disp_blank() {
   Wire.beginTransmission(disp_add);
   Wire.write(disp_digit_0);
   Wire.write(0x00);
@@ -78,7 +84,7 @@ void disp_blank() {
 
 //set disply brightness
 //desired_brightness: brightness of display from 0-255
-void disp_bright(uint8_t desired_brightness) {
+static void disp_bright(uint8_t desired_brightness) {
   Wire.beginTransmission(disp_add);
   Wire.write(disp_global_intensity);
   Wire.write(desired_brightness);
@@ -90,9 +96,9 @@ void disp_bright(uint8_t desired_brightness) {
 //disp_write
 //writes numbers to the 7 segment display
 //input: float or int input
-void disp_write(float input) {
+static void disp_write(float input) {
   //init local vars
-  int digit_binary_array[0];
+  int digit_binary_array[4];
   int digit_binary_array_dp = 0;
   
 
@@ -160,7 +166,7 @@ void disp_write(float input) {
   //send digits to the display
   Wire.beginTransmission(disp_add);
   Wire.write(disp_digit_0);
-  for (int i = 0; i <= 4; ++i) {
+  for (int i = 0; i < 4; ++i) {
     Wire.write(digit_binary_array[i]);
   }
   Wire.endTransmission();
@@ -174,7 +180,7 @@ void disp_write(float input) {
 //simplt turns the info leds on and off
 //leds: name of led to turn on or off
 //led_on_off: weather to turn the led on or off
-void led_write (struct leds leds, enum led_on_off led_on_off) {
+static void led_write (struct leds leds, enum led_on_off led_on_off) {
   //init local vars
   uint8_t current_regter_value = 0x0;
   uint8_t value_to_write = 0x0;
@@ -182,10 +188,10 @@ void led_write (struct leds leds, enum led_on_off led_on_off) {
   //detirmine what digit of the diplay register the disired led is
   //& read the respective didgit register
   Wire.beginTransmission(disp_add);
-  if (leds.digit = 6) {
+  if (leds.digit == 6) {
     Wire.write(disp_digit_6);
   }
-  else if (leds.digit = 7) {
+  else if (leds.digit == 7) {
     Wire.write(disp_digit_7);
   }
   Wire.endTransmission();
@@ -197,15 +203,15 @@ void led_write (struct leds leds, enum led_on_off led_on_off) {
   //mask and set bits
   if (led_on_off == on) {
     value_to_write = current_regter_value | leds.mask;
-  } else if (led_on_off = off) {
+  } else if (led_on_off == off) {
     value_to_write = current_regter_value ^ leds.mask;
   } 
 
   //write new value to registers
   Wire.beginTransmission(disp_add);
-  if (leds.digit = 6) {
+  if (leds.digit == 6) {
     Wire.write(disp_digit_6);
-  } else if (leds.digit = 7) {
+  } else if (leds.digit == 7) {
     Wire.write(disp_digit_7);
   }
   Wire.write(value_to_write);
@@ -214,3 +220,5 @@ void led_write (struct leds leds, enum led_on_off led_on_off) {
   
   return;
 }
+
+#endif // display_cpp

@@ -17,21 +17,28 @@
 //15/09/2023
 //Tokyo Andreana
 
+#ifndef main_cpp
+#define main_cpp
 
+/*
 extern "C" {
   #include "user_interface.h"
 }
-
+*/
 #include <Arduino.h>
 #include <Wire.h>
-#include <iostream>
-#include "defines.cpp"
+//#include <iostream>
+#include "main_defines.h"
 #include "adc.cpp"
-#include "adc_defines.cpp"
 #include "display.cpp"
-#include "display_defines.cpp"
 #include "pd_phy.cpp"
-#include "pd_phy_defines.cpp"
+
+
+extern void disp_init();
+extern void disp_blank();
+extern void disp_bright();
+extern void disp_wright();
+extern void led_write();
 
 //firmware version
 const char* firmware_version = "V 0.1";
@@ -384,3 +391,4 @@ void loop() {
 }
 
 
+#endif // main_cpp
