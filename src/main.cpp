@@ -30,6 +30,8 @@ extern "C" {
 #include "adc_defines.cpp"
 #include "display.cpp"
 #include "display_defines.cpp"
+#include "pd_phy.cpp"
+#include "pd_phy_defines.cpp"
 
 //firmware version
 const char* firmware_version = "V 0.1";
