@@ -199,4 +199,13 @@ enum adc_channel {
   ch7
 };
 
+//function defines 
+void adc_self_cal ();
+void adc_init (bool fast_mode);
+void adc_threshold_set(enum adc_channel adc_channel, uint16_t high_th, uint16_t low_th);
+void adc_hysteresis_set(enum adc_channel adc_channel, uint8_t hysteresis_set);
+int adc_event_count_read(enum adc_channel adc_channel);
+void adc_event_clear(enum adc_channel adc_channel);
+int adc_read(enum adc_channel adc_channel);
+
 #endif // adc_defines_h

@@ -23,7 +23,7 @@
 #include <Arduino.h>
 
 //display driver drightness var
-//uint8_t disp_intense_defult = 0xFF; //set this number in hex to set 7 segment display brightness
+const uint8_t disp_intense_defult = 0xFF; //set this number in hex to set 7 segment display brightness
 
 //display driver addres
 const uint8_t disp_base_add = 0x00;
@@ -108,6 +108,15 @@ static struct leds watts_20 {0x20, 6};
 static struct leds watts_40 {0x10, 6};
 static struct leds watts_65 {0x08, 6};
 static struct leds watts_100 {0x04, 6};
+
+//function defines 
+void disp_init();
+void disp_blank();
+void disp_bright(uint8_t desired_brightness);
+void disp_write(float input);
+void led_write (struct leds leds, enum led_on_off led_on_off);
+
+
 
 
 #endif // display_defines_h

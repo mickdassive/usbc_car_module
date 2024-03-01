@@ -22,10 +22,10 @@
 
 #include <Arduino.h>
 #include <Wire.h>
-#include "adc_defines.h"
+#include "adc.h"
 
 //initiates the self cal rutine on the adc and waits till its compltete and returns
-static void adc_self_cal () {
+void adc_self_cal () {
   //local vars
   bool cal_complete = false;
   uint8_t self_cal_mask = 0b0000010;
@@ -84,7 +84,7 @@ static void adc_self_cal () {
 
 //adc bootup init
 //fast_mode: when set to true the i2c bus will be jump up to fast mode speed when sending channel config data to the adc
-static void adc_init (bool fast_mode) {
+void adc_init (bool fast_mode) {
   //init local vars
   uint8_t ch0_hysteresis = 0b0;
   uint8_t ch0_high_threshold = 0b0;
@@ -330,7 +330,7 @@ static void adc_init (bool fast_mode) {
 //adc_channel: disired channel on adc to change threshold values
 //high_th: upper threshold vale to set (max 12 bit number)
 //low_th: lower threshold vale to set (max 12 bit number) 
-static void adc_threshold_set(enum adc_channel adc_channel, uint16_t high_th, uint16_t low_th) {
+void adc_threshold_set(enum adc_channel adc_channel, uint16_t high_th, uint16_t low_th) {
   //init local vars
   uint8_t chx_hysteresis = 0b0;
   uint8_t chx_high_th = 0b0;
@@ -465,7 +465,7 @@ static void adc_threshold_set(enum adc_channel adc_channel, uint16_t high_th, ui
 //sets adc channel hysteresis value
 //adc_channel: disired channel on adc to set hysteresis value 
 //hysteresis_set: value to set hysteresis for a given cnannel (4 bit number max)
-static void adc_hysteresis_set(enum adc_channel adc_channel, uint8_t hysteresis_set) {
+void adc_hysteresis_set(enum adc_channel adc_channel, uint8_t hysteresis_set) {
   //init local vars
   uint8_t curent_hysteresis_reg_val = 0x00;
   uint8_t chx_hysteresis = 0x00;
@@ -551,7 +551,7 @@ static void adc_hysteresis_set(enum adc_channel adc_channel, uint8_t hysteresis_
 //adc_event_count_read
 //read current event count for a given channel
 //adc_channel: disired channel on adc to read event count from
-static int adc_event_count_read(enum adc_channel adc_channel) {
+int adc_event_count_read(enum adc_channel adc_channel) {
   //init local vars 
   uint8_t chx_current_event_count = 0x00;
 
@@ -594,7 +594,7 @@ static int adc_event_count_read(enum adc_channel adc_channel) {
 //adc_event clear
 //resets event count for given channel 
 //adc_channel: disired channel on adc to reset event count on
-static void adc_event_clear(enum adc_channel adc_channel) {
+void adc_event_clear(enum adc_channel adc_channel) {
   //init local vars
   uint8_t event_count_val = 0x00;
 
@@ -676,7 +676,7 @@ static void adc_event_clear(enum adc_channel adc_channel) {
 
 //reads from the ADC returns value in 16bit ADC counts
 //adc_channel: select the desired channel to read from
-static int adc_read(enum adc_channel adc_channel) {
+int adc_read(enum adc_channel adc_channel) {
   //init local vars
   uint8_t read_byte_0 = 0b0;
   uint8_t read_byte_1 = 0b0;

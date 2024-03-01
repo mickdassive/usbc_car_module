@@ -22,15 +22,14 @@
 
 #include <Arduino.h>
 #include <Wire.h>
-//#include <iostream>
 #include <string>
-#include "display_defines.h"
-//#include "disp_vars_test.cpp"
+#include "display.h"
 
-uint8_t disp_intense_defult = 0xff;
+
+
 
 //display init function
-static void disp_init() {
+void disp_init() {
   //wake up display controler
   Wire.beginTransmission(disp_base_add);
   Wire.write(disp_shutdown);
@@ -71,7 +70,7 @@ static void disp_init() {
 }
 
 //display balnk function just writes 0s to the first 4 digit registers but keeps the status leds
-static void disp_blank() {
+void disp_blank() {
   Wire.beginTransmission(disp_add);
   Wire.write(disp_digit_0);
   Wire.write(0x00);
@@ -84,7 +83,7 @@ static void disp_blank() {
 
 //set disply brightness
 //desired_brightness: brightness of display from 0-255
-static void disp_bright(uint8_t desired_brightness) {
+void disp_bright(uint8_t desired_brightness) {
   Wire.beginTransmission(disp_add);
   Wire.write(disp_global_intensity);
   Wire.write(desired_brightness);
@@ -96,7 +95,7 @@ static void disp_bright(uint8_t desired_brightness) {
 //disp_write
 //writes numbers to the 7 segment display
 //input: float or int input
-static void disp_write(float input) {
+void disp_write(float input) {
   //init local vars
   int digit_binary_array[4];
   int digit_binary_array_dp = 0;
@@ -180,7 +179,7 @@ static void disp_write(float input) {
 //simplt turns the info leds on and off
 //leds: name of led to turn on or off
 //led_on_off: weather to turn the led on or off
-static void led_write (struct leds leds, enum led_on_off led_on_off) {
+void led_write (struct leds leds, enum led_on_off led_on_off) {
   //init local vars
   uint8_t current_regter_value = 0x0;
   uint8_t value_to_write = 0x0;
