@@ -67,7 +67,7 @@ void setup() {
   Serial.println("GPIO init complete");
 
   //begin scaning i2c bus for all devices
-  bus_scan();
+  //bus_scan();
   
   //bgegin init for ADC
   //adc_init(false);
@@ -82,7 +82,7 @@ void setup() {
   Serial.println("USB-hub init complete");
 
   //begin init for USB-PD PHYs
-  pd_phy_init();
+  //pd_phy_init();
   Serial.println("USB-PD PHY UFP&DFP init complete");
 
 

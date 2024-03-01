@@ -91,16 +91,36 @@ const uint16_t pd_phy_dflt_usbtypec_rev = 0x0012;
 const uint16_t pd_phy_dflt_pd_interface_rev = 0x2012;
 const uint16_t pd_phy_dflt_tptc_control = 0x007C;
 const uint16_t pd_phy_dflt_fault_control = 0x000F;
-const uint16_t pd_phy_dflt_power_control = 0x19;
-const uint16_t pd_phy_ufp_dflt_message_header_info = 0x0B;
-const uint16_t pd_phy_dfp_dflt_message_header_info = 0x0C;
+const uint16_t pd_phy_dflt_power_control = 0x0019;
+const uint16_t pd_phy_ufp_dflt_message_header_info = 0x000B;
+const uint16_t pd_phy_dfp_dflt_message_header_info = 0x000C;
 const uint16_t pd_phy_dflt_recive_detect = 0xFF;
 const uint16_t pd_phy_dflt_ext_gpio_config = 0x0002;
 const uint16_t pd_phy_dflt_ext_gpio_control = 0x0080;
 const uint16_t pd_phy_dflt_ext_gpio_alert_config = 0x0060;
-const uint16_t pd_phy_dflt_vconn_config = 0xFB;
+const uint16_t pd_phy_dflt_vconn_config = 0x00FB;
 const uint16_t pd_phy_dflt_vconn_fault_attemps = 0x0033;
+const uint16_t pd_phy_dflt_alert = 0x0000;
+const uint16_t pd_phy_ufp_dflt_role_control = 0x002D;
+const uint16_t pd_phy_dfp_dflt_role_control = 0x002A;
+const uint16_t pd_phy_dflt_device_capabilities_1 = 0xFE3F;
+const uint16_t pd_phy_dflt_device_capabilities_2 = 0x31DD;
 
+//phy commands
+const uint8_t pd_phy_comm_wake_i2c = 0x11;
+const uint8_t pd_phy_comm_disabel_vbus_detect = 0x22;
+const uint8_t pd_phy_comm_enable_vbus_detect = 0x33;
+const uint8_t pd_phy_comm_disable_sink_vbus = 0x44;
+const uint8_t pd_phy_comm_sink_vbus = 0x55;
+const uint8_t pd_phy_comm_disabel_source_vbus = 0x66;
+const uint8_t pd_phy_comm_source_vbus_defult_voltage = 0x77;
+const uint8_t pd_phy_comm_souce_vbus_high_voltage = 0x88;
+const uint8_t pd_phy_comm_look_4_connection = 0x99;
+const uint8_t pd_phy_comm_rx_one_more = 0xAA;
+const uint8_t pd_phy_comm_send_frs_swap_signal = 0xBB;
+const uint8_t pd_phy_comm_reset_transmit_buffer = 0xCC;
+const uint8_t pd_phy_comm_reset_receive_buffer = 0xDD;
+const uint8_t pd_phy_comm_i2c_idle = 0xEE;
 
 //pd control messages
 //usb-if docs page 131
@@ -414,8 +434,15 @@ extern int pd_phy_dfp_counter_hard_reset;
 extern int pd_phy_dfp_counter_message_id;
 extern int pd_phy_dfp_counter_retry;
 
+//ufp/dfp enum
+enum ufp_dfp {
+    dfp,
+    ufp
+};
+
 //fuction defines
-void pd_phy_init();
+void pd_phy_init ();
+void pd_send_looking_4_connection (enum ufp_dfp ufp_dfp);
 
 
 

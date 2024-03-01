@@ -187,116 +187,164 @@ unsigned long pd_phy_dfp_timer_start_time_vdm_wait_mode_exit = 0;
 
 
 void pd_phy_init() {
-//init local vars 
+    //init local vars 
 
-uint8_t current_port_addres = 0;
+    uint8_t current_port_addres = 0;
 
-for (int i; i < 2; ++i) {
-    //select port controller
-    if (i == 0){
-        current_port_addres = pd_phy_add_ufp;
-    } else if (i == 1) {
-        current_port_addres = pd_phy_add_dfp;
+    for (int i; i < 2; ++i) {
+        //select port controller
+        if (i == 0){
+            current_port_addres = pd_phy_add_ufp;
+        } else if (i == 1) {
+            current_port_addres = pd_phy_add_dfp;
+        }
+
+        //clear fults 
+        Wire.beginTransmission(current_port_addres);
+        Wire.write(pd_phy_reg_alert);
+        Wire.write(pd_phy_dflt_alert);
+        Wire.endTransmission();
+
+        //write vendor id
+        Wire.beginTransmission(current_port_addres);
+        Wire.write(pd_phy_reg_vendor_id);
+        Wire.write(pd_phy_dflt_vendor_id);
+        Wire.endTransmission();
+
+        //write product id
+        Wire.beginTransmission(current_port_addres);
+        Wire.write(pd_phy_reg_product_id);
+        Wire.write(pd_phy_dflt_product_id);
+        Wire.endTransmission();
+
+        //write device id
+        Wire.beginTransmission(current_port_addres);
+        Wire.write(pd_phy_reg_device_id);
+        Wire.write(pd_phy_dflt_device_id);
+        Wire.endTransmission();
+
+        //write usb type c revision
+        Wire.beginTransmission(current_port_addres);
+        Wire.write(pd_phy_reg_usbtypec_rev);
+        Wire.write(pd_phy_dflt_usbtypec_rev);
+        Wire.endTransmission();
+
+        //write pd interface rev
+        Wire.beginTransmission(current_port_addres);
+        Wire.write(pd_phy_reg_pd_interface_rev);
+        Wire.write(pd_phy_dflt_pd_interface_rev);
+        Wire.endTransmission();
+
+        //write tptc control
+        Wire.beginTransmission(current_port_addres);
+        Wire.write(pd_phy_reg_tcpc_control);
+        Wire.write(pd_phy_dflt_tptc_control);
+        Wire.endTransmission();
+
+        //write fault control
+        Wire.beginTransmission(current_port_addres);
+        Wire.write(pd_phy_reg_fault_control);
+        Wire.write(pd_phy_dflt_fault_control);
+        Wire.endTransmission();
+
+        //write power control
+        Wire.beginTransmission(current_port_addres);
+        Wire.write(pd_phy_reg_power_control);
+        Wire.write(pd_phy_dflt_power_control);
+        Wire.endTransmission();
+
+        //write headder info
+        Wire.beginTransmission(current_port_addres);
+        Wire.write(pd_phy_reg_message_headder_info);
+        if (i == 0){
+            Wire.write(pd_phy_ufp_dflt_message_header_info);
+        } else if (i ==1){
+            Wire.write(pd_phy_dfp_dflt_message_header_info);
+        }
+        Wire.endTransmission();
+
+        //write recive detect
+        Wire.beginTransmission(current_port_addres);
+        Wire.write(pd_phy_reg_recive_detect);
+        Wire.write(pd_phy_dflt_recive_detect);
+        Wire.endTransmission();
+
+        //write ext gpio config
+        Wire.beginTransmission(current_port_addres);
+        Wire.write(pd_phy_reg_ext_gpio_config);
+        Wire.write(pd_phy_dflt_ext_gpio_config);
+        Wire.endTransmission();
+
+        //write ext gpio control
+        Wire.beginTransmission(current_port_addres);
+        Wire.write(pd_phy_reg_ext_gpio_control);
+        Wire.write(pd_phy_dflt_ext_gpio_control);
+        Wire.endTransmission();
+
+        //write ext gpio alert config
+        Wire.beginTransmission(current_port_addres);
+        Wire.write(pd_phy_reg_ext_gpio_alert_config);
+        Wire.write(pd_phy_dflt_ext_gpio_alert_config);
+        Wire.endTransmission();
+
+        //write vconn config
+        Wire.beginTransmission(current_port_addres);
+        Wire.write(pd_phy_reg_vconn_config);
+        Wire.write(pd_phy_dflt_vconn_config);
+        Wire.endTransmission();
+
+        //write vconn fault attemps
+        Wire.beginTransmission(current_port_addres);
+        Wire.write(pd_phy_reg_vconn_fault_attempts);
+        Wire.write(pd_phy_dflt_vconn_fault_attemps);
+        Wire.endTransmission();
+
+        //write role control
+        Wire.beginTransmission(current_port_addres);
+        Wire.write(pd_phy_reg_role_control);
+        if (i == 0){
+            Wire.write(pd_phy_ufp_dflt_role_control);
+        } else if (i ==1){
+            Wire.write(pd_phy_dfp_dflt_role_control);
+        }
+        Wire.endTransmission();
+
+        //write device capabilities
+        Wire.beginTransmission(current_port_addres);
+        Wire.write(pd_phy_reg_device_capabilities_1);
+        Wire.write(pd_phy_dflt_device_capabilities_1);
+        Wire.endTransmission();
+        Wire.beginTransmission(current_port_addres);
+        Wire.write(pd_phy_reg_device_capabilities_2);
+        Wire.write(pd_phy_dflt_device_capabilities_2);
+        Wire.endTransmission();
+
+
     }
 
-    //write vendor id
-    Wire.beginTransmission(current_port_addres);
-    Wire.write(pd_phy_reg_vendor_id);
-    Wire.write(pd_phy_dflt_vendor_id);
-    Wire.endTransmission();
+    return;
 
-    //write product id
-    Wire.beginTransmission(current_port_addres);
-    Wire.write(pd_phy_reg_product_id);
-    Wire.write(pd_phy_dflt_product_id);
-    Wire.endTransmission();
+}
 
-    //write device id
-    Wire.beginTransmission(current_port_addres);
-    Wire.write(pd_phy_reg_device_id);
-    Wire.write(pd_phy_dflt_device_id);
-    Wire.endTransmission();
 
-    //write usb type c revision
-    Wire.beginTransmission(current_port_addres);
-    Wire.write(pd_phy_reg_usbtypec_rev);
-    Wire.write(pd_phy_dflt_usbtypec_rev);
-    Wire.endTransmission();
-
-    //write pd interface rev
-    Wire.beginTransmission(current_port_addres);
-    Wire.write(pd_phy_reg_pd_interface_rev);
-    Wire.write(pd_phy_dflt_pd_interface_rev);
-    Wire.endTransmission();
-
-    //write tptc control
-    Wire.beginTransmission(current_port_addres);
-    Wire.write(pd_phy_reg_tcpc_control);
-    Wire.write(pd_phy_dflt_tptc_control);
-    Wire.endTransmission();
-
-    //write fault control
-    Wire.beginTransmission(current_port_addres);
-    Wire.write(pd_phy_reg_fault_control);
-    Wire.write(pd_phy_dflt_fault_control);
-    Wire.endTransmission();
-
-    //write power control
-    Wire.beginTransmission(current_port_addres);
-    Wire.write(pd_phy_reg_power_control);
-    Wire.write(pd_phy_dflt_power_control);
-    Wire.endTransmission();
-
-    //write headder info
-    Wire.beginTransmission(current_port_addres);
-    Wire.write(pd_phy_reg_message_headder_info);
-    if (i == 0){
-        Wire.write(pd_phy_ufp_dflt_message_header_info);
-    } else if (i ==1){
-        Wire.write(pd_phy_dfp_dflt_message_header_info);
+//pd_send_looking_4_connection
+//sends looking 4 connection command to port controler 
+//ufp_dfp: select port to sent command to
+void pd_send_looking_4_connection (enum ufp_dfp ufp_dfp) {
+    //send looking for connection command
+    if (ufp_dfp == ufp) {
+        Wire.beginTransmission(pd_phy_add_ufp);
+    } else if (ufp_dfp == dfp) {
+        Wire.beginTransmission(pd_phy_add_dfp);
     }
+    Wire.write(pd_phy_reg_command);
+    Wire.write(pd_phy_comm_look_4_connection);
     Wire.endTransmission();
 
-    //write recive detect
-    Wire.beginTransmission(current_port_addres);
-    Wire.write(pd_phy_reg_recive_detect);
-    Wire.write(pd_phy_dflt_recive_detect);
-    Wire.endTransmission();
-
-    //write ext gpio config
-    Wire.beginTransmission(current_port_addres);
-    Wire.write(pd_phy_reg_ext_gpio_config);
-    Wire.write(pd_phy_dflt_ext_gpio_config);
-    Wire.endTransmission();
-
-    //write ext gpio control
-    Wire.beginTransmission(current_port_addres);
-    Wire.write(pd_phy_reg_ext_gpio_control);
-    Wire.write(pd_phy_dflt_ext_gpio_control);
-    Wire.endTransmission();
-
-    //write ext gpio alert config
-    Wire.beginTransmission(current_port_addres);
-    Wire.write(pd_phy_reg_ext_gpio_alert_config);
-    Wire.write(pd_phy_dflt_ext_gpio_alert_config);
-    Wire.endTransmission();
-
-    //write vconn config
-    Wire.beginTransmission(current_port_addres);
-    Wire.write(pd_phy_reg_vconn_config);
-    Wire.write(pd_phy_dflt_vconn_config);
-    Wire.endTransmission();
-
-    //write vconn fault attemps
-    Wire.beginTransmission(current_port_addres);
-    Wire.write(pd_phy_reg_vconn_fault_attempts);
-    Wire.write(pd_phy_dflt_vconn_fault_attemps);
-    Wire.endTransmission();
+    return;
 }
 
-return;
-
-}
+laert
 
 
 #endif // dp_phy_cpp

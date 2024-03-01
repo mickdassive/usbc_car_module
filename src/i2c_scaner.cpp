@@ -36,7 +36,7 @@ void bus_scan() {
     int devices_found = 0;
     byte error, i;
 
-    Serial.println("begin scaning for all i2c devices...");
+    Serial.println("Begin scaning for all i2c devices...");
 
     for (int i; i < 127; ++i) {
         Wire.beginTransmission(i);

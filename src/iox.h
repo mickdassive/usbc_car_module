@@ -78,7 +78,7 @@ static struct pin can_tx {0x00, 0, 0, 13, out, true, false};
 static struct pin can_silent {0x02, 0, 0, 5, out, false, false};
 static struct pin iox_0_int {0x00, 0, 1, 14, intr, true, true};
 static struct pin iox_1_int {0x01, 0, 0, 4, in, false, true};
-static struct pin pgood_21V {0x40, 1, 1, 19, in, false, false};
+static struct pin dfp_cc_orient {0x40, 1, 1, 19, out, false, false};
 static struct pin b_usbc_pgood {0x20, 0, 1, 9, in, false, true};
 static struct pin b_usbc_buck_en {0x01, 1, 1, 13, out, false, false};
 static struct pin b_usbc_5V_sel {0x02, 1, 1, 14, out, false, false};
@@ -105,9 +105,9 @@ static struct pin iox_0_p_0_0 {0X08, 0, 0, 7, in, false, false};
 static struct pin iox_0_p_0_1 {0X04, 0, 0, 6, in, false, false};
 static struct pin ufp_dbgacc {0x08, 1, 0, 16, in, false, false};
 static struct pin dfp_dbgacc {0x04, 1, 0, 15, in, false, false};
-static struct pin tp16 {0x02, 1, 0, 14, in, false, false};
-static struct pin tp17 {0x01, 1, 0, 13, in, false, false};
-static struct pin tp18 {0x10, 0, 0, 8, in, false, false};
+static struct pin ufp_alert_n {0x02, 1, 0, 14, in, false, true};
+static struct pin dfp_alert_n {0x01, 1, 0, 13, in, false, true};
+static struct pin ufp_cc_orient {0x10, 0, 0, 8, out, false, false};
 
 
 //io_call pin struct names for auto pin init

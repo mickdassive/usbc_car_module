@@ -666,6 +666,7 @@
     (uuid fff0265f-89a9-4eac-845d-3d99d4d15639)
   )
 
+  (no_connect (at 120.65 113.03) (uuid 194530da-8b8b-43f9-8990-0274d6537e56))
   (no_connect (at 120.65 116.84) (uuid 9eeea101-bee6-4d49-a84f-dff50d298ad0))
 
   (wire (pts (xy 100.33 144.78) (xy 100.33 146.05))
@@ -1652,13 +1653,6 @@
     (uuid a595da43-1bc1-431b-9dcb-0eb4064a5ae0)
     (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 243.7825 107.95 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
-    )
-  )
-  (global_label "21V_PGOOD" (shape input) (at 120.65 113.03 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid e7f114c6-faea-4afa-aa78-c3e3869a622a)
-    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 106.798 113.03 0)
-      (effects (font (size 1.27 1.27)) (justify right) hide)
     )
   )
   (global_label "21V_COMP" (shape input) (at 120.65 101.6 180) (fields_autoplaced)
