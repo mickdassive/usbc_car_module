@@ -25,6 +25,82 @@
 //phy address and register defines
 const uint8_t pd_phy_add_ufp = 0xE4;
 const uint8_t pd_phy_add_dfp = 0xE0;
+const uint8_t pd_phy_reg_vendor_id = 0x00;
+const uint8_t pd_phy_reg_product_id = 0x02;
+const uint8_t pd_phy_reg_device_id = 0x04;
+const uint8_t pd_phy_reg_usbtypec_rev = 0x06;
+const uint8_t pd_phy_reg_usbpd_rev_ver = 0x08;
+const uint8_t pd_phy_reg_pd_interface_rev = 0x0A;
+const uint8_t pd_phy_reg_alert = 0x10;
+const uint8_t pd_phy_reg_alert_mask = 0x12;
+const uint8_t pd_phy_reg_power_status_mask = 0x14;
+const uint8_t pd_phy_reg_fault_status_mask = 0x15;
+const uint8_t pd_phy_reg_extended_status_mask = 0x16;
+const uint8_t pd_phy_reg_alert_extened_mask = 0x17;
+const uint8_t pd_phy_reg_configure_standard_output = 0x18;
+const uint8_t pd_phy_reg_tcpc_control = 0x19;
+const uint8_t pd_phy_reg_role_control = 0x1A;
+const uint8_t pd_phy_reg_fault_control = 0x1B;
+const uint8_t pd_phy_reg_power_control = 0x1C;
+const uint8_t pd_phy_reg_cc_status = 0x1D;
+const uint8_t pd_phy_reg_power_status = 0x1E;
+const uint8_t pd_phy_reg_fault_status = 0x1F;
+const uint8_t pd_phy_reg_extended_status = 0x20;
+const uint8_t pd_phy_reg_alert_extended = 0x21;
+const uint8_t pd_phy_reg_command = 0x23;
+const uint8_t pd_phy_reg_device_capabilities_1 = 0x24;
+const uint8_t pd_phy_reg_device_capabilities_2 = 0x26;
+const uint8_t pd_phy_reg_standard_input_capailities = 0x28;
+const uint8_t pd_phy_reg_standard_output_capailities = 0x29;
+const uint8_t pd_phy_reg_configure_extended_1 = 0x2A;
+const uint8_t pd_phy_reg_genreic_timers = 0x2C;
+const uint8_t pd_phy_reg_message_headder_info = 0x2E;
+const uint8_t pd_phy_reg_recive_detect = 0x2F;
+const uint8_t pd_phy_reg_readael_byte_count = 0x30;
+const uint8_t pd_phy_reg_transmit = 0x50;
+const uint8_t pd_phy_reg_i2c_write_byte_count = 0x51;
+const uint8_t pd_phy_reg_vbus_voltage = 0x70;
+const uint8_t pd_phy_reg_vbus_sink_disconnect_threshold = 0x72;
+const uint8_t pd_phy_reg_vbus_stop_discharge_disconnect_threshold = 0x74;
+const uint8_t pd_phy_reg_vbus_voltage_alarm_hi_cfg = 0x76;
+const uint8_t pd_phy_reg_vbus_voltage_alarm_lo_cfg = 0x78;
+const uint8_t pd_phy_reg_vbus_hv_traget = 0x7A;
+const uint8_t pd_phy_reg_ext_cfg_target = 0x80;
+const uint8_t pd_phy_reg_ext_alert = 0x82;
+const uint8_t pd_phy_reg_ext_alert_mask = 0x84;
+const uint8_t pd_phy_reg_ext_fault_config = 0x88;
+const uint8_t pd_phy_reg_ext_control = 0x8E;
+const uint8_t pd_phy_reg_ext_status = 0x90;
+const uint8_t pd_phy_reg_ext_gpio_config = 0x92;
+const uint8_t pd_phy_reg_ext_gpio_control = 0x93;
+const uint8_t pd_phy_reg_ext_gpio_alert_config = 0x94;
+const uint8_t pd_phy_reg_ext_gpio_status = 0x96;
+const uint8_t pd_phy_reg_source_high_voltage_mb4b_time = 0x97;
+const uint8_t pd_phy_reg_adc_filter_control_1 = 0x9A;
+const uint8_t pd_phy_reg_adc_filter_control_2 = 0x9B;
+const uint8_t pd_phy_reg_vconn_config = 0x9C;
+const uint8_t pd_phy_reg_vconn_fault_debounce = 0x9D;
+const uint8_t pd_phy_reg_vconn_fault_recovery = 0x9E;
+const uint8_t pd_phy_reg_vconn_fault_attempts = 0x9F;
+
+//defult pd phy values
+const uint16_t pd_phy_dflt_vendor_id = 8137;
+const uint16_t pd_phy_dflt_product_id = 0;
+const uint16_t pd_phy_dflt_device_id = 0;
+const uint16_t pd_phy_dflt_usbtypec_rev = 0x0012;
+const uint16_t pd_phy_dflt_pd_interface_rev = 0x2012;
+const uint16_t pd_phy_dflt_tptc_control = 0x007C;
+const uint16_t pd_phy_dflt_fault_control = 0x000F;
+const uint16_t pd_phy_dflt_power_control = 0x19;
+const uint16_t pd_phy_ufp_dflt_message_header_info = 0x0B;
+const uint16_t pd_phy_dfp_dflt_message_header_info = 0x0C;
+const uint16_t pd_phy_dflt_recive_detect = 0xFF;
+const uint16_t pd_phy_dflt_ext_gpio_config = 0x0002;
+const uint16_t pd_phy_dflt_ext_gpio_control = 0x0080;
+const uint16_t pd_phy_dflt_ext_gpio_alert_config = 0x0060;
+const uint16_t pd_phy_dflt_vconn_config = 0xFB;
+const uint16_t pd_phy_dflt_vconn_fault_attemps = 0x0033;
+
 
 //pd control messages
 //usb-if docs page 131
@@ -338,7 +414,8 @@ extern int pd_phy_dfp_counter_hard_reset;
 extern int pd_phy_dfp_counter_message_id;
 extern int pd_phy_dfp_counter_retry;
 
-
+//fuction defines
+void pd_phy_init();
 
 
 

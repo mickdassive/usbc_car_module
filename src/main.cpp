@@ -32,6 +32,7 @@ extern "C" {
 #include "display.h"
 #include "pd_phy.h"
 #include "iox.h"
+#include "i2c_scanner.h"
 
 
 //firmware version
@@ -65,6 +66,9 @@ void setup() {
   gpio_init();
   Serial.println("GPIO init complete");
 
+  //begin scaning i2c bus for all devices
+  bus_scan();
+  
   //bgegin init for ADC
   //adc_init(false);
   Serial.println("ADC init and self cal complete");
@@ -78,7 +82,7 @@ void setup() {
   Serial.println("USB-hub init complete");
 
   //begin init for USB-PD PHYs
-
+  pd_phy_init();
   Serial.println("USB-PD PHY UFP&DFP init complete");
 
 
