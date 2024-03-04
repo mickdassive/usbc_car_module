@@ -34,7 +34,7 @@ uint8_t iox_1_port_1_interrupt = 0xFF;
 //reads current pin state of the io expander outputs
 //port: port of iox to read
 //iox_num: number of iox to read from
-uint8_t read_current_io_state(int port, int iox_num) {
+uint8_t io_read_current_io_state(int port, int iox_num) {
   uint8_t iox_address = (iox_num == 0) ? iox_0_add : iox_1_add;
   uint8_t iox_output_register = (port == 0) ? iox_output_port_0 : iox_output_port_1;
 
@@ -79,7 +79,7 @@ int io_call(struct pin pin_needed, enum read_write read_write, enum high_low hig
     if (read_write == write) {  //chek to see if we are writeing the the ioxepander
 
       //int local varibels
-      uint8_t current = read_current_io_state(pin_needed.port, pin_needed.iox_number); //read and store the current state of the output register of the the given pin
+      uint8_t current = io_read_current_io_state(pin_needed.port, pin_needed.iox_number); //read and store the current state of the output register of the the given pin
       uint8_t output = 0b00000000;
       uint8_t mask_not = ~pin_needed.mask;
 
@@ -160,7 +160,7 @@ int io_call(struct pin pin_needed, enum read_write read_write, enum high_low hig
 }
 
 //GPIO pin auto init for both iox and onborad pins
-void gpio_init() {
+void io_gpio_init() {
 
   //init vars
   uint8_t iox_0_port_0_pinmode = 0x00;

@@ -31,6 +31,8 @@ extern "C" {
 #include "adc.h"
 #include "display.h"
 #include "pd/pd_phy.h"
+#include "pd/pd_power_cont.h"
+#include "pd/pd_prot.h"
 #include "io.h"
 #include "i2c_scanner.h"
 
@@ -63,7 +65,7 @@ void setup() {
   Serial.println("I2c strated");
 
   //begin GPIO inits for on and offboard 
-  gpio_init();
+  io_gpio_init();
   Serial.println("GPIO init complete");
 
   //begin scaning i2c bus for all devices
@@ -87,8 +89,13 @@ void setup() {
 
 
   //begin USB-PD power supply check 
-
-  Serial.println("UFP&DFP voltage outputs within safe range");
+  Serial.println("Begin PSU self chek");
+  if (pd_power_cont_self_check()) {
+    Serial.println("UFP&DFP voltage outputs within safe range");
+  } else {
+    Serial.println("PSU self check failed");
+  }
+  
 
   
 }

@@ -26,6 +26,7 @@
 void pd_power_cont_return_to_base_state (enum ufp_dfp ufp_dfp);
 void pd_power_cont_en_vsafe5v (enum ufp_dfp ufp_dfp);
 bool pd_power_cont_pgood (enum ufp_dfp ufp_dfp, int voltage);
+bool pd_power_cont_self_check ();
 
 
 

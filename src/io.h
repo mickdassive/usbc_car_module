@@ -174,9 +174,9 @@ uint8_t iox_1_port_0_interrupt;
 uint8_t iox_1_port_1_interrupt;
 
 //fuction defines
-uint8_t read_current_io_state(int port, int iox_num);
+uint8_t io)read_current_io_state(int port, int iox_num);
 int io_call(struct pin pin_needed, enum read_write read_write, enum high_low high_low);
-void gpio_init();
+void io_gpio_init();
 struct pin io_determine_intrupt_source();
 
 

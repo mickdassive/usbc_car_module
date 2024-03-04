@@ -179,7 +179,7 @@ void disp_write(float input) {
 //simplt turns the info leds on and off
 //leds: name of led to turn on or off
 //led_on_off: weather to turn the led on or off
-void led_write (struct leds leds, enum led_on_off led_on_off) {
+void disp_led_write (struct leds leds, enum led_on_off led_on_off) {
   //init local vars
   uint8_t current_regter_value = 0x0;
   uint8_t value_to_write = 0x0;

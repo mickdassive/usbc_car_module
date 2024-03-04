@@ -84,8 +84,10 @@ void pd_power_cont_en_vsafe5v (enum ufp_dfp ufp_dfp) {
 }
 
 //pd_power_cont_pgood determines if the current voltage for a given port is within 10% of what it shold be
-//ufp_dfp: slecet pert to read voltage from
+//ufp_dfp: select port to read voltage from
 //voltage: voltage that we are cheking for
+//true = voltage good & within range
+//false = voltage more than 10% out 
 bool pd_power_cont_pgood (enum ufp_dfp ufp_dfp, int voltage) {
     //init local vars 
     int upper_valid_value = 0;
@@ -120,6 +122,107 @@ bool pd_power_cont_pgood (enum ufp_dfp ufp_dfp, int voltage) {
 
 }
 
+
+//full voltage range check
+//true = passed
+//false = failed
+bool pd_power_cont_self_check () {
+    //init local vars
+    int n_tests_passed = 0;
+
+    io_call(f_usbc_5V_sel, write, high);
+    io_call(f_usbc_buck_en, write, high);
+    delay (100);
+    if (pd_power_cont_pgood(dfp, 5)) {
+        ++n_tests_passed;
+    }
+    io_call(f_usbc_buck_en, write, low);
+    io_call(f_usbc_5V_sel, write, low);
+    io_call(f_usbc_9V_sel, write, high);
+    io_call(f_usbc_buck_en, write, high);
+    delay (100);
+    if (pd_power_cont_pgood(dfp, 9)) {
+        ++n_tests_passed;
+    }
+    io_call(f_usbc_buck_en, write, low);
+    io_call(f_usbc_9V_sel, write, low);
+    io_call(f_usbc_12V_sel, write, high);
+    io_call(f_usbc_buck_en, write, high);
+    delay (100);
+    if (pd_power_cont_pgood(dfp, 12)) {
+        ++n_tests_passed;
+    }
+    io_call(f_usbc_buck_en, write, low);
+    io_call(f_usbc_12V_sel, write, low);
+    io_call(f_usbc_15V_sel, write, high);
+    io_call(f_usbc_buck_en, write, high);
+    delay (100);
+    if (pd_power_cont_pgood(dfp, 15)) {
+        ++n_tests_passed;
+    }
+    io_call(f_usbc_buck_en, write, low);
+    io_call(f_usbc_15V_sel, write, low);
+    io_call(f_usbc_20V_sel, write, high);
+    io_call(f_usbc_buck_en, write, high);
+    delay (100);
+    if (pd_power_cont_pgood(dfp, 20)) {
+        ++n_tests_passed;
+    }
+    io_call(f_usbc_buck_en, write, low);
+    io_call(f_usbc_20V_sel, write, low);
+    io_call(b_usbc_5V_sel, write, high);
+    io_call(b_usbc_buck_en, write, high);
+    delay (100);
+    if (pd_power_cont_pgood(dfp, 5)) {
+        ++n_tests_passed;
+    }
+    io_call(b_usbc_buck_en, write, low);
+    io_call(b_usbc_5V_sel, write, low);
+    io_call(b_usbc_9V_sel, write, high);
+    io_call(b_usbc_buck_en, write, high);
+    delay (100);
+    if (pd_power_cont_pgood(ufp, 9)) {
+        ++n_tests_passed;
+    }
+    io_call(b_usbc_buck_en, write, low);
+    io_call(b_usbc_9V_sel, write, low);
+    io_call(b_usbc_12V_sel, write, high);
+    io_call(b_usbc_buck_en, write, high);
+    delay (100);
+    if (pd_power_cont_pgood(ufp, 12)) {
+        ++n_tests_passed;
+    }
+    io_call(b_usbc_buck_en, write, low);
+    io_call(b_usbc_12V_sel, write, low);
+    io_call(b_usbc_15V_sel, write, high);
+    io_call(b_usbc_buck_en, write, high);
+    delay (100);
+    if (pd_power_cont_pgood(ufp, 15)) {
+        ++n_tests_passed;
+    }
+    io_call(b_usbc_buck_en, write, low);
+    io_call(b_usbc_15V_sel, write, low);
+    io_call(b_usbc_20V_sel, write, high);
+    io_call(b_usbc_buck_en, write, high);
+    delay (100);
+    if (pd_power_cont_pgood(ufp, 20)) {
+        ++n_tests_passed;
+    }
+    io_call(b_usbc_buck_en, write, low);
+    io_call(b_usbc_20V_sel, write, low);
+
+    pd_power_cont_return_to_base_state(ufp);
+    pd_power_cont_return_to_base_state(dfp);
+
+    //return test results
+    if (n_tests_passed == 10) {
+        return true;
+    } else {
+        return false;
+    }
+
+    
+}
 
 
 #endif // pd_power_cont_cpp

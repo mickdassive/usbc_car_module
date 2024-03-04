@@ -114,7 +114,7 @@ void disp_init();
 void disp_blank();
 void disp_bright(uint8_t desired_brightness);
 void disp_write(float input);
-void led_write (struct leds leds, enum led_on_off led_on_off);
+void disp_led_write (struct leds leds, enum led_on_off led_on_off);
 
 
 
