@@ -25,8 +25,8 @@
 #include "i2c_scanner.h"
 #include "adc.h"
 #include "display.h"
-#include "iox.h"
-#include "pd_phy.h"
+#include "io.h"
+#include "pd/pd_phy.h"
 
 uint8_t hub_placeholder = 0;
 

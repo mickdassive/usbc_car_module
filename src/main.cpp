@@ -30,8 +30,8 @@ extern "C" {
 #include "main_defines.h"
 #include "adc.h"
 #include "display.h"
-#include "pd_phy.h"
-#include "iox.h"
+#include "pd/pd_phy.h"
+#include "io.h"
 #include "i2c_scanner.h"
 
 

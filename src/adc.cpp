@@ -678,9 +678,7 @@ void adc_event_clear(enum adc_channel adc_channel) {
 //adc_channel: select the desired channel to read from
 int adc_read(enum adc_channel adc_channel) {
   //init local vars
-  uint8_t read_byte_0 = 0b0;
-  uint8_t read_byte_1 = 0b0;
-  uint16_t output = 0b0;
+  uint16_t read_word = 0x0000;
 
   //begin read
   Wire.beginTransmission(adc_add);
@@ -716,13 +714,10 @@ int adc_read(enum adc_channel adc_channel) {
   Wire.endTransmission();
 
   Wire.requestFrom(adc_add, 2);
-  read_byte_0 = Wire.read();
-  read_byte_1 = Wire.read();
+  read_word = Wire.read();
   Wire.endTransmission();
 
-  output = (int16_t)((read_byte_0 << 8) | read_byte_1);
-
-  return output;
+  return read_word;
 
 }
 
