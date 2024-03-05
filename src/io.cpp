@@ -1,5 +1,5 @@
 //{usbc car module}
-//{defines.cpp}
+//{io.cpp}
 //Copyright (C) {2023}  {mickmake}
 //
 //This program is free software: you can redistribute it and/or modify
@@ -213,6 +213,9 @@ void io_gpio_init() {
        // attachInterrupt(digitalPinToInterrupt(pin_names[i]->pin_number), ioISR, FALLING);
       }      
       break;
+    case empty_pin:
+      //do nothing
+      break;
     }  
 
     // setup the interrupt masks for the io expanders
@@ -316,6 +319,35 @@ void io_gpio_init() {
 };
 
 
+//de assert intrupt from the iox's 
+void io_deaseert_iox_int () {
+  
+  Wire.beginTransmission(iox_0_add);
+  Wire.write(iox_int_mask_register_0);
+  Wire.write(0xFF);
+  Wire.write(0xFF);
+  Wire.endTransmission();
+
+  Wire.beginTransmission(iox_1_add);
+  Wire.write(iox_int_mask_register_0);
+  Wire.write(0xFF);
+  Wire.write(0xFF);
+  Wire.endTransmission();
+
+  Wire.beginTransmission(iox_0_add);
+  Wire.write(iox_int_mask_register_0);
+  Wire.write(iox_0_port_0_interrupt);
+  Wire.write(iox_0_port_1_interrupt);
+  Wire.endTransmission();
+
+  Wire.beginTransmission(iox_1_add);
+  Wire.write(iox_int_mask_register_0);
+  Wire.write(iox_1_port_0_interrupt);
+  Wire.write(iox_1_port_1_interrupt);
+  Wire.endTransmission();
+}
+
+
 //io_determine_intrupt_source
 //determines the souce of an intrupt
 //returns souce of intrupt from the pin struct
@@ -348,54 +380,39 @@ struct pin io_determine_intrupt_source() {
 
     //determine if iterupt came from adc or f/b pgood
     if ((iox_1_int_reg_1_value & adc_alert.mask) != 0) {
+      io_deaseert_iox_int();
       return adc_alert;
     } else if ((iox_1_int_reg_0_value & f_usbc_pgood.mask) != 0) {
+      io_deaseert_iox_int();
       return f_usbc_pgood;
     } else if ((iox_1_int_reg_0_value & b_usbc_pgood.mask) != 0) {
+      io_deaseert_iox_int();
       return b_usbc_pgood;
     }
   }
 
   //determine if intertrupt came from source btn, unit btn, mode btn, display, or ufp/dfp pd phy alert
   if ((iox_0_int_reg_1_value & src_btn.mask) != 0) {
+    io_deaseert_iox_int();
     return src_btn;
   } else if ((iox_0_int_reg_1_value & unit_btn.mask) != 0) {
+    io_deaseert_iox_int();
     return unit_btn;
   } else if ((iox_0_int_reg_1_value & mode_btn.mask) != 0) {
+    io_deaseert_iox_int();
     return mode_btn;
   } else if ((iox_0_int_reg_1_value & disp_irq.mask) != 0) {
+    io_deaseert_iox_int();
     return disp_irq;
   } else if ((iox_0_int_reg_1_value & ufp_alert_n.mask) != 0) {
+    io_deaseert_iox_int();
     return ufp_alert_n;
   } else if ((iox_0_int_reg_1_value & dfp_alert_n.mask) != 0) {
+    io_deaseert_iox_int();
     return dfp_alert_n;
   }
 
-
-  //de assert intrupt from iox 
-  Wire.beginTransmission(iox_0_add);
-  Wire.write(iox_int_mask_register_0);
-  Wire.write(0xFF);
-  Wire.write(0xFF);
-  Wire.endTransmission();
-
-  Wire.beginTransmission(iox_1_add);
-  Wire.write(iox_int_mask_register_0);
-  Wire.write(0xFF);
-  Wire.write(0xFF);
-  Wire.endTransmission();
-
-  Wire.beginTransmission(iox_0_add);
-  Wire.write(iox_int_mask_register_0);
-  Wire.write(iox_0_port_0_interrupt);
-  Wire.write(iox_0_port_1_interrupt);
-  Wire.endTransmission();
-
-  Wire.beginTransmission(iox_1_add);
-  Wire.write(iox_int_mask_register_0);
-  Wire.write(iox_1_port_0_interrupt);
-  Wire.write(iox_1_port_1_interrupt);
-  Wire.endTransmission();
+  return empty_struct_pin;
 
 };
 

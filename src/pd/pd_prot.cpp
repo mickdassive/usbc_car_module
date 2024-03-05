@@ -1,5 +1,5 @@
 //{usbc car module}
-//{main.cpp}
+//{pd_prot.cpp}
 //Copyright (C) {2023}  {mickmake}
 //
 //This program is free software: you can redistribute it and/or modify
@@ -186,7 +186,7 @@ unsigned long pd_prot_dfp_timer_start_time_vdm_wait_mode_exit = 0;
 
 
 void pd_prot_negotiate_power (enum ufp_dfp) {
-    
+
 }
 
 

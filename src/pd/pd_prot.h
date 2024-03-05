@@ -1,5 +1,5 @@
 //{usbc car module}
-//{main.cpp}
+//{pd_prot.h}
 //Copyright (C) {2023}  {mickmake}
 //
 //This program is free software: you can redistribute it and/or modify

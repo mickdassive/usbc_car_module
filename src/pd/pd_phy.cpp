@@ -1,5 +1,5 @@
 //{usbc car module}
-//{main.cpp}
+//{pd_phy.cpp}
 //Copyright (C) {2023}  {mickmake}
 //
 //This program is free software: you can redistribute it and/or modify
@@ -28,12 +28,12 @@
 
 
 //plug orientaion vars
-extern int ufp_plug_orientaion = 0;
-extern int dfp_plug_orientaion = 0;
+int ufp_plug_orientaion = 0;
+int dfp_plug_orientaion = 0;
 
 //port attach status
-extern bool ufp_attached = false;
-extern bool dfp_attached = false;
+bool ufp_attached = false;
+bool dfp_attached = false;
 
 
 
@@ -126,7 +126,7 @@ void pd_phy_init() {
         Wire.write(pd_phy_reg_role_control);
         if (i == 0){
             Wire.write(pd_phy_ufp_dflt_role_control);
-        } else if (i ==1){
+        } else if (i == 1){
             Wire.write(pd_phy_dfp_dflt_role_control);
         }
         Wire.endTransmission();
@@ -231,7 +231,7 @@ enum pd_phy_alert_type pd_phy_determine_alert_type (enum ufp_dfp ufp_dfp) {
     Wire.endTransmission();
     
     //determine and return intrupt type 
-    if ((current_alert_reg_value & 0x800) != 0) {
+    if ((current_alert_reg_value & 0x8000) != 0) {
         pd_phy_clear_alert(ufp_dfp);
         return vendor_defined_extended;
     } else if ((current_alert_reg_value & 0x4000) != 0) {
@@ -338,9 +338,10 @@ enum pd_phy_alert_type pd_phy_determine_alert_type (enum ufp_dfp ufp_dfp) {
         //pd_phy_clear_alert(ufp_dfp);
         return cc_status_alert;
     }
+    return empty;
 }
 
-//once a plug attach event is detected complete the cinnection eqwince
+//once a plug attach event is detected complete the conection
 //ufp_dfp: select port to complete the attach seqwice
 void pd_phy_complite_attach (enum ufp_dfp ufp_dfp) {
     //init local vars 
@@ -439,8 +440,8 @@ void pd_phy_complite_attach (enum ufp_dfp ufp_dfp) {
     
 }
 
-
-
+//once a plug detatch event is detected complete the disconnect
+//ufp_dfp: select port to complete the attach seqwice
 void pd_phy_complite_detatch (enum ufp_dfp ufp_dfp) {
     //init local vars 
     uint8_t current_phy_addres = 0;
@@ -558,6 +559,10 @@ void pd_phy_complite_detatch (enum ufp_dfp ufp_dfp) {
     return;
  }
 
+
+void pd_phy_transmit () {
+
+}
 
 
 

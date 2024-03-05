@@ -1,5 +1,5 @@
 //{usbc car module}
-//{main.cpp}
+//{pd_phy.h}
 //Copyright (C) {2023}  {mickmake}
 //
 //This program is free software: you can redistribute it and/or modify
@@ -155,16 +155,17 @@ enum pd_phy_alert_type {
     internal_or_external_vbus_over_current_protection_fault,
     internal_or_external_vbus_over_voltage_protection_fault,
     vconn_over_current_fault,
-    i2c_error
+    i2c_error,
+    empty
 };
 
 //plug orientaion vars
-int ufp_plug_orientaion;
-int dfp_plug_orientaion;
+extern int ufp_plug_orientaion;
+extern int dfp_plug_orientaion;
 
 //port attach status
-bool ufp_attached;
-bool dfp_attached;
+extern bool ufp_attached;
+extern bool dfp_attached;
 
 
 //fuction defines

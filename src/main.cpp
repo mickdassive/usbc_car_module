@@ -64,13 +64,13 @@ void setup() {
   Wire.setClock(400000);
   Serial.println("I2c strated");
 
+  //begin scaning i2c bus for all devices
+  //bus_scan();
+
   //begin GPIO inits for on and offboard 
   io_gpio_init();
   Serial.println("GPIO init complete");
 
-  //begin scaning i2c bus for all devices
-  //bus_scan();
-  
   //bgegin init for ADC
   //adc_init(false);
   Serial.println("ADC init and self cal complete");
@@ -83,19 +83,17 @@ void setup() {
 
   Serial.println("USB-hub init complete");
 
-  //begin init for USB-PD PHYs
-  //pd_phy_init();
-  Serial.println("USB-PD PHY UFP&DFP init complete");
-
-
   //begin USB-PD power supply check 
   Serial.println("Begin PSU self chek");
   if (pd_power_cont_self_check()) {
-    Serial.println("UFP&DFP voltage outputs within safe range");
+    Serial.println("UFP&DFP voltages within safe range");
   } else {
     Serial.println("PSU self check failed");
   }
-  
+
+  //begin init for USB-PD PHYs
+  //pd_phy_init();
+  Serial.println("USB-PD PHY UFP&DFP init complete");
 
   
 }
