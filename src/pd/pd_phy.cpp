@@ -861,6 +861,9 @@ void pd_phy_recive_message (enum ufp_dfp ufp_dfp) {
         current_phy_addres = pd_phy_add_dfp;
     }
 
+    //wake i2c interface
+    pd_phy_send_i2c_wake(ufp_dfp);
+
     //check if sop message recived bit is true 
     Wire.beginTransmission(current_phy_addres);
     Wire.write(pd_phy_reg_alert);

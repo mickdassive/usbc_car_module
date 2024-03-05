@@ -30,7 +30,7 @@
 void pd_power_cont_return_to_base_state (enum ufp_dfp ufp_dfp) {
 
     if (ufp_dfp == ufp) {
-        //set adc threshold
+        //clear adc threshold
         adc_threshold_set(ch4, 0xFFF, 0x0);
         adc_threshold_set(ch5, 0xFFF, 0x0);
         io_call(b_usbc_buck_en, write, low);
@@ -40,7 +40,7 @@ void pd_power_cont_return_to_base_state (enum ufp_dfp ufp_dfp) {
         io_call(b_usbc_9V_sel, write, low);
         io_call(b_usbc_5V_sel, write, low);
     } else if (ufp_dfp == dfp) {
-        //set adc threshold
+        //clear adc threshold
         adc_threshold_set(ch6, 0xFFF, 0x0);
         adc_threshold_set(ch7, 0xFFF, 0x0);
         io_call(f_usbc_buck_en, write, low);
@@ -60,6 +60,7 @@ void pd_power_cont_return_to_base_state (enum ufp_dfp ufp_dfp) {
 //ufp_dfp: select port to en vsafe5v
 void pd_power_cont_en_vsafe5v (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
+        //clear adc thresholds as to not alarm when changing voltages
         adc_threshold_set(ch4, 0xFFF, 0x0);
         adc_threshold_set(ch5, 0xFFF, 0x0);
         io_call(b_usbc_buck_en, write, low);
@@ -73,6 +74,7 @@ void pd_power_cont_en_vsafe5v (enum ufp_dfp ufp_dfp) {
         adc_threshold_set(ch4, 600, 500);
         adc_threshold_set(ch5, 600, 500);
     } else if (ufp_dfp == dfp) {
+        //clear adc thresholds as to not alarm when changing voltages
         adc_threshold_set(ch6, 0xFFF, 0x0);
         adc_threshold_set(ch7, 0xFFF, 0x0);
         io_call(f_usbc_buck_en, write, low);
@@ -93,6 +95,7 @@ void pd_power_cont_en_vsafe5v (enum ufp_dfp ufp_dfp) {
 //ufp_dfp: select port to en 9 volt out
 void pd_power_cont_en_9v (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
+        //clear adc thresholds as to not alarm when changing voltages
         adc_threshold_set(ch4, 0xFFF, 0x0);
         adc_threshold_set(ch5, 0xFFF, 0x0);
         io_call(b_usbc_buck_en, write, low);
@@ -106,6 +109,7 @@ void pd_power_cont_en_9v (enum ufp_dfp ufp_dfp) {
         adc_threshold_set(ch4, 1100, 950);
         adc_threshold_set(ch5, 1100, 950);
     } else if (ufp_dfp == dfp) {
+        //clear adc thresholds as to not alarm when changing voltages
         adc_threshold_set(ch6, 0xFFF, 0x0);
         adc_threshold_set(ch7, 0xFFF, 0x0);
         io_call(f_usbc_buck_en, write, low);
@@ -126,6 +130,7 @@ void pd_power_cont_en_9v (enum ufp_dfp ufp_dfp) {
 //ufp_dfp: select port to en 12 volt out
 void pd_power_cont_en_12v (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
+        //clear adc thresholds as to not alarm when changing voltages
         adc_threshold_set(ch4, 0xFFF, 0x0);
         adc_threshold_set(ch5, 0xFFF, 0x0);
         io_call(b_usbc_buck_en, write, low);
@@ -139,6 +144,7 @@ void pd_power_cont_en_12v (enum ufp_dfp ufp_dfp) {
         adc_threshold_set(ch4, 1450, 1250);
         adc_threshold_set(ch5, 1450, 1250);
     } else if (ufp_dfp == dfp) {
+        //clear adc thresholds as to not alarm when changing voltages
         adc_threshold_set(ch6, 0xFFF, 0x0);
         adc_threshold_set(ch7, 0xFFF, 0x0);
         io_call(f_usbc_buck_en, write, low);
@@ -159,6 +165,7 @@ void pd_power_cont_en_12v (enum ufp_dfp ufp_dfp) {
 //ufp_dfp: select port to en 15 volt out
 void pd_power_cont_en_15v (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
+        //clear adc thresholds as to not alarm when changing voltages
         adc_threshold_set(ch4, 0xFFF, 0x0);
         adc_threshold_set(ch5, 0xFFF, 0x0);
         io_call(b_usbc_buck_en, write, low);
@@ -172,6 +179,7 @@ void pd_power_cont_en_15v (enum ufp_dfp ufp_dfp) {
         adc_threshold_set(ch4, 1700, 1500);
         adc_threshold_set(ch5, 1700, 1500);
     } else if (ufp_dfp == dfp) {
+        //clear adc thresholds as to not alarm when changing voltages
         adc_threshold_set(ch6, 0xFFF, 0x0);
         adc_threshold_set(ch7, 0xFFF, 0x0);
         io_call(f_usbc_buck_en, write, low);
@@ -192,6 +200,7 @@ void pd_power_cont_en_15v (enum ufp_dfp ufp_dfp) {
 //ufp_dfp: select port to en 20 volt out
 void pd_power_cont_en_20v (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
+        //clear adc thresholds as to not alarm when changing voltages
         adc_threshold_set(ch4, 0xFFF, 0x0);
         adc_threshold_set(ch5, 0xFFF, 0x0);
         io_call(b_usbc_buck_en, write, low);
@@ -205,6 +214,7 @@ void pd_power_cont_en_20v (enum ufp_dfp ufp_dfp) {
         adc_threshold_set(ch4, 2350, 2150);
         adc_threshold_set(ch5, 2350, 2150);
     } else if (ufp_dfp == dfp) {
+        //clear adc thresholds as to not alarm when changing voltages
         adc_threshold_set(ch6, 0xFFF, 0x0);
         adc_threshold_set(ch7, 0xFFF, 0x0);
         io_call(f_usbc_buck_en, write, low);
