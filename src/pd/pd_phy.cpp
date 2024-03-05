@@ -35,27 +35,267 @@ int dfp_plug_orientaion = 0;
 bool ufp_attached = false;
 bool dfp_attached = false;
 
+//recived message vars 
+int pd_phy_ufp_last_recived_message_contents[];
+int pd_phy_ufp_last_recived_message_lenght = 0;
+enum pd_phy_ufp_last_recived_message_type;
+int pd_phy_dfp_last_recived_message_contents[];
+int pd_phy_dfp_last_recived_message_lenght = 0;
+enum pd_phy_dfp_last_recived_message_type;
 
+
+//pd_phy_send_looking_4_connection
+//sends looking 4 connection command to port controler 
+//ufp_dfp: select port to sent command to
+void pd_phy_send_looking_4_connection (enum ufp_dfp ufp_dfp) {
+    //send looking for connection command
+    if (ufp_dfp == ufp) {
+        Wire.beginTransmission(pd_phy_add_ufp);
+    } else if (ufp_dfp == dfp) {
+        Wire.beginTransmission(pd_phy_add_dfp);
+    }
+    Wire.write(pd_phy_reg_command);
+    Wire.write(pd_phy_comm_look_4_connection);
+    Wire.endTransmission();
+
+    return;
+}
+
+//pd_phy_send_enable_vbus_detect
+//sends enable vbus detect command to port controler 
+//ufp_dfp: select port to sent command to
+void pd_phy_send_enable_vbus_detect(enum ufp_dfp ufp_dfp) {
+    if (ufp_dfp == ufp) {
+        Wire.beginTransmission(pd_phy_add_ufp);
+    } else if (ufp_dfp == dfp) {
+        Wire.beginTransmission(pd_phy_add_dfp);
+    }
+    Wire.write(pd_phy_reg_command);
+    Wire.write(pd_phy_comm_enable_vbus_detect);
+    Wire.endTransmission();
+
+    return;
+}
+
+//pd_phy_send_disabel_vbus_detect
+//sends disabel vbus detect command to port controler 
+//ufp_dfp: select port to sent command to
+void pd_phy_send_disabel_vbus_detect(enum ufp_dfp ufp_dfp) {
+    if (ufp_dfp == ufp) {
+        Wire.beginTransmission(pd_phy_add_ufp);
+    } else if (ufp_dfp == dfp) {
+        Wire.beginTransmission(pd_phy_add_dfp);
+    }
+    Wire.write(pd_phy_reg_command);
+    Wire.write(pd_phy_comm_disabel_vbus_detect);
+    Wire.endTransmission();
+
+    return;
+}
+
+//pd_phy_send_disabel_source_vbus
+//sends disabel souce vbus command to port controler 
+//ufp_dfp: select port to sent command to
+void pd_phy_send_disabel_source_vbus (enum ufp_dfp ufp_dfp) {
+    if (ufp_dfp == ufp) {
+        Wire.beginTransmission(pd_phy_add_ufp);
+    } else if (ufp_dfp == dfp) {
+        Wire.beginTransmission(pd_phy_add_dfp);
+    }
+    Wire.write(pd_phy_reg_command);
+    Wire.write(pd_phy_comm_disabel_source_vbus);
+    Wire.endTransmission();
+
+    return;
+}
+
+//pd_phy_send_source_vbus_dflt
+//sends enabel souce vbus command to port controler 
+//ufp_dfp: select port to sent command to
+void pd_phy_send_source_vbus_dflt (enum ufp_dfp ufp_dfp) {
+    if (ufp_dfp == ufp) {
+        Wire.beginTransmission(pd_phy_add_ufp);
+    } else if (ufp_dfp == dfp) {
+        Wire.beginTransmission(pd_phy_add_dfp);
+    }
+    Wire.write(pd_phy_reg_command);
+    Wire.write(pd_phy_comm_source_vbus_defult_voltage);
+    Wire.endTransmission();
+
+    return;
+}
+
+//pd_phy_send_source_vbus_high
+//sends enabel souce vbus high voltage command to port controler 
+//ufp_dfp: select port to sent command to
+void pd_phy_send_source_vbus_high (enum ufp_dfp ufp_dfp) {
+    if (ufp_dfp == ufp) {
+        Wire.beginTransmission(pd_phy_add_ufp);
+    } else if (ufp_dfp == dfp) {
+        Wire.beginTransmission(pd_phy_add_dfp);
+    }
+    Wire.write(pd_phy_reg_command);
+    Wire.write(pd_phy_comm_souce_vbus_high_voltage);
+    Wire.endTransmission();
+
+    return;
+}
+
+//pd_phy_send_i2c_wake
+//sends i2c wake command to port controler 
+//ufp_dfp: select port to sent command to
+void pd_phy_send_i2c_wake (enum ufp_dfp ufp_dfp) {
+    if (ufp_dfp == ufp) {
+        Wire.beginTransmission(pd_phy_add_ufp);
+    } else if (ufp_dfp == dfp) {
+        Wire.beginTransmission(pd_phy_add_dfp);
+    }
+    Wire.write(pd_phy_reg_command);
+    Wire.write(pd_phy_comm_wake_i2c);
+    Wire.endTransmission();
+
+    return;
+}
+
+//pd_phy_send_i2c_idle
+//sends i2c sleep command to port controler 
+//ufp_dfp: select port to sent command to
+void pd_phy_send_i2c_idle (enum ufp_dfp ufp_dfp) {
+    if (ufp_dfp == ufp) {
+        Wire.beginTransmission(pd_phy_add_ufp);
+    } else if (ufp_dfp == dfp) {
+        Wire.beginTransmission(pd_phy_add_dfp);
+    }
+    Wire.write(pd_phy_reg_command);
+    Wire.write(pd_phy_comm_i2c_idle);
+    Wire.endTransmission();
+
+    return;
+}
+
+//pd_phy_send_rx_one_more
+//sends rx one more command to port controler 
+//ufp_dfp: select port to sent command to
+void pd_phy_send_rx_one_more (enum ufp_dfp ufp_dfp) {
+    if (ufp_dfp == ufp) {
+        Wire.beginTransmission(pd_phy_add_ufp);
+    } else if (ufp_dfp == dfp) {
+        Wire.beginTransmission(pd_phy_add_dfp);
+    }
+    Wire.write(pd_phy_reg_command);
+    Wire.write(pd_phy_comm_rx_one_more);
+    Wire.endTransmission();
+
+    return;
+}
+
+//pd_phy_send_frs_signal
+//sends rx one more command to port controler 
+//ufp_dfp: select port to sent command to
+void pd_phy_send_frs_signal (enum ufp_dfp ufp_dfp) {
+    if (ufp_dfp == ufp) {
+        Wire.beginTransmission(pd_phy_add_ufp);
+    } else if (ufp_dfp == dfp) {
+        Wire.beginTransmission(pd_phy_add_dfp);
+    }
+    Wire.write(pd_phy_reg_command);
+    Wire.write(pd_phy_comm_send_frs_swap_signal);
+    Wire.endTransmission();
+
+    return;
+}
+
+//pd_phy_send_reset_transmit_buffer
+//sends reset transmit buffer command to port controler 
+//ufp_dfp: select port to sent command to
+void pd_phy_send_reset_transmit_buffer (enum ufp_dfp ufp_dfp) {
+    if (ufp_dfp == ufp) {
+        Wire.beginTransmission(pd_phy_add_ufp);
+    } else if (ufp_dfp == dfp) {
+        Wire.beginTransmission(pd_phy_add_dfp);
+    }
+    Wire.write(pd_phy_reg_command);
+    Wire.write(pd_phy_comm_reset_transmit_buffer);
+    Wire.endTransmission();
+
+    return;
+}
+
+//pd_phy_send_reset_recive_buffer
+//sends reset recive buffer command to port controler 
+//ufp_dfp: select port to sent command to
+void pd_phy_send_reset_recive_buffer (enum ufp_dfp ufp_dfp) {
+    if (ufp_dfp == ufp) {
+        Wire.beginTransmission(pd_phy_add_ufp);
+    } else if (ufp_dfp == dfp) {
+        Wire.beginTransmission(pd_phy_add_dfp);
+    }
+    Wire.write(pd_phy_reg_command);
+    Wire.write(pd_phy_comm_reset_receive_buffer);
+    Wire.endTransmission();
+
+    return;
+}
+
+//clears the alert register
+void pd_phy_clear_alert (enum ufp_dfp ufp_dfp) {
+    if (ufp_dfp == ufp) {
+        Wire.beginTransmission(pd_phy_add_ufp);
+    } else if (ufp_dfp == dfp) {
+        Wire.beginTransmission(pd_phy_add_dfp);
+    }
+    Wire.write(pd_phy_reg_alert);
+    Wire.write(0x0000);
+    Wire.endTransmission();
+    return;    
+}
+
+//clears the extended alert register
+void pd_phy_clear_extended_alert (enum ufp_dfp ufp_dfp) {
+    if (ufp_dfp == ufp) {
+        Wire.beginTransmission(pd_phy_add_ufp);
+    } else if (ufp_dfp == dfp) {
+        Wire.beginTransmission(pd_phy_add_dfp);
+    }
+    Wire.write(pd_phy_reg_alert_extended);
+    Wire.write(0x00);
+    Wire.endTransmission();
+    return;    
+}
+
+//clears the fault register
+void pd_phy_clear_fault (enum ufp_dfp ufp_dfp) {
+    if (ufp_dfp == ufp) {
+        Wire.beginTransmission(pd_phy_add_ufp);
+    } else if (ufp_dfp == dfp) {
+        Wire.beginTransmission(pd_phy_add_dfp);
+    }
+    Wire.write(pd_phy_reg_fault_status);
+    Wire.write(0x00);
+    Wire.endTransmission();
+    return;    
+}
 
 //init the pd phys
 void pd_phy_init() {
     //init local vars 
-
     uint8_t current_port_addres = 0;
+    enum ufp_dfp current_port = ufp;
 
     for (int i; i < 2; ++i) {
         //select port controller
         if (i == 0){
             current_port_addres = pd_phy_add_ufp;
+            current_port = ufp;
         } else if (i == 1) {
             current_port_addres = pd_phy_add_dfp;
+            current_port = dfp;
         }
 
-        //clear fults 
-        Wire.beginTransmission(current_port_addres);
-        Wire.write(pd_phy_reg_alert);
-        Wire.write(pd_phy_dflt_alert);
-        Wire.endTransmission();
+        //clear all faults
+        pd_phy_clear_alert(current_port);
+        pd_phy_clear_extended_alert(current_port);
+        pd_phy_clear_fault(current_port);
 
         //write tptc control
         Wire.beginTransmission(current_port_addres);
@@ -144,67 +384,17 @@ void pd_phy_init() {
 
     }
 
-    return;
-
-}
-
-
-//pd_phy_send_looking_4_connection
-//sends looking 4 connection command to port controler 
-//ufp_dfp: select port to sent command to
-void pd_phy_send_looking_4_connection (enum ufp_dfp ufp_dfp) {
-    //send looking for connection command
-    if (ufp_dfp == ufp) {
-        Wire.beginTransmission(pd_phy_add_ufp);
-    } else if (ufp_dfp == dfp) {
-        Wire.beginTransmission(pd_phy_add_dfp);
-    }
-    Wire.write(pd_phy_reg_command);
-    Wire.write(pd_phy_comm_look_4_connection);
-    Wire.endTransmission();
+    //clear all faults
+    pd_phy_clear_alert(ufp);
+    pd_phy_clear_extended_alert(ufp);
+    pd_phy_clear_fault(ufp);
+    pd_phy_clear_alert(dfp);
+    pd_phy_clear_extended_alert(dfp);
+    pd_phy_clear_fault(dfp);
 
     return;
-}
 
-//clears the alert register
-void pd_phy_clear_alert (enum ufp_dfp ufp_dfp) {
-    if (ufp_dfp == ufp) {
-        Wire.beginTransmission(pd_phy_add_ufp);
-    } else if (ufp_dfp == dfp) {
-        Wire.beginTransmission(pd_phy_add_dfp);
-    }
-    Wire.write(pd_phy_reg_alert);
-    Wire.write(0x0000);
-    Wire.endTransmission();
-    return;    
 }
-
-//clears the extended alert register
-void pd_phy_clear_extended_alert (enum ufp_dfp ufp_dfp) {
-    if (ufp_dfp == ufp) {
-        Wire.beginTransmission(pd_phy_add_ufp);
-    } else if (ufp_dfp == dfp) {
-        Wire.beginTransmission(pd_phy_add_dfp);
-    }
-    Wire.write(pd_phy_reg_alert_extended);
-    Wire.write(0x00);
-    Wire.endTransmission();
-    return;    
-}
-
-//clears the fault register
-void pd_phy_clear_fault (enum ufp_dfp ufp_dfp) {
-    if (ufp_dfp == ufp) {
-        Wire.beginTransmission(pd_phy_add_ufp);
-    } else if (ufp_dfp == dfp) {
-        Wire.beginTransmission(pd_phy_add_dfp);
-    }
-    Wire.write(pd_phy_reg_fault_status);
-    Wire.write(0x00);
-    Wire.endTransmission();
-    return;    
-}
-
 
 //reads allert type from a given port controler
 //ufp_dfp: select port to read allert registter from
@@ -326,10 +516,10 @@ enum pd_phy_alert_type pd_phy_determine_alert_type (enum ufp_dfp ufp_dfp) {
         pd_phy_clear_alert(ufp_dfp);
         return transmit_sop_message_failed;
     } else if ((current_alert_reg_value & 0x0008) != 0) {
-        pd_phy_clear_alert(ufp_dfp);
+        //pd_phy_clear_alert(ufp_dfp);
         return recived_hard_reset;
     } else if ((current_alert_reg_value & 0x0004) != 0) {
-        pd_phy_clear_alert(ufp_dfp);
+        //pd_phy_clear_alert(ufp_dfp);
         return recvied_sop_message_status;
     } else if ((current_alert_reg_value & 0x0002) != 0) {
         pd_phy_clear_alert(ufp_dfp);
@@ -356,6 +546,9 @@ void pd_phy_complite_attach (enum ufp_dfp ufp_dfp) {
     } else if (ufp_dfp == dfp) {
         current_phy_addres = pd_phy_add_dfp;
     }
+
+    //wake pd phy i2c interface
+    pd_phy_send_i2c_wake(ufp_dfp);
 
     //read current cc status register value
     Wire.beginTransmission(current_phy_addres);
@@ -418,14 +611,14 @@ void pd_phy_complite_attach (enum ufp_dfp ufp_dfp) {
         }
         
         //send souce vbus command
-        Wire.beginTransmission(current_phy_addres);
-        Wire.write(pd_phy_reg_command);
-        Wire.write(pd_phy_comm_source_vbus_defult_voltage);
-        Wire.endTransmission();
+        pd_phy_send_source_vbus_dflt(ufp_dfp);
 
         pd_phy_clear_alert(ufp_dfp);
 
-        //set port attched avriabel to true
+        //send i2c sleep command
+        pd_phy_send_i2c_idle(ufp_dfp);
+
+        //set port attched var to true
         if (ufp_dfp == ufp) {
             ufp_attached = true;
         } else if (ufp_dfp == dfp) {
@@ -455,6 +648,9 @@ void pd_phy_complite_detatch (enum ufp_dfp ufp_dfp) {
     } else if (ufp_dfp == dfp) {
         current_phy_addres = pd_phy_add_dfp;
     }
+
+    //wake pd phy from i2c sleep
+    pd_phy_send_i2c_wake(ufp_dfp);
 
     pd_phy_clear_alert(ufp_dfp);
 
@@ -509,10 +705,7 @@ void pd_phy_complite_detatch (enum ufp_dfp ufp_dfp) {
                 Wire.endTransmission();
 
                 //send disabel source vbus command
-                Wire.beginTransmission(current_phy_addres);
-                Wire.write(pd_phy_reg_command);
-                Wire.write(pd_phy_comm_disabel_source_vbus);
-                Wire.endTransmission();
+                pd_phy_send_disabel_source_vbus(ufp_dfp);
 
                 //disabel sop* and resets 
                 Wire.beginTransmission(current_phy_addres);
@@ -520,12 +713,8 @@ void pd_phy_complite_detatch (enum ufp_dfp ufp_dfp) {
                 Wire.write(0x00);
                 Wire.endTransmission();
 
-                //send disabel vbus detect
-                Wire.beginTransmission(current_phy_addres);
-                Wire.write(pd_phy_reg_command);
-                Wire.write(pd_phy_comm_disabel_vbus_detect);
-                Wire.endTransmission();
-
+                //send disabel vbus detect command
+                pd_phy_send_disabel_vbus_detect(ufp_dfp);
 
 
                 //setup for next attach 
@@ -541,14 +730,12 @@ void pd_phy_complite_detatch (enum ufp_dfp ufp_dfp) {
                 pd_phy_send_looking_4_connection(ufp_dfp);
 
                 //send sleep command
-                Wire.beginTransmission(current_phy_addres);
-                Wire.write(pd_phy_reg_command);
-                Wire.write(pd_phy_comm_i2c_idle);
+                pd_phy_send_i2c_idle(ufp_dfp);
 
                 if (ufp_dfp == ufp) {
-                  ufp_attached = true;
+                  ufp_attached = false;
                 } else if (ufp_dfp == dfp) {
-                  dfp_attached = true;
+                  dfp_attached = false;
                 }
 
                 return;                
@@ -559,8 +746,197 @@ void pd_phy_complite_detatch (enum ufp_dfp ufp_dfp) {
     return;
  }
 
+//pd_phy_transmit_hard_reset
+//transmits a hard reset message with 3 retrys 
+void pd_phy_transmit_hard_reset (enum ufp_dfp ufp_dfp) {
+    //inti local vars
+    uint8_t current_phy_addres = 0;
 
-void pd_phy_transmit () {
+    //set current phy address
+    if (ufp_dfp == ufp) {
+        current_phy_addres = pd_phy_add_ufp;
+    } else if (ufp_dfp == dfp) {
+        current_phy_addres = pd_phy_add_dfp;
+    }
+
+    Wire.beginTransmission(current_phy_addres);
+    Wire.write(pd_phy_reg_transmit);
+    Wire.write(0x35);
+    Wire.endTransmission();
+}
+
+//pd_phy_transmit_cable_reset
+//transmits a hard reset message with 3 retrys 
+void pd_phy_transmit_cable_reset (enum ufp_dfp ufp_dfp) {
+    //inti local vars
+    uint8_t current_phy_addres = 0;
+
+    //set current phy address
+    if (ufp_dfp == ufp) {
+        current_phy_addres = pd_phy_add_ufp;
+    } else if (ufp_dfp == dfp) {
+        current_phy_addres = pd_phy_add_dfp;
+    }
+
+    Wire.beginTransmission(current_phy_addres);
+    Wire.write(pd_phy_reg_transmit);
+    Wire.write(0x36);
+    Wire.endTransmission();
+}
+
+//pd_phy_transmit
+//function to transmit a given message over the pd bus
+//ufp_dfp: given port to tramit the message from
+//to_transmit: messgae to transmit in array seperated by individual bytes
+//true = transmit sucsessful
+//false = trasmit failled/discarded
+bool pd_phy_transmit (enum ufp_dfp ufp_dfp, uint8_t to_transmit[]) {
+    //inti local vars
+    uint8_t current_phy_addres = 0;
+    uint8_t lenght_of_message = 0;
+    
+    //set current phy address
+    if (ufp_dfp == ufp) {
+        current_phy_addres = pd_phy_add_ufp;
+    } else if (ufp_dfp == dfp) {
+        current_phy_addres = pd_phy_add_dfp;
+    }
+
+    //calcuate leght of message 
+    lenght_of_message = sizeof(to_transmit) / sizeof(to_transmit[0]);
+
+    //wake i2c interface on phy
+    pd_phy_send_i2c_wake(ufp_dfp);
+
+    //reset the transmit buffer
+    pd_phy_send_reset_transmit_buffer(ufp_dfp);
+
+    //begin transmitting data to buffer
+    Wire.beginTransmission(current_phy_addres);
+    Wire.write(pd_phy_reg_i2c_write_byte_count);
+    Wire.write(lenght_of_message);
+    for (int i; i < lenght_of_message; ++i) {
+        Wire.write(to_transmit[i]);
+    }
+    Wire.endTransmission();
+
+    //send command for phy to transmit the data
+    Wire.beginTransmission(current_phy_addres);
+    Wire.write(pd_phy_reg_transmit);
+    Wire.write(0x30);
+    Wire.endTransmission();
+
+    //wait for messgae to be sent
+    delay(pd_phy_transmit_wait_time);
+
+    if (pd_phy_alert_type(ufp_dfp) == transmit_sop_message_succsessful) {
+        pd_phy_clear_alert(ufp_dfp);
+        pd_phy_send_i2c_idle(ufp_dfp);
+        return true;
+    } else {
+        pd_phy_clear_alert(ufp_dfp);
+        pd_phy_send_i2c_idle(ufp_dfp);
+        return false;
+    }
+
+
+}
+
+//pd_phy_recive_message
+//function reads recive buffer and loads necicary info in to the respective ports last_message_lenght, last_message_contents[], and last_messgae_type vars
+//ufp_dfp: given port to recive the message from
+void pd_phy_recive_message (enum ufp_dfp ufp_dfp) {
+    //init local vars
+    uint8_t current_phy_addres = 0;
+    uint16_t current_alert_reg_value = 0;
+    uint8_t current_message_type_reg_value = 0;
+    uint8_t current_message_length = 0;
+    int current_message_contents[current_message_length];
+    enum message_type current_message_type;
+    
+    //set current phy address
+    if (ufp_dfp == ufp) {
+        current_phy_addres = pd_phy_add_ufp;
+    } else if (ufp_dfp == dfp) {
+        current_phy_addres = pd_phy_add_dfp;
+    }
+
+    //check if sop message recived bit is true 
+    Wire.beginTransmission(current_phy_addres);
+    Wire.write(pd_phy_reg_alert);
+    Wire.endTransmission();
+    Wire.requestFrom(current_phy_addres, 2);
+    current_alert_reg_value = Wire.read();
+    Wire.endTransmission();
+
+    if ((current_alert_reg_value & 0x0004) != 0){
+        //clear alert register
+        pd_phy_clear_alert(ufp_dfp);
+
+        //read recived message lenght in bytes & message type
+        Wire.beginTransmission(current_phy_addres);
+        Wire.write(pd_phy_reg_readael_byte_count);
+        Wire.endTransmission();
+        Wire.requestFrom(current_phy_addres, 2);
+        current_message_length = Wire.read();
+        current_message_type_reg_value = Wire.read();
+        Wire.endTransmission();
+
+        //read actual message and laod it in to array
+        Wire.beginTransmission(current_phy_addres);
+        Wire.write(pd_phy_reg_readael_byte_count);
+        Wire.endTransmission();
+        Wire.requestFrom(current_phy_addres, current_message_length);
+        for (int i; i < current_message_length; ++i) {
+            if (i <= 2) {
+                //do nothing for first 2 bytes
+            } else {
+                current_message_contents[i] = Wire.read();
+            }
+        }
+        Wire.endTransmission();
+
+        //reset recive buffer
+        pd_phy_send_reset_recive_buffer(ufp_dfp);
+
+        //clear alerts
+        pd_phy_clear_alert(ufp_dfp);
+
+        //determine message type and store it 
+        if ((current_message_type_reg_value | 0x00) == 0) {
+            current_message_type = sop;
+        } else if ((current_message_type_reg_value & 0x01) != 0) {
+            current_message_type = sop_col;
+        } else if ((current_message_type_reg_value & 0x02) != 0) {
+            current_message_type = sop_col_col;
+        } else if ((current_message_type_reg_value & 0x03) != 0) {
+            current_message_type = sop_dbg_col;
+        } else if ((current_message_type_reg_value & 0x04) != 0) {
+            current_message_type = sop_dbg_col_col;
+        } else if ((current_message_type_reg_value & 0x06) != 0) {
+            current_message_type = cable_reset;
+        }
+
+        //load values in to port respective vars
+        if (ufp_dfp == ufp) {
+            pd_phy_ufp_last_recived_message_type = current_message_type;
+            pd_phy_ufp_last_recived_message_lenght = (current_message_length - 2);
+            for (int i; i < (current_message_length - 2); ++i) {
+                pd_phy_ufp_last_recived_message_contents[i] = current_message_contents[i];
+            }
+        } else if (ufp_dfp == dfp) {
+            pd_phy_dfp_last_recived_message_type = current_message_type;
+            pd_phy_dfp_last_recived_message_lenght = (current_message_length - 2);
+            for (int i; i < (current_message_length - 2); ++i) {
+                pd_phy_dfp_last_recived_message_contents[i] = current_message_contents[i];
+            }
+        }
+    }
+
+    //send i2c sleep command
+    pd_phy_send_i2c_idle(ufp_dfp);
+
+    return;
 
 }
 

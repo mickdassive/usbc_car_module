@@ -122,6 +122,9 @@ const uint8_t pd_phy_comm_reset_transmit_buffer = 0xCC;
 const uint8_t pd_phy_comm_reset_receive_buffer = 0xDD;
 const uint8_t pd_phy_comm_i2c_idle = 0xEE;
 
+//message transmit wait time in ms
+const int pd_phy_transmit_wait_time = 10;
+
 
 
 //ufp/dfp enum
@@ -167,15 +170,38 @@ extern int dfp_plug_orientaion;
 extern bool ufp_attached;
 extern bool dfp_attached;
 
+enum message_type {sop, sop_col, sop_col_col, sop_dbg_col, sop_dbg_col_col, cable_reset};
+
+//recived message vars
+extern int pd_phy_ufp_last_recived_message_contents[];
+extern int pd_phy_ufp_last_recived_message_lenght;
+extern enum message_type pd_phy_ufp_last_recived_message_type;
+extern int pd_phy_dfp_last_recived_message_contents[];
+extern int pd_phy_dfp_last_recived_message_lenght;
+extern enum message_type pd_phy_dfp_last_recived_message_type;
+
 
 //fuction defines
 void pd_phy_init ();
 void pd_phy_send_looking_4_connection (enum ufp_dfp ufp_dfp);
+void pd_phy_send_enable_vbus_detect(enum ufp_dfp ufp_dfp);
+void pd_phy_send_disabel_vbus_detect(enum ufp_dfp ufp_dfp);
+void pd_phy_send_disabel_source_vbus (enum ufp_dfp ufp_dfp);
+void pd_phy_send_source_vbus_dflt (enum ufp_dfp ufp_dfp);
+void pd_phy_send_source_vbus_high (enum ufp_dfp ufp_dfp);
+void pd_phy_send_i2c_wake (enum ufp_dfp ufp_dfp);
+void pd_phy_send_i2c_idle (enum ufp_dfp ufp_dfp);
+void pd_phy_send_rx_one_more (enum ufp_dfp ufp_dfp);
+void pd_phy_send_frs_signal (enum ufp_dfp ufp_dfp);
+void pd_phy_send_reset_transmit_buffer (enum ufp_dfp ufp_dfp);
+void pd_phy_send_reset_recive_buffer (enum ufp_dfp ufp_dfp);
 void pd_phy_clear_alert (enum ufp_dfp ufp_dfp);
 void pd_phy_clear_extended_alert (enum ufp_dfp ufp_dfp);
 void pd_phy_clear_fault (enum ufp_dfp ufp_dfp);
 enum pd_phy_alert_type pd_phy_determine_alert_type (enum ufp_dfp ufp_dfp);
 void pd_phy_complite_attach (enum ufp_dfp ufp_dfp);
+bool pd_phy_transmit (enum ufp_dfp ufp_dfp, uint8_t to_transmit[]);
+void pd_phy_recive_message (enum ufp_dfp ufp_dfp);
 
 
 
