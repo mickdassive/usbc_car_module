@@ -23,9 +23,9 @@ This project is a USB 3.1x1 hub designed with KiCad 7.0 and developed with Platf
    ```
 2. Open the project in KiCad 7.0 for schematic and PCB design.
 
-3. Use PlatformIO for firmware development and deployment to the ESP-12F MCU.
+3. Open the PlatformIO project
 
-4. Customize the power monitoring features as per your requirements.
+4. Biuld and upload firmware to MCU
 
 ## Contributors
 
