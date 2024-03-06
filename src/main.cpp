@@ -100,6 +100,9 @@ void setup() {
   } else {
     Serial.println("PSU self check failed");
   }
+  //send psu back to base state
+  pd_power_cont_return_to_base_state(ufp);
+  pd_power_cont_return_to_base_state(dfp);
 
   //begin init for USB-PD PHYs
   pd_phy_init();
