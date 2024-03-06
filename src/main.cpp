@@ -34,11 +34,15 @@ extern "C" {
 #include "pd/pd_power_cont.h"
 #include "pd/pd_prot.h"
 #include "io.h"
+#include "hub.h"
 #include "i2c_scanner.h"
 
 
 //firmware version
 const char* firmware_version = "V 0.1";
+
+//boot sucsessful var
+int boot_sucsesful = 0;
 
 /*
 //io intrupt rutine
@@ -65,7 +69,9 @@ void setup() {
   Serial.println("I2c strated");
 
   //begin scaning i2c bus for all devices
-  //bus_scan();
+  if (bus_scan()) {
+    ++boot_sucsesful;
+  }
 
   //begin GPIO inits for on and offboard 
   io_gpio_init();
@@ -80,13 +86,14 @@ void setup() {
   Serial.println("Display init complete");
 
   //begin USB hub chip init
-
+  hub_init();
   Serial.println("USB-hub init complete");
 
   //begin USB-PD power supply check 
   Serial.println("Begin PSU self chek");
   if (pd_power_cont_self_check()) {
     Serial.println("UFP&DFP voltages within safe range");
+    ++boot_sucsesful;
   } else {
     Serial.println("PSU self check failed");
   }
@@ -95,6 +102,19 @@ void setup() {
   //pd_phy_init();
   Serial.println("USB-PD PHY UFP&DFP init complete");
 
+
+  //determine if boot was sucsessful
+  if (boot_sucsesful >= 2) {
+    //do nothing
+  } else {
+    Serial.println("Boot falled in one or more ways !!!!!!!!!");
+    while (boot_sucsesful != 2)  {
+      io_call(onboard_led, write, high);
+      delay(100);
+      io_call(onboard_led, write, low);
+      delay(100);
+    }
+  }
   
 }
 

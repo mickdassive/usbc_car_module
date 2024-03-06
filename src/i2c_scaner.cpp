@@ -26,49 +26,58 @@
 #include "adc.h"
 #include "display.h"
 #include "io.h"
+#include "hub.h"
 #include "pd/pd_phy.h"
 
 uint8_t hub_placeholder = 0;
 
-
-void bus_scan() {
-    //init local vars
+//scans i2c bus and dermines if all devicesa are present
+//true = passed, all devices present
+//false = failed missing one or more devices
+bool bus_scan() {
+    // Initialize local variables
     int devices_found = 0;
-    byte error, i;
+    byte error;
 
-    Serial.println("Begin scaning for all i2c devices...");
+    Serial.println("Begin scanning for all I2C devices...");
 
-    for (int i; i < 127; ++i) {
+    // Loop through possible I2C device addresses
+    for (int i = 0; i < 127; ++i) {
         Wire.beginTransmission(i);
         error = Wire.endTransmission();
 
-        if (error == 0){
-            Serial.println("Device found at adres 0x");
+        if (error == 0) {
+            Serial.print("Device found at address 0x");
             if (i < 16) {
                 Serial.print("0");
             }
             Serial.println(i, HEX);
             Serial.println(" !");
 
-            //add to device count
-            if (i == iox_0_add || i == iox_1_add || i == adc_add || i == pd_phy_add_dfp || i == pd_phy_add_ufp || i == hub_placeholder || i == disp_add) {
+            // Add to device count if it matches expected addresses
+            if (i == iox_0_add || i == iox_1_add || i == adc_add || i == pd_phy_add_dfp || i == pd_phy_add_ufp || i == hub_addr || i == disp_add) {
                 devices_found++;
             }
         } else if (error == 4) {
-            Serial.println("Unkown error at addres 0x");
+            Serial.print("Unknown error at address 0x");
             if (i < 16) {
-                Serial.println("0");
+                Serial.print("0");
             }
             Serial.println(i, HEX);
         }
+        
+        // Add a small delay between transmissions
+        delay(5);
     }
-    //ensure device count matches waht it shold 
-    if (devices_found == 7){
-        Serial.println("All expected i2c devices found");
+    
+    // Ensure device count matches what is expected
+    if (devices_found == 7) {
+        Serial.println("All expected I2C devices found");
+        return true;
     } else {
-        Serial.println("Some i2c devices are missing from the bus");
+        Serial.println("Some I2C devices are missing from the bus");
+        return false;
     }
-    return;
 }
 
 

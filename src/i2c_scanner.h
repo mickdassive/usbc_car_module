@@ -23,7 +23,7 @@
 #include <Arduino.h>
 
 //function define
-void bus_scan();
+bool bus_scan();
 
 
 #endif // i2c_scanner_h

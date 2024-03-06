@@ -36,12 +36,12 @@ bool ufp_attached = false;
 bool dfp_attached = false;
 
 //recived message vars 
-int pd_phy_ufp_last_recived_message_contents[];
+int pd_phy_ufp_last_recived_message_contents[255];
 int pd_phy_ufp_last_recived_message_lenght = 0;
-enum pd_phy_ufp_last_recived_message_type;
-int pd_phy_dfp_last_recived_message_contents[];
+enum message_type pd_phy_ufp_last_recived_message_type;
+int pd_phy_dfp_last_recived_message_contents[255];
 int pd_phy_dfp_last_recived_message_lenght = 0;
-enum pd_phy_dfp_last_recived_message_type;
+enum message_type pd_phy_dfp_last_recived_message_type;
 
 
 //pd_phy_send_looking_4_connection
@@ -282,6 +282,10 @@ void pd_phy_init() {
     uint8_t current_port_addres = 0;
     enum ufp_dfp current_port = ufp;
 
+    //wake i2c interface on the phys
+    pd_phy_send_i2c_wake(ufp);
+    pd_phy_send_i2c_wake(dfp);
+
     for (int i; i < 2; ++i) {
         //select port controller
         if (i == 0){
@@ -392,6 +396,10 @@ void pd_phy_init() {
     pd_phy_clear_extended_alert(dfp);
     pd_phy_clear_fault(dfp);
 
+    //put i2c interface back to sleep
+    pd_phy_send_i2c_idle(ufp);
+    pd_phy_send_i2c_idle(dfp);
+
     return;
 
 }
@@ -412,6 +420,9 @@ enum pd_phy_alert_type pd_phy_determine_alert_type (enum ufp_dfp ufp_dfp) {
         current_phy_addres = pd_phy_add_ufp;
     }
 
+    //wake i2c interface on given phy
+    pd_phy_send_i2c_wake(ufp_dfp);
+
     //read current alert regfister status
     Wire.beginTransmission(current_phy_addres);
     Wire.write(pd_phy_reg_alert);
@@ -423,6 +434,7 @@ enum pd_phy_alert_type pd_phy_determine_alert_type (enum ufp_dfp ufp_dfp) {
     //determine and return intrupt type 
     if ((current_alert_reg_value & 0x8000) != 0) {
         pd_phy_clear_alert(ufp_dfp);
+        pd_phy_send_i2c_idle(ufp_dfp);
         return vendor_defined_extended;
     } else if ((current_alert_reg_value & 0x4000) != 0) {
         //read extended alert register
@@ -437,29 +449,36 @@ enum pd_phy_alert_type pd_phy_determine_alert_type (enum ufp_dfp ufp_dfp) {
         if ((current_alert_extended_reg_value & 0x0004) != 0) {
             pd_phy_clear_alert(ufp_dfp);
             pd_phy_clear_extended_alert(ufp_dfp);
+            pd_phy_send_i2c_idle(ufp_dfp);
             return extended_timer_expired;
         } else if ((current_alert_extended_reg_value & 0x0002) != 0) {
             pd_phy_clear_alert(ufp_dfp);
             pd_phy_clear_extended_alert(ufp_dfp);
+            pd_phy_send_i2c_idle(ufp_dfp);
             return extended_souce_frs;
         } else if ((current_alert_extended_reg_value & 0x0001) != 0) {
             pd_phy_clear_alert(ufp_dfp);
             pd_phy_clear_extended_alert(ufp_dfp);
+            pd_phy_send_i2c_idle(ufp_dfp);
             return extended_sink_frs;
         }
 
         
     } else if ((current_alert_reg_value & 0x2000) != 0) {
         pd_phy_clear_alert(ufp_dfp);
+        pd_phy_send_i2c_idle(ufp_dfp);
         return extended_status_cahnged;
     } else if ((current_alert_reg_value & 0x1000) != 0) {
         pd_phy_clear_alert(ufp_dfp);
+        pd_phy_send_i2c_idle(ufp_dfp);
         return beginning_sop_message_status;
     } else if ((current_alert_reg_value & 0x0800) != 0) {
         pd_phy_clear_alert(ufp_dfp);
+        pd_phy_send_i2c_idle(ufp_dfp);
         return vbus_sink_disconnect_detected;
     } else if ((current_alert_reg_value & 0x0400) != 0) {
         pd_phy_clear_alert(ufp_dfp);
+        pd_phy_send_i2c_idle(ufp_dfp);
         return rx_buffer_overflow;
     } else if ((current_alert_reg_value & 0x0200) != 0) {
         //read fault register
@@ -474,58 +493,74 @@ enum pd_phy_alert_type pd_phy_determine_alert_type (enum ufp_dfp ufp_dfp) {
         if ((current_fault_reg_value & 0x40) != 0) {
             pd_phy_clear_alert(ufp_dfp);
             pd_phy_clear_fault(ufp_dfp);
+            pd_phy_send_i2c_idle(ufp_dfp);
             return force_off_vbus_status;
         } else if ((current_fault_reg_value & 0x20) != 0) {
             pd_phy_clear_alert(ufp_dfp);
             pd_phy_clear_fault(ufp_dfp);
+            pd_phy_send_i2c_idle(ufp_dfp);
             return auto_discahrge_failed;
         } else if ((current_fault_reg_value & 0x10) != 0) {
             pd_phy_clear_alert(ufp_dfp);
             pd_phy_clear_fault(ufp_dfp);
+            pd_phy_send_i2c_idle(ufp_dfp);
             return force_discharge_failled;
         } else if ((current_fault_reg_value & 0x08) != 0) {
             pd_phy_clear_alert(ufp_dfp);
             pd_phy_clear_fault(ufp_dfp);
+            pd_phy_send_i2c_idle(ufp_dfp);
             return internal_or_external_vbus_over_current_protection_fault;
         } else if ((current_fault_reg_value & 0x04) != 0) {
             pd_phy_clear_alert(ufp_dfp);
             pd_phy_clear_fault(ufp_dfp);
+            pd_phy_send_i2c_idle(ufp_dfp);
             return internal_or_external_vbus_over_voltage_protection_fault;
         } else if ((current_fault_reg_value & 0x02) != 0) {
             pd_phy_clear_alert(ufp_dfp);
             pd_phy_clear_fault(ufp_dfp);
+            pd_phy_send_i2c_idle(ufp_dfp);
             return vconn_over_current_fault;
         } else if ((current_fault_reg_value & 0x01) != 0) {
             pd_phy_clear_alert(ufp_dfp);
             pd_phy_clear_fault(ufp_dfp);
+            pd_phy_send_i2c_idle(ufp_dfp);
             return i2c_error;
         }
     } else if ((current_alert_reg_value & 0x0100) != 0) {
         pd_phy_clear_alert(ufp_dfp);
+        pd_phy_send_i2c_idle(ufp_dfp);
         return vbus_voltage_low;
     } else if ((current_alert_reg_value & 0x0080) != 0) {
         pd_phy_clear_alert(ufp_dfp);
+        pd_phy_send_i2c_idle(ufp_dfp);
         return vbus_voltage_high;
     } else if ((current_alert_reg_value & 0x0040) != 0) {
         pd_phy_clear_alert(ufp_dfp);
+        pd_phy_send_i2c_idle(ufp_dfp);
         return transmit_sop_message_succsessful;
     } else if ((current_alert_reg_value & 0x0020) != 0) {
         pd_phy_clear_alert(ufp_dfp);
+        pd_phy_send_i2c_idle(ufp_dfp);
         return transmit_sop_message_discarded;
     } else if ((current_alert_reg_value & 0x0010) != 0) {
         pd_phy_clear_alert(ufp_dfp);
+        pd_phy_send_i2c_idle(ufp_dfp);
         return transmit_sop_message_failed;
     } else if ((current_alert_reg_value & 0x0008) != 0) {
         //pd_phy_clear_alert(ufp_dfp);
+        pd_phy_send_i2c_idle(ufp_dfp);
         return recived_hard_reset;
     } else if ((current_alert_reg_value & 0x0004) != 0) {
         //pd_phy_clear_alert(ufp_dfp);
+        pd_phy_send_i2c_idle(ufp_dfp);
         return recvied_sop_message_status;
     } else if ((current_alert_reg_value & 0x0002) != 0) {
         pd_phy_clear_alert(ufp_dfp);
+        pd_phy_send_i2c_idle(ufp_dfp);
         return port_power_status_changed;
     } else if ((current_alert_reg_value & 0x0001) != 0) {
         //pd_phy_clear_alert(ufp_dfp);
+        pd_phy_send_i2c_idle(ufp_dfp);
         return cc_status_alert;
     }
     return empty;
@@ -752,6 +787,9 @@ void pd_phy_transmit_hard_reset (enum ufp_dfp ufp_dfp) {
     //inti local vars
     uint8_t current_phy_addres = 0;
 
+    //wake i2c interface
+    pd_phy_send_i2c_wake(ufp_dfp);
+
     //set current phy address
     if (ufp_dfp == ufp) {
         current_phy_addres = pd_phy_add_ufp;
@@ -763,6 +801,11 @@ void pd_phy_transmit_hard_reset (enum ufp_dfp ufp_dfp) {
     Wire.write(pd_phy_reg_transmit);
     Wire.write(0x35);
     Wire.endTransmission();
+
+    //put i2c iterface to sleep
+    pd_phy_send_i2c_idle(ufp_dfp);
+    
+    return;
 }
 
 //pd_phy_transmit_cable_reset
@@ -770,6 +813,9 @@ void pd_phy_transmit_hard_reset (enum ufp_dfp ufp_dfp) {
 void pd_phy_transmit_cable_reset (enum ufp_dfp ufp_dfp) {
     //inti local vars
     uint8_t current_phy_addres = 0;
+
+    //wake i2c interface
+    pd_phy_send_i2c_wake(ufp_dfp);
 
     //set current phy address
     if (ufp_dfp == ufp) {
@@ -782,6 +828,10 @@ void pd_phy_transmit_cable_reset (enum ufp_dfp ufp_dfp) {
     Wire.write(pd_phy_reg_transmit);
     Wire.write(0x36);
     Wire.endTransmission();
+    //put i2c iterface to sleep
+    pd_phy_send_i2c_idle(ufp_dfp);
+
+    return;
 }
 
 //pd_phy_transmit
