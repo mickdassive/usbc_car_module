@@ -721,4 +721,45 @@ int adc_read(enum adc_channel adc_channel) {
 
 }
 
+void adc_clear_event_flag() {
+  Wire.write(adc_add);
+  Wire.write(adc_op_single_write);
+  Wire.write(adc_event_flag);
+  Wire.write(0x0);
+  Wire.endTransmission();
+}
+
+enum adc_channel adc_determine_alert_source() {
+  //init local vars 
+  uint8_t current_event_flag_reg_value = 0;
+
+  //read alert flag register
+  Wire.beginTransmission(adc_add);
+  Wire.write(adc_op_single_read);
+  Wire.write(adc_event_flag);
+  Wire.endTransmission();
+  Wire.requestFrom(adc_add, 1);
+  current_event_flag_reg_value = Wire.read();
+  Wire.endTransmission();
+
+  if ((current_event_flag_reg_value & 0x01) != 0) {
+    return ch0;
+  } else if ((current_event_flag_reg_value & 0x02) != 0) {
+    return ch1;
+  } else if ((current_event_flag_reg_value & 0x04) != 0) {
+    return ch2;
+  } else if ((current_event_flag_reg_value & 0x08) != 0) {
+    return ch3;
+  } else if ((current_event_flag_reg_value & 0x10) != 0) {
+    return ch4;
+  } else if ((current_event_flag_reg_value & 0x20) != 0) {
+    return ch5;
+  } else if ((current_event_flag_reg_value & 0x40) != 0) {
+    return ch6;
+  } else if ((current_event_flag_reg_value & 0x80) != 0) {
+    return ch7;
+  }
+
+}
+
 #endif // adc_cpp

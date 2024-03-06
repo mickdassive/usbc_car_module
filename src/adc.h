@@ -207,5 +207,7 @@ void adc_hysteresis_set(enum adc_channel adc_channel, uint8_t hysteresis_set);
 int adc_event_count_read(enum adc_channel adc_channel);
 void adc_event_clear(enum adc_channel adc_channel);
 int adc_read(enum adc_channel adc_channel);
+enum adc_channel adc_determine_alert_source();
+void adc_clear_event_flag();
 
 #endif // adc_defines_h

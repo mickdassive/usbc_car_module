@@ -23,12 +23,16 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include "io.h"
+#include "adc.h"
+#include "pd/pd_power_cont.h"
 
 //iox intrupt register values
 uint8_t iox_0_port_0_interrupt = 0xFF;
 uint8_t iox_0_port_1_interrupt = 0xFF;
 uint8_t iox_1_port_0_interrupt = 0xFF;
 uint8_t iox_1_port_1_interrupt = 0xFF;
+
+extern bool io_interupt_flag = false;
 
 
 //reads current pin state of the io expander outputs
@@ -210,7 +214,7 @@ void io_gpio_init() {
     case intr: //setup iterups for cheking when io state is changed
       if(pin_names[i]->onboard) {
         pinMode(pin_names[i]->pin_number, INPUT);
-       // attachInterrupt(digitalPinToInterrupt(pin_names[i]->pin_number), ioISR, FALLING);
+        attachInterrupt(digitalPinToInterrupt(pin_names[i]->pin_number), io_pin_intrupt_flagger, RISING);
       }      
       break;
     case empty_pin:
@@ -415,6 +419,73 @@ struct pin io_determine_intrupt_source() {
   return empty_struct_pin;
 
 };
+
+
+
+void io_pin_intrupt_flagger () {
+  //set the intrupt flag
+  io_interupt_flag = true;
+  return;
+}
+
+void io_intrupt_handeler () {
+
+  io_interupt_flag = false;
+
+  if (io_determine_intrupt_source().name == "adc_alert") {
+    //determine channel that flagged the alert 
+    if (adc_determine_alert_source() == ch0) {
+      //21V csp do nothing
+    } else if (adc_determine_alert_source() == ch1) {
+      //21V csn do nothing
+    } else if (adc_determine_alert_source() == ch2) {
+      //5V csp do nothing
+    } else if (adc_determine_alert_source() == ch3) {
+      //5V csn do nothing 
+    } else if (adc_determine_alert_source() == ch4) {
+      //ufp csp
+      //turn off power to port if out of range
+      if (pd_power_cont_pgood(ufp, pd_power_cont_ufp_current_voltage)){
+        //do nothing if pgood
+      } else {
+        pd_power_cont_return_to_base_state(ufp);
+        
+      }
+    } else if (adc_determine_alert_source() == ch5) {
+      //ufp csn
+      //turn off power to port if out of range
+      if (pd_power_cont_pgood(ufp, pd_power_cont_ufp_current_voltage)){
+        //do nothing if pgood
+      } else {
+        pd_power_cont_return_to_base_state(ufp);
+      }
+    }
+
+  } else if (io_determine_intrupt_source().name == "f_usbc_pgood") {
+    /*
+    pd_power_cont_dfp_allow_output = false;
+    //check voltae with adc
+    if (pd_power_cont_pgood(dfp, pd_power_cont_dfp_current_voltage)){
+      pd_power_cont_dfp_allow_output = true
+    }
+    */
+
+  } else if (io_determine_intrupt_source().name == "b_usbc_pgood") {
+
+  } else if (io_determine_intrupt_source().name == "src_btn") {
+
+  } else if (io_determine_intrupt_source().name == "unit_btn") {
+
+  } else if (io_determine_intrupt_source().name == "mode_btn") {
+
+  } else if (io_determine_intrupt_source().name == "disp_irq") {
+
+  } else if (io_determine_intrupt_source().name == "ufp_alert_n") {
+
+  } else if (io_determine_intrupt_source().name == "dfp_alert_n") {
+
+  }
+}
 
 
 

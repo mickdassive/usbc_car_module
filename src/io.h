@@ -59,6 +59,7 @@ enum in_out {
 };
 
 struct pin {
+  char* name;            //name of pin
   uint8_t mask;          //mask for iox
   int port;              //port on iox (can be 0 or 1 only)
   int iox_number;        //iox number
@@ -71,45 +72,45 @@ struct pin {
 
 //BE SHURE TO ADD PINS TO BOTH THE "pin" STRUCT AND THE "pin_names" ARRAY THEY MUST MATCH
 //io_call struct defines  {mask, port, iox#, pin, pin_mode, onboard, allow_interrupt}
-static struct pin sda {0x00, 0, 0, 4, bi_dir, true, false};
-static struct pin scl {0x00, 0, 0, 5, bi_dir, true, false};
-static struct pin onboard_led {0x00, 0, 0, 2, out, true, false};
-static struct pin can_rx {0x00, 0, 0, 12, in, true, false};
-static struct pin can_tx {0x00, 0, 0, 13, out, true, false};
-static struct pin can_silent {0x02, 0, 0, 5, out, false, false};
-static struct pin iox_0_int {0x00, 0, 1, 14, intr, true, true};
-static struct pin iox_1_int {0x01, 0, 0, 4, in, false, true};
-static struct pin dfp_cc_orient {0x80, 0, 0, 8, out, false, false};
-static struct pin b_usbc_pgood {0x20, 0, 1, 9, in, false, true};
-static struct pin b_usbc_buck_en {0x01, 1, 1, 13, out, false, false};
-static struct pin b_usbc_5V_sel {0x02, 1, 1, 14, out, false, false};
-static struct pin b_usbc_9V_sel {0x04, 1, 1, 15, out, false, false};
-static struct pin b_usbc_12V_sel {0x08, 1, 1, 16, out, false, false};
-static struct pin b_usbc_15V_sel {0x10, 1, 1, 17, out, false, false};
-static struct pin b_usbc_20V_sel {0x20, 1, 1, 18, out, false, false};
-static struct pin f_usbc_pgood {0x40, 0, 1, 10, in, false, true};
-static struct pin f_usbc_buck_en {0x80, 0, 1, 11, out, false, false};
-static struct pin f_usbc_5V_sel {0x01, 0, 1, 4, out, false, false};
-static struct pin f_usbc_9V_sel {0x02, 0, 1, 5, out, false, false};
-static struct pin f_usbc_12V_sel {0x04, 0, 1, 6, out, false, false};
-static struct pin f_usbc_15V_sel {0x08, 0, 1, 7, out, false, false};
-static struct pin f_usbc_20V_sel {0x10, 0, 1, 8, out, false, false};
-static struct pin adc_alert {0x80, 1, 1, 20, in, false, true};
-static struct pin ufp_c_attach_0 {0x80, 0, 0, 11, out, false, false};
-static struct pin hub_vbus_det {0x40, 0, 0, 10, out, false, false};
-static struct pin dfp_c_attach_1 {0x20, 0, 0, 9, out, false, false};
-static struct pin disp_irq {0x10, 1, 0, 17, in, false, true};
-static struct pin unit_btn {0x40, 1, 0, 19, in, false, true};
-static struct pin src_btn {0x80, 1, 0, 20, in, false, true};
-static struct pin mode_btn {0x20, 0, 0, 18, in, false, true};
-static struct pin iox_0_p_0_0 {0X08, 0, 0, 7, in, false, false};
-static struct pin iox_0_p_0_1 {0X04, 0, 0, 6, in, false, false};
-static struct pin ufp_dbgacc {0x04, 1, 0, 15, in, false, false};
-static struct pin dfp_dbgacc {0x80, 1, 1, 19, in, false, false};
-static struct pin ufp_alert_n {0x02, 1, 0, 14, in, false, true};
-static struct pin dfp_alert_n {0x01, 1, 0, 13, in, false, true};
-static struct pin ufp_cc_orient {0x10, 0, 0, 8, out, false, false};
-static struct pin empty_struct_pin {0x0, 0, 0, 0, empty_pin, false, false};
+static struct pin sda {"sda", 0x00, 0, 0, 4, bi_dir, true, false};
+static struct pin scl {"scl", 0x00, 0, 0, 5, bi_dir, true, false};
+static struct pin onboard_led {"onboard_led", 0x00, 0, 0, 2, out, true, false};
+static struct pin can_rx {"can_rx", 0x00, 0, 0, 12, in, true, false};
+static struct pin can_tx {"can_tx", 0x00, 0, 0, 13, out, true, false};
+static struct pin can_silent {"can_silent", 0x02, 0, 0, 5, out, false, false};
+static struct pin iox_0_int {"iox_0_int", 0x00, 0, 1, 14, intr, true, true};
+static struct pin iox_1_int {"iox_1_int", 0x01, 0, 0, 4, in, false, true};
+static struct pin dfp_cc_orient {"dfp_cc_orient", 0x80, 0, 0, 8, out, false, false};
+static struct pin b_usbc_pgood {"b_usbc_pgood", 0x20, 0, 1, 9, in, false, true};
+static struct pin b_usbc_buck_en {"b_usbc_buck_en", 0x01, 1, 1, 13, out, false, false};
+static struct pin b_usbc_5V_sel {"b_usbc_5V_sel", 0x02, 1, 1, 14, out, false, false};
+static struct pin b_usbc_9V_sel {"b_usbc_9V_sel", 0x04, 1, 1, 15, out, false, false};
+static struct pin b_usbc_12V_sel {"b_usbc_12V_sel", 0x08, 1, 1, 16, out, false, false};
+static struct pin b_usbc_15V_sel {"b_usbc_15V_sel", 0x10, 1, 1, 17, out, false, false};
+static struct pin b_usbc_20V_sel {"b_usbc_20V_sel", 0x20, 1, 1, 18, out, false, false};
+static struct pin f_usbc_pgood {"f_usbc_pgood", 0x40, 0, 1, 10, in, false, true};
+static struct pin f_usbc_buck_en {"f_usbc_buck_en", 0x80, 0, 1, 11, out, false, false};
+static struct pin f_usbc_5V_sel {"f_usbc_5V_sel", 0x01, 0, 1, 4, out, false, false};
+static struct pin f_usbc_9V_sel {"f_usbc_9V_sel", 0x02, 0, 1, 5, out, false, false};
+static struct pin f_usbc_12V_sel {"f_usbc_12V_sel", 0x04, 0, 1, 6, out, false, false};
+static struct pin f_usbc_15V_sel {"f_usbc_15V_sel", 0x08, 0, 1, 7, out, false, false};
+static struct pin f_usbc_20V_sel {"f_usbc_20V_sel", 0x10, 0, 1, 8, out, false, false};
+static struct pin adc_alert {"adc_alert", 0x80, 1, 1, 20, in, false, true};
+static struct pin ufp_c_attach_0 {"ufp_c_attach_0", 0x80, 0, 0, 11, out, false, false};
+static struct pin hub_vbus_det {"hub_vbus_det", 0x40, 0, 0, 10, out, false, false};
+static struct pin dfp_c_attach_1 {"dfp_c_attach_1", 0x20, 0, 0, 9, out, false, false};
+static struct pin disp_irq {"disp_irq", 0x10, 1, 0, 17, in, false, true};
+static struct pin unit_btn {"unit_btn", 0x40, 1, 0, 19, in, false, true};
+static struct pin src_btn {"src_btn", 0x80, 1, 0, 20, in, false, true};
+static struct pin mode_btn {"mode_btn", 0x20, 0, 0, 18, in, false, true};
+static struct pin iox_0_p_0_0 {"iox_0_p_0_0", 0X08, 0, 0, 7, in, false, false};
+static struct pin iox_0_p_0_1 {"iox_0_p_0_1", 0X04, 0, 0, 6, in, false, false};
+static struct pin ufp_dbgacc {"ufp_dbgacc", 0x04, 1, 0, 15, in, false, false};
+static struct pin dfp_dbgacc {"dfp_dbgacc", 0x80, 1, 1, 19, in, false, false};
+static struct pin ufp_alert_n {"ufp_alert_n", 0x02, 1, 0, 14, in, false, true};
+static struct pin dfp_alert_n {"dfp_alert_n", 0x01, 1, 0, 13, in, false, true};
+static struct pin ufp_cc_orient {"ufp_cc_orient", 0x10, 0, 0, 8, out, false, false};
+static struct pin empty_struct_pin {"empty_struct_pin", 0x0, 0, 0, 0, empty_pin, false, false};
 
 
 //io_call pin struct names for auto pin init
@@ -175,12 +176,15 @@ extern uint8_t iox_0_port_0_interrupt;
 extern uint8_t iox_0_port_1_interrupt;
 extern uint8_t iox_1_port_0_interrupt;
 extern uint8_t iox_1_port_1_interrupt;
+
+bool io_interupt_flag;
  
 //fuction defines
 uint8_t io_read_current_io_state(int port, int iox_num);
 int io_call(struct pin pin_needed, enum read_write read_write, enum high_low high_low);
 void io_gpio_init();
 struct pin io_determine_intrupt_source();
+void io_pin_intrupt_flagger ();
 
 
 

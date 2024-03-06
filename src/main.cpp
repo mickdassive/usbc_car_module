@@ -44,6 +44,8 @@ const char* firmware_version = "V 0.1";
 //boot sucsessful var
 int boot_sucsesful = 0;
 
+
+
 /*
 //io intrupt rutine
 void IRAM_ATTR ioISR() {
@@ -123,6 +125,8 @@ void setup() {
   }
   
 }
+
+
 
 void loop() {
   io_call(onboard_led, write, high);

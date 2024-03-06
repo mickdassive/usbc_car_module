@@ -26,6 +26,12 @@
 #include "adc.h"
 #include "pd_phy.h"
 
+//port info vars 
+extern int pd_power_cont_ufp_current_voltage = 0;
+extern int pd_power_cont_dfp_current_voltage = 0;
+extern bool pd_power_cont_ufp_allow_output = false;
+extern bool pd_power_cont_dfp_allow_output = false;
+
 //disabels given port output
 void pd_power_cont_return_to_base_state (enum ufp_dfp ufp_dfp) {
 
