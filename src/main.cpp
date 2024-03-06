@@ -77,6 +77,9 @@ void setup() {
   io_gpio_init();
   Serial.println("GPIO init complete");
 
+  //set onboard led to low to not be annoying
+  io_call(onboard_led, write, low);
+
   //bgegin init for ADC
   //adc_init(false);
   Serial.println("ADC init and self cal complete");
@@ -99,7 +102,7 @@ void setup() {
   }
 
   //begin init for USB-PD PHYs
-  //pd_phy_init();
+  pd_phy_init();
   Serial.println("USB-PD PHY UFP&DFP init complete");
 
 

@@ -278,115 +278,166 @@ void pd_phy_clear_fault (enum ufp_dfp ufp_dfp) {
 
 //init the pd phys
 void pd_phy_init() {
-    //init local vars 
-    uint8_t current_port_addres = 0;
-    enum ufp_dfp current_port = ufp;
-
     //wake i2c interface on the phys
     pd_phy_send_i2c_wake(ufp);
     pd_phy_send_i2c_wake(dfp);
 
-    for (int i; i < 2; ++i) {
-        //select port controller
-        if (i == 0){
-            current_port_addres = pd_phy_add_ufp;
-            current_port = ufp;
-        } else if (i == 1) {
-            current_port_addres = pd_phy_add_dfp;
-            current_port = dfp;
-        }
+    //clear all faults
+    pd_phy_clear_alert(ufp);
+    pd_phy_clear_extended_alert(ufp);
+    pd_phy_clear_fault(ufp);
 
-        //clear all faults
-        pd_phy_clear_alert(current_port);
-        pd_phy_clear_extended_alert(current_port);
-        pd_phy_clear_fault(current_port);
+    //write tptc control
+    Wire.beginTransmission(pd_phy_add_ufp);
+    Wire.write(pd_phy_reg_tcpc_control);
+    Wire.write(pd_phy_dflt_tptc_control);
+    Wire.endTransmission();
 
-        //write tptc control
-        Wire.beginTransmission(current_port_addres);
-        Wire.write(pd_phy_reg_tcpc_control);
-        Wire.write(pd_phy_dflt_tptc_control);
-        Wire.endTransmission();
+    //write fault control
+    Wire.beginTransmission(pd_phy_add_ufp);
+    Wire.write(pd_phy_reg_fault_control);
+    Wire.write(pd_phy_dflt_fault_control);
+    Wire.endTransmission();
 
-        //write fault control
-        Wire.beginTransmission(current_port_addres);
-        Wire.write(pd_phy_reg_fault_control);
-        Wire.write(pd_phy_dflt_fault_control);
-        Wire.endTransmission();
+    //write power control
+    Wire.beginTransmission(pd_phy_add_ufp);
+    Wire.write(pd_phy_reg_power_control);
+    Wire.write(pd_phy_dflt_power_control);
+    Wire.endTransmission();
 
-        //write power control
-        Wire.beginTransmission(current_port_addres);
-        Wire.write(pd_phy_reg_power_control);
-        Wire.write(pd_phy_dflt_power_control);
-        Wire.endTransmission();
+    //write headder info
+    Wire.beginTransmission(pd_phy_add_ufp);
+    Wire.write(pd_phy_reg_message_headder_info);
+    Wire.write(pd_phy_ufp_dflt_message_header_info);
+    Wire.endTransmission();
 
-        //write headder info
-        Wire.beginTransmission(current_port_addres);
-        Wire.write(pd_phy_reg_message_headder_info);
-        if (i == 0){
-            Wire.write(pd_phy_ufp_dflt_message_header_info);
-        } else if (i ==1){
-            Wire.write(pd_phy_dfp_dflt_message_header_info);
-        }
-        Wire.endTransmission();
+    //write recive detect
+    Wire.beginTransmission(pd_phy_add_ufp);
+    Wire.write(pd_phy_reg_recive_detect);
+    Wire.write(pd_phy_dflt_recive_detect);
+    Wire.endTransmission();
 
-        //write recive detect
-        Wire.beginTransmission(current_port_addres);
-        Wire.write(pd_phy_reg_recive_detect);
-        Wire.write(pd_phy_dflt_recive_detect);
-        Wire.endTransmission();
+    //write ext gpio config
+    Wire.beginTransmission(pd_phy_add_ufp);
+    Wire.write(pd_phy_reg_ext_gpio_config);
+    Wire.write(pd_phy_dflt_ext_gpio_config);
+    Wire.endTransmission();
 
-        //write ext gpio config
-        Wire.beginTransmission(current_port_addres);
-        Wire.write(pd_phy_reg_ext_gpio_config);
-        Wire.write(pd_phy_dflt_ext_gpio_config);
-        Wire.endTransmission();
+    //write ext gpio control
+    Wire.beginTransmission(pd_phy_add_ufp);
+    Wire.write(pd_phy_reg_ext_gpio_control);
+    Wire.write(pd_phy_dflt_ext_gpio_control);
+    Wire.endTransmission();
 
-        //write ext gpio control
-        Wire.beginTransmission(current_port_addres);
-        Wire.write(pd_phy_reg_ext_gpio_control);
-        Wire.write(pd_phy_dflt_ext_gpio_control);
-        Wire.endTransmission();
+    //write ext gpio alert config
+    Wire.beginTransmission(pd_phy_add_ufp);
+    Wire.write(pd_phy_reg_ext_gpio_alert_config);
+    Wire.write(pd_phy_dflt_ext_gpio_alert_config);
+    Wire.endTransmission();
 
-        //write ext gpio alert config
-        Wire.beginTransmission(current_port_addres);
-        Wire.write(pd_phy_reg_ext_gpio_alert_config);
-        Wire.write(pd_phy_dflt_ext_gpio_alert_config);
-        Wire.endTransmission();
+    //write vconn config
+    Wire.beginTransmission(pd_phy_add_ufp);
+    Wire.write(pd_phy_reg_vconn_config);
+    Wire.write(pd_phy_dflt_vconn_config);
+    Wire.endTransmission();
 
-        //write vconn config
-        Wire.beginTransmission(current_port_addres);
-        Wire.write(pd_phy_reg_vconn_config);
-        Wire.write(pd_phy_dflt_vconn_config);
-        Wire.endTransmission();
+    //write vconn fault attemps
+    Wire.beginTransmission(pd_phy_add_ufp);
+    Wire.write(pd_phy_reg_vconn_fault_attempts);
+    Wire.write(pd_phy_dflt_vconn_fault_attemps);
+    Wire.endTransmission();
 
-        //write vconn fault attemps
-        Wire.beginTransmission(current_port_addres);
-        Wire.write(pd_phy_reg_vconn_fault_attempts);
-        Wire.write(pd_phy_dflt_vconn_fault_attemps);
-        Wire.endTransmission();
+    //write role control
+    Wire.beginTransmission(pd_phy_add_ufp);
+    Wire.write(pd_phy_reg_role_control);
+    Wire.write(pd_phy_ufp_dflt_role_control);
+    Wire.endTransmission();
 
-        //write role control
-        Wire.beginTransmission(current_port_addres);
-        Wire.write(pd_phy_reg_role_control);
-        if (i == 0){
-            Wire.write(pd_phy_ufp_dflt_role_control);
-        } else if (i == 1){
-            Wire.write(pd_phy_dfp_dflt_role_control);
-        }
-        Wire.endTransmission();
+    //write device capabilities
+    Wire.beginTransmission(pd_phy_add_ufp);
+    Wire.write(pd_phy_reg_device_capabilities_1);
+    Wire.write(pd_phy_dflt_device_capabilities_1);
+    Wire.endTransmission();
+    Wire.beginTransmission(pd_phy_add_ufp);
+    Wire.write(pd_phy_reg_device_capabilities_2);
+    Wire.write(pd_phy_dflt_device_capabilities_2);
+    Wire.endTransmission();
 
-        //write device capabilities
-        Wire.beginTransmission(current_port_addres);
-        Wire.write(pd_phy_reg_device_capabilities_1);
-        Wire.write(pd_phy_dflt_device_capabilities_1);
-        Wire.endTransmission();
-        Wire.beginTransmission(current_port_addres);
-        Wire.write(pd_phy_reg_device_capabilities_2);
-        Wire.write(pd_phy_dflt_device_capabilities_2);
-        Wire.endTransmission();
+    //write tptc control
+    Wire.beginTransmission(pd_phy_add_dfp);
+    Wire.write(pd_phy_reg_tcpc_control);
+    Wire.write(pd_phy_dflt_tptc_control);
+    Wire.endTransmission();
 
+    //write fault control
+    Wire.beginTransmission(pd_phy_add_dfp);
+    Wire.write(pd_phy_reg_fault_control);
+    Wire.write(pd_phy_dflt_fault_control);
+    Wire.endTransmission();
 
-    }
+    //write power control
+    Wire.beginTransmission(pd_phy_add_dfp);
+    Wire.write(pd_phy_reg_power_control);
+    Wire.write(pd_phy_dflt_power_control);
+    Wire.endTransmission();
+
+    //write headder info
+    Wire.beginTransmission(pd_phy_add_dfp);
+    Wire.write(pd_phy_reg_message_headder_info);
+    Wire.write(pd_phy_dfp_dflt_message_header_info);
+    Wire.endTransmission();
+
+    //write recive detect
+    Wire.beginTransmission(pd_phy_add_dfp);
+    Wire.write(pd_phy_reg_recive_detect);
+    Wire.write(pd_phy_dflt_recive_detect);
+    Wire.endTransmission();
+
+    //write ext gpio config
+    Wire.beginTransmission(pd_phy_add_dfp);
+    Wire.write(pd_phy_reg_ext_gpio_config);
+    Wire.write(pd_phy_dflt_ext_gpio_config);
+    Wire.endTransmission();
+
+    //write ext gpio control
+    Wire.beginTransmission(pd_phy_add_dfp);
+    Wire.write(pd_phy_reg_ext_gpio_control);
+    Wire.write(pd_phy_dflt_ext_gpio_control);
+    Wire.endTransmission();
+
+    //write ext gpio alert config
+    Wire.beginTransmission(pd_phy_add_dfp);
+    Wire.write(pd_phy_reg_ext_gpio_alert_config);
+    Wire.write(pd_phy_dflt_ext_gpio_alert_config);
+    Wire.endTransmission();
+
+    //write vconn config
+    Wire.beginTransmission(pd_phy_add_dfp);
+    Wire.write(pd_phy_reg_vconn_config);
+    Wire.write(pd_phy_dflt_vconn_config);
+    Wire.endTransmission();
+
+    //write vconn fault attemps
+    Wire.beginTransmission(pd_phy_add_dfp);
+    Wire.write(pd_phy_reg_vconn_fault_attempts);
+    Wire.write(pd_phy_dflt_vconn_fault_attemps);
+    Wire.endTransmission();
+
+    //write role control
+    Wire.beginTransmission(pd_phy_add_dfp);
+    Wire.write(pd_phy_reg_role_control);
+    Wire.write(pd_phy_dfp_dflt_role_control);
+    Wire.endTransmission();
+
+    //write device capabilities
+    Wire.beginTransmission(pd_phy_add_dfp);
+    Wire.write(pd_phy_reg_device_capabilities_1);
+    Wire.write(pd_phy_dflt_device_capabilities_1);
+    Wire.endTransmission();
+    Wire.beginTransmission(pd_phy_add_dfp);
+    Wire.write(pd_phy_reg_device_capabilities_2);
+    Wire.write(pd_phy_dflt_device_capabilities_2);
+    Wire.endTransmission();
 
     //clear all faults
     pd_phy_clear_alert(ufp);
@@ -804,7 +855,7 @@ void pd_phy_transmit_hard_reset (enum ufp_dfp ufp_dfp) {
 
     //put i2c iterface to sleep
     pd_phy_send_i2c_idle(ufp_dfp);
-    
+
     return;
 }
 
