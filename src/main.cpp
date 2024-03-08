@@ -129,10 +129,11 @@ void setup() {
 
 
 void loop() {
-  io_call(onboard_led, write, high);
-  delay(rand() % (1000-1+1)+1);
-  io_call(onboard_led, write, low);
-  delay(rand() % (1000-1+1)+1);
+  //see if intrupt was flaged and run the handeler
+  if (io_interupt_flag) {
+    io_intrupt_handeler();
+  }
+
 }
 
 

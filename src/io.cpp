@@ -25,6 +25,8 @@
 #include "io.h"
 #include "adc.h"
 #include "pd/pd_power_cont.h"
+#include "pd/pd_phy.h"
+#include "pd/pd_prot.h"
 
 //iox intrupt register values
 uint8_t iox_0_port_0_interrupt = 0xFF;
@@ -32,7 +34,7 @@ uint8_t iox_0_port_1_interrupt = 0xFF;
 uint8_t iox_1_port_0_interrupt = 0xFF;
 uint8_t iox_1_port_1_interrupt = 0xFF;
 
-extern bool io_interupt_flag = false;
+bool io_interupt_flag = false;
 
 
 //reads current pin state of the io expander outputs
@@ -384,35 +386,26 @@ struct pin io_determine_intrupt_source() {
 
     //determine if iterupt came from adc or f/b pgood
     if ((iox_1_int_reg_1_value & adc_alert.mask) != 0) {
-      io_deaseert_iox_int();
       return adc_alert;
     } else if ((iox_1_int_reg_0_value & f_usbc_pgood.mask) != 0) {
-      io_deaseert_iox_int();
       return f_usbc_pgood;
     } else if ((iox_1_int_reg_0_value & b_usbc_pgood.mask) != 0) {
-      io_deaseert_iox_int();
       return b_usbc_pgood;
     }
   }
 
   //determine if intertrupt came from source btn, unit btn, mode btn, display, or ufp/dfp pd phy alert
   if ((iox_0_int_reg_1_value & src_btn.mask) != 0) {
-    io_deaseert_iox_int();
     return src_btn;
   } else if ((iox_0_int_reg_1_value & unit_btn.mask) != 0) {
-    io_deaseert_iox_int();
     return unit_btn;
   } else if ((iox_0_int_reg_1_value & mode_btn.mask) != 0) {
-    io_deaseert_iox_int();
     return mode_btn;
   } else if ((iox_0_int_reg_1_value & disp_irq.mask) != 0) {
-    io_deaseert_iox_int();
     return disp_irq;
   } else if ((iox_0_int_reg_1_value & ufp_alert_n.mask) != 0) {
-    io_deaseert_iox_int();
     return ufp_alert_n;
   } else if ((iox_0_int_reg_1_value & dfp_alert_n.mask) != 0) {
-    io_deaseert_iox_int();
     return dfp_alert_n;
   }
 
@@ -421,27 +414,29 @@ struct pin io_determine_intrupt_source() {
 };
 
 
-
+//set intrupt flag true and return as fast as possabel
 void io_pin_intrupt_flagger () {
   //set the intrupt flag
   io_interupt_flag = true;
   return;
 }
 
+
+//determines intrupt souce and take appropriate actions
 void io_intrupt_handeler () {
 
   io_interupt_flag = false;
 
-  if (io_determine_intrupt_source().name == "adc_alert") {
+  if (io_determine_intrupt_source().pin_ident == 'x') { //adc alert
     //determine channel that flagged the alert 
     if (adc_determine_alert_source() == ch0) {
       //21V csp do nothing
     } else if (adc_determine_alert_source() == ch1) {
-      //21V csn do nothing
+      //21V csn do nothing      
     } else if (adc_determine_alert_source() == ch2) {
-      //5V csp do nothing
+      //5V csp do nothing       
     } else if (adc_determine_alert_source() == ch3) {
-      //5V csn do nothing 
+      //5V csn do nothing       
     } else if (adc_determine_alert_source() == ch4) {
       //ufp csp
       //turn off power to port if out of range
@@ -449,42 +444,238 @@ void io_intrupt_handeler () {
         //do nothing if pgood
       } else {
         pd_power_cont_return_to_base_state(ufp);
-        
+        pd_power_cont_ufp_allow_output = false;
       }
     } else if (adc_determine_alert_source() == ch5) {
       //ufp csn
       //turn off power to port if out of range
       if (pd_power_cont_pgood(ufp, pd_power_cont_ufp_current_voltage)){
-        //do nothing if pgood
+        //do nothing if pgood        
       } else {
         pd_power_cont_return_to_base_state(ufp);
+        pd_power_cont_ufp_allow_output = false;
+      }
+    } else if (adc_determine_alert_source() == ch6) {
+      //dfp csp
+      //turn off port power if out of range 
+      if (pd_power_cont_pgood(dfp, pd_power_cont_dfp_current_voltage)) {
+        //do nothing if power good
+      } else {
+        pd_power_cont_return_to_base_state(dfp);
+        pd_power_cont_dfp_allow_output = false;
+      }
+    } else if (adc_determine_alert_source() == ch7) {
+      //dfp csn
+      //turn port power off if out of range
+      if (pd_power_cont_pgood(dfp, pd_power_cont_dfp_current_voltage)){
+        //do nnothing if power good        
+      } else {
+        pd_power_cont_return_to_base_state(dfp);
+        pd_power_cont_dfp_allow_output = false;
       }
     }
 
-  } else if (io_determine_intrupt_source().name == "f_usbc_pgood") {
-    /*
-    pd_power_cont_dfp_allow_output = false;
-    //check voltae with adc
-    if (pd_power_cont_pgood(dfp, pd_power_cont_dfp_current_voltage)){
-      pd_power_cont_dfp_allow_output = true
+    //clear adc alert
+    adc_clear_event_flag();
+
+  } else if (io_determine_intrupt_source().pin_ident == 'q') { //f usbc pgood
+    // read pin to see if high or low
+    if (io_call(f_usbc_pgood, read, read_mode) == 1) {
+      //set allow output to  true
+      pd_power_cont_dfp_allow_output = true;
+    } else if (io_call(f_usbc_pgood, read, read_mode)){
+      //set allow output to false 
+      pd_power_cont_dfp_allow_output = false;
     }
-    */
+  } else if (io_determine_intrupt_source().pin_ident == 'j') { //b usbc pgood
+    // read pin to see if high or low
+    if (io_call(b_usbc_pgood, read, read_mode) == 1) {
+      //set allow output to  true
+      pd_power_cont_ufp_allow_output = true;
+    } else if (io_call(b_usbc_pgood, read, read_mode)){
+      //set allow output to false 
+      pd_power_cont_ufp_allow_output = false;
+    }
+  } else if (io_determine_intrupt_source().pin_ident == '4') { //source buttion
 
-  } else if (io_determine_intrupt_source().name == "b_usbc_pgood") {
+  } else if (io_determine_intrupt_source().pin_ident == '3') { //unit buttion
 
-  } else if (io_determine_intrupt_source().name == "src_btn") {
+  } else if (io_determine_intrupt_source().pin_ident == '5') { //mode buttion
 
-  } else if (io_determine_intrupt_source().name == "unit_btn") {
+  } else if (io_determine_intrupt_source().pin_ident == '2') { //display itrupt
+    //do nothing, not used 
+  } else if (io_determine_intrupt_source().pin_ident == '0') { //ufp alert n
+    //determine alert type
+    if (pd_phy_alert_type(ufp) == vendor_defined_extended) {
+      // do nothing
+    } else if (pd_phy_alert_type(ufp) == extended_status_cahnged) {
+      // do nothing
+    } else if (pd_phy_alert_type(ufp) == beginning_sop_message_status) {
+      //do nothing
+    } else if (pd_phy_alert_type(ufp) == vbus_sink_disconnect_detected) {
+      //do nothing?
+    } else if (pd_phy_alert_type(ufp) == rx_buffer_overflow) {
+      //reset recive buffer
+      pd_phy_send_reset_recive_buffer(ufp);
+    } else if (pd_phy_alert_type(ufp) == vbus_voltage_low) {
+      //see if power is actuly bad
+      if (pd_power_cont_pgood(ufp, pd_power_cont_ufp_current_voltage)) {
+        //do nothing
+      } else {
+        //turn port power off
+        pd_power_cont_return_to_base_state(ufp);
+        pd_power_cont_ufp_allow_output = false;
+      }
+    } else if (pd_phy_alert_type(ufp) == vbus_voltage_high) {
+      //see if power is actuly bad
+      if (pd_power_cont_pgood(ufp, pd_power_cont_ufp_current_voltage)) {
+        //do nothing
+      } else {
+        //turn port power off
+        pd_power_cont_return_to_base_state(ufp);
+        pd_power_cont_ufp_allow_output = false;
+      }
+    } else if (pd_phy_alert_type(ufp) == transmit_sop_message_succsessful) {
+      // do nothing
+    } else if (pd_phy_alert_type(ufp) == transmit_sop_message_discarded) {
+      // set retransmit flag
+      pd_prot_ufp_retransit_necessary = true;
+    } else if (pd_phy_alert_type(ufp) == transmit_sop_message_failed) {
+      // set retransmit flag
+      pd_prot_ufp_retransit_necessary = true;
+    } else if (pd_phy_alert_type(ufp) == recived_hard_reset) {
+      // do nothing
+    } else if (pd_phy_alert_type(ufp) == recvied_sop_message_status) {
+      // do nothing?
+    } else if (pd_phy_alert_type(ufp) == port_power_status_changed) {
+      // do nothing?
+    } else if (pd_phy_alert_type(ufp) == cc_status_alert) {
+      // determine if port is in attched or detached state 
+      if (pd_phy_ufp_attached) {
+        //complite detach seqwince
+        pd_phy_complite_detatch(ufp);
+      } else {
+        // complite attach
+        pd_phy_complite_attach(ufp);
+      }
+    } else if (pd_phy_alert_type(ufp) == extended_timer_expired) {
+      // do nothing
+    } else if (pd_phy_alert_type(ufp) == extended_souce_frs) {
+      // do nothing
+    } else if (pd_phy_alert_type(ufp) == extended_sink_frs) {
+      // do nothing
+    } else if (pd_phy_alert_type(ufp) == force_discharge_failled) {
+      // turn port power supply off
+      pd_power_cont_return_to_base_state(ufp);
+    } else if (pd_phy_alert_type(ufp) == auto_discahrge_failed) {
+      // do nothing for now
+    } else if (pd_phy_alert_type(ufp) == internal_or_external_vbus_over_current_protection_fault) {
+      // turn of power and stop allowing output 
+      pd_power_cont_return_to_base_state(ufp);
+      pd_power_cont_ufp_allow_output = false;
+    } else if (pd_phy_alert_type(ufp) == internal_or_external_vbus_over_voltage_protection_fault) {
+      //turn off power and stop allowing output
+      pd_power_cont_return_to_base_state(ufp);
+      pd_power_cont_ufp_allow_output = false;
+    } else if (pd_phy_alert_type(ufp) == i2c_error) {
+      //reset rx & tx buffers
+      pd_phy_send_reset_recive_buffer(ufp);
+      pd_phy_send_reset_transmit_buffer(ufp);
+    }
 
-  } else if (io_determine_intrupt_source().name == "mode_btn") {
+    pd_phy_clear_alert(ufp);
+    pd_phy_clear_fault(ufp);
+    pd_phy_clear_extended_alert(ufp);
 
-  } else if (io_determine_intrupt_source().name == "disp_irq") {
+  } else if (io_determine_intrupt_source().pin_ident == '?') { //dfp alert n
+    //determine alert type
+    if (pd_phy_alert_type(dfp) == vendor_defined_extended) {
+      // do nothing
+    } else if (pd_phy_alert_type(dfp) == extended_status_cahnged) {
+      // do nothing
+    } else if (pd_phy_alert_type(dfp) == beginning_sop_message_status) {
+      //do nothing
+    } else if (pd_phy_alert_type(dfp) == vbus_sink_disconnect_detected) {
+      //do nothing?
+    } else if (pd_phy_alert_type(dfp) == rx_buffer_overflow) {
+      //reset recive buffer
+      pd_phy_send_reset_recive_buffer(dfp);
+    } else if (pd_phy_alert_type(dfp) == vbus_voltage_low) {
+      //see if power is actuly bad
+      if (pd_power_cont_pgood(dfp, pd_power_cont_dfp_current_voltage)) {
+        //do nothing
+      } else {
+        //turn port power off
+        pd_power_cont_return_to_base_state(dfp);
+        pd_power_cont_dfp_allow_output = false;
+      }
+    } else if (pd_phy_alert_type(dfp) == vbus_voltage_high) {
+      //see if power is actuly bad
+      if (pd_power_cont_pgood(dfp, pd_power_cont_dfp_current_voltage)) {
+        //do nothing
+      } else {
+        //turn port power off
+        pd_power_cont_return_to_base_state(dfp);
+        pd_power_cont_dfp_allow_output = false;
+      }
+    } else if (pd_phy_alert_type(dfp) == transmit_sop_message_succsessful) {
+      // do nothing
+    } else if (pd_phy_alert_type(dfp) == transmit_sop_message_discarded) {
+      // set retransmit flag
+      pd_prot_dfp_retransit_necessary = true;
+    } else if (pd_phy_alert_type(dfp) == transmit_sop_message_failed) {
+      // set retransmit flag
+      pd_prot_dfp_retransit_necessary = true;
+    } else if (pd_phy_alert_type(dfp) == recived_hard_reset) {
+      // do nothing
+    } else if (pd_phy_alert_type(dfp) == recvied_sop_message_status) {
+      // do nothing?
+    } else if (pd_phy_alert_type(dfp) == port_power_status_changed) {
+      // do nothing?
+    } else if (pd_phy_alert_type(dfp) == cc_status_alert) {
+      // determine if port is in attched or detached state 
+      if (pd_phy_dfp_attached) {
+        //complite detach seqwince
+        pd_phy_complite_detatch(dfp);
+      } else {
+        // complite attach
+        pd_phy_complite_attach(dfp);
+      }
+    } else if (pd_phy_alert_type(dfp) == extended_timer_expired) {
+      // do nothing
+    } else if (pd_phy_alert_type(dfp) == extended_souce_frs) {
+      // do nothing
+    } else if (pd_phy_alert_type(dfp) == extended_sink_frs) {
+      // do nothing
+    } else if (pd_phy_alert_type(dfp) == force_discharge_failled) {
+      // turn port power supply off
+      pd_power_cont_return_to_base_state(dfp);
+    } else if (pd_phy_alert_type(dfp) == auto_discahrge_failed) {
+      // do nothing for now
+    } else if (pd_phy_alert_type(dfp) == internal_or_external_vbus_over_current_protection_fault) {
+      // turn of power and stop allowing output 
+      pd_power_cont_return_to_base_state(dfp);
+      pd_power_cont_dfp_allow_output = false;
+    } else if (pd_phy_alert_type(dfp) == internal_or_external_vbus_over_voltage_protection_fault) {
+      //turn off power and stop allowing output
+      pd_power_cont_return_to_base_state(dfp);
+      pd_power_cont_dfp_allow_output = false;
+    } else if (pd_phy_alert_type(dfp) == i2c_error) {
+      //reset rx & tx buffers
+      pd_phy_send_reset_recive_buffer(dfp);
+      pd_phy_send_reset_transmit_buffer(dfp);
+    }
 
-  } else if (io_determine_intrupt_source().name == "ufp_alert_n") {
-
-  } else if (io_determine_intrupt_source().name == "dfp_alert_n") {
+    pd_phy_clear_alert(dfp);
+    pd_phy_clear_fault(dfp);
+    pd_phy_clear_extended_alert(dfp);
 
   }
+  //deasert iox_intrupts
+  io_deaseert_iox_int();
+
+  return;
+
 }
 
 

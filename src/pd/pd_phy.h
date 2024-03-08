@@ -159,16 +159,16 @@ enum pd_phy_alert_type {
     internal_or_external_vbus_over_voltage_protection_fault,
     vconn_over_current_fault,
     i2c_error,
-    empty
+    alert_empty
 };
 
 //plug orientaion vars
-extern int ufp_plug_orientaion;
-extern int dfp_plug_orientaion;
+extern int pd_phy_ufp_plug_orientaion;
+extern int pd_phy_dfp_plug_orientaion;
 
 //port attach status
-extern bool ufp_attached;
-extern bool dfp_attached;
+extern bool pd_phy_ufp_attached;
+extern bool pd_phy_dfp_attached;
 
 enum message_type {sop, sop_col, sop_col_col, sop_dbg_col, sop_dbg_col_col, cable_reset};
 
@@ -200,6 +200,7 @@ void pd_phy_clear_extended_alert (enum ufp_dfp ufp_dfp);
 void pd_phy_clear_fault (enum ufp_dfp ufp_dfp);
 enum pd_phy_alert_type pd_phy_determine_alert_type (enum ufp_dfp ufp_dfp);
 void pd_phy_complite_attach (enum ufp_dfp ufp_dfp);
+void pd_phy_complite_detatch (enum ufp_dfp ufp_dfp);
 bool pd_phy_transmit (enum ufp_dfp ufp_dfp, uint8_t to_transmit[]);
 void pd_phy_recive_message (enum ufp_dfp ufp_dfp);
 

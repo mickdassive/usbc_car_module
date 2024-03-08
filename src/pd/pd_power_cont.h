@@ -21,12 +21,13 @@
 #define pd_power_cont_h
 
 #include <Arduino.h>
+#include "pd_phy.h"
 
 //port info vars 
-int pd_power_cont_ufp_current_voltage;
-int pd_power_cont_dfp_current_voltage;
-bool pd_power_cont_ufp_allow_output;
-bool pd_power_cont_dfp_allow_output;
+extern int pd_power_cont_ufp_current_voltage;
+extern int pd_power_cont_dfp_current_voltage;
+extern bool pd_power_cont_ufp_allow_output;
+extern bool pd_power_cont_dfp_allow_output;
 
 //fuction defines
 void pd_power_cont_return_to_base_state (enum ufp_dfp ufp_dfp);

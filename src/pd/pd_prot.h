@@ -335,6 +335,12 @@ extern int pd_prot_dfp_counter_hard_reset;
 extern int pd_prot_dfp_counter_message_id;
 extern int pd_prot_dfp_counter_retry;
 
+//retransmit vars
+extern bool pd_prot_ufp_retransit_necessary;
+extern bool pd_prot_dfp_retransit_necessary;
+extern unsigned long pd_prot_ufp_last_message;
+extern unsigned long pd_prot_dfp_last_message;
+
 
 
 

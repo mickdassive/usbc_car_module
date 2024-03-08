@@ -28,12 +28,12 @@
 
 
 //plug orientaion vars
-int ufp_plug_orientaion = 0;
-int dfp_plug_orientaion = 0;
+int pd_phy_ufp_plug_orientaion = 0;
+int pd_phy_dfp_plug_orientaion = 0;
 
 //port attach status
-bool ufp_attached = false;
-bool dfp_attached = false;
+bool pd_phy_ufp_attached = false;
+bool pd_phy_dfp_attached = false;
 
 //recived message vars 
 int pd_phy_ufp_last_recived_message_contents[255];
@@ -484,7 +484,6 @@ enum pd_phy_alert_type pd_phy_determine_alert_type (enum ufp_dfp ufp_dfp) {
     
     //determine and return intrupt type 
     if ((current_alert_reg_value & 0x8000) != 0) {
-        pd_phy_clear_alert(ufp_dfp);
         pd_phy_send_i2c_idle(ufp_dfp);
         return vendor_defined_extended;
     } else if ((current_alert_reg_value & 0x4000) != 0) {
@@ -498,37 +497,27 @@ enum pd_phy_alert_type pd_phy_determine_alert_type (enum ufp_dfp ufp_dfp) {
 
         //return extended alert type
         if ((current_alert_extended_reg_value & 0x0004) != 0) {
-            pd_phy_clear_alert(ufp_dfp);
-            pd_phy_clear_extended_alert(ufp_dfp);
             pd_phy_send_i2c_idle(ufp_dfp);
             return extended_timer_expired;
         } else if ((current_alert_extended_reg_value & 0x0002) != 0) {
-            pd_phy_clear_alert(ufp_dfp);
-            pd_phy_clear_extended_alert(ufp_dfp);
             pd_phy_send_i2c_idle(ufp_dfp);
             return extended_souce_frs;
         } else if ((current_alert_extended_reg_value & 0x0001) != 0) {
-            pd_phy_clear_alert(ufp_dfp);
-            pd_phy_clear_extended_alert(ufp_dfp);
             pd_phy_send_i2c_idle(ufp_dfp);
             return extended_sink_frs;
         }
 
         
     } else if ((current_alert_reg_value & 0x2000) != 0) {
-        pd_phy_clear_alert(ufp_dfp);
         pd_phy_send_i2c_idle(ufp_dfp);
         return extended_status_cahnged;
     } else if ((current_alert_reg_value & 0x1000) != 0) {
-        pd_phy_clear_alert(ufp_dfp);
         pd_phy_send_i2c_idle(ufp_dfp);
         return beginning_sop_message_status;
     } else if ((current_alert_reg_value & 0x0800) != 0) {
-        pd_phy_clear_alert(ufp_dfp);
         pd_phy_send_i2c_idle(ufp_dfp);
         return vbus_sink_disconnect_detected;
     } else if ((current_alert_reg_value & 0x0400) != 0) {
-        pd_phy_clear_alert(ufp_dfp);
         pd_phy_send_i2c_idle(ufp_dfp);
         return rx_buffer_overflow;
     } else if ((current_alert_reg_value & 0x0200) != 0) {
@@ -542,79 +531,56 @@ enum pd_phy_alert_type pd_phy_determine_alert_type (enum ufp_dfp ufp_dfp) {
 
         //return fault type
         if ((current_fault_reg_value & 0x40) != 0) {
-            pd_phy_clear_alert(ufp_dfp);
-            pd_phy_clear_fault(ufp_dfp);
             pd_phy_send_i2c_idle(ufp_dfp);
             return force_off_vbus_status;
         } else if ((current_fault_reg_value & 0x20) != 0) {
-            pd_phy_clear_alert(ufp_dfp);
-            pd_phy_clear_fault(ufp_dfp);
             pd_phy_send_i2c_idle(ufp_dfp);
             return auto_discahrge_failed;
         } else if ((current_fault_reg_value & 0x10) != 0) {
-            pd_phy_clear_alert(ufp_dfp);
-            pd_phy_clear_fault(ufp_dfp);
             pd_phy_send_i2c_idle(ufp_dfp);
             return force_discharge_failled;
         } else if ((current_fault_reg_value & 0x08) != 0) {
-            pd_phy_clear_alert(ufp_dfp);
-            pd_phy_clear_fault(ufp_dfp);
             pd_phy_send_i2c_idle(ufp_dfp);
             return internal_or_external_vbus_over_current_protection_fault;
         } else if ((current_fault_reg_value & 0x04) != 0) {
-            pd_phy_clear_alert(ufp_dfp);
-            pd_phy_clear_fault(ufp_dfp);
             pd_phy_send_i2c_idle(ufp_dfp);
             return internal_or_external_vbus_over_voltage_protection_fault;
         } else if ((current_fault_reg_value & 0x02) != 0) {
-            pd_phy_clear_alert(ufp_dfp);
-            pd_phy_clear_fault(ufp_dfp);
             pd_phy_send_i2c_idle(ufp_dfp);
             return vconn_over_current_fault;
         } else if ((current_fault_reg_value & 0x01) != 0) {
-            pd_phy_clear_alert(ufp_dfp);
-            pd_phy_clear_fault(ufp_dfp);
             pd_phy_send_i2c_idle(ufp_dfp);
             return i2c_error;
         }
     } else if ((current_alert_reg_value & 0x0100) != 0) {
-        pd_phy_clear_alert(ufp_dfp);
         pd_phy_send_i2c_idle(ufp_dfp);
         return vbus_voltage_low;
     } else if ((current_alert_reg_value & 0x0080) != 0) {
-        pd_phy_clear_alert(ufp_dfp);
         pd_phy_send_i2c_idle(ufp_dfp);
         return vbus_voltage_high;
     } else if ((current_alert_reg_value & 0x0040) != 0) {
-        pd_phy_clear_alert(ufp_dfp);
         pd_phy_send_i2c_idle(ufp_dfp);
         return transmit_sop_message_succsessful;
     } else if ((current_alert_reg_value & 0x0020) != 0) {
-        pd_phy_clear_alert(ufp_dfp);
         pd_phy_send_i2c_idle(ufp_dfp);
         return transmit_sop_message_discarded;
     } else if ((current_alert_reg_value & 0x0010) != 0) {
-        pd_phy_clear_alert(ufp_dfp);
         pd_phy_send_i2c_idle(ufp_dfp);
         return transmit_sop_message_failed;
     } else if ((current_alert_reg_value & 0x0008) != 0) {
-        //pd_phy_clear_alert(ufp_dfp);
         pd_phy_send_i2c_idle(ufp_dfp);
         return recived_hard_reset;
     } else if ((current_alert_reg_value & 0x0004) != 0) {
-        //pd_phy_clear_alert(ufp_dfp);
         pd_phy_send_i2c_idle(ufp_dfp);
         return recvied_sop_message_status;
     } else if ((current_alert_reg_value & 0x0002) != 0) {
-        pd_phy_clear_alert(ufp_dfp);
         pd_phy_send_i2c_idle(ufp_dfp);
         return port_power_status_changed;
     } else if ((current_alert_reg_value & 0x0001) != 0) {
-        //pd_phy_clear_alert(ufp_dfp);
         pd_phy_send_i2c_idle(ufp_dfp);
         return cc_status_alert;
     }
-    return empty;
+    return alert_empty;
 }
 
 //once a plug attach event is detected complete the conection
@@ -657,15 +623,15 @@ void pd_phy_complite_attach (enum ufp_dfp ufp_dfp) {
         //set orentation vars
         if ((current_tcpc_control_reg_value & 0x01) == 0){
             if (ufp_dfp == ufp) {
-                ufp_plug_orientaion = 0;
+                pd_phy_ufp_plug_orientaion = 0;
             } else if (ufp_dfp == dfp) {
-                dfp_plug_orientaion = 0;
+                pd_phy_dfp_plug_orientaion = 0;
             }
         } else if ((current_tcpc_control_reg_value & 0x01) != 0) {
             if (ufp_dfp == ufp) {
-                ufp_plug_orientaion = 1;
+                pd_phy_ufp_plug_orientaion = 1;
             } else if (ufp_dfp == dfp) {
-                dfp_plug_orientaion = 1;
+                pd_phy_dfp_plug_orientaion = 1;
             }
         }
 
@@ -706,9 +672,9 @@ void pd_phy_complite_attach (enum ufp_dfp ufp_dfp) {
 
         //set port attched var to true
         if (ufp_dfp == ufp) {
-            ufp_attached = true;
+            pd_phy_ufp_attached = true;
         } else if (ufp_dfp == dfp) {
-            dfp_attached = true;
+            pd_phy_dfp_attached = true;
         }
 
         return;
@@ -756,6 +722,8 @@ void pd_phy_complite_detatch (enum ufp_dfp ufp_dfp) {
         pd_power_cont_return_to_base_state(ufp_dfp);
 
         if (pd_phy_alert_type(ufp_dfp) == port_power_status_changed) {
+            //clear alert
+            pd_phy_clear_alert(ufp_dfp);
             //read current power status reg status 
             Wire.beginTransmission(current_phy_addres);
             Wire.write(pd_phy_reg_power_status);
@@ -819,9 +787,9 @@ void pd_phy_complite_detatch (enum ufp_dfp ufp_dfp) {
                 pd_phy_send_i2c_idle(ufp_dfp);
 
                 if (ufp_dfp == ufp) {
-                  ufp_attached = false;
+                  pd_phy_ufp_attached = false;
                 } else if (ufp_dfp == dfp) {
-                  dfp_attached = false;
+                  pd_phy_dfp_attached = false;
                 }
 
                 return;                

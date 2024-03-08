@@ -760,6 +760,8 @@ enum adc_channel adc_determine_alert_source() {
     return ch7;
   }
 
+  return empty;
+
 }
 
 #endif // adc_cpp

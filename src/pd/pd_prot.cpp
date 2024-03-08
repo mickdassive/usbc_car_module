@@ -182,6 +182,12 @@ unsigned long pd_prot_dfp_timer_start_time_vdm_sender_responce = 0;
 unsigned long pd_prot_dfp_timer_start_time_vdm_wait_mode_entry = 0;
 unsigned long pd_prot_dfp_timer_start_time_vdm_wait_mode_exit = 0;
 
+//retransmit vars
+bool pd_prot_ufp_retransit_necessary = false;
+bool pd_prot_dfp_retransit_necessary = false;
+unsigned long pd_prot_ufp_last_message = 0;
+unsigned long pd_prot_dfp_last_message = 0;
+
 
 
 

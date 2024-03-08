@@ -196,7 +196,8 @@ enum adc_channel {
   ch4,
   ch5,
   ch6,
-  ch7
+  ch7,
+  empty
 };
 
 //function defines 
