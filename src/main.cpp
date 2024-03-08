@@ -29,7 +29,8 @@ extern "C" {
 #include <Wire.h>
 #include "main_defines.h"
 #include "adc.h"
-#include "display.h"
+#include "ui/display.h"
+#include "ui/power_mon.h"
 #include "pd/pd_phy.h"
 #include "pd/pd_power_cont.h"
 #include "pd/pd_prot.h"

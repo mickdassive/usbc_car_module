@@ -188,6 +188,10 @@ bool pd_prot_dfp_retransit_necessary = false;
 unsigned long pd_prot_ufp_last_message = 0;
 unsigned long pd_prot_dfp_last_message = 0;
 
+//selcted port power (in watts)
+extern int pd_prot_ufp_current_power_cap = 0;
+extern int pd_prot_dfp_current_power_cap = 0;
+
 
 
 

@@ -59,7 +59,7 @@ enum in_out {
 };
 
 struct pin {
-  char pin_ident;        //name of pin
+  char pin_ident;        //name of pin uneque identifyer for eatch pin only used in itrupt handeler
   uint8_t mask;          //mask for iox
   int port;              //port on iox (can be 0 or 1 only)
   int iox_number;        //iox number
@@ -176,8 +176,15 @@ extern uint8_t iox_0_port_0_interrupt;
 extern uint8_t iox_0_port_1_interrupt;
 extern uint8_t iox_1_port_0_interrupt;
 extern uint8_t iox_1_port_1_interrupt;
-
 extern bool io_interupt_flag;
+
+//buttion info defines
+extern bool io_unit_btn_pressed;
+extern unsigned long io_unit_btn_pressed_time;
+extern bool io_mode_btn_pressed;
+unsigned long io_mode_btn_pressed_time;
+extern bool io_src_btn_pressed;
+unsigned long io_src_btn_pressed_time;
  
 //fuction defines
 uint8_t io_read_current_io_state(int port, int iox_num);

@@ -24,7 +24,7 @@
 #include <Wire.h>
 #include "i2c_scanner.h"
 #include "adc.h"
-#include "display.h"
+#include "ui/display.h"
 #include "io.h"
 #include "hub.h"
 #include "pd/pd_phy.h"

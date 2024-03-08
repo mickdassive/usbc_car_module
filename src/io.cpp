@@ -33,8 +33,15 @@ uint8_t iox_0_port_0_interrupt = 0xFF;
 uint8_t iox_0_port_1_interrupt = 0xFF;
 uint8_t iox_1_port_0_interrupt = 0xFF;
 uint8_t iox_1_port_1_interrupt = 0xFF;
-
 bool io_interupt_flag = false;
+
+//buttion info defines
+bool io_unit_btn_pressed = false;
+unsigned long io_unit_btn_pressed_time = 0;
+bool io_mode_btn_pressed = false;
+unsigned long io_mode_btn_pressed_time = 0;
+bool io_src_btn_pressed = false;
+unsigned long io_src_btn_pressed_time = 0;
 
 
 //reads current pin state of the io expander outputs
@@ -497,11 +504,11 @@ void io_intrupt_handeler () {
       pd_power_cont_ufp_allow_output = false;
     }
   } else if (io_determine_intrupt_source().pin_ident == '4') { //source buttion
-
+    io_src_btn_pressed = true;
   } else if (io_determine_intrupt_source().pin_ident == '3') { //unit buttion
-
+    io_unit_btn_pressed = true;
   } else if (io_determine_intrupt_source().pin_ident == '5') { //mode buttion
-
+    io_mode_btn_pressed = true;
   } else if (io_determine_intrupt_source().pin_ident == '2') { //display itrupt
     //do nothing, not used 
   } else if (io_determine_intrupt_source().pin_ident == '0') { //ufp alert n

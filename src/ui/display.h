@@ -96,18 +96,18 @@ struct leds {
   int digit;
 };
 
-static struct leds watts {0x40, 7};
-static struct leds amps {0x20, 7};
-static struct leds volts {0x10, 7};
-static struct leds back_usb_c_power {0x08, 7};
-static struct leds front_usb_c_power {0x04, 7};
-static struct leds usb_a_power {0x02};
-static struct leds total_system_power {0x01, 7};
-static struct leds watts_10 {0x40, 6};
-static struct leds watts_20 {0x20, 6};
-static struct leds watts_40 {0x10, 6};
-static struct leds watts_65 {0x08, 6};
-static struct leds watts_100 {0x04, 6};
+static struct leds watts_led {0x40, 7};
+static struct leds amps_led {0x20, 7};
+static struct leds volts_led {0x10, 7};
+static struct leds back_usb_c_power_led {0x08, 7};
+static struct leds front_usb_c_power_led {0x04, 7};
+static struct leds usb_a_power_led {0x02};
+static struct leds total_system_power_led {0x01, 7};
+static struct leds watts_10_led {0x40, 6};
+static struct leds watts_20_led {0x20, 6};
+static struct leds watts_40_led {0x10, 6};
+static struct leds watts_65_led {0x08, 6};
+static struct leds watts_100_led {0x04, 6};
 
 //function defines 
 void disp_init();
