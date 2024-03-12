@@ -545,11 +545,21 @@ void io_intrupt_handeler () {
     } else if (pd_phy_alert_type(ufp) == transmit_sop_message_succsessful) {
       // do nothing
     } else if (pd_phy_alert_type(ufp) == transmit_sop_message_discarded) {
-      // set retransmit flag
-      pd_prot_ufp_retransit_necessary = true;
+      //retransmit message if discarded
+      pd_phy_transmit(ufp, pd_prot_ufp_last_message, pd_prot_ufp_last_message_length);
+
     } else if (pd_phy_alert_type(ufp) == transmit_sop_message_failed) {
-      // set retransmit flag
-      pd_prot_ufp_retransit_necessary = true;
+      //retransmit message if retransmit counter hasent reached its threshold
+      if (pd_prot_ufp_counter_retry <= pd_prot_counter_th_retry) {
+        pd_phy_transmit(ufp, pd_prot_ufp_last_message, pd_prot_ufp_last_message_length);
+      } else {
+        //set retransmit failled flag
+        pd_prot_ufp_retransit_failled = true;
+      }
+      
+      //add to retrasnmit counter
+      ++pd_prot_ufp_counter_retry;
+
     } else if (pd_phy_alert_type(ufp) == recived_hard_reset) {
       // do nothing
     } else if (pd_phy_alert_type(ufp) == recvied_sop_message_status) {
@@ -628,11 +638,21 @@ void io_intrupt_handeler () {
     } else if (pd_phy_alert_type(dfp) == transmit_sop_message_succsessful) {
       // do nothing
     } else if (pd_phy_alert_type(dfp) == transmit_sop_message_discarded) {
-      // set retransmit flag
-      pd_prot_dfp_retransit_necessary = true;
+      //retransmmit message if discarded
+      pd_phy_transmit(dfp, pd_prot_dfp_last_message, pd_prot_dfp_last_message_length);
+      
     } else if (pd_phy_alert_type(dfp) == transmit_sop_message_failed) {
-      // set retransmit flag
-      pd_prot_dfp_retransit_necessary = true;
+      //retransmit message if retransmit counter hasent reached its threshold
+      if (pd_prot_dfp_counter_retry <= pd_prot_counter_th_retry) {
+        pd_phy_transmit(dfp, pd_prot_dfp_last_message, pd_prot_dfp_last_message_length);
+      } else {
+        //set retransmit failled flag
+        pd_prot_dfp_retransit_failled = true;
+      }
+      
+      //add to retrasnmit counter
+      ++pd_prot_ufp_counter_retry;
+
     } else if (pd_phy_alert_type(dfp) == recived_hard_reset) {
       // do nothing
     } else if (pd_phy_alert_type(dfp) == recvied_sop_message_status) {

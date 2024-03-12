@@ -809,6 +809,9 @@ void pd_phy_transmit_hard_reset (enum ufp_dfp ufp_dfp) {
     //wake i2c interface
     pd_phy_send_i2c_wake(ufp_dfp);
 
+    //reset transmit buffer
+    pd_phy_send_reset_transmit_buffer(ufp_dfp);
+
     //set current phy address
     if (ufp_dfp == ufp) {
         current_phy_addres = pd_phy_add_ufp;
@@ -836,6 +839,9 @@ void pd_phy_transmit_cable_reset (enum ufp_dfp ufp_dfp) {
     //wake i2c interface
     pd_phy_send_i2c_wake(ufp_dfp);
 
+    //reset transmit buffer
+    pd_phy_send_reset_transmit_buffer(ufp_dfp);
+
     //set current phy address
     if (ufp_dfp == ufp) {
         current_phy_addres = pd_phy_add_ufp;
@@ -859,10 +865,10 @@ void pd_phy_transmit_cable_reset (enum ufp_dfp ufp_dfp) {
 //to_transmit: messgae to transmit in array seperated by individual bytes
 //true = transmit sucsessful
 //false = trasmit failled/discarded
-bool pd_phy_transmit (enum ufp_dfp ufp_dfp, uint8_t to_transmit[]) {
+bool pd_phy_transmit (enum ufp_dfp ufp_dfp, uint8_t to_transmit[], int lenght_of_transmission) {
     //inti local vars
     uint8_t current_phy_addres = 0;
-    uint8_t lenght_of_message = 0;
+    uint8_t lenght_of_message = lenght_of_transmission;
     
     //set current phy address
     if (ufp_dfp == ufp) {
@@ -870,9 +876,6 @@ bool pd_phy_transmit (enum ufp_dfp ufp_dfp, uint8_t to_transmit[]) {
     } else if (ufp_dfp == dfp) {
         current_phy_addres = pd_phy_add_dfp;
     }
-
-    //calcuate leght of message 
-    lenght_of_message = sizeof(to_transmit) / sizeof(to_transmit[0]);
 
     //wake i2c interface on phy
     pd_phy_send_i2c_wake(ufp_dfp);

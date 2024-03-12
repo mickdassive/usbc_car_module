@@ -25,29 +25,29 @@
 
 //pd control messages
 //usb-if docs page 131
-const uint16_t pd_prot_cont_msg_goodcrc = 0x0101;
-const uint16_t pd_prot_cont_msg_gotomin = 0x0102;
-const uint16_t pd_prot_cont_msg_accept = 0x0103;
-const uint16_t pd_prot_cont_msg_reject = 0x0104;
-const uint16_t pd_prot_cont_msg_ping = 0x0105;
-const uint16_t pd_prot_cont_msg_ps_rdy = 0x0106;
-const uint16_t pd_prot_cont_msg_get_source_cap = 0x0107;
-const uint16_t pd_prot_cont_msg_get_sink_cap = 0x0108;
-const uint16_t pd_prot_cont_msg_dr_swap = 0x0109;
-const uint16_t pd_prot_cont_msg_pr_swap = 0x010A;
-const uint16_t pd_prot_cont_msg_vconn_swap = 0x010B;
-const uint16_t pd_prot_cont_msg_wait = 0x010C;
-const uint16_t pd_prot_cont_msg_soft_reset = 0x010D;
-const uint16_t pd_prot_cont_msg_data_reset = 0x010E;
-const uint16_t pd_prot_cont_msg_data_reset_complete = 0x010F;
-const uint16_t pd_prot_cont_msg_not_supported = 0x0180;
-const uint16_t pd_prot_cont_msg_get_status = 0x0181;
-const uint16_t pd_prot_cont_msg_fr_swap = 0x0182;
-const uint16_t pd_prot_cont_msg_get_pps_status = 0x0183;
-const uint16_t pd_prot_cont_msg_get_county_codes = 0x0184;
-const uint16_t pd_prot_cont_msg_get_sink_cap_extended = 0x0185;
-const uint16_t pd_prot_cont_msg_get_souce_info = 0x0186;
-const uint16_t pd_prot_cont_msg_get_revision = 0x0187;
+const uint16_t pd_prot_cont_msg_goodcrc = 0x0001;
+const uint16_t pd_prot_cont_msg_gotomin = 0x0002;
+const uint16_t pd_prot_cont_msg_accept = 0x0003;
+const uint16_t pd_prot_cont_msg_reject = 0x0004;
+const uint16_t pd_prot_cont_msg_ping = 0x0005;
+const uint16_t pd_prot_cont_msg_ps_rdy = 0x0006;
+const uint16_t pd_prot_cont_msg_get_source_cap = 0x0007;
+const uint16_t pd_prot_cont_msg_get_sink_cap = 0x0008;
+const uint16_t pd_prot_cont_msg_dr_swap = 0x0009;
+const uint16_t pd_prot_cont_msg_pr_swap = 0x000A;
+const uint16_t pd_prot_cont_msg_vconn_swap = 0x000B;
+const uint16_t pd_prot_cont_msg_wait = 0x000C;
+const uint16_t pd_prot_cont_msg_soft_reset = 0x000D;
+const uint16_t pd_prot_cont_msg_data_reset = 0x000E;
+const uint16_t pd_prot_cont_msg_data_reset_complete = 0x000F;
+const uint16_t pd_prot_cont_msg_not_supported = 0x0010;
+const uint16_t pd_prot_cont_msg_get_status = 0x0011;
+const uint16_t pd_prot_cont_msg_fr_swap = 0x0012;
+const uint16_t pd_prot_cont_msg_get_pps_status = 0x0013;
+const uint16_t pd_prot_cont_msg_get_county_codes = 0x0014;
+const uint16_t pd_prot_cont_msg_get_sink_cap_extended = 0x0015;
+const uint16_t pd_prot_cont_msg_get_souce_info = 0x0016;
+const uint16_t pd_prot_cont_msg_get_revision = 0x0017;
 
 //pd data messgaes
 //usb-if docs page 142
@@ -99,9 +99,13 @@ const uint16_t pd_prot_head_spec_ver_3 = 0x0080;
 //pd power data objects 
 //usb-if docs page 144
 const uint32_t pd_prot_pdo_vsafe_5v = 0x0C119024;
+const uint32_t pd_prot_pdo_vsafe_5v_at_10 = 0x0C1190C8;
+const uint32_t pd_prot_pdo_vsafe_5v_at_20 = 0x0C119190;
 const uint32_t pd_prot_pdo_9v = 0x0012D024;
 const uint32_t pd_prot_pdo_12v = 0x0013C024;
+const uint32_t pd_prot_pdo_12v_at_40 = 0x0013C14D; //3.333 amps
 const uint32_t pd_prot_pdo_15v = 0x0014B024;
+const uint32_t pd_prot_pdo_15v_at_65 = 0x0014B1B1; //4.333 amps
 const uint32_t pd_prot_pdo_20v = 0x001C8024;
 
 
@@ -336,14 +340,34 @@ extern int pd_prot_dfp_counter_message_id;
 extern int pd_prot_dfp_counter_retry;
 
 //retransmit vars
-extern bool pd_prot_ufp_retransit_necessary;
-extern bool pd_prot_dfp_retransit_necessary;
-extern unsigned long pd_prot_ufp_last_message;
-extern unsigned long pd_prot_dfp_last_message;
+extern bool pd_prot_ufp_retransit_failled;
+extern bool pd_prot_dfp_retransit_failled;
+extern uint8_t pd_prot_ufp_last_message[255];
+extern int pd_prot_ufp_last_message_length;
+extern uint8_t pd_prot_dfp_last_message[255];
+extern int pd_prot_dfp_last_message_length;
+
+//enum for power cap 
+enum pd_prot_power_cap_enum {
+    watts_100,
+    watts_65,
+    watts_40,
+    watts_20,
+    watts_10
+};
 
 //selcted port power (in watts)
-extern int pd_prot_ufp_current_power_cap;
-extern int pd_prot_dfp_current_power_cap;
+extern enum pd_prot_power_cap_enum pd_prot_ufp_current_power_cap;
+extern enum pd_prot_power_cap_enum pd_prot_dfp_current_power_cap;
+
+//enum for port power role
+enum pd_prot_port_power_role {src, sink};
+
+//split message to be transmitted info
+extern uint8_t pd_prot_split_bytes[255];
+extern int pd_prot_split_bytes_length;
+
+
 
 
 

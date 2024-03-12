@@ -201,7 +201,7 @@ void pd_phy_clear_fault (enum ufp_dfp ufp_dfp);
 enum pd_phy_alert_type pd_phy_determine_alert_type (enum ufp_dfp ufp_dfp);
 void pd_phy_complite_attach (enum ufp_dfp ufp_dfp);
 void pd_phy_complite_detatch (enum ufp_dfp ufp_dfp);
-bool pd_phy_transmit (enum ufp_dfp ufp_dfp, uint8_t to_transmit[]);
+bool pd_phy_transmit (enum ufp_dfp ufp_dfp, uint8_t to_transmit[], int lenght_of_transmission);
 void pd_phy_recive_message (enum ufp_dfp ufp_dfp);
 
 
