@@ -27,13 +27,7 @@
 
 
 
-enum ui_manager_btn_press_type ui_maneger_buttion_press_type(struct pin btn) {
-    if 
-}
 
-void ui_manager_buttion_manager() {
-
-}
 
 
 

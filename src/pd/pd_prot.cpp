@@ -313,6 +313,7 @@ uint16_t pd_prot_biuld_ext_headder (bool chunked, uint16_t chunk_number, bool re
 void pd_prot_split_message(unsigned long message){
     //init local vars
     size_t length_of_message = 0;
+    uint8_t reverse_array[255];
 
     //reset split messgae buffer
     for (int i; i < 255; ++i) {
@@ -328,24 +329,55 @@ void pd_prot_split_message(unsigned long message){
     //set leght of split message var
     pd_prot_split_bytes_length = length_of_message;
 
-    //itterate thru the message and add to split message array
+    //itterate thru the message and add to reversed split message array
     for (int i; i < length_of_message; ++i) {
         //save message byte to array
-        pd_prot_split_bytes[i] = message & 0xFF;
+        reverse_array[i] = message & 0xFF;
 
         //shift message to the next byte
         message = message >> 8;
+    }
+
+    //init reverse lenght var
+    int revese_lenght = length_of_message;
+
+    //reverse the array and return it
+    for (int i; i < length_of_message; ++i) {
+        pd_prot_split_bytes[i] = reverse_array[revese_lenght - 1];
+
+        revese_lenght = revese_lenght - 1;
+
     }
 
     return;
 
 }
 
+//pd_prot_set_last_message
+//sets last message vars 
+//this function must be called after createing/splitting a message
+void pd_prot_set_last_message(enum ufp_dfp ufp_dfp) {
+    if (ufp_dfp == ufp) {
+        for (int i; i < 255; ++i) {
+            pd_prot_ufp_last_message[i] = pd_prot_split_bytes[i];
+        }
+        
+        pd_prot_ufp_last_message_length = pd_prot_split_bytes_length;
+    } else if (ufp_dfp == dfp) {
+        for (int i; i < 255; ++i) {
+            pd_prot_dfp_last_message[i] = pd_prot_split_bytes[i];
+        }
+        
+        pd_prot_dfp_last_message_length = pd_prot_split_bytes_length;
+    }
+}
+
 //pd_prot_transmit_soucre_capibilitiys
 //transmits source PDOs based on the selcted power cap of the port 
-int pd_prot_transmit_soucre_capibilitiys (enum ufp_dfp ufp_dfp) {
+void pd_prot_transmit_soucre_capibilitiys (enum ufp_dfp ufp_dfp) {
     //init local vars
     int current_msg_id = 0;
+    int n_pdo = 0;
     unsigned long message = 0;
 
     //get current message id
@@ -355,10 +387,37 @@ int pd_prot_transmit_soucre_capibilitiys (enum ufp_dfp ufp_dfp) {
         current_msg_id = pd_prot_head_dfp_message_id;
     }
 
-    //biuld headder
-    message = pd_prot_biuld_headder(false, 5, current_msg_id, src, 3, ufp_dfp, pd_prot_data_msg_source_capabilities);
+    //set nmber of PDOs
+    if (ufp_dfp == ufp) {
+        if (pd_prot_ufp_current_power_cap == watts_100) {
+            n_pdo = 5;
+        } else if (pd_prot_ufp_current_power_cap == watts_65) {
+            n_pdo = 4;
+        } else if (pd_prot_ufp_current_power_cap == watts_40) {
+            n_pdo = 3;
+        } else if (pd_prot_ufp_current_power_cap == watts_20) {
+            n_pdo = 1;
+        } else if (pd_prot_ufp_current_power_cap == watts_10) {
+            n_pdo = 1;
+        }
+    } else if (ufp_dfp == dfp) {
+        if (pd_prot_dfp_current_power_cap == watts_100) {
+            n_pdo = 5;
+        } else if (pd_prot_dfp_current_power_cap == watts_65) {
+            n_pdo = 4;
+        } else if (pd_prot_dfp_current_power_cap == watts_40) {
+            n_pdo = 3;
+        } else if (pd_prot_dfp_current_power_cap == watts_20) {
+            n_pdo = 1;
+        } else if (pd_prot_dfp_current_power_cap == watts_10) {
+            n_pdo = 1;
+        }
+    }
 
-    //append PDOs to message based on availbel wats
+    //biuld headder
+    message = pd_prot_biuld_headder(false, n_pdo, current_msg_id, src, 3, ufp_dfp, pd_prot_data_msg_source_capabilities);
+
+    //append PDOs to message based on a ports given power cap
     if (ufp_dfp == ufp){
         if (pd_prot_ufp_current_power_cap == watts_100) {
             message = (message << 32) | pd_prot_pdo_vsafe_5v;
@@ -408,19 +467,7 @@ int pd_prot_transmit_soucre_capibilitiys (enum ufp_dfp ufp_dfp) {
     pd_prot_split_message(message);
 
     //set last message vars for given port
-    if (ufp_dfp == ufp) {
-        for (int i; i < 255; ++i) {
-            pd_prot_ufp_last_message[i] = pd_prot_split_bytes[i];
-        }
-        
-        pd_prot_ufp_last_message_length = pd_prot_split_bytes_length;
-    } else if (ufp_dfp == dfp) {
-        for (int i; i < 255; ++i) {
-            pd_prot_dfp_last_message[i] = pd_prot_split_bytes[i];
-        }
-        
-        pd_prot_dfp_last_message_length = pd_prot_split_bytes_length;
-    }
+    pd_prot_set_last_message(ufp_dfp);
 
     //tell pd phy to transmit the message 
     pd_phy_transmit(ufp_dfp, pd_prot_split_bytes, pd_prot_split_bytes_length);
@@ -430,18 +477,21 @@ int pd_prot_transmit_soucre_capibilitiys (enum ufp_dfp ufp_dfp) {
 
 void pd_prot_transmit_soft_reset (ufp_dfp ufp_dfp) {
     //init local vars
-    uint8_t headder_msb = 0;
-    uint8_t headder_lsb = 0;
-    uint8_t headder = 0;
-    uint8_t message_contents[2];
+    uint16_t message = 0;
 
     //biuld headder  
-    headder = pd_prot_biuld_headder(false, 0, 0, src, 3, ufp_dfp, pd_prot_cont_msg_soft_reset);
+    message = pd_prot_biuld_headder(false, 0, 0, src, 3, ufp_dfp, pd_prot_cont_msg_soft_reset);
 
+    //split the message
+    pd_prot_split_message(message);
 
+    //set last message vars for a given port
+    pd_prot_set_last_message(ufp_dfp);
+
+    //transmit the message
+    pd_phy_transmit(ufp_dfp, pd_prot_split_bytes, pd_prot_split_bytes_length);
     
-
-
+    return;
 
 }
 

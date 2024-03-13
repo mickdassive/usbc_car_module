@@ -438,12 +438,16 @@ void io_intrupt_handeler () {
     //determine channel that flagged the alert 
     if (adc_determine_alert_source() == ch0) {
       //21V csp do nothing
+      Serial.println("recived ADC 21V intrupt");
     } else if (adc_determine_alert_source() == ch1) {
-      //21V csn do nothing      
+      //21V csn do nothing 
+      Serial.println("recived ADC 21V csn intrupt");     
     } else if (adc_determine_alert_source() == ch2) {
-      //5V csp do nothing       
+      //5V csp do nothing
+      Serial.println("recived ADC 5V intrupt");    
     } else if (adc_determine_alert_source() == ch3) {
-      //5V csn do nothing       
+      //5V csn do nothing
+      Serial.println("recived ADC 5V csn intrupt");   
     } else if (adc_determine_alert_source() == ch4) {
       //ufp csp
       //turn off power to port if out of range
@@ -452,6 +456,7 @@ void io_intrupt_handeler () {
       } else {
         pd_power_cont_return_to_base_state(ufp);
         pd_power_cont_ufp_allow_output = false;
+        Serial.println("recived ADC UFP power bad intrupt");
       }
     } else if (adc_determine_alert_source() == ch5) {
       //ufp csn
@@ -461,6 +466,7 @@ void io_intrupt_handeler () {
       } else {
         pd_power_cont_return_to_base_state(ufp);
         pd_power_cont_ufp_allow_output = false;
+        Serial.println("recived ADC UFP csn power bad intrupt");
       }
     } else if (adc_determine_alert_source() == ch6) {
       //dfp csp
@@ -470,6 +476,7 @@ void io_intrupt_handeler () {
       } else {
         pd_power_cont_return_to_base_state(dfp);
         pd_power_cont_dfp_allow_output = false;
+        Serial.println("recived ADC DFP power bad intrupt");
       }
     } else if (adc_determine_alert_source() == ch7) {
       //dfp csn
@@ -479,6 +486,7 @@ void io_intrupt_handeler () {
       } else {
         pd_power_cont_return_to_base_state(dfp);
         pd_power_cont_dfp_allow_output = false;
+        Serial.println("recived ADC DFP csn power bad intrupt");
       }
     }
 
@@ -490,41 +498,55 @@ void io_intrupt_handeler () {
     if (io_call(f_usbc_pgood, read, read_mode) == 1) {
       //set allow output to  true
       pd_power_cont_dfp_allow_output = true;
+      Serial.println("recived DFP PSU pgood intrupt");
     } else if (io_call(f_usbc_pgood, read, read_mode)){
       //set allow output to false 
       pd_power_cont_dfp_allow_output = false;
+      Serial.println("recived DFP PSU pbad intrupt");
     }
   } else if (io_determine_intrupt_source().pin_ident == 'j') { //b usbc pgood
     // read pin to see if high or low
     if (io_call(b_usbc_pgood, read, read_mode) == 1) {
       //set allow output to  true
       pd_power_cont_ufp_allow_output = true;
+      Serial.println("recived UFP PSU pgood intrupt");
     } else if (io_call(b_usbc_pgood, read, read_mode)){
       //set allow output to false 
       pd_power_cont_ufp_allow_output = false;
+      Serial.println("recived UFP PSU pbad intrupt");
     }
   } else if (io_determine_intrupt_source().pin_ident == '4') { //source buttion
     io_src_btn_pressed = true;
+    Serial.println("recived src buttion intrupt");
   } else if (io_determine_intrupt_source().pin_ident == '3') { //unit buttion
     io_unit_btn_pressed = true;
+    Serial.println("recived unit buttion intrupt");
   } else if (io_determine_intrupt_source().pin_ident == '5') { //mode buttion
     io_mode_btn_pressed = true;
+    Serial.println("recived mode buttion intrupt");
   } else if (io_determine_intrupt_source().pin_ident == '2') { //display itrupt
     //do nothing, not used 
+    Serial.println("recived display intrupt (this sholdent happen)");
   } else if (io_determine_intrupt_source().pin_ident == '0') { //ufp alert n
     //determine alert type
     if (pd_phy_alert_type(ufp) == vendor_defined_extended) {
       // do nothing
+      Serial.println("recived UFP pd PHY vendor defined extended intrupt");
     } else if (pd_phy_alert_type(ufp) == extended_status_cahnged) {
       // do nothing
+      Serial.println("recived UFP pd PHY extended status changed intrupt");
     } else if (pd_phy_alert_type(ufp) == beginning_sop_message_status) {
       //do nothing
+      Serial.println("recived UFP pd PHY beggining sop message status intrupt");
     } else if (pd_phy_alert_type(ufp) == vbus_sink_disconnect_detected) {
       //do nothing?
+      Serial.println("recived UFP pd PHY vbus sink disconnect detected intrupt");
     } else if (pd_phy_alert_type(ufp) == rx_buffer_overflow) {
       //reset recive buffer
       pd_phy_send_reset_recive_buffer(ufp);
+      Serial.println("recived UFP pd PHY RX buffer overflow intrupt");
     } else if (pd_phy_alert_type(ufp) == vbus_voltage_low) {
+      Serial.println("recived UFP pd PHY vbus voltage low intrupt");
       //see if power is actuly bad
       if (pd_power_cont_pgood(ufp, pd_power_cont_ufp_current_voltage)) {
         //do nothing
@@ -534,6 +556,7 @@ void io_intrupt_handeler () {
         pd_power_cont_ufp_allow_output = false;
       }
     } else if (pd_phy_alert_type(ufp) == vbus_voltage_high) {
+      Serial.println("recived UFP pd PHY vbus voltage high intrupt");
       //see if power is actuly bad
       if (pd_power_cont_pgood(ufp, pd_power_cont_ufp_current_voltage)) {
         //do nothing
@@ -544,11 +567,14 @@ void io_intrupt_handeler () {
       }
     } else if (pd_phy_alert_type(ufp) == transmit_sop_message_succsessful) {
       // do nothing
+      Serial.println("recived UFP pd PHY transmit sop message susessful intrupt");
     } else if (pd_phy_alert_type(ufp) == transmit_sop_message_discarded) {
+      Serial.println("recived UFP pd PHY transmit sop message discarded intrupt");
       //retransmit message if discarded
       pd_phy_transmit(ufp, pd_prot_ufp_last_message, pd_prot_ufp_last_message_length);
 
     } else if (pd_phy_alert_type(ufp) == transmit_sop_message_failed) {
+      Serial.println("recived UFP pd PHY transmit sop message failed intrupt");
       //retransmit message if retransmit counter hasent reached its threshold
       if (pd_prot_ufp_counter_retry <= pd_prot_counter_th_retry) {
         pd_phy_transmit(ufp, pd_prot_ufp_last_message, pd_prot_ufp_last_message_length);
@@ -561,12 +587,16 @@ void io_intrupt_handeler () {
       ++pd_prot_ufp_counter_retry;
 
     } else if (pd_phy_alert_type(ufp) == recived_hard_reset) {
+      Serial.println("recived UFP pd PHY recived hard reset intrupt");
       // do nothing
     } else if (pd_phy_alert_type(ufp) == recvied_sop_message_status) {
+      Serial.println("recived UFP pd PHY recived sop message status intrupt");
       // do nothing?
     } else if (pd_phy_alert_type(ufp) == port_power_status_changed) {
+      Serial.println("recived UFP pd PHY port power status changed intrupt");
       // do nothing?
     } else if (pd_phy_alert_type(ufp) == cc_status_alert) {
+      Serial.println("recived UFP pd PHY cc status alert intrupt");
       // determine if port is in attched or detached state 
       if (pd_phy_ufp_attached) {
         //complite detach seqwince
@@ -576,25 +606,33 @@ void io_intrupt_handeler () {
         pd_phy_complite_attach(ufp);
       }
     } else if (pd_phy_alert_type(ufp) == extended_timer_expired) {
+      Serial.println("recived UFP pd PHY extended timer expired intrupt");
       // do nothing
     } else if (pd_phy_alert_type(ufp) == extended_souce_frs) {
+      Serial.println("recived UFP pd PHY extended souce frs intrupt");
       // do nothing
     } else if (pd_phy_alert_type(ufp) == extended_sink_frs) {
+      Serial.println("recived UFP pd PHY extended sink frs intrupt");
       // do nothing
     } else if (pd_phy_alert_type(ufp) == force_discharge_failled) {
+      Serial.println("recived UFP pd PHY force discharge failled intrupt");
       // turn port power supply off
       pd_power_cont_return_to_base_state(ufp);
     } else if (pd_phy_alert_type(ufp) == auto_discahrge_failed) {
+      Serial.println("recived UFP pd PHY auto discharge failled intrupt");
       // do nothing for now
     } else if (pd_phy_alert_type(ufp) == internal_or_external_vbus_over_current_protection_fault) {
+      Serial.println("recived UFP pd PHY internal or external vbus over current protection fault intrupt");
       // turn of power and stop allowing output 
       pd_power_cont_return_to_base_state(ufp);
       pd_power_cont_ufp_allow_output = false;
     } else if (pd_phy_alert_type(ufp) == internal_or_external_vbus_over_voltage_protection_fault) {
+      Serial.println("recived UFP pd PHY internal or external vbus over voltage protection fault intrupt");
       //turn off power and stop allowing output
       pd_power_cont_return_to_base_state(ufp);
       pd_power_cont_ufp_allow_output = false;
     } else if (pd_phy_alert_type(ufp) == i2c_error) {
+      Serial.println("recived UFP pd PHY i2c error intrupt");
       //reset rx & tx buffers
       pd_phy_send_reset_recive_buffer(ufp);
       pd_phy_send_reset_transmit_buffer(ufp);
@@ -607,17 +645,23 @@ void io_intrupt_handeler () {
   } else if (io_determine_intrupt_source().pin_ident == '?') { //dfp alert n
     //determine alert type
     if (pd_phy_alert_type(dfp) == vendor_defined_extended) {
+      Serial.println("recived DFP pd PHY vendor defined extended intrupt");
       // do nothing
     } else if (pd_phy_alert_type(dfp) == extended_status_cahnged) {
+      Serial.println("recived DFP pd PHY extended status changed intrupt");
       // do nothing
     } else if (pd_phy_alert_type(dfp) == beginning_sop_message_status) {
+      Serial.println("recived DFP pd PHY beggining sop message status intrupt");
       //do nothing
     } else if (pd_phy_alert_type(dfp) == vbus_sink_disconnect_detected) {
+      Serial.println("recived DFP pd PHY vbus sink disconnect detected intrupt");
       //do nothing?
     } else if (pd_phy_alert_type(dfp) == rx_buffer_overflow) {
+      Serial.println("recived DFP pd PHY RX buffer overflow intrupt");
       //reset recive buffer
       pd_phy_send_reset_recive_buffer(dfp);
     } else if (pd_phy_alert_type(dfp) == vbus_voltage_low) {
+      Serial.println("recived DFP pd PHY vbus voltage low intrupt");
       //see if power is actuly bad
       if (pd_power_cont_pgood(dfp, pd_power_cont_dfp_current_voltage)) {
         //do nothing
@@ -627,6 +671,7 @@ void io_intrupt_handeler () {
         pd_power_cont_dfp_allow_output = false;
       }
     } else if (pd_phy_alert_type(dfp) == vbus_voltage_high) {
+      Serial.println("recived DFP pd PHY vbus voltage high intrupt");
       //see if power is actuly bad
       if (pd_power_cont_pgood(dfp, pd_power_cont_dfp_current_voltage)) {
         //do nothing
@@ -636,12 +681,15 @@ void io_intrupt_handeler () {
         pd_power_cont_dfp_allow_output = false;
       }
     } else if (pd_phy_alert_type(dfp) == transmit_sop_message_succsessful) {
+      Serial.println("recived DFP pd PHY transmit sop message susessful intrupt");
       // do nothing
     } else if (pd_phy_alert_type(dfp) == transmit_sop_message_discarded) {
+      Serial.println("recived DFP pd PHY transmit sop message discarded intrupt");
       //retransmmit message if discarded
       pd_phy_transmit(dfp, pd_prot_dfp_last_message, pd_prot_dfp_last_message_length);
       
     } else if (pd_phy_alert_type(dfp) == transmit_sop_message_failed) {
+      Serial.println("recived DFP pd PHY transmit sop message failed intrupt");
       //retransmit message if retransmit counter hasent reached its threshold
       if (pd_prot_dfp_counter_retry <= pd_prot_counter_th_retry) {
         pd_phy_transmit(dfp, pd_prot_dfp_last_message, pd_prot_dfp_last_message_length);
@@ -654,12 +702,16 @@ void io_intrupt_handeler () {
       ++pd_prot_ufp_counter_retry;
 
     } else if (pd_phy_alert_type(dfp) == recived_hard_reset) {
+      Serial.println("recived DFP pd PHY recived hard reset intrupt");
       // do nothing
     } else if (pd_phy_alert_type(dfp) == recvied_sop_message_status) {
+      Serial.println("recived DFP pd PHY recived sop message status intrupt");
       // do nothing?
     } else if (pd_phy_alert_type(dfp) == port_power_status_changed) {
+      Serial.println("recived DFP pd PHY extended sink frs intrupt");
       // do nothing?
     } else if (pd_phy_alert_type(dfp) == cc_status_alert) {
+      Serial.println("recived DFP pd PHY cc status alert intrupt");
       // determine if port is in attched or detached state 
       if (pd_phy_dfp_attached) {
         //complite detach seqwince
@@ -669,25 +721,33 @@ void io_intrupt_handeler () {
         pd_phy_complite_attach(dfp);
       }
     } else if (pd_phy_alert_type(dfp) == extended_timer_expired) {
+      Serial.println("recived DFP pd PHY extended timer expired intrupt");
       // do nothing
     } else if (pd_phy_alert_type(dfp) == extended_souce_frs) {
+      Serial.println("recived DFP pd PHY extended souce frs intrupt");
       // do nothing
     } else if (pd_phy_alert_type(dfp) == extended_sink_frs) {
+      Serial.println("recived DFP pd PHY extended sink frs intrupt");
       // do nothing
     } else if (pd_phy_alert_type(dfp) == force_discharge_failled) {
+      Serial.println("recived DFP pd PHY force discharge failled intrupt");
       // turn port power supply off
       pd_power_cont_return_to_base_state(dfp);
     } else if (pd_phy_alert_type(dfp) == auto_discahrge_failed) {
+      Serial.println("recived DFP pd PHY auto discharge failled intrupt");
       // do nothing for now
     } else if (pd_phy_alert_type(dfp) == internal_or_external_vbus_over_current_protection_fault) {
+      Serial.println("recived DFP pd PHY internal or external vbus over current protection fault intrupt");
       // turn of power and stop allowing output 
       pd_power_cont_return_to_base_state(dfp);
       pd_power_cont_dfp_allow_output = false;
     } else if (pd_phy_alert_type(dfp) == internal_or_external_vbus_over_voltage_protection_fault) {
+      Serial.println("recived DFP pd PHY internal or external vbus over voltage protection fault intrupt");
       //turn off power and stop allowing output
       pd_power_cont_return_to_base_state(dfp);
       pd_power_cont_dfp_allow_output = false;
     } else if (pd_phy_alert_type(dfp) == i2c_error) {
+      Serial.println("recived DFP pd PHY i2c error intrupt");
       //reset rx & tx buffers
       pd_phy_send_reset_recive_buffer(dfp);
       pd_phy_send_reset_transmit_buffer(dfp);

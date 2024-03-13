@@ -47,14 +47,6 @@ int boot_sucsesful = 0;
 
 
 
-/*
-//io intrupt rutine
-void IRAM_ATTR ioISR() {
-
-}
-*/
-
-
 void setup() {
 
   //begin serial

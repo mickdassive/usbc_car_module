@@ -75,7 +75,7 @@ bool bus_scan() {
         Serial.println("All expected I2C devices found");
         return true;
     } else {
-        Serial.println("Some I2C devices are missing from the bus");
+        Serial.println("One or more I2C devices are missing from the bus");
         return false;
     }
 }

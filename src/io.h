@@ -182,9 +182,9 @@ extern bool io_interupt_flag;
 extern bool io_unit_btn_pressed;
 extern unsigned long io_unit_btn_pressed_time;
 extern bool io_mode_btn_pressed;
-unsigned long io_mode_btn_pressed_time;
+extern unsigned long io_mode_btn_pressed_time;
 extern bool io_src_btn_pressed;
-unsigned long io_src_btn_pressed_time;
+extern unsigned long io_src_btn_pressed_time;
  
 //fuction defines
 uint8_t io_read_current_io_state(int port, int iox_num);
