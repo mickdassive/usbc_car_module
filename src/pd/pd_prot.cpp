@@ -22,8 +22,12 @@
 
 #include <Arduino.h>
 #include <Wire.h>
+#include "gmp.h"
 #include "pd_prot.h"
 #include "pd_phy.h"
+
+//typedef ans setup for 2048 bit numbers
+typedef mpz_t uint2048_t;
 
 //pd counters
 int pd_prot_head_ufp_message_id = 0;
@@ -306,16 +310,21 @@ uint16_t pd_prot_biuld_ext_headder (bool chunked, uint16_t chunk_number, bool re
 }
 
 //pd_prot_split_mesage
-//splits a fully biult message in to its individual bytes and stores them in the acompanying vars
+//splits a fully biult message (in GMP base 10 char encodeing) in to its individual bytes and stores them in the acompanying vars
 //sets contents of both
 //pd_prot_split_bytes_length
 //pd_prot_split_bytes
-void pd_prot_split_message(unsigned long message){
+void pd_prot_split_message(char* incoming_message) {
     //init local vars
+    uint2048_t message;
+    mpz_init2(message, 2048);
     size_t length_of_message = 0;
     uint8_t reverse_array[255];
 
-    //reset split messgae buffer
+    //covert string back to uint2048_t
+    mpz_set_str(message, incoming_message, 10);
+
+    //reset split message buffer
     for (int i; i < 255; ++i) {
         pd_prot_split_bytes[i] = 0;
     }
@@ -324,30 +333,26 @@ void pd_prot_split_message(unsigned long message){
     pd_prot_split_bytes_length = 0;
 
     //determine the length of the message 
-    length_of_message = sizeof(message);
+    length_of_message = mpz_sizeinbase(message, 255);
 
     //set leght of split message var
     pd_prot_split_bytes_length = length_of_message;
 
     //itterate thru the message and add to reversed split message array
     for (int i; i < length_of_message; ++i) {
-        //save message byte to array
-        reverse_array[i] = message & 0xFF;
+        //save the least singnifgant message byte to array
+        reverse_array[i] = mpz_get_ui(message) & 0xFF;
 
         //shift message to the next byte
-        message = message >> 8;
+        mpz_tdiv_q_2exp(message, message, 8);
     }
-
-    //init reverse lenght var
-    int revese_lenght = length_of_message;
 
     //reverse the array and return it
     for (int i; i < length_of_message; ++i) {
-        pd_prot_split_bytes[i] = reverse_array[revese_lenght - 1];
-
-        revese_lenght = revese_lenght - 1;
-
+        pd_prot_split_bytes[i] = reverse_array[length_of_message - i - 1];
     }
+
+    mpz_clear(message);
 
     return;
 
@@ -376,9 +381,21 @@ void pd_prot_set_last_message(enum ufp_dfp ufp_dfp) {
 //transmits source PDOs based on the selcted power cap of the port 
 void pd_prot_transmit_soucre_capibilitiys (enum ufp_dfp ufp_dfp) {
     //init local vars
+    uint2048_t message;
+    mpz_init2(message, 2048);
+    mpz_t temp_pdo_0;
+    mpz_init(temp_pdo_0);
+    mpz_t temp_pdo_1;
+    mpz_init(temp_pdo_1);
+    mpz_t temp_pdo_2;
+    mpz_init(temp_pdo_2);
+    mpz_t temp_pdo_3;
+    mpz_init(temp_pdo_3);
+    mpz_t temp_pdo_4;
+    mpz_init(temp_pdo_4);
+    char* message_string;
     int current_msg_id = 0;
     int n_pdo = 0;
-    unsigned long message = 0;
 
     //get current message id
     if (ufp_dfp == ufp) {
@@ -415,56 +432,151 @@ void pd_prot_transmit_soucre_capibilitiys (enum ufp_dfp ufp_dfp) {
     }
 
     //biuld headder
-    message = pd_prot_biuld_headder(false, n_pdo, current_msg_id, src, 3, ufp_dfp, pd_prot_data_msg_source_capabilities);
+    uint16_t headder = pd_prot_biuld_headder(false, n_pdo, current_msg_id, src, 3, ufp_dfp, pd_prot_data_msg_source_capabilities);
+
+    //conver headder to uint2048_t data type and add it to message
+    mpz_set_ui(message, headder);
 
     //append PDOs to message based on a ports given power cap
     if (ufp_dfp == ufp){
         if (pd_prot_ufp_current_power_cap == watts_100) {
-            message = (message << 32) | pd_prot_pdo_vsafe_5v;
-            message = (message << 32) | pd_prot_pdo_9v;
-            message = (message << 32) | pd_prot_pdo_12v;
-            message = (message << 32) | pd_prot_pdo_15v;
-            message = (message << 32) | pd_prot_pdo_20v;
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_vsafe_5v);
+            mpz_ior(message, message, temp_pdo_0);
+
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_9v);
+            mpz_ior(message, message, temp_pdo_1);
+
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_12v);
+            mpz_ior(message, message, temp_pdo_2);
+
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_15v);
+            mpz_ior(message, message, temp_pdo_3);
+
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_20v);
+            mpz_ior(message, message, temp_pdo_4);
+
         } else if (pd_prot_ufp_current_power_cap == watts_65) {
-            message = (message << 32) | pd_prot_pdo_vsafe_5v;
-            message = (message << 32) | pd_prot_pdo_9v;
-            message = (message << 32) | pd_prot_pdo_12v;
-            message = (message << 32) | pd_prot_pdo_15v_at_65;
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_vsafe_5v);
+            mpz_ior(message, message, temp_pdo_0);
+
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_9v);
+            mpz_ior(message, message, temp_pdo_1);
+
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_12v);
+            mpz_ior(message, message, temp_pdo_2);
+
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_15v_at_65);
+            mpz_ior(message, message, temp_pdo_3);
+
         } else if (pd_prot_ufp_current_power_cap == watts_40) {
-            message = (message << 32) | pd_prot_pdo_vsafe_5v;
-            message = (message << 32) | pd_prot_pdo_9v;
-            message = (message << 32) | pd_prot_pdo_12v_at_40;
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_vsafe_5v);
+            mpz_ior(message, message, temp_pdo_0);
+
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_9v);
+            mpz_ior(message, message, temp_pdo_1);
+
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_12v_at_40);
+            mpz_ior(message, message, temp_pdo_2);
+
         } else if (pd_prot_ufp_current_power_cap == watts_20) {
-            message = (message << 32) | pd_prot_pdo_vsafe_5v_at_20;
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_vsafe_5v_at_20);
+            mpz_ior(message, message, temp_pdo_0);
+
         } else if (pd_prot_ufp_current_power_cap == watts_10) {
-            message = (message << 32) | pd_prot_pdo_vsafe_5v_at_10;
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_vsafe_5v_at_10);
+            mpz_ior(message, message, temp_pdo_0);
         }
     } else if (ufp_dfp == dfp){
         if (pd_prot_dfp_current_power_cap == watts_100) {
-            message = (message << 32) | pd_prot_pdo_vsafe_5v;
-            message = (message << 32) | pd_prot_pdo_9v;
-            message = (message << 32) | pd_prot_pdo_12v;
-            message = (message << 32) | pd_prot_pdo_15v;
-            message = (message << 32) | pd_prot_pdo_20v;
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_vsafe_5v);
+            mpz_ior(message, message, temp_pdo_0);
+
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_9v);
+            mpz_ior(message, message, temp_pdo_1);
+
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_12v);
+            mpz_ior(message, message, temp_pdo_2);
+
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_15v);
+            mpz_ior(message, message, temp_pdo_3);
+
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_20v);
+            mpz_ior(message, message, temp_pdo_4);
+
         } else if (pd_prot_dfp_current_power_cap == watts_65) {
-            message = (message << 32) | pd_prot_pdo_vsafe_5v;
-            message = (message << 32) | pd_prot_pdo_9v;
-            message = (message << 32) | pd_prot_pdo_12v;
-            message = (message << 32) | pd_prot_pdo_15v_at_65;
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_vsafe_5v);
+            mpz_ior(message, message, temp_pdo_0);
+
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_9v);
+            mpz_ior(message, message, temp_pdo_1);
+
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_12v);
+            mpz_ior(message, message, temp_pdo_2);
+
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_15v_at_65);
+            mpz_ior(message, message, temp_pdo_3);
         } else if (pd_prot_dfp_current_power_cap == watts_40) {
-            message = (message << 32) | pd_prot_pdo_vsafe_5v;
-            message = (message << 32) | pd_prot_pdo_9v;
-            message = (message << 32) | pd_prot_pdo_12v_at_40;
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_vsafe_5v);
+            mpz_ior(message, message, temp_pdo_0);
+
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_9v);
+            mpz_ior(message, message, temp_pdo_1);
+
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_12v_at_40);
+            mpz_ior(message, message, temp_pdo_2);
+
         } else if (pd_prot_dfp_current_power_cap == watts_20) {
-            message = (message << 32) | pd_prot_pdo_vsafe_5v_at_20;
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_vsafe_5v_at_20);
+            mpz_ior(message, message, temp_pdo_0);
+
         } else if (pd_prot_dfp_current_power_cap == watts_10) {
-            message = (message << 32) | pd_prot_pdo_vsafe_5v_at_10;
+            mpz_mul_2exp(message, message, 32);
+            mpz_set_ui(temp_pdo_0, pd_prot_pdo_vsafe_5v_at_10);
+            mpz_ior(message, message, temp_pdo_0);
+
         }
     }
     
+    //conver message to string
+    message_string = mpz_get_str(NULL, 10, message);
+
+    //clear gmp vars
+    mpz_clear(message);
+    mpz_clear(temp_pdo_0);
+    mpz_clear(temp_pdo_1);
+    mpz_clear(temp_pdo_2);
+    mpz_clear(temp_pdo_3);
+    mpz_clear(temp_pdo_4);
 
     //send message to splitter
-    pd_prot_split_message(message);
+    pd_prot_split_message(message_string);
 
     //set last message vars for given port
     pd_prot_set_last_message(ufp_dfp);
@@ -477,13 +589,25 @@ void pd_prot_transmit_soucre_capibilitiys (enum ufp_dfp ufp_dfp) {
 
 void pd_prot_transmit_soft_reset (ufp_dfp ufp_dfp) {
     //init local vars
-    uint16_t message = 0;
+    mpz_t message;
+    mpz_init2(message, 16);
+    char* message_string;
+    
 
     //biuld headder  
-    message = pd_prot_biuld_headder(false, 0, 0, src, 3, ufp_dfp, pd_prot_cont_msg_soft_reset);
+    uint16_t headder = pd_prot_biuld_headder(false, 0, 0, src, 3, ufp_dfp, pd_prot_cont_msg_soft_reset);
+
+    //convert headder to mpz
+    mpz_set_ui(message, headder);
+
+    //convert message to string
+    message_string = mpz_get_str(NULL, 10, message);
+
+    //clean up mpz vars
+    mpz_clear(message);
 
     //split the message
-    pd_prot_split_message(message);
+    pd_prot_split_message(message_string);
 
     //set last message vars for a given port
     pd_prot_set_last_message(ufp_dfp);

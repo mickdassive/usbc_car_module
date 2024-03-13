@@ -20,11 +20,6 @@
 #ifndef main_cpp
 #define main_cpp
 
-/*
-extern "C" {
-  #include "user_interface.h"
-}
-*/
 #include <Arduino.h>
 #include <Wire.h>
 #include "main_defines.h"

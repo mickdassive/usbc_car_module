@@ -373,7 +373,7 @@ extern int pd_prot_split_bytes_length;
 //function defines
 uint16_t pd_prot_biuld_headder (bool extended_msg, uint16_t n_data_objects, uint16_t msg_id, enum pd_prot_port_power_role power_role, uint16_t spec_revision, enum ufp_dfp data_role, uint16_t msg_type);
 uint16_t pd_prot_biuld_ext_headder (bool chunked, uint16_t chunk_number, bool request_chunk, uint16_t data_size);
-void pd_prot_split_message(unsigned long message);
+void pd_prot_split_message(char* incoming_message);
 void pd_prot_set_last_message(enum ufp_dfp ufp_dfp);
 void pd_prot_transmit_soucre_capibilitiys (enum ufp_dfp ufp_dfp);
 
