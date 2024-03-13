@@ -185,6 +185,10 @@ extern bool io_mode_btn_pressed;
 extern unsigned long io_mode_btn_pressed_time;
 extern bool io_src_btn_pressed;
 extern unsigned long io_src_btn_pressed_time;
+
+//message recived intrupt flags
+extern bool io_intrupt_ufp_msg_recived;
+extern bool io_intrupt_dfp_msg_recived;
  
 //fuction defines
 uint8_t io_read_current_io_state(int port, int iox_num);

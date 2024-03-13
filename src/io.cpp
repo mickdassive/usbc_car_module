@@ -43,6 +43,9 @@ unsigned long io_mode_btn_pressed_time = 0;
 bool io_src_btn_pressed = false;
 unsigned long io_src_btn_pressed_time = 0;
 
+//message recived intrupt flags
+bool io_intrupt_ufp_msg_recived = false;
+bool io_intrupt_dfp_msg_recived = false;
 
 //reads current pin state of the io expander outputs
 //port: port of iox to read
@@ -591,7 +594,10 @@ void io_intrupt_handeler () {
       // do nothing
     } else if (pd_phy_alert_type(ufp) == recvied_sop_message_status) {
       Serial.println("recived UFP pd PHY recived sop message status intrupt");
-      // do nothing?
+      //set message recived flag and read message contents
+      io_intrupt_ufp_msg_recived = true;
+      pd_phy_recive_message(ufp);
+
     } else if (pd_phy_alert_type(ufp) == port_power_status_changed) {
       Serial.println("recived UFP pd PHY port power status changed intrupt");
       // do nothing?
@@ -706,7 +712,9 @@ void io_intrupt_handeler () {
       // do nothing
     } else if (pd_phy_alert_type(dfp) == recvied_sop_message_status) {
       Serial.println("recived DFP pd PHY recived sop message status intrupt");
-      // do nothing?
+      //set message recived flag and read message contents
+      io_intrupt_dfp_msg_recived = true;
+      pd_phy_recive_message(dfp);
     } else if (pd_phy_alert_type(dfp) == port_power_status_changed) {
       Serial.println("recived DFP pd PHY extended sink frs intrupt");
       // do nothing?

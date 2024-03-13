@@ -22,12 +22,9 @@
 
 #include <Arduino.h>
 #include <Wire.h>
-#include "gmp.h"
 #include "pd_prot.h"
 #include "pd_phy.h"
 
-//typedef ans setup for 2048 bit numbers
-typedef mpz_t uint2048_t;
 
 //pd counters
 int pd_prot_head_ufp_message_id = 0;
@@ -189,19 +186,1387 @@ unsigned long pd_prot_dfp_timer_start_time_vdm_wait_mode_exit = 0;
 //retransmit vars
 bool pd_prot_ufp_retransit_failled = false;
 bool pd_prot_dfp_retransit_failled = false;
-uint8_t pd_prot_ufp_last_message[255];
+uint8_t pd_prot_ufp_last_message[256];
 int pd_prot_ufp_last_message_length = 0;
-uint8_t pd_prot_dfp_last_message[255];
+uint8_t pd_prot_dfp_last_message[256];
 int pd_prot_dfp_last_message_length = 0;
 
 //selcted port power (in watts)
 extern enum pd_prot_power_cap_enum pd_prot_ufp_current_power_cap = watts_100;
 extern enum pd_prot_power_cap_enum pd_prot_dfp_current_power_cap = watts_100;
 
-//split message to be transmitted info
-extern uint8_t pd_prot_split_bytes[255];
-extern int pd_prot_split_bytes_length = 0;
+//abort flags
+bool pd_prot_ufp_abbort_flag = false;
+bool pd_prot_dfp_abbort_flag = false;
 
+
+void pd_prot_timer_handeler(enum ufp_dfp ufp_dfp) {
+    //init time var
+    unsigned long current_time = millis();
+
+
+    if (((current_time - pd_prot_ufp_timer_start_time_ac_temp_update) > pd_prot_timer_th_ac_temp_update) && pd_prot_ufp_timer_start_time_ac_temp_update != 0) {
+    // do something for ac_temp_update
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_ac_temp_update) > pd_prot_timer_th_ac_temp_update) && pd_prot_dfp_timer_start_time_ac_temp_update != 0) {
+    // do something for ac_temp_update
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_bist_cont_mode) > pd_prot_timer_th_bist_cont_mode) && pd_prot_ufp_timer_start_time_bist_cont_mode != 0) {
+    // do something for bist_cont_mode
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_bist_cont_mode) > pd_prot_timer_th_bist_cont_mode) && pd_prot_dfp_timer_start_time_bist_cont_mode != 0) {
+    // do something for bist_cont_mode
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_shared_test_mode) > pd_prot_timer_th_shared_test_mode) && pd_prot_ufp_timer_start_time_shared_test_mode != 0) {
+    // do something for shared_test_mode
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_shared_test_mode) > pd_prot_timer_th_shared_test_mode) && pd_prot_dfp_timer_start_time_shared_test_mode != 0) {
+    // do something for shared_test_mode
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_cable_message) > pd_prot_timer_th_cable_message) && pd_prot_ufp_timer_start_time_cable_message != 0) {
+    // do something for cable_message
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_cable_message) > pd_prot_timer_th_cable_message) && pd_prot_dfp_timer_start_time_cable_message != 0) {
+    // do something for cable_message
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_chunking_not_supported) > pd_prot_timer_th_chunking_not_supported) && pd_prot_ufp_timer_start_time_chunking_not_supported != 0) {
+    // do something for chunking_not_supported
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_chunking_not_supported) > pd_prot_timer_th_chunking_not_supported) && pd_prot_dfp_timer_start_time_chunking_not_supported != 0) {
+    // do something for chunking_not_supported
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_chunk_recevier_request) > pd_prot_timer_th_chunk_recevier_request) && pd_prot_ufp_timer_start_time_chunk_recevier_request != 0) {
+    // do something for chunk_recevier_request
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_chunk_recevier_request) > pd_prot_timer_th_chunk_recevier_request) && pd_prot_dfp_timer_start_time_chunk_recevier_request != 0) {
+    // do something for chunk_recevier_request
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_chunk_recevier_response) > pd_prot_timer_th_chunk_recevier_response) && pd_prot_ufp_timer_start_time_chunk_recevier_response != 0) {
+    // do something for chunk_recevier_response
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_chunk_recevier_response) > pd_prot_timer_th_chunk_recevier_response) && pd_prot_dfp_timer_start_time_chunk_recevier_response != 0) {
+    // do something for chunk_recevier_response
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_chunk_sender_request) > pd_prot_timer_th_chunk_sender_request) && pd_prot_ufp_timer_start_time_chunk_sender_request != 0) {
+    // do something for chunk_sender_request
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_chunk_sender_request) > pd_prot_timer_th_chunk_sender_request) && pd_prot_dfp_timer_start_time_chunk_sender_request != 0) {
+    // do something for chunk_sender_request
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_chunk_sender_response) > pd_prot_timer_th_chunk_sender_response) && pd_prot_ufp_timer_start_time_chunk_sender_response != 0) {
+    // do something for chunk_sender_response
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_chunk_sender_response) > pd_prot_timer_th_chunk_sender_response) && pd_prot_dfp_timer_start_time_chunk_sender_response != 0) {
+    // do something for chunk_sender_response
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_data_reset) > pd_prot_timer_th_data_reset) && pd_prot_ufp_timer_start_time_data_reset != 0) {
+    // do something for data_reset
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_data_reset) > pd_prot_timer_th_data_reset) && pd_prot_dfp_timer_start_time_data_reset != 0) {
+    // do something for data_reset
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_data_reset_fail) > pd_prot_timer_th_data_reset_fail) && pd_prot_ufp_timer_start_time_data_reset_fail != 0) {
+    // do something for data_reset_fail
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_data_reset_fail) > pd_prot_timer_th_data_reset_fail) && pd_prot_dfp_timer_start_time_data_reset_fail != 0) {
+    // do something for data_reset_fail
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_data_reset_fail_ufp) > pd_prot_timer_th_data_reset_fail_ufp) && pd_prot_ufp_timer_start_time_data_reset_fail_ufp != 0) {
+    // do something for data_reset_fail_ufp
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_data_reset_fail_ufp) > pd_prot_timer_th_data_reset_fail_ufp) && pd_prot_dfp_timer_start_time_data_reset_fail_ufp != 0) {
+    // do something for data_reset_fail_ufp
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_discover_identity) > pd_prot_timer_th_discover_identity) && pd_prot_ufp_timer_start_time_discover_identity != 0) {
+    // do something for discover_identity
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_discover_identity) > pd_prot_timer_th_discover_identity) && pd_prot_dfp_timer_start_time_discover_identity != 0) {
+    // do something for discover_identity
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_dr_swap_hard_reset) > pd_prot_timer_th_dr_swap_hard_reset) && pd_prot_ufp_timer_start_time_dr_swap_hard_reset != 0) {
+    // do something for dr_swap_hard_reset
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_dr_swap_hard_reset) > pd_prot_timer_th_dr_swap_hard_reset) && pd_prot_dfp_timer_start_time_dr_swap_hard_reset != 0) {
+    // do something for dr_swap_hard_reset
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_dr_swap_wait) > pd_prot_timer_th_dr_swap_wait) && pd_prot_ufp_timer_start_time_dr_swap_wait != 0) {
+    // do something for dr_swap_wait
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_dr_swap_wait) > pd_prot_timer_th_dr_swap_wait) && pd_prot_dfp_timer_start_time_dr_swap_wait != 0) {
+    // do something for dr_swap_wait
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_enter_usb) > pd_prot_timer_th_enter_usb) && pd_prot_ufp_timer_start_time_enter_usb != 0) {
+    // do something for enter_usb
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_enter_usb) > pd_prot_timer_th_enter_usb) && pd_prot_dfp_timer_start_time_enter_usb != 0) {
+    // do something for enter_usb
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_enter_usb_wait) > pd_prot_timer_th_enter_usb_wait) && pd_prot_ufp_timer_start_time_enter_usb_wait != 0) {
+    // do something for enter_usb_wait
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_enter_usb_wait) > pd_prot_timer_th_enter_usb_wait) && pd_prot_dfp_timer_start_time_enter_usb_wait != 0) {
+    // do something for enter_usb_wait
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_enter_epr) > pd_prot_timer_th_enter_epr) && pd_prot_ufp_timer_start_time_enter_epr != 0) {
+    // do something for enter_epr
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_enter_epr) > pd_prot_timer_th_enter_epr) && pd_prot_dfp_timer_start_time_enter_epr != 0) {
+    // do something for enter_epr
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_epr_soruce_cable_discovvery) > pd_prot_timer_th_epr_soruce_cable_discovvery) && pd_prot_ufp_timer_start_time_epr_soruce_cable_discovvery != 0) {
+    // do something for epr_soruce_cable_discovvery
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_epr_soruce_cable_discovvery) > pd_prot_timer_th_epr_soruce_cable_discovvery) && pd_prot_dfp_timer_start_time_epr_soruce_cable_discovvery != 0) {
+    // do something for epr_soruce_cable_discovvery
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_fisrt_source_cap) > pd_prot_timer_th_fisrt_source_cap) && pd_prot_ufp_timer_start_time_fisrt_source_cap != 0) {
+    // do something for fisrt_source_cap
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_fisrt_source_cap) > pd_prot_timer_th_fisrt_source_cap) && pd_prot_dfp_timer_start_time_fisrt_source_cap != 0) {
+    // do something for fisrt_source_cap
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_fr_swap_5v) > pd_prot_timer_th_fr_swap_5v) && pd_prot_ufp_timer_start_time_fr_swap_5v != 0) {
+    // do something for fr_swap_5v
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_fr_swap_5v) > pd_prot_timer_th_fr_swap_5v) && pd_prot_dfp_timer_start_time_fr_swap_5v != 0) {
+    // do something for fr_swap_5v
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_fr_swap_complete) > pd_prot_timer_th_fr_swap_complete) && pd_prot_ufp_timer_start_time_fr_swap_complete != 0) {
+    // do something for fr_swap_complete
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_fr_swap_complete) > pd_prot_timer_th_fr_swap_complete) && pd_prot_dfp_timer_start_time_fr_swap_complete != 0) {
+    // do something for fr_swap_complete
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_fr_swap_init) > pd_prot_timer_th_fr_swap_init) && pd_prot_ufp_timer_start_time_fr_swap_init != 0) {
+    // do something for fr_swap_init
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_fr_swap_init) > pd_prot_timer_th_fr_swap_init) && pd_prot_dfp_timer_start_time_fr_swap_init != 0) {
+    // do something for fr_swap_init
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_hard_reset) > pd_prot_timer_th_hard_reset) && pd_prot_ufp_timer_start_time_hard_reset != 0) {
+    // do something for hard_reset
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_hard_reset) > pd_prot_timer_th_hard_reset) && pd_prot_dfp_timer_start_time_hard_reset != 0) {
+    // do something for hard_reset
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_hard_reset_complete) > pd_prot_timer_th_hard_reset_complete) && pd_prot_ufp_timer_start_time_hard_reset_complete != 0) {
+    // do something for hard_reset_complete
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_hard_reset_complete) > pd_prot_timer_th_hard_reset_complete) && pd_prot_dfp_timer_start_time_hard_reset_complete != 0) {
+    // do something for hard_reset_complete
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_source_epr_keep_alive) > pd_prot_timer_th_source_epr_keep_alive) && pd_prot_ufp_timer_start_time_source_epr_keep_alive != 0) {
+    // do something for source_epr_keep_alive
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_source_epr_keep_alive) > pd_prot_timer_th_source_epr_keep_alive) && pd_prot_dfp_timer_start_time_source_epr_keep_alive != 0) {
+    // do something for source_epr_keep_alive
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_sink_epr_keep_alive) > pd_prot_timer_th_sink_epr_keep_alive) && pd_prot_ufp_timer_start_time_sink_epr_keep_alive != 0) {
+    // do something for sink_epr_keep_alive
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_sink_epr_keep_alive) > pd_prot_timer_th_sink_epr_keep_alive) && pd_prot_dfp_timer_start_time_sink_epr_keep_alive != 0) {
+    // do something for sink_epr_keep_alive
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_no_responce) > pd_prot_timer_th_no_responce) && pd_prot_ufp_timer_start_time_no_responce != 0) {
+    // do something for no_responce
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_no_responce) > pd_prot_timer_th_no_responce) && pd_prot_dfp_timer_start_time_no_responce != 0) {
+    // do something for no_responce
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_pps_request) > pd_prot_timer_th_pps_request) && pd_prot_ufp_timer_start_time_pps_request != 0) {
+    // do something for pps_request
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_pps_request) > pd_prot_timer_th_pps_request) && pd_prot_dfp_timer_start_time_pps_request != 0) {
+    // do something for pps_request
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_pps_timeout) > pd_prot_timer_th_pps_timeout) && pd_prot_ufp_timer_start_time_pps_timeout != 0) {
+    // do something for pps_timeout
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_pps_timeout) > pd_prot_timer_th_pps_timeout) && pd_prot_dfp_timer_start_time_pps_timeout != 0) {
+    // do something for pps_timeout
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_prot_err_hard_reset) > pd_prot_timer_th_prot_err_hard_reset) && pd_prot_ufp_timer_start_time_prot_err_hard_reset != 0) {
+    // do something for prot_err_hard_reset
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_prot_err_hard_reset) > pd_prot_timer_th_prot_err_hard_reset) && pd_prot_dfp_timer_start_time_prot_err_hard_reset != 0) {
+    // do something for prot_err_hard_reset
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_prot_err_soft_reset) > pd_prot_timer_th_prot_err_soft_reset) && pd_prot_ufp_timer_start_time_prot_err_soft_reset != 0) {
+    // do something for prot_err_soft_reset
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_prot_err_soft_reset) > pd_prot_timer_th_prot_err_soft_reset) && pd_prot_dfp_timer_start_time_prot_err_soft_reset != 0) {
+    // do something for prot_err_soft_reset
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_pr_swap_wait) > pd_prot_timer_th_pr_swap_wait) && pd_prot_ufp_timer_start_time_pr_swap_wait != 0) {
+    // do something for pr_swap_wait
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_pr_swap_wait) > pd_prot_timer_th_pr_swap_wait) && pd_prot_dfp_timer_start_time_pr_swap_wait != 0) {
+    // do something for pr_swap_wait
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_ps_hard_reset) > pd_prot_timer_th_ps_hard_reset) && pd_prot_ufp_timer_start_time_ps_hard_reset != 0) {
+    // do something for ps_hard_reset
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_ps_hard_reset) > pd_prot_timer_th_ps_hard_reset) && pd_prot_dfp_timer_start_time_ps_hard_reset != 0) {
+    // do something for ps_hard_reset
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_spr_ps_source_off) > pd_prot_timer_th_spr_ps_source_off) && pd_prot_ufp_timer_start_time_spr_ps_source_off != 0) {
+    // do something for spr_ps_source_off
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_spr_ps_source_off) > pd_prot_timer_th_spr_ps_source_off) && pd_prot_dfp_timer_start_time_spr_ps_source_off != 0) {
+    // do something for spr_ps_source_off
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_epr_ps_source_off) > pd_prot_timer_th_epr_ps_source_off) && pd_prot_ufp_timer_start_time_epr_ps_source_off != 0) {
+    // do something for epr_ps_source_off
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_epr_ps_source_off) > pd_prot_timer_th_epr_ps_source_off) && pd_prot_dfp_timer_start_time_epr_ps_source_off != 0) {
+    // do something for epr_ps_source_off
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_ps_source_on) > pd_prot_timer_th_ps_source_on) && pd_prot_ufp_timer_start_time_ps_source_on != 0) {
+    // do something for ps_source_on
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_ps_source_on) > pd_prot_timer_th_ps_source_on) && pd_prot_dfp_timer_start_time_ps_source_on != 0) {
+    // do something for ps_source_on
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_spr_ps_transition) > pd_prot_timer_th_spr_ps_transition) && pd_prot_ufp_timer_start_time_spr_ps_transition != 0) {
+    // do something for spr_ps_transition
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_spr_ps_transition) > pd_prot_timer_th_spr_ps_transition) && pd_prot_dfp_timer_start_time_spr_ps_transition != 0) {
+    // do something for spr_ps_transition
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_epr_ps_transition) > pd_prot_timer_th_epr_ps_transition) && pd_prot_ufp_timer_start_time_epr_ps_transition != 0) {
+    // do something for epr_ps_transition
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_epr_ps_transition) > pd_prot_timer_th_epr_ps_transition) && pd_prot_dfp_timer_start_time_epr_ps_transition != 0) {
+    // do something for epr_ps_transition
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_receive) > pd_prot_timer_th_receive) && pd_prot_ufp_timer_start_time_receive != 0) {
+    // do something for receive
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_receive) > pd_prot_timer_th_receive) && pd_prot_dfp_timer_start_time_receive != 0) {
+    // do something for receive
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_receive_responce) > pd_prot_timer_th_receive_responce) && pd_prot_ufp_timer_start_time_receive_responce != 0) {
+    // do something for receive_responce
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_receive_responce) > pd_prot_timer_th_receive_responce) && pd_prot_dfp_timer_start_time_receive_responce != 0) {
+    // do something for receive_responce
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_retry) > pd_prot_timer_th_retry) && pd_prot_ufp_timer_start_time_retry != 0) {
+    // do something for retry
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_retry) > pd_prot_timer_th_retry) && pd_prot_dfp_timer_start_time_retry != 0) {
+    // do something for retry
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_sender_responce) > pd_prot_timer_th_sender_responce) && pd_prot_ufp_timer_start_time_sender_responce != 0) {
+    // do something for sender_responce
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_sender_responce) > pd_prot_timer_th_sender_responce) && pd_prot_dfp_timer_start_time_sender_responce != 0) {
+    // do something for sender_responce
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_sink_delay) > pd_prot_timer_th_sink_delay) && pd_prot_ufp_timer_start_time_sink_delay != 0) {
+    // do something for sink_delay
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_sink_delay) > pd_prot_timer_th_sink_delay) && pd_prot_dfp_timer_start_time_sink_delay != 0) {
+    // do something for sink_delay
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_sink_tx) > pd_prot_timer_th_sink_tx) && pd_prot_ufp_timer_start_time_sink_tx != 0) {
+    // do something for sink_tx
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_sink_tx) > pd_prot_timer_th_sink_tx) && pd_prot_dfp_timer_start_time_sink_tx != 0) {
+    // do something for sink_tx
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_soft_reset) > pd_prot_timer_th_soft_reset) && pd_prot_ufp_timer_start_time_soft_reset != 0) {
+    // do something for soft_reset
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_soft_reset) > pd_prot_timer_th_soft_reset) && pd_prot_dfp_timer_start_time_soft_reset != 0) {
+    // do something for soft_reset
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_scr_holds_bus) > pd_prot_timer_th_scr_holds_bus) && pd_prot_ufp_timer_start_time_scr_holds_bus != 0) {
+    // do something for scr_holds_bus
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_scr_holds_bus) > pd_prot_timer_th_scr_holds_bus) && pd_prot_dfp_timer_start_time_scr_holds_bus != 0) {
+    // do something for scr_holds_bus
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_swap_sink_ready) > pd_prot_timer_th_swap_sink_ready) && pd_prot_ufp_timer_start_time_swap_sink_ready != 0) {
+    // do something for swap_sink_ready
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_swap_sink_ready) > pd_prot_timer_th_swap_sink_ready) && pd_prot_dfp_timer_start_time_swap_sink_ready != 0) {
+    // do something for swap_sink_ready
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_swap_source_start) > pd_prot_timer_th_swap_source_start) && pd_prot_ufp_timer_start_time_swap_source_start != 0) {
+    // do something for swap_source_start
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_swap_source_start) > pd_prot_timer_th_swap_source_start) && pd_prot_dfp_timer_start_time_swap_source_start != 0) {
+    // do something for swap_source_start
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_transmit) > pd_prot_timer_th_transmit) && pd_prot_ufp_timer_start_time_transmit != 0) {
+    // do something for transmit
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_transmit) > pd_prot_timer_th_transmit) && pd_prot_dfp_timer_start_time_transmit != 0) {
+    // do something for transmit
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_type_c_send_source_cap) > pd_prot_timer_th_type_c_send_source_cap) && pd_prot_ufp_timer_start_time_type_c_send_source_cap != 0) {
+    // do something for type_c_send_source_cap
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_type_c_send_source_cap) > pd_prot_timer_th_type_c_send_source_cap) && pd_prot_dfp_timer_start_time_type_c_send_source_cap != 0) {
+    // do something for type_c_send_source_cap
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_type_c_sink_wait_cap) > pd_prot_timer_th_type_c_sink_wait_cap) && pd_prot_ufp_timer_start_time_type_c_sink_wait_cap != 0) {
+    // do something for type_c_sink_wait_cap
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_type_c_sink_wait_cap) > pd_prot_timer_th_type_c_sink_wait_cap) && pd_prot_dfp_timer_start_time_type_c_sink_wait_cap != 0) {
+    // do something for type_c_sink_wait_cap
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_vconn_source_discharge) > pd_prot_timer_th_vconn_source_discharge) && pd_prot_ufp_timer_start_time_vconn_source_discharge != 0) {
+    // do something for vconn_source_discharge
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_vconn_source_discharge) > pd_prot_timer_th_vconn_source_discharge) && pd_prot_dfp_timer_start_time_vconn_source_discharge != 0) {
+    // do something for vconn_source_discharge
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_vconn_source_off) > pd_prot_timer_th_vconn_source_off) && pd_prot_ufp_timer_start_time_vconn_source_off != 0) {
+    // do something for vconn_source_off
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_vconn_source_off) > pd_prot_timer_th_vconn_source_off) && pd_prot_dfp_timer_start_time_vconn_source_off != 0) {
+    // do something for vconn_source_off
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_vconn_source_on) > pd_prot_timer_th_vconn_source_on) && pd_prot_ufp_timer_start_time_vconn_source_on != 0) {
+    // do something for vconn_source_on
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_vconn_source_on) > pd_prot_timer_th_vconn_source_on) && pd_prot_dfp_timer_start_time_vconn_source_on != 0) {
+    // do something for vconn_source_on
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_vconn_source_timeout) > pd_prot_timer_th_vconn_source_timeout) && pd_prot_ufp_timer_start_time_vconn_source_timeout != 0) {
+    // do something for vconn_source_timeout
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_vconn_source_timeout) > pd_prot_timer_th_vconn_source_timeout) && pd_prot_dfp_timer_start_time_vconn_source_timeout != 0) {
+    // do something for vconn_source_timeout
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_vconn_swap_wait) > pd_prot_timer_th_vconn_swap_wait) && pd_prot_ufp_timer_start_time_vconn_swap_wait != 0) {
+    // do something for vconn_swap_wait
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_vconn_swap_wait) > pd_prot_timer_th_vconn_swap_wait) && pd_prot_dfp_timer_start_time_vconn_swap_wait != 0) {
+    // do something for vconn_swap_wait
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_vdm_busy) > pd_prot_timer_th_vdm_busy) && pd_prot_ufp_timer_start_time_vdm_busy != 0) {
+    // do something for vdm_busy
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_vdm_busy) > pd_prot_timer_th_vdm_busy) && pd_prot_dfp_timer_start_time_vdm_busy != 0) {
+    // do something for vdm_busy
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_vdm_enter_mode) > pd_prot_timer_th_vdm_enter_mode) && pd_prot_ufp_timer_start_time_vdm_enter_mode != 0) {
+    // do something for vdm_enter_mode
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_vdm_enter_mode) > pd_prot_timer_th_vdm_enter_mode) && pd_prot_dfp_timer_start_time_vdm_enter_mode != 0) {
+    // do something for vdm_enter_mode
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_vdm_exit_mode) > pd_prot_timer_th_vdm_exit_mode) && pd_prot_ufp_timer_start_time_vdm_exit_mode != 0) {
+    // do something for vdm_exit_mode
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_vdm_exit_mode) > pd_prot_timer_th_vdm_exit_mode) && pd_prot_dfp_timer_start_time_vdm_exit_mode != 0) {
+    // do something for vdm_exit_mode
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_vdm_receiver_responce) > pd_prot_timer_th_vdm_receiver_responce) && pd_prot_ufp_timer_start_time_vdm_receiver_responce != 0) {
+    // do something for vdm_receiver_responce
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_vdm_receiver_responce) > pd_prot_timer_th_vdm_receiver_responce) && pd_prot_dfp_timer_start_time_vdm_receiver_responce != 0) {
+    // do something for vdm_receiver_responce
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_vdm_sender_responce) > pd_prot_timer_th_vdm_sender_responce) && pd_prot_ufp_timer_start_time_vdm_sender_responce != 0) {
+    // do something for vdm_sender_responce
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_vdm_sender_responce) > pd_prot_timer_th_vdm_sender_responce) && pd_prot_dfp_timer_start_time_vdm_sender_responce != 0) {
+    // do something for vdm_sender_responce
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_vdm_wait_mode_entry) > pd_prot_timer_th_vdm_wait_mode_entry) && pd_prot_ufp_timer_start_time_vdm_wait_mode_entry != 0) {
+    // do something for vdm_wait_mode_entry
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_vdm_wait_mode_entry) > pd_prot_timer_th_vdm_wait_mode_entry) && pd_prot_dfp_timer_start_time_vdm_wait_mode_entry != 0) {
+    // do something for vdm_wait_mode_entry
+}
+else if (((current_time - pd_prot_ufp_timer_start_time_vdm_wait_mode_exit) > pd_prot_timer_th_vdm_wait_mode_exit) && pd_prot_ufp_timer_start_time_vdm_wait_mode_exit != 0) {
+    // do something for vdm_wait_mode_exit
+}
+else if (((current_time - pd_prot_dfp_timer_start_time_vdm_wait_mode_exit) > pd_prot_timer_th_vdm_wait_mode_exit) && pd_prot_dfp_timer_start_time_vdm_wait_mode_exit != 0) {
+    // do something for vdm_wait_mode_exit
+}
+
+}
+
+//pd_prot_timer_controler
+//starts or stops timers for the pd prot 
+//ufp_dfp: select witch port to control the times for
+//name: nameof timer to control
+//start_stop: start or stop the selcted timer
+void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names name, enum pd_prot_timer_start_stop start_stop) {
+    //slect witch timer to start or stop 
+    switch (name) {
+    case ac_temp_update:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_ac_temp_update = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_ac_temp_update = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_ac_temp_update = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_ac_temp_update = 0;
+            }
+        }
+        break;
+    case bist_cont_mode:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_bist_cont_mode = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_bist_cont_mode = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_bist_cont_mode = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_bist_cont_mode = 0;
+            }
+        }
+        break;
+    case shared_test_mode:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_shared_test_mode = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_shared_test_mode = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_shared_test_mode = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_shared_test_mode = 0;
+            }
+        }
+        break;
+    case cable_message:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_cable_message = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_cable_message = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_cable_message = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_cable_message = 0;
+            }
+        }
+        break;
+    case chunking_not_supported:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_chunking_not_supported = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_chunking_not_supported = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_chunking_not_supported = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_chunking_not_supported = 0;
+            }
+        }
+        break;
+    case chunk_recevier_request:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_chunk_recevier_request = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_chunk_recevier_request = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_chunk_recevier_request = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_chunk_recevier_request = 0;
+            }
+        }
+        break;
+    case chunk_recevier_response:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_chunk_recevier_response = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_chunk_recevier_response = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_chunk_recevier_response = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_chunk_recevier_response = 0;
+            }
+        }
+        break;
+    case chunk_sender_request:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_chunk_sender_request = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_chunk_sender_request = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_chunk_sender_request = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_chunk_sender_request = 0;
+            }
+        }
+        break;
+    case chunk_sender_response:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_chunk_sender_response = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_chunk_sender_response = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_chunk_sender_response = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_chunk_sender_response = 0;
+            }
+        }
+        break;
+    case data_reset:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_data_reset = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_data_reset = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_data_reset = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_data_reset = 0;
+            }
+        }
+        break;
+    case data_reset_fail:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_data_reset_fail = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_data_reset_fail = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_data_reset_fail = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_data_reset_fail = 0;
+            }
+        }
+        break;
+    case data_reset_fail_ufp:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_data_reset_fail_ufp = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_data_reset_fail_ufp = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_data_reset_fail_ufp = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_data_reset_fail_ufp = 0;
+            }
+        }
+        break;
+    case discover_identity:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_discover_identity = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_discover_identity = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_discover_identity = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_discover_identity = 0;
+            }
+        }
+        break;
+    case dr_swap_hard_reset:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_dr_swap_hard_reset = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_dr_swap_hard_reset = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_dr_swap_hard_reset = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_dr_swap_hard_reset = 0;
+            }
+        }
+        break;
+    case dr_swap_wait:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_dr_swap_wait = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_dr_swap_wait = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_dr_swap_wait = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_dr_swap_wait = 0;
+            }
+        }
+        break;
+    case enter_usb:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_enter_usb = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_enter_usb = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_enter_usb = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_enter_usb = 0;
+            }
+        }
+        break;
+    case enter_usb_wait:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_enter_usb_wait = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_enter_usb_wait = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_enter_usb_wait = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_enter_usb_wait = 0;
+            }
+        }
+        break;
+    case enter_epr:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_enter_epr = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_enter_epr = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_enter_epr = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_enter_epr = 0;
+            }
+        }
+        break;
+    case epr_soruce_cable_discovvery:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_epr_soruce_cable_discovvery = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_epr_soruce_cable_discovvery = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_epr_soruce_cable_discovvery = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_epr_soruce_cable_discovvery = 0;
+            }
+        }
+        break;
+    case fisrt_source_cap:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_fisrt_source_cap = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_fisrt_source_cap = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_fisrt_source_cap = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_fisrt_source_cap = 0;
+            }
+        }
+        break;
+    case fr_swap_5v:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_fr_swap_5v = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_fr_swap_5v = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_fr_swap_5v = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_fr_swap_5v = 0;
+            }
+        }
+        break;
+    case fr_swap_complete:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_fr_swap_complete = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_fr_swap_complete = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_fr_swap_complete = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_fr_swap_complete = 0;
+            }
+        }
+        break;
+    case fr_swap_init:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_fr_swap_init = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_fr_swap_init = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_fr_swap_init = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_fr_swap_init = 0;
+            }
+        }
+        break;
+    case hard_reset:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_hard_reset = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_hard_reset = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_hard_reset = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_hard_reset = 0;
+            }
+        }
+        break;
+    case hard_reset_complete:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_hard_reset_complete = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_hard_reset_complete = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_hard_reset_complete = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_hard_reset_complete = 0;
+            }
+        }
+        break;
+    case source_epr_keep_alive:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_source_epr_keep_alive = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_source_epr_keep_alive = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_source_epr_keep_alive = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_source_epr_keep_alive = 0;
+            }
+        }
+        break;
+    case sink_epr_keep_alive:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_sink_epr_keep_alive = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_sink_epr_keep_alive = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_sink_epr_keep_alive = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_sink_epr_keep_alive = 0;
+            }
+        }
+        break;
+    case no_responce:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_no_responce = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_no_responce = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_no_responce = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_no_responce = 0;
+            }
+        }
+        break;
+    case pps_request:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_pps_request = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_pps_request = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_pps_request = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_pps_request = 0;
+            }
+        }
+        break;
+    case pps_timeout:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_pps_timeout = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_pps_timeout = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_pps_timeout = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_pps_timeout = 0;
+            }
+        }
+        break;
+    case prot_err_hard_reset:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_prot_err_hard_reset = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_prot_err_hard_reset = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_prot_err_hard_reset = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_prot_err_hard_reset = 0;
+            }
+        }
+        break;
+    case prot_err_soft_reset:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_prot_err_soft_reset = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_prot_err_soft_reset = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_prot_err_soft_reset = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_prot_err_soft_reset = 0;
+            }
+        }
+        break;
+    case pr_swap_wait:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_pr_swap_wait = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_pr_swap_wait = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_pr_swap_wait = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_pr_swap_wait = 0;
+            }
+        }
+        break;
+    case ps_hard_reset:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_ps_hard_reset = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_ps_hard_reset = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_ps_hard_reset = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_ps_hard_reset = 0;
+            }
+        }
+        break;
+    case spr_ps_source_off:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_spr_ps_source_off = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_spr_ps_source_off = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_spr_ps_source_off = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_spr_ps_source_off = 0;
+            }
+        }
+        break;
+    case epr_ps_source_off:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_epr_ps_source_off = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_epr_ps_source_off = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_epr_ps_source_off = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_epr_ps_source_off = 0;
+            }
+        }
+        break;
+    case ps_source_on:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_ps_source_on = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_ps_source_on = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_ps_source_on = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_ps_source_on = 0;
+            }
+        }
+        break;
+    case spr_ps_transition:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_spr_ps_transition = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_spr_ps_transition = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_spr_ps_transition = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_spr_ps_transition = 0;
+            }
+        }
+        break;
+    case epr_ps_transition:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_epr_ps_transition = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_epr_ps_transition = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_epr_ps_transition = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_epr_ps_transition = 0;
+            }
+        }
+        break;
+    case receive:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_receive = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_receive = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_receive = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_receive = 0;
+            }
+        }
+        break;
+    case receive_responce:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_receive_responce = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_receive_responce = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_receive_responce = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_receive_responce = 0;
+            }
+        }
+        break;
+    case retry:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_retry = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_retry = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_retry = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_retry = 0;
+            }
+        }
+        break;
+    case sender_responce:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_sender_responce = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_sender_responce = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_sender_responce = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_sender_responce = 0;
+            }
+        }
+        break;
+    case sink_delay:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_sink_delay = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_sink_delay = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_sink_delay = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_sink_delay = 0;
+            }
+        }
+        break;
+    case sink_tx:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_sink_tx = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_sink_tx = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_sink_tx = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_sink_tx = 0;
+            }
+        }
+        break;
+    case soft_reset:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_soft_reset = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_soft_reset = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_soft_reset = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_soft_reset = 0;
+            }
+        }
+        break;
+    case scr_holds_bus:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_scr_holds_bus = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_scr_holds_bus = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_scr_holds_bus = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_scr_holds_bus = 0;
+            }
+        }
+        break;
+    case swap_sink_ready:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_swap_sink_ready = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_swap_sink_ready = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_swap_sink_ready = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_swap_sink_ready = 0;
+            }
+        }
+        break;
+    case swap_source_start:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_swap_source_start = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_swap_source_start = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_swap_source_start = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_swap_source_start = 0;
+            }
+        }
+        break;
+    case transmit:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_transmit = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_transmit = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_transmit = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_transmit = 0;
+            }
+        }
+        break;
+    case type_c_send_source_cap:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_type_c_send_source_cap = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_type_c_send_source_cap = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_type_c_send_source_cap = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_type_c_send_source_cap = 0;
+            }
+        }
+        break;
+    case type_c_sink_wait_cap:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_type_c_sink_wait_cap = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_type_c_sink_wait_cap = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_type_c_sink_wait_cap = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_type_c_sink_wait_cap = 0;
+            }
+        }
+        break;
+    case vconn_source_discharge:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_vconn_source_discharge = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_vconn_source_discharge = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_vconn_source_discharge = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_vconn_source_discharge = 0;
+            }
+        }
+        break;
+    case vconn_source_off:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_vconn_source_off = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_vconn_source_off = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_vconn_source_off = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_vconn_source_off = 0;
+            }
+        }
+        break;
+    case vconn_source_on:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_vconn_source_on = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_vconn_source_on = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_vconn_source_on = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_vconn_source_on = 0;
+            }
+        }
+        break;
+    case vconn_source_timeout:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_vconn_source_timeout = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_vconn_source_timeout = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_vconn_source_timeout = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_vconn_source_timeout = 0;
+            }
+        }
+        break;
+    case vconn_swap_wait:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_vconn_swap_wait = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_vconn_swap_wait = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_vconn_swap_wait = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_vconn_swap_wait = 0;
+            }
+        }
+        break;
+    case vdm_busy:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_vdm_busy = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_vdm_busy = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_vdm_busy = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_vdm_busy = 0;
+            }
+        }
+        break;
+    case vdm_enter_mode:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_vdm_enter_mode = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_vdm_enter_mode = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_vdm_enter_mode = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_vdm_enter_mode = 0;
+            }
+        }
+        break;
+    case vdm_exit_mode:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_vdm_exit_mode = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_vdm_exit_mode = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_vdm_exit_mode = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_vdm_exit_mode = 0;
+            }
+        }
+        break;
+    case vdm_receiver_responce:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_vdm_receiver_responce = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_vdm_receiver_responce = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_vdm_receiver_responce = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_vdm_receiver_responce = 0;
+            }
+        }
+        break;
+    case vdm_sender_responce:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_vdm_sender_responce = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_vdm_sender_responce = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_vdm_sender_responce = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_vdm_sender_responce = 0;
+            }
+        }
+        break;
+    case vdm_wait_mode_entry:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_vdm_wait_mode_entry = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_vdm_wait_mode_entry = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_vdm_wait_mode_entry = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_vdm_wait_mode_entry = 0;
+            }
+        }
+        break;
+    case vdm_wait_mode_exit:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_vdm_wait_mode_exit = millis();
+            } else {
+                pd_prot_dfp_timer_start_time_vdm_wait_mode_exit = millis();
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_vdm_wait_mode_exit = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_vdm_wait_mode_exit = 0;
+            }
+        }
+        break;
+    default:
+        //do nothing
+        break;
+    }
+
+    return;
+}
 
 //pd_prot_biuld_headder
 //biulds the headders of messages for pd protocol interaction
@@ -309,71 +1674,142 @@ uint16_t pd_prot_biuld_ext_headder (bool chunked, uint16_t chunk_number, bool re
     return ext_headder_contents;
 }
 
-//pd_prot_split_mesage
-//splits a fully biult message (in GMP base 10 char encodeing) in to its individual bytes and stores them in the acompanying vars
-//sets contents of both
-//pd_prot_split_bytes_length
-//pd_prot_split_bytes
-void pd_prot_split_message(char* incoming_message) {
-    //init local vars
-    uint2048_t message;
-    mpz_init2(message, 2048);
-    size_t length_of_message = 0;
-    uint8_t reverse_array[255];
+//pd_prot_message_type
+//determines if the incoming message is extended or not
+//returns 
+//normal: message recived is not extended
+//extended: message is extended
+enum pd_prot_message_type_enum pd_prot_message_type (enum ufp_dfp ufp_dfp) {
 
-    //covert string back to uint2048_t
-    mpz_set_str(message, incoming_message, 10);
-
-    //reset split message buffer
-    for (int i; i < 255; ++i) {
-        pd_prot_split_bytes[i] = 0;
+    //select port to determine if its chunked
+    if (ufp_dfp == ufp) {
+        if ((pd_phy_ufp_last_recived_message_contents[0] & 0x80) == 0){
+            return normal;
+        } else {
+            return extended;
+        }
+    } else {
+        if ((pd_phy_dfp_last_recived_message_contents[0] & 0x80) == 0){
+            return normal;
+        } else {
+            return extended;
+        }
     }
+}
 
-    //reset legth of split message var
-    pd_prot_split_bytes_length = 0;
+//pd_prot_ext_msg_chunked
+//determines if a extended message is chunked
+//true: message is chunked
+//false: message is not chunked
+bool pd_prot_ext_msg_chunked (enum ufp_dfp ufp_dfp) {
 
-    //determine the length of the message 
-    length_of_message = mpz_sizeinbase(message, 255);
-
-    //set leght of split message var
-    pd_prot_split_bytes_length = length_of_message;
-
-    //itterate thru the message and add to reversed split message array
-    for (int i; i < length_of_message; ++i) {
-        //save the least singnifgant message byte to array
-        reverse_array[i] = mpz_get_ui(message) & 0xFF;
-
-        //shift message to the next byte
-        mpz_tdiv_q_2exp(message, message, 8);
+    //select port to determine if its chunked
+    if (ufp_dfp == ufp) {
+        if ((pd_phy_ufp_last_recived_message_contents[2] & 0x80) == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    } else {
+        if ((pd_phy_dfp_last_recived_message_contents[2] & 0x80) == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
-
-    //reverse the array and return it
-    for (int i; i < length_of_message; ++i) {
-        pd_prot_split_bytes[i] = reverse_array[length_of_message - i - 1];
-    }
-
-    mpz_clear(message);
-
-    return;
 
 }
+
+//pd_prot_etx_msg_n_chunks
+//determines and returns the number of chunks in an extended message
+int pd_prot_ext_msg_n_chunks (enum ufp_dfp ufp_dfp) {
+
+    //detrmine port to chek
+    if (ufp_dfp == ufp) {
+        return ((pd_phy_ufp_last_recived_message_contents[2] & 0x01) << 8) | pd_phy_ufp_last_recived_message_contents[3];
+    } else {
+        return ((pd_phy_dfp_last_recived_message_contents[2] & 0x01) << 8) | pd_phy_dfp_last_recived_message_contents[3];
+    }
+}
+
+
+//pd_prot_chek_soft_reset
+//checks if the recived message is a soft reset command
+//ufp_dfp: port to check
+//true: soft reset recived
+//false: message is not a soft reset command
+bool pd_prot_check_soft_reset (enum ufp_dfp ufp_dfp) {
+
+    if (ufp_dfp == ufp) {
+        if ((pd_phy_ufp_last_recived_message_contents[1] & 0x1F) == 0x0D){
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        if ((pd_phy_dfp_last_recived_message_contents[1] & 0x1F) == 0x0D){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+//pd_prot_discard_message
+//discards the most recently recived message of the selceted port
+void pd_prot_discard_message (enum ufp_dfp ufp_dfp) {
+
+    if (ufp_dfp == ufp) {
+        //reset all recive vars for given port
+        pd_prot_ufp_counter_message_id = 0;
+        pd_phy_ufp_last_recived_message_id = 0;
+        pd_phy_ufp_last_recived_message_lenght = 0;
+        pd_phy_ufp_last_recived_message_type = sop;
+        for (int i; i < 256; ++i) {
+            pd_phy_ufp_last_recived_message_contents[i] = 0;
+        }
+
+    } else {
+        //reset all recive vars for given port
+        pd_prot_dfp_counter_message_id = 0;
+        pd_phy_dfp_last_recived_message_id = 0;
+        pd_phy_dfp_last_recived_message_lenght = 0;
+        pd_phy_dfp_last_recived_message_type = sop;
+        for (int i; i < 256; ++i) {
+            pd_phy_dfp_last_recived_message_contents[i] = 0;
+        }
+    }
+}
+
+
+void pd_prot_hard_reset_handeler (enum ufp_dfp ufp_dfp, bool from_policy_engine) {
+    //discard last recived message
+    pd_prot_discard_message(ufp_dfp);
+
+    //check if reset was called for from the policy engine or PHY
+    if (from_policy_engine) {
+        pd_phy_send_hard_reset(ufp_dfp);
+    }
+
+}
+
 
 //pd_prot_set_last_message
 //sets last message vars 
 //this function must be called after createing/splitting a message
-void pd_prot_set_last_message(enum ufp_dfp ufp_dfp) {
+void pd_prot_set_last_message(enum ufp_dfp ufp_dfp, uint8_t message[256], uint8_t length_of_message) {
     if (ufp_dfp == ufp) {
         for (int i; i < 255; ++i) {
-            pd_prot_ufp_last_message[i] = pd_prot_split_bytes[i];
+            pd_prot_ufp_last_message[i] = message[i];
         }
         
-        pd_prot_ufp_last_message_length = pd_prot_split_bytes_length;
+        pd_prot_ufp_last_message_length = length_of_message;
     } else if (ufp_dfp == dfp) {
         for (int i; i < 255; ++i) {
-            pd_prot_dfp_last_message[i] = pd_prot_split_bytes[i];
+            pd_prot_dfp_last_message[i] = message[i];
         }
         
-        pd_prot_dfp_last_message_length = pd_prot_split_bytes_length;
+        pd_prot_dfp_last_message_length = length_of_message;
     }
 }
 
@@ -381,21 +1817,11 @@ void pd_prot_set_last_message(enum ufp_dfp ufp_dfp) {
 //transmits source PDOs based on the selcted power cap of the port 
 void pd_prot_transmit_soucre_capibilitiys (enum ufp_dfp ufp_dfp) {
     //init local vars
-    uint2048_t message;
-    mpz_init2(message, 2048);
-    mpz_t temp_pdo_0;
-    mpz_init(temp_pdo_0);
-    mpz_t temp_pdo_1;
-    mpz_init(temp_pdo_1);
-    mpz_t temp_pdo_2;
-    mpz_init(temp_pdo_2);
-    mpz_t temp_pdo_3;
-    mpz_init(temp_pdo_3);
-    mpz_t temp_pdo_4;
-    mpz_init(temp_pdo_4);
-    char* message_string;
+    uint8_t message[256];
+    uint32_t temp = 0;
     int current_msg_id = 0;
     int n_pdo = 0;
+    int n_bytes = 0;
 
     //get current message id
     if (ufp_dfp == ufp) {
@@ -434,190 +1860,383 @@ void pd_prot_transmit_soucre_capibilitiys (enum ufp_dfp ufp_dfp) {
     //biuld headder
     uint16_t headder = pd_prot_biuld_headder(false, n_pdo, current_msg_id, src, 3, ufp_dfp, pd_prot_data_msg_source_capabilities);
 
-    //conver headder to uint2048_t data type and add it to message
-    mpz_set_ui(message, headder);
+    message[1] = headder & 0xFF;
+    message[0] = (headder >> 8) & 0xFF;
 
     //append PDOs to message based on a ports given power cap
     if (ufp_dfp == ufp){
         if (pd_prot_ufp_current_power_cap == watts_100) {
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_vsafe_5v);
-            mpz_ior(message, message, temp_pdo_0);
+            temp = pd_prot_pdo_vsafe_5v;
+            message[5] = temp & 0xFF;
+            message[4] = (temp >> 8) & 0xFF;
+            message[3] = (temp >> 16) & 0xFF;
+            message[2] = (temp >> 24) & 0xFF;
 
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_9v);
-            mpz_ior(message, message, temp_pdo_1);
+            temp = pd_prot_pdo_9v;
+            message[9] = temp & 0xFF;
+            message[8] = (temp >> 8) & 0xFF;
+            message[7] = (temp >> 16) & 0xFF;
+            message[6] = (temp >> 24) & 0xFF;
 
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_12v);
-            mpz_ior(message, message, temp_pdo_2);
+            temp = pd_prot_pdo_12v;
+            message[13] = temp & 0xFF;
+            message[12] = (temp >> 8) & 0xFF;
+            message[11] = (temp >> 16) & 0xFF;
+            message[10] = (temp >> 24) & 0xFF;
 
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_15v);
-            mpz_ior(message, message, temp_pdo_3);
+            temp = pd_prot_pdo_15v;
+            message[17] = temp & 0xFF;
+            message[16] = (temp >> 8) & 0xFF;
+            message[15] = (temp >> 16) & 0xFF;
+            message[14] = (temp >> 24) & 0xFF;
 
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_20v);
-            mpz_ior(message, message, temp_pdo_4);
+            temp = pd_prot_pdo_20v;
+            message[21] = temp & 0xFF;
+            message[20] = (temp >> 8) & 0xFF;
+            message[19] = (temp >> 16) & 0xFF;
+            message[18] = (temp >> 24) & 0xFF;
+
+            n_bytes = 22;
 
         } else if (pd_prot_ufp_current_power_cap == watts_65) {
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_vsafe_5v);
-            mpz_ior(message, message, temp_pdo_0);
+            temp = pd_prot_pdo_vsafe_5v;
+            message[5] = temp & 0xFF;
+            message[4] = (temp >> 8) & 0xFF;
+            message[3] = (temp >> 16) & 0xFF;
+            message[2] = (temp >> 24) & 0xFF;
 
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_9v);
-            mpz_ior(message, message, temp_pdo_1);
+            temp = pd_prot_pdo_9v;
+            message[9] = temp & 0xFF;
+            message[8] = (temp >> 8) & 0xFF;
+            message[7] = (temp >> 16) & 0xFF;
+            message[6] = (temp >> 24) & 0xFF;
 
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_12v);
-            mpz_ior(message, message, temp_pdo_2);
+            temp = pd_prot_pdo_12v;
+            message[13] = temp & 0xFF;
+            message[12] = (temp >> 8) & 0xFF;
+            message[11] = (temp >> 16) & 0xFF;
+            message[10] = (temp >> 24) & 0xFF;
 
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_15v_at_65);
-            mpz_ior(message, message, temp_pdo_3);
+            temp = pd_prot_pdo_15v_at_65;
+            message[17] = temp & 0xFF;
+            message[16] = (temp >> 8) & 0xFF;
+            message[15] = (temp >> 16) & 0xFF;
+            message[14] = (temp >> 24) & 0xFF;
+
+            n_bytes = 18;
 
         } else if (pd_prot_ufp_current_power_cap == watts_40) {
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_vsafe_5v);
-            mpz_ior(message, message, temp_pdo_0);
+            temp = pd_prot_pdo_vsafe_5v;
+            message[5] = temp & 0xFF;
+            message[4] = (temp >> 8) & 0xFF;
+            message[3] = (temp >> 16) & 0xFF;
+            message[2] = (temp >> 24) & 0xFF;
 
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_9v);
-            mpz_ior(message, message, temp_pdo_1);
+            temp = pd_prot_pdo_9v;
+            message[9] = temp & 0xFF;
+            message[8] = (temp >> 8) & 0xFF;
+            message[7] = (temp >> 16) & 0xFF;
+            message[6] = (temp >> 24) & 0xFF;
 
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_12v_at_40);
-            mpz_ior(message, message, temp_pdo_2);
+            temp = pd_prot_pdo_12v_at_40;
+            message[13] = temp & 0xFF;
+            message[12] = (temp >> 8) & 0xFF;
+            message[11] = (temp >> 16) & 0xFF;
+            message[10] = (temp >> 24) & 0xFF;
+
+            n_bytes = 14;
 
         } else if (pd_prot_ufp_current_power_cap == watts_20) {
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_vsafe_5v_at_20);
-            mpz_ior(message, message, temp_pdo_0);
+            temp = pd_prot_pdo_vsafe_5v_at_20;
+            message[5] = temp & 0xFF;
+            message[4] = (temp >> 8) & 0xFF;
+            message[3] = (temp >> 16) & 0xFF;
+            message[2] = (temp >> 24) & 0xFF;
+
+            n_bytes = 6;
 
         } else if (pd_prot_ufp_current_power_cap == watts_10) {
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_vsafe_5v_at_10);
-            mpz_ior(message, message, temp_pdo_0);
+            temp = pd_prot_pdo_vsafe_5v_at_10;
+            message[5] = temp & 0xFF;
+            message[4] = (temp >> 8) & 0xFF;
+            message[3] = (temp >> 16) & 0xFF;
+            message[2] = (temp >> 24) & 0xFF;
+
+            n_bytes = 6;
         }
     } else if (ufp_dfp == dfp){
         if (pd_prot_dfp_current_power_cap == watts_100) {
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_vsafe_5v);
-            mpz_ior(message, message, temp_pdo_0);
+            message[5] = temp & 0xFF;
+            message[4] = (temp >> 8) & 0xFF;
+            message[3] = (temp >> 16) & 0xFF;
+            message[2] = (temp >> 24) & 0xFF;
 
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_9v);
-            mpz_ior(message, message, temp_pdo_1);
+            temp = pd_prot_pdo_9v;
+            message[9] = temp & 0xFF;
+            message[8] = (temp >> 8) & 0xFF;
+            message[7] = (temp >> 16) & 0xFF;
+            message[6] = (temp >> 24) & 0xFF;
 
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_12v);
-            mpz_ior(message, message, temp_pdo_2);
+            temp = pd_prot_pdo_12v;
+            message[13] = temp & 0xFF;
+            message[12] = (temp >> 8) & 0xFF;
+            message[11] = (temp >> 16) & 0xFF;
+            message[10] = (temp >> 24) & 0xFF;
 
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_15v);
-            mpz_ior(message, message, temp_pdo_3);
+            temp = pd_prot_pdo_15v;
+            message[17] = temp & 0xFF;
+            message[16] = (temp >> 8) & 0xFF;
+            message[15] = (temp >> 16) & 0xFF;
+            message[14] = (temp >> 24) & 0xFF;
 
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_20v);
-            mpz_ior(message, message, temp_pdo_4);
+            temp = pd_prot_pdo_20v;
+            message[21] = temp & 0xFF;
+            message[20] = (temp >> 8) & 0xFF;
+            message[19] = (temp >> 16) & 0xFF;
+            message[18] = (temp >> 24) & 0xFF;
+
+            n_bytes = 22;
 
         } else if (pd_prot_dfp_current_power_cap == watts_65) {
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_vsafe_5v);
-            mpz_ior(message, message, temp_pdo_0);
+            temp = pd_prot_pdo_vsafe_5v;
+            message[5] = temp & 0xFF;
+            message[4] = (temp >> 8) & 0xFF;
+            message[3] = (temp >> 16) & 0xFF;
+            message[2] = (temp >> 24) & 0xFF;
 
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_9v);
-            mpz_ior(message, message, temp_pdo_1);
+            temp = pd_prot_pdo_9v;
+            message[9] = temp & 0xFF;
+            message[8] = (temp >> 8) & 0xFF;
+            message[7] = (temp >> 16) & 0xFF;
+            message[6] = (temp >> 24) & 0xFF;
 
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_12v);
-            mpz_ior(message, message, temp_pdo_2);
+            temp = pd_prot_pdo_12v;
+            message[13] = temp & 0xFF;
+            message[12] = (temp >> 8) & 0xFF;
+            message[11] = (temp >> 16) & 0xFF;
+            message[10] = (temp >> 24) & 0xFF;
 
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_15v_at_65);
-            mpz_ior(message, message, temp_pdo_3);
+            temp = pd_prot_pdo_15v_at_65;
+            message[17] = temp & 0xFF;
+            message[16] = (temp >> 8) & 0xFF;
+            message[15] = (temp >> 16) & 0xFF;
+            message[14] = (temp >> 24) & 0xFF;
+
+            n_bytes = 18;
+
         } else if (pd_prot_dfp_current_power_cap == watts_40) {
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_vsafe_5v);
-            mpz_ior(message, message, temp_pdo_0);
+            temp = pd_prot_pdo_vsafe_5v;
+            message[5] = temp & 0xFF;
+            message[4] = (temp >> 8) & 0xFF;
+            message[3] = (temp >> 16) & 0xFF;
+            message[2] = (temp >> 24) & 0xFF;
 
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_9v);
-            mpz_ior(message, message, temp_pdo_1);
+            temp = pd_prot_pdo_9v;
+            message[9] = temp & 0xFF;
+            message[8] = (temp >> 8) & 0xFF;
+            message[7] = (temp >> 16) & 0xFF;
+            message[6] = (temp >> 24) & 0xFF;
 
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_12v_at_40);
-            mpz_ior(message, message, temp_pdo_2);
+            temp = pd_prot_pdo_12v_at_40;
+            message[13] = temp & 0xFF;
+            message[12] = (temp >> 8) & 0xFF;
+            message[11] = (temp >> 16) & 0xFF;
+            message[10] = (temp >> 24) & 0xFF;
+
+            n_bytes = 14;
 
         } else if (pd_prot_dfp_current_power_cap == watts_20) {
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_vsafe_5v_at_20);
-            mpz_ior(message, message, temp_pdo_0);
+            temp = pd_prot_pdo_vsafe_5v_at_20;
+            message[5] = temp & 0xFF;
+            message[4] = (temp >> 8) & 0xFF;
+            message[3] = (temp >> 16) & 0xFF;
+            message[2] = (temp >> 24) & 0xFF;
+
+            n_bytes = 6;
 
         } else if (pd_prot_dfp_current_power_cap == watts_10) {
-            mpz_mul_2exp(message, message, 32);
-            mpz_set_ui(temp_pdo_0, pd_prot_pdo_vsafe_5v_at_10);
-            mpz_ior(message, message, temp_pdo_0);
+            temp = pd_prot_pdo_vsafe_5v_at_10;
+            message[5] = temp & 0xFF;
+            message[4] = (temp >> 8) & 0xFF;
+            message[3] = (temp >> 16) & 0xFF;
+            message[2] = (temp >> 24) & 0xFF;
+
+            n_bytes = 6;
 
         }
     }
-    
-    //conver message to string
-    message_string = mpz_get_str(NULL, 10, message);
-
-    //clear gmp vars
-    mpz_clear(message);
-    mpz_clear(temp_pdo_0);
-    mpz_clear(temp_pdo_1);
-    mpz_clear(temp_pdo_2);
-    mpz_clear(temp_pdo_3);
-    mpz_clear(temp_pdo_4);
-
-    //send message to splitter
-    pd_prot_split_message(message_string);
 
     //set last message vars for given port
-    pd_prot_set_last_message(ufp_dfp);
+    pd_prot_set_last_message(ufp_dfp, message, n_bytes);
 
     //tell pd phy to transmit the message 
-    pd_phy_transmit(ufp_dfp, pd_prot_split_bytes, pd_prot_split_bytes_length);
+    pd_phy_transmit(ufp_dfp, message, n_bytes);
 
     return;
 }
 
-void pd_prot_transmit_soft_reset (ufp_dfp ufp_dfp) {
+//pd_prot_transmit_command
+//transmits usbpd command messages
+//ufp_dfp: port to send command from
+//pd_prot_cont_msg_enum: what command to send
+void pd_prot_transmit_command (enum ufp_dfp ufp_dfp, enum pd_prot_cont_msg_enum pd_prot_cont_msg_enum) {
     //init local vars
-    mpz_t message;
-    mpz_init2(message, 16);
-    char* message_string;
+    uint8_t message[256];
+    uint16_t selected_comand = 0;
+
+    //select witch command to send
+    switch (pd_prot_cont_msg_enum){
+    case gotomin:
+        selected_comand = pd_prot_cont_msg_gotomin;
+        break;
+    case accept:
+        selected_comand = pd_prot_cont_msg_accept;
+        break;
+    case reject:
+        selected_comand = pd_prot_cont_msg_reject;
+        break;
+    case ping:
+        selected_comand = pd_prot_cont_msg_ping;
+        break;
+    case ps_rdy:
+        selected_comand = pd_prot_cont_msg_ps_rdy;
+        break;
+    case get_source_cap:
+        selected_comand = pd_prot_cont_msg_get_source_cap;
+        break;
+    case get_sink_cap:
+        selected_comand = pd_prot_cont_msg_get_sink_cap;
+        break;
+    case dr_swap:
+        selected_comand = pd_prot_cont_msg_dr_swap;
+        break;
+    case pr_swap:
+        selected_comand = pd_prot_cont_msg_pr_swap;
+        break;
+    case vconn_swap:
+        selected_comand = pd_prot_cont_msg_vconn_swap;
+        break;
+    case wait:
+        selected_comand = pd_prot_cont_msg_wait;
+        break;
+    case soft_reset:
+        selected_comand = pd_prot_cont_msg_soft_reset;
+        break;
+    case data_reset:
+        selected_comand = pd_prot_cont_msg_data_reset;
+        break;
+    case data_reset_complete:
+        selected_comand = pd_prot_cont_msg_data_reset_complete;
+        break;
+    case not_supported:
+        selected_comand = pd_prot_cont_msg_not_supported;
+        break;
+    case fr_swap:
+        selected_comand = pd_prot_cont_msg_fr_swap;
+        break;
+    case get_pps_status:
+        selected_comand = pd_prot_cont_msg_get_pps_status;
+        break;
+    case get_country_codes:
+        selected_comand = pd_prot_cont_msg_get_country_codes;
+        break;
+    case get_sink_cap_extended:
+        selected_comand = pd_prot_cont_msg_get_sink_cap_extended;
+        break;
+    case get_source_info:
+        selected_comand = pd_prot_cont_msg_get_souce_info;
+        break;
+    case get_revision:
+        selected_comand = pd_prot_cont_msg_get_revision;
+        break;
+    }
     
 
     //biuld headder  
-    uint16_t headder = pd_prot_biuld_headder(false, 0, 0, src, 3, ufp_dfp, pd_prot_cont_msg_soft_reset);
+    uint16_t headder = pd_prot_biuld_headder(false, 0, 0, src, 3, ufp_dfp, selected_comand);
 
-    //convert headder to mpz
-    mpz_set_ui(message, headder);
-
-    //convert message to string
-    message_string = mpz_get_str(NULL, 10, message);
-
-    //clean up mpz vars
-    mpz_clear(message);
-
-    //split the message
-    pd_prot_split_message(message_string);
+    //load headder in to array
+    message[1] = headder & 0xFF;
+    message[0] = (headder >> 8) & 0xFF;
 
     //set last message vars for a given port
-    pd_prot_set_last_message(ufp_dfp);
+    pd_prot_set_last_message(ufp_dfp, message, 2);
 
     //transmit the message
-    pd_phy_transmit(ufp_dfp, pd_prot_split_bytes, pd_prot_split_bytes_length);
+    pd_phy_transmit(ufp_dfp, message, 2);
     
     return;
 
 }
+
+//normal message state machine
+void pd_prot_rx_state_machine(enum ufp_dfp ufp_dfp) {
+
+    //check for soft reset
+    if (pd_prot_check_soft_reset(ufp_dfp)) {
+        pd_prot_discard_message(ufp_dfp);
+    }
+
+    //check if message id matches expected id
+    //if not set current message id to last recived id
+    if (ufp_dfp == ufp) {
+        if (pd_phy_ufp_last_recived_message_id == pd_prot_ufp_counter_message_id){
+            pd_prot_discard_message(ufp_dfp);
+        } else {
+            pd_prot_ufp_counter_message_id = pd_phy_ufp_last_recived_message_id;
+        }
+    } else {
+        if (pd_phy_dfp_last_recived_message_id == pd_prot_dfp_counter_message_id){
+            pd_prot_discard_message(ufp_dfp);
+        } else {
+            pd_prot_dfp_counter_message_id = pd_phy_dfp_last_recived_message_id;
+        }
+    }
+
+    //pass to plicy engine
+
+    return;
+
+}
+
+//chunked rx statemachine
+void pd_prot_chunked_rx_state_machine(enum ufp_dfp ufp_dfp) {
+    //init local vars
+
+
+
+    //reset extended rx buffer and abort flags
+    if (ufp_dfp == ufp) {
+        pd_prot_ufp_abbort_flag = false;
+        for (int i; i < 256; ++i) {
+            pd_phy_ufp_last_recived_message_contents[i] = 0;
+        }
+        pd_phy_ufp_last_recived_message_lenght = 0;
+        pd_phy_ufp_last_recived_message_type = sop;
+    } else if (ufp_dfp == dfp) {
+        pd_prot_dfp_abbort_flag = false;
+        for (int i; i < 256; ++i) {
+            pd_phy_dfp_last_recived_message_contents[i] = 0;
+        }
+        pd_phy_dfp_last_recived_message_lenght = 0;
+        pd_phy_dfp_last_recived_message_type = sop;
+    }
+
+    if (pd_prot_message_type(ufp_dfp) == extended) {
+        //determine if message is chunked
+        if (pd_prot_ext_msg_chunked) {
+            if (pd_prot_ext_msg_n_chunks(ufp_dfp) == 0) {
+
+            }
+
+        }
+    } else {
+        pd_prot_rx_state_machine(ufp_dfp);
+    }
+
+
+}
+
 
 
 

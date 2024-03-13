@@ -173,11 +173,13 @@ extern bool pd_phy_dfp_attached;
 enum message_type {sop, sop_col, sop_col_col, sop_dbg_col, sop_dbg_col_col, cable_reset};
 
 //recived message vars
-extern int pd_phy_ufp_last_recived_message_contents[];
+extern int pd_phy_ufp_last_recived_message_contents[256];
 extern int pd_phy_ufp_last_recived_message_lenght;
+extern int pd_phy_ufp_last_recived_message_id;
 extern enum message_type pd_phy_ufp_last_recived_message_type;
-extern int pd_phy_dfp_last_recived_message_contents[];
+extern int pd_phy_dfp_last_recived_message_contents[256];
 extern int pd_phy_dfp_last_recived_message_lenght;
+extern int pd_phy_dfp_last_recived_message_id;
 extern enum message_type pd_phy_dfp_last_recived_message_type;
 
 
@@ -195,6 +197,7 @@ void pd_phy_send_rx_one_more (enum ufp_dfp ufp_dfp);
 void pd_phy_send_frs_signal (enum ufp_dfp ufp_dfp);
 void pd_phy_send_reset_transmit_buffer (enum ufp_dfp ufp_dfp);
 void pd_phy_send_reset_recive_buffer (enum ufp_dfp ufp_dfp);
+void pd_phy_send_hard_reset (enum ufp_dfp ufp_dfp);
 void pd_phy_clear_alert (enum ufp_dfp ufp_dfp);
 void pd_phy_clear_extended_alert (enum ufp_dfp ufp_dfp);
 void pd_phy_clear_fault (enum ufp_dfp ufp_dfp);

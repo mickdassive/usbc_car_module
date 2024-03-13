@@ -36,11 +36,13 @@ bool pd_phy_ufp_attached = false;
 bool pd_phy_dfp_attached = false;
 
 //recived message vars 
-int pd_phy_ufp_last_recived_message_contents[255];
+int pd_phy_ufp_last_recived_message_contents[256];
 int pd_phy_ufp_last_recived_message_lenght = 0;
+int pd_phy_ufp_last_recived_message_id = 0;
 enum message_type pd_phy_ufp_last_recived_message_type;
-int pd_phy_dfp_last_recived_message_contents[255];
+int pd_phy_dfp_last_recived_message_contents[256];
 int pd_phy_dfp_last_recived_message_lenght = 0;
+int pd_phy_ufp_last_recived_message_id = 0;
 enum message_type pd_phy_dfp_last_recived_message_type;
 
 
@@ -219,6 +221,25 @@ void pd_phy_send_reset_transmit_buffer (enum ufp_dfp ufp_dfp) {
     Wire.endTransmission();
 
     return;
+}
+
+//pd_phy_send_hard_reset
+//sends hard reset from the given port
+void pd_phy_send_hard_reset (enum ufp_dfp ufp_dfp) {
+
+    pd_phy_send_i2c_wake(ufp_dfp);
+
+    if (ufp_dfp == ufp) {
+        Wire.beginTransmission(pd_phy_add_ufp);
+    } else {
+        Wire.beginTransmission(pd_phy_add_dfp);
+    }
+    Wire.write(pd_phy_reg_transmit);
+    Wire.write(0x00);
+    Wire.write(0x05);
+    Wire.endTransmission();
+
+    pd_phy_send_i2c_idle(ufp_dfp);
 }
 
 //pd_phy_send_reset_recive_buffer
@@ -976,6 +997,13 @@ void pd_phy_recive_message (enum ufp_dfp ufp_dfp) {
 
         //clear alerts
         pd_phy_clear_alert(ufp_dfp);
+
+        //determine message id
+        if (ufp_dfp == ufp) {
+            pd_phy_ufp_last_recived_message_id = (current_message_contents[0] & 0x0D) >> 1;
+        } else {
+            pd_phy_dfp_last_recived_message_id = (current_message_contents[0] & 0x0D) >> 1;
+        }
 
         //determine message type and store it 
         if ((current_message_type_reg_value | 0x00) == 0) {

@@ -44,10 +44,36 @@ const uint16_t pd_prot_cont_msg_not_supported = 0x0010;
 const uint16_t pd_prot_cont_msg_get_status = 0x0011;
 const uint16_t pd_prot_cont_msg_fr_swap = 0x0012;
 const uint16_t pd_prot_cont_msg_get_pps_status = 0x0013;
-const uint16_t pd_prot_cont_msg_get_county_codes = 0x0014;
+const uint16_t pd_prot_cont_msg_get_country_codes = 0x0014;
 const uint16_t pd_prot_cont_msg_get_sink_cap_extended = 0x0015;
 const uint16_t pd_prot_cont_msg_get_souce_info = 0x0016;
 const uint16_t pd_prot_cont_msg_get_revision = 0x0017;
+
+//pd control message enum
+enum pd_prot_cont_msg_enum {
+    gotomin,
+    accept,
+    reject,
+    ping,
+    ps_rdy,
+    get_source_cap,
+    get_sink_cap,
+    dr_swap,
+    pr_swap,
+    vconn_swap,
+    wait,
+    soft_reset,
+    data_reset,
+    data_reset_complete,
+    not_supported,
+    get_status,
+    fr_swap,
+    get_pps_status,
+    get_country_codes,
+    get_sink_cap_extended,
+    get_source_info,
+    get_revision
+};
 
 //pd data messgaes
 //usb-if docs page 142
@@ -311,6 +337,76 @@ extern unsigned long pd_prot_dfp_timer_start_time_vdm_sender_responce;
 extern unsigned long pd_prot_dfp_timer_start_time_vdm_wait_mode_entry;
 extern unsigned long pd_prot_dfp_timer_start_time_vdm_wait_mode_exit;
 
+//pd timer names enum
+enum pd_prot_timer_names {
+ac_temp_update,
+bist_cont_mode,
+shared_test_mode,
+cable_message,
+chunking_not_supported,
+chunk_recevier_request,
+chunk_recevier_response,
+chunk_sender_request,
+chunk_sender_response,
+data_reset,
+data_reset_fail,
+data_reset_fail_ufp,
+discover_identity,
+dr_swap_hard_reset,
+dr_swap_wait,
+enter_usb,
+enter_usb_wait,
+enter_epr,
+epr_soruce_cable_discovvery,
+fisrt_source_cap,
+fr_swap_5v,
+fr_swap_complete,
+fr_swap_init,
+hard_reset,
+hard_reset_complete,
+source_epr_keep_alive,
+sink_epr_keep_alive,
+no_responce,
+pps_request,
+pps_timeout,
+prot_err_hard_reset,
+prot_err_soft_reset,
+pr_swap_wait,
+ps_hard_reset,
+spr_ps_source_off,
+epr_ps_source_off,
+ps_source_on,
+spr_ps_transition,
+epr_ps_transition,
+receive,
+receive_responce,
+retry,
+sender_responce,
+sink_delay,
+sink_tx,
+soft_reset,
+scr_holds_bus,
+swap_sink_ready,
+swap_source_start,
+transmit,
+type_c_send_source_cap,
+type_c_sink_wait_cap,
+vconn_source_discharge,
+vconn_source_off,
+vconn_source_on,
+vconn_source_timeout,
+vconn_swap_wait,
+vdm_busy,
+vdm_enter_mode,
+vdm_exit_mode,
+vdm_receiver_responce,
+vdm_sender_responce,
+vdm_wait_mode_entry,
+vdm_wait_mode_exit
+};
+
+//enum for start/stop of timers
+enum pd_prot_timer_start_stop {start, stop};
 
 //pd counter treshhold values 
 //usb-if docs page 289
@@ -363,19 +459,22 @@ extern enum pd_prot_power_cap_enum pd_prot_dfp_current_power_cap;
 //enum for port power role
 enum pd_prot_port_power_role {src, sink};
 
-//split message to be transmitted info
-extern uint8_t pd_prot_split_bytes[255];
-extern int pd_prot_split_bytes_length;
+//enumm for headder type 
+enum pd_prot_message_type_enum {normal, extended};
 
+//abort flags
+extern bool pd_prot_ufp_abbort_flag;
+extern bool pd_prot_dfp_abbort_flag;
 
 
 
 //function defines
 uint16_t pd_prot_biuld_headder (bool extended_msg, uint16_t n_data_objects, uint16_t msg_id, enum pd_prot_port_power_role power_role, uint16_t spec_revision, enum ufp_dfp data_role, uint16_t msg_type);
 uint16_t pd_prot_biuld_ext_headder (bool chunked, uint16_t chunk_number, bool request_chunk, uint16_t data_size);
-void pd_prot_split_message(char* incoming_message);
-void pd_prot_set_last_message(enum ufp_dfp ufp_dfp);
+void pd_prot_set_last_message(enum ufp_dfp ufp_dfp, uint8_t message[256], uint8_t length_of_message);
 void pd_prot_transmit_soucre_capibilitiys (enum ufp_dfp ufp_dfp);
+void pd_prot_transmit_command (enum ufp_dfp ufp_dfp, enum pd_prot_cont_msg_enum pd_prot_cont_msg_enum);
+
 
 
 
