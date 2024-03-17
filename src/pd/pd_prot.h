@@ -466,6 +466,14 @@ enum pd_prot_message_type_enum {normal, extended};
 extern bool pd_prot_ufp_abbort_flag;
 extern bool pd_prot_dfp_abbort_flag;
 
+//flags for the policy engine
+extern bool pd_prot_ufp_pe_hard_reset_recived;
+extern bool pd_prot_dfp_pe_hard_reset_recived;
+extern bool pd_prot_ufp_pe_hard_reset_timeout;
+extern bool pd_prot_dfp_pe_hard_reset_timeout;
+extern enum ufp_dfp pd_prot_ufp_pe_port_data_role;
+extern enum ufp_dfp pd_prot_dfp_pe_port_data_role;
+
 
 
 //function defines

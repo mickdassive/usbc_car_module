@@ -23,6 +23,7 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include "pd_prot.h"
+#include "pd_power_cont.h"
 #include "pd_phy.h"
 
 
@@ -199,6 +200,16 @@ extern enum pd_prot_power_cap_enum pd_prot_dfp_current_power_cap = watts_100;
 bool pd_prot_ufp_abbort_flag = false;
 bool pd_prot_dfp_abbort_flag = false;
 
+//flags for the policy engine
+bool pd_prot_ufp_pe_hard_reset_recived = false;
+bool pd_prot_dfp_pe_hard_reset_recived = false;
+bool pd_prot_ufp_pe_hard_reset_timeout = false;
+bool pd_prot_dfp_pe_hard_reset_timeout = false;
+enum ufp_dfp pd_prot_ufp_pe_port_data_role = dfp;
+enum ufp_dfp pd_prot_dfp_pe_port_data_role = dfp;
+
+
+
 
 void pd_prot_timer_handeler() {
     //init time var
@@ -345,9 +356,11 @@ void pd_prot_timer_handeler() {
     }
     else if (((current_time - pd_prot_ufp_timer_start_time_hard_reset) > pd_prot_timer_th_hard_reset) && pd_prot_ufp_timer_start_time_hard_reset != 0) {
         //hard_reset
+        pd_prot_ufp_pe_hard_reset_timeout = true;
     }
     else if (((current_time - pd_prot_dfp_timer_start_time_hard_reset) > pd_prot_timer_th_hard_reset) && pd_prot_dfp_timer_start_time_hard_reset != 0) {
         //hard_reset
+        pd_prot_dfp_pe_hard_reset_timeout = true;
     }   
     else if (((current_time - pd_prot_ufp_timer_start_time_hard_reset_complete) > pd_prot_timer_th_hard_reset_complete) && pd_prot_ufp_timer_start_time_hard_reset_complete != 0) {
         //hard_reset_complete
@@ -2234,6 +2247,83 @@ void pd_prot_chunked_rx_state_machine(enum ufp_dfp ufp_dfp) {
     } else {
         pd_prot_rx_state_machine(ufp_dfp);
     }
+
+
+}
+
+
+
+
+void pd_prot_src_port_policy_engine (enum ufp_dfp ufp_dfp) {
+    //init local vars
+    
+
+    //check if coming from a hard reset 
+    if (ufp_dfp == ufp) {
+        if (pd_prot_ufp_pe_hard_reset_recived) {
+            //start timers
+            pd_prot_timer_controler(ufp_dfp, ps_hard_reset, start);
+            pd_prot_timer_controler(ufp_dfp, no_responce, start);
+
+            
+            pd_power_cont_en_vsafe5v(ufp_dfp);
+            
+
+            if (pd_prot_ufp_pe_hard_reset_timeout) {
+
+                //kill vconn power
+                pd_phy_vconn_cont(ufp_dfp, off);
+
+                //set port data role to dfp
+                pd_prot_ufp_pe_port_data_role = dfp;
+
+                //turn vconn power back on 
+                pd_phy_vconn_cont(ufp_dfp, on);
+
+                //reset hard reset flags
+                pd_prot_ufp_pe_hard_reset_recived = false;
+                pd_prot_ufp_pe_hard_reset_timeout = false;
+                pd_prot_timer_controler(ufp_dfp, ps_hard_reset, stop);
+            }
+        }
+    } else {
+        if (pd_prot_dfp_pe_hard_reset_recived) {
+            //start timers
+            pd_prot_timer_controler(ufp_dfp, ps_hard_reset, start);
+            pd_prot_timer_controler(ufp_dfp, no_responce, start);
+
+            
+            pd_power_cont_en_vsafe5v(ufp_dfp);
+            
+
+            if (pd_prot_ufp_pe_hard_reset_timeout) {
+
+                //kill vconn power
+                pd_phy_vconn_cont(ufp_dfp, off);
+
+                //set port data role to dfp
+                pd_prot_dfp_pe_port_data_role = dfp;
+
+                //turn vconn power back on 
+                pd_phy_vconn_cont(ufp_dfp, on);
+
+                //reset hard reset flags
+                pd_prot_dfp_pe_hard_reset_recived = false;
+                pd_prot_dfp_pe_hard_reset_timeout = false;
+                pd_prot_timer_controler(ufp_dfp, ps_hard_reset, stop);
+            }
+        }
+    }
+
+
+    //reset caps counter
+    if (ufp_dfp == ufp) {
+        pd_prot_ufp_counter_caps = 0;
+    } else {
+        pd_prot_dfp_counter_caps = 0;
+    }
+
+    //reset protocol layer 
 
 
 }
