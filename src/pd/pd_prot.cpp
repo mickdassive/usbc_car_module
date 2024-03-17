@@ -201,12 +201,12 @@ bool pd_prot_ufp_abbort_flag = false;
 bool pd_prot_dfp_abbort_flag = false;
 
 //flags for the policy engine
-bool pd_prot_ufp_pe_hard_reset_recived = false;
-bool pd_prot_dfp_pe_hard_reset_recived = false;
-bool pd_prot_ufp_pe_hard_reset_timeout = false;
-bool pd_prot_dfp_pe_hard_reset_timeout = false;
+bool pd_prot_ufp_last_good_crc = false;
+bool pd_prot_dfp_last_good_crc = false;
 enum ufp_dfp pd_prot_ufp_pe_port_data_role = dfp;
 enum ufp_dfp pd_prot_dfp_pe_port_data_role = dfp;
+enum pd_port_policy_engine_state_enum pd_prot_ufp_pe_current_state = pe_src_startup;
+enum pd_port_policy_engine_state_enum pd_prot_dfp_pe_current_state = pe_src_startup;
 
 
 
@@ -332,9 +332,15 @@ void pd_prot_timer_handeler() {
     }
     else if (((current_time - pd_prot_ufp_timer_start_time_fisrt_source_cap) > pd_prot_timer_th_fisrt_source_cap) && pd_prot_ufp_timer_start_time_fisrt_source_cap != 0) {
         //fisrt_source_cap
+        if (pd_prot_ufp_counter_caps < pd_prot_counter_th_caps) {
+            pd_prot_ufp_pe_current_state = pe_src_send_capabilitiys;
+        }
     }
     else if (((current_time - pd_prot_dfp_timer_start_time_fisrt_source_cap) > pd_prot_timer_th_fisrt_source_cap) && pd_prot_dfp_timer_start_time_fisrt_source_cap != 0) {
         //fisrt_source_cap
+        if (pd_prot_dfp_counter_caps < pd_prot_counter_th_caps) {
+            pd_prot_dfp_pe_current_state = pe_src_send_capabilitiys;
+        }
     }
     else if (((current_time - pd_prot_ufp_timer_start_time_fr_swap_5v) > pd_prot_timer_th_fr_swap_5v) && pd_prot_ufp_timer_start_time_fr_swap_5v != 0) {
         //fr_swap_5v
@@ -356,11 +362,11 @@ void pd_prot_timer_handeler() {
     }
     else if (((current_time - pd_prot_ufp_timer_start_time_hard_reset) > pd_prot_timer_th_hard_reset) && pd_prot_ufp_timer_start_time_hard_reset != 0) {
         //hard_reset
-        pd_prot_ufp_pe_hard_reset_timeout = true;
+        pd_prot_ufp_pe_current_state = pe_src_transition_to_dflt;
     }
     else if (((current_time - pd_prot_dfp_timer_start_time_hard_reset) > pd_prot_timer_th_hard_reset) && pd_prot_dfp_timer_start_time_hard_reset != 0) {
         //hard_reset
-        pd_prot_dfp_pe_hard_reset_timeout = true;
+        pd_prot_dfp_pe_current_state = pe_src_transition_to_dflt;
     }   
     else if (((current_time - pd_prot_ufp_timer_start_time_hard_reset_complete) > pd_prot_timer_th_hard_reset_complete) && pd_prot_ufp_timer_start_time_hard_reset_complete != 0) {
         //hard_reset_complete
@@ -382,9 +388,23 @@ void pd_prot_timer_handeler() {
     }   
     else if (((current_time - pd_prot_ufp_timer_start_time_no_responce) > pd_prot_timer_th_no_responce) && pd_prot_ufp_timer_start_time_no_responce != 0) {
         //no_responce
+        //reatct to noresponce 
+        if (pd_prot_ufp_counter_hard_reset < pd_prot_counter_th_hard_reset) {
+            pd_prot_ufp_pe_current_state = pe_src_hard_reset;
+        } else {
+            pd_prot_ufp_pe_current_state = pe_src_disabled;
+        }
+        
+
     }
     else if (((current_time - pd_prot_dfp_timer_start_time_no_responce) > pd_prot_timer_th_no_responce) && pd_prot_dfp_timer_start_time_no_responce != 0) {
         //no_responce
+        //reatct to noresponce 
+        if (pd_prot_dfp_counter_hard_reset < pd_prot_counter_th_hard_reset) {
+            pd_prot_dfp_pe_current_state = pe_src_hard_reset;
+        } else {
+            pd_prot_dfp_pe_current_state = pe_src_disabled;
+        }
     }
     else if (((current_time - pd_prot_ufp_timer_start_time_pps_request) > pd_prot_timer_th_pps_request) && pd_prot_ufp_timer_start_time_pps_request != 0) {
         //pps_request
@@ -606,6 +626,7 @@ void pd_prot_timer_handeler() {
 }
 
 //pd_prot_timer_controler
+// WARNING NEEDS TO BE REFACTORD TO NOT RESTART A TIME AFTER ITS BEEN STARTED   
 //starts or stops timers for the pd prot 
 //ufp_dfp: select witch port to control the times for
 //name: nameof timer to control
@@ -2255,22 +2276,20 @@ void pd_prot_chunked_rx_state_machine(enum ufp_dfp ufp_dfp) {
 
 
 void pd_prot_src_port_policy_engine (enum ufp_dfp ufp_dfp) {
-    //init local vars
-    
 
-    //check if coming from a hard reset 
-    if (ufp_dfp == ufp) {
-        if (pd_prot_ufp_pe_hard_reset_recived) {
-            //start timers
-            pd_prot_timer_controler(ufp_dfp, ps_hard_reset, start);
-            pd_prot_timer_controler(ufp_dfp, no_responce, start);
+
+    if (ufp_dfp = ufp) {
+        switch (pd_prot_ufp_pe_current_state){
+            case pe_src_hard_reset_recived:
+                //start timers
+                pd_prot_timer_controler(ufp_dfp, ps_hard_reset, start);
+                pd_prot_timer_controler(ufp_dfp, no_responce, start);
 
             
-            pd_power_cont_en_vsafe5v(ufp_dfp);
-            
+                pd_power_cont_en_vsafe5v(ufp_dfp);
 
-            if (pd_prot_ufp_pe_hard_reset_timeout) {
-
+                break;
+            case pe_src_transition_to_dflt:
                 //kill vconn power
                 pd_phy_vconn_cont(ufp_dfp, off);
 
@@ -2280,50 +2299,70 @@ void pd_prot_src_port_policy_engine (enum ufp_dfp ufp_dfp) {
                 //turn vconn power back on 
                 pd_phy_vconn_cont(ufp_dfp, on);
 
-                //reset hard reset flags
-                pd_prot_ufp_pe_hard_reset_recived = false;
-                pd_prot_ufp_pe_hard_reset_timeout = false;
+                //reset timer
                 pd_prot_timer_controler(ufp_dfp, ps_hard_reset, stop);
-            }
-        }
-    } else {
-        if (pd_prot_dfp_pe_hard_reset_recived) {
-            //start timers
-            pd_prot_timer_controler(ufp_dfp, ps_hard_reset, start);
-            pd_prot_timer_controler(ufp_dfp, no_responce, start);
 
+                //set current state var
+                pd_prot_ufp_pe_current_state = pe_src_startup;
+
+                break;
+            case pe_src_startup:
+                //reset caps counter
+                pd_prot_ufp_counter_caps = 0;
+
+                //rest protocol layer
+
+
+                //this willc hange later 
             
-            pd_power_cont_en_vsafe5v(ufp_dfp);
+                break;
+            case pe_src_discovery:
+                pd_prot_timer_controler(ufp_dfp, fisrt_source_cap, start);
+                break;
+            case pe_src_send_capabilitiys:
+                //send souce capabilitiys 
+                pd_prot_transmit_soucre_capibilitiys(ufp);
+
+                //check if we got a good crc 
+                if (pd_prot_ufp_last_good_crc){
+                    //reset the crc flag
+                    pd_prot_ufp_last_good_crc = false;
+                    pd_prot_timer_controler(ufp_dfp, no_responce, stop);
+                    pd_prot_timer_controler(ufp_dfp, sender_responce, start);
+                } else {
+                    pd_prot_ufp_pe_current_state = pe_src_discovery;
+                }
+                break;
+            case pe_src_disabled:
+                pd_power_cont_return_to_base_state(ufp_dfp);
+                break;
+            case pe_src_negotiate_capabilitiys:
+                //something
+                break;
+            case pe_src_transition_supply:
+                //something
+                break;
+            case pe_src_ready:
+                //soething
+                break;
+            case pe_src_epr_keep_alive:
+                //something
+                break;
+            case pe_src_get_sink_cap:
+                //soething
+                break;
+            case pe_src_give_souce_cap:
+                //something
+                break;
+            case pe_src_capabilitiy_response:
+                //soething
+                break;
+            case pe_src_wait_new_capabilitiys:
+                //somethig
+                break;
             
-
-            if (pd_prot_ufp_pe_hard_reset_timeout) {
-
-                //kill vconn power
-                pd_phy_vconn_cont(ufp_dfp, off);
-
-                //set port data role to dfp
-                pd_prot_dfp_pe_port_data_role = dfp;
-
-                //turn vconn power back on 
-                pd_phy_vconn_cont(ufp_dfp, on);
-
-                //reset hard reset flags
-                pd_prot_dfp_pe_hard_reset_recived = false;
-                pd_prot_dfp_pe_hard_reset_timeout = false;
-                pd_prot_timer_controler(ufp_dfp, ps_hard_reset, stop);
-            }
         }
     }
-
-
-    //reset caps counter
-    if (ufp_dfp == ufp) {
-        pd_prot_ufp_counter_caps = 0;
-    } else {
-        pd_prot_dfp_counter_caps = 0;
-    }
-
-    //reset protocol layer 
 
 
 }

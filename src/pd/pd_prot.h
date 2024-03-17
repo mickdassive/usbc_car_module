@@ -452,6 +452,25 @@ enum pd_prot_power_cap_enum {
     watts_10
 };
 
+//enum for current policy engine state
+enum pd_port_policy_engine_state_enum {
+    pe_src_hard_reset_recived,
+    pe_src_transition_to_dflt,
+    pe_src_hard_reset,
+    pe_src_startup,
+    pe_src_discovery,
+    pe_src_send_capabilitiys,
+    pe_src_disabled,
+    pe_src_negotiate_capabilitiys,
+    pe_src_transition_supply,
+    pe_src_ready,
+    pe_src_epr_keep_alive,
+    pe_src_get_sink_cap,
+    pe_src_give_souce_cap,
+    pe_src_capabilitiy_response,
+    pe_src_wait_new_capabilitiys
+};
+
 //selcted port power (in watts)
 extern enum pd_prot_power_cap_enum pd_prot_ufp_current_power_cap;
 extern enum pd_prot_power_cap_enum pd_prot_dfp_current_power_cap;
@@ -467,16 +486,19 @@ extern bool pd_prot_ufp_abbort_flag;
 extern bool pd_prot_dfp_abbort_flag;
 
 //flags for the policy engine
-extern bool pd_prot_ufp_pe_hard_reset_recived;
-extern bool pd_prot_dfp_pe_hard_reset_recived;
-extern bool pd_prot_ufp_pe_hard_reset_timeout;
-extern bool pd_prot_dfp_pe_hard_reset_timeout;
+extern bool pd_prot_ufp_last_good_crc;
+extern bool pd_prot_dfp_last_good_crc;
 extern enum ufp_dfp pd_prot_ufp_pe_port_data_role;
 extern enum ufp_dfp pd_prot_dfp_pe_port_data_role;
+extern enum pd_port_policy_engine_state_enum pd_prot_ufp_pe_current_state;
+extern enum pd_port_policy_engine_state_enum pd_prot_dfp_pe_current_state;
+
 
 
 
 //function defines
+void pd_prot_timer_handeler();
+void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names name, enum pd_prot_timer_start_stop start_stop)
 uint16_t pd_prot_biuld_headder (bool extended_msg, uint16_t n_data_objects, uint16_t msg_id, enum pd_prot_port_power_role power_role, uint16_t spec_revision, enum ufp_dfp data_role, uint16_t msg_type);
 uint16_t pd_prot_biuld_ext_headder (bool chunked, uint16_t chunk_number, bool request_chunk, uint16_t data_size);
 void pd_prot_set_last_message(enum ufp_dfp ufp_dfp, uint8_t message[256], uint8_t length_of_message);

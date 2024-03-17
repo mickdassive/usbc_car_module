@@ -569,8 +569,12 @@ void io_intrupt_handeler () {
         pd_power_cont_ufp_allow_output = false;
       }
     } else if (pd_phy_alert_type(ufp) == transmit_sop_message_succsessful) {
-      // do nothing
       Serial.println("recived UFP pd PHY transmit sop message susessful intrupt");
+
+      //hit good crc flag
+      pd_prot_ufp_last_good_crc = true;
+      
+
     } else if (pd_phy_alert_type(ufp) == transmit_sop_message_discarded) {
       Serial.println("recived UFP pd PHY transmit sop message discarded intrupt");
       //retransmit message if discarded
@@ -688,7 +692,10 @@ void io_intrupt_handeler () {
       }
     } else if (pd_phy_alert_type(dfp) == transmit_sop_message_succsessful) {
       Serial.println("recived DFP pd PHY transmit sop message susessful intrupt");
-      // do nothing
+
+      //hit good crc flag
+      pd_prot_dfp_last_good_crc = true;
+
     } else if (pd_phy_alert_type(dfp) == transmit_sop_message_discarded) {
       Serial.println("recived DFP pd PHY transmit sop message discarded intrupt");
       //retransmmit message if discarded
