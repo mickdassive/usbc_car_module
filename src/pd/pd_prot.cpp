@@ -199,399 +199,6 @@ extern enum pd_prot_power_cap_enum pd_prot_dfp_current_power_cap = watts_100;
 bool pd_prot_ufp_abbort_flag = false;
 bool pd_prot_dfp_abbort_flag = false;
 
-
-void pd_prot_timer_handeler() {
-    //init time var
-    unsigned long current_time = millis();
-
-
-    if (((current_time - pd_prot_ufp_timer_start_time_ac_temp_update) > pd_prot_timer_th_ac_temp_update) && pd_prot_ufp_timer_start_time_ac_temp_update != 0) {
-        //ac_temp_update
-    }   
-    else if (((current_time - pd_prot_dfp_timer_start_time_ac_temp_update) > pd_prot_timer_th_ac_temp_update) && pd_prot_dfp_timer_start_time_ac_temp_update != 0) {
-        //ac_temp_update
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_bist_cont_mode) > pd_prot_timer_th_bist_cont_mode) && pd_prot_ufp_timer_start_time_bist_cont_mode != 0) {
-        //bist_cont_mode
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_bist_cont_mode) > pd_prot_timer_th_bist_cont_mode) && pd_prot_dfp_timer_start_time_bist_cont_mode != 0) {
-        //bist_cont_mode
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_shared_test_mode) > pd_prot_timer_th_shared_test_mode) && pd_prot_ufp_timer_start_time_shared_test_mode != 0) {
-        //shared_test_mode
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_shared_test_mode) > pd_prot_timer_th_shared_test_mode) && pd_prot_dfp_timer_start_time_shared_test_mode != 0) {
-        //shared_test_mode
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_cable_message) > pd_prot_timer_th_cable_message) && pd_prot_ufp_timer_start_time_cable_message != 0) {
-        //cable_message
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_cable_message) > pd_prot_timer_th_cable_message) && pd_prot_dfp_timer_start_time_cable_message != 0) {
-        //cable_message
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_chunking_not_supported) > pd_prot_timer_th_chunking_not_supported) && pd_prot_ufp_timer_start_time_chunking_not_supported != 0) {
-        //chunking_not_supported
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_chunking_not_supported) > pd_prot_timer_th_chunking_not_supported) && pd_prot_dfp_timer_start_time_chunking_not_supported != 0) {
-        //chunking_not_supported
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_chunk_recevier_request) > pd_prot_timer_th_chunk_recevier_request) && pd_prot_ufp_timer_start_time_chunk_recevier_request != 0) {
-        //chunk_recevier_request
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_chunk_recevier_request) > pd_prot_timer_th_chunk_recevier_request) && pd_prot_dfp_timer_start_time_chunk_recevier_request != 0) {
-        //chunk_recevier_request
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_chunk_recevier_response) > pd_prot_timer_th_chunk_recevier_response) && pd_prot_ufp_timer_start_time_chunk_recevier_response != 0) {
-        //chunk_recevier_response
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_chunk_recevier_response) > pd_prot_timer_th_chunk_recevier_response) && pd_prot_dfp_timer_start_time_chunk_recevier_response != 0) {
-        //chunk_recevier_response
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_chunk_sender_request) > pd_prot_timer_th_chunk_sender_request) && pd_prot_ufp_timer_start_time_chunk_sender_request != 0) {
-        //chunk_sender_request
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_chunk_sender_request) > pd_prot_timer_th_chunk_sender_request) && pd_prot_dfp_timer_start_time_chunk_sender_request != 0) {
-        //chunk_sender_request
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_chunk_sender_response) > pd_prot_timer_th_chunk_sender_response) && pd_prot_ufp_timer_start_time_chunk_sender_response != 0) {
-        //chunk_sender_response
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_chunk_sender_response) > pd_prot_timer_th_chunk_sender_response) && pd_prot_dfp_timer_start_time_chunk_sender_response != 0) {
-        //chunk_sender_response
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_data_reset) > pd_prot_timer_th_data_reset) && pd_prot_ufp_timer_start_time_data_reset != 0) {
-        //data_reset
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_data_reset) > pd_prot_timer_th_data_reset) && pd_prot_dfp_timer_start_time_data_reset != 0) {
-        //data_reset
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_data_reset_fail) > pd_prot_timer_th_data_reset_fail) && pd_prot_ufp_timer_start_time_data_reset_fail != 0) {
-        //data_reset_fail
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_data_reset_fail) > pd_prot_timer_th_data_reset_fail) && pd_prot_dfp_timer_start_time_data_reset_fail != 0) {
-        //data_reset_fail
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_data_reset_fail_ufp) > pd_prot_timer_th_data_reset_fail_ufp) && pd_prot_ufp_timer_start_time_data_reset_fail_ufp != 0) {
-        //data_reset_fail_ufp
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_data_reset_fail_ufp) > pd_prot_timer_th_data_reset_fail_ufp) && pd_prot_dfp_timer_start_time_data_reset_fail_ufp != 0) {
-        //data_reset_fail_ufp
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_discover_identity) > pd_prot_timer_th_discover_identity) && pd_prot_ufp_timer_start_time_discover_identity != 0) {
-        //discover_identity
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_discover_identity) > pd_prot_timer_th_discover_identity) && pd_prot_dfp_timer_start_time_discover_identity != 0) {
-        //discover_identity
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_dr_swap_hard_reset) > pd_prot_timer_th_dr_swap_hard_reset) && pd_prot_ufp_timer_start_time_dr_swap_hard_reset != 0) {
-        //dr_swap_hard_reset
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_dr_swap_hard_reset) > pd_prot_timer_th_dr_swap_hard_reset) && pd_prot_dfp_timer_start_time_dr_swap_hard_reset != 0) {
-        //dr_swap_hard_reset
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_dr_swap_wait) > pd_prot_timer_th_dr_swap_wait) && pd_prot_ufp_timer_start_time_dr_swap_wait != 0) {
-        //dr_swap_wait
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_dr_swap_wait) > pd_prot_timer_th_dr_swap_wait) && pd_prot_dfp_timer_start_time_dr_swap_wait != 0) {
-        //dr_swap_wait
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_enter_usb) > pd_prot_timer_th_enter_usb) && pd_prot_ufp_timer_start_time_enter_usb != 0) {
-        //enter_usb
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_enter_usb) > pd_prot_timer_th_enter_usb) && pd_prot_dfp_timer_start_time_enter_usb != 0) {
-        //enter_usb
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_enter_usb_wait) > pd_prot_timer_th_enter_usb_wait) && pd_prot_ufp_timer_start_time_enter_usb_wait != 0) {
-        //enter_usb_wait
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_enter_usb_wait) > pd_prot_timer_th_enter_usb_wait) && pd_prot_dfp_timer_start_time_enter_usb_wait != 0) {
-        //enter_usb_wait
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_enter_epr) > pd_prot_timer_th_enter_epr) && pd_prot_ufp_timer_start_time_enter_epr != 0) {
-        //enter_epr
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_enter_epr) > pd_prot_timer_th_enter_epr) && pd_prot_dfp_timer_start_time_enter_epr != 0) {
-        //enter_epr
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_epr_soruce_cable_discovvery) > pd_prot_timer_th_epr_soruce_cable_discovvery) && pd_prot_ufp_timer_start_time_epr_soruce_cable_discovvery != 0) {
-        //epr_soruce_cable_discovvery
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_epr_soruce_cable_discovvery) > pd_prot_timer_th_epr_soruce_cable_discovvery) && pd_prot_dfp_timer_start_time_epr_soruce_cable_discovvery != 0) {
-        //epr_soruce_cable_discovvery
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_fisrt_source_cap) > pd_prot_timer_th_fisrt_source_cap) && pd_prot_ufp_timer_start_time_fisrt_source_cap != 0) {
-        //fisrt_source_cap
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_fisrt_source_cap) > pd_prot_timer_th_fisrt_source_cap) && pd_prot_dfp_timer_start_time_fisrt_source_cap != 0) {
-        //fisrt_source_cap
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_fr_swap_5v) > pd_prot_timer_th_fr_swap_5v) && pd_prot_ufp_timer_start_time_fr_swap_5v != 0) {
-        //fr_swap_5v
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_fr_swap_5v) > pd_prot_timer_th_fr_swap_5v) && pd_prot_dfp_timer_start_time_fr_swap_5v != 0) {
-        //fr_swap_5v
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_fr_swap_complete) > pd_prot_timer_th_fr_swap_complete) && pd_prot_ufp_timer_start_time_fr_swap_complete != 0) {
-        //fr_swap_complete
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_fr_swap_complete) > pd_prot_timer_th_fr_swap_complete) && pd_prot_dfp_timer_start_time_fr_swap_complete != 0) {
-        //fr_swap_complete
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_fr_swap_init) > pd_prot_timer_th_fr_swap_init) && pd_prot_ufp_timer_start_time_fr_swap_init != 0) {
-        //fr_swap_init
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_fr_swap_init) > pd_prot_timer_th_fr_swap_init) && pd_prot_dfp_timer_start_time_fr_swap_init != 0) {
-        //fr_swap_init
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_hard_reset) > pd_prot_timer_th_hard_reset) && pd_prot_ufp_timer_start_time_hard_reset != 0) {
-        //hard_reset
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_hard_reset) > pd_prot_timer_th_hard_reset) && pd_prot_dfp_timer_start_time_hard_reset != 0) {
-        //hard_reset
-    }   
-    else if (((current_time - pd_prot_ufp_timer_start_time_hard_reset_complete) > pd_prot_timer_th_hard_reset_complete) && pd_prot_ufp_timer_start_time_hard_reset_complete != 0) {
-        //hard_reset_complete
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_hard_reset_complete) > pd_prot_timer_th_hard_reset_complete) && pd_prot_dfp_timer_start_time_hard_reset_complete != 0) {
-        //hard_reset_complete
-    }   
-    else if (((current_time - pd_prot_ufp_timer_start_time_source_epr_keep_alive) > pd_prot_timer_th_source_epr_keep_alive) && pd_prot_ufp_timer_start_time_source_epr_keep_alive != 0) {
-        //source_epr_keep_alive
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_source_epr_keep_alive) > pd_prot_timer_th_source_epr_keep_alive) && pd_prot_dfp_timer_start_time_source_epr_keep_alive != 0) {
-        //source_epr_keep_alive
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_sink_epr_keep_alive) > pd_prot_timer_th_sink_epr_keep_alive) && pd_prot_ufp_timer_start_time_sink_epr_keep_alive != 0) {
-        //sink_epr_keep_alive
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_sink_epr_keep_alive) > pd_prot_timer_th_sink_epr_keep_alive) && pd_prot_dfp_timer_start_time_sink_epr_keep_alive != 0) {
-        //sink_epr_keep_alive
-    }   
-    else if (((current_time - pd_prot_ufp_timer_start_time_no_responce) > pd_prot_timer_th_no_responce) && pd_prot_ufp_timer_start_time_no_responce != 0) {
-        //no_responce
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_no_responce) > pd_prot_timer_th_no_responce) && pd_prot_dfp_timer_start_time_no_responce != 0) {
-        //no_responce
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_pps_request) > pd_prot_timer_th_pps_request) && pd_prot_ufp_timer_start_time_pps_request != 0) {
-        //pps_request
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_pps_request) > pd_prot_timer_th_pps_request) && pd_prot_dfp_timer_start_time_pps_request != 0) {
-        //pps_request
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_pps_timeout) > pd_prot_timer_th_pps_timeout) && pd_prot_ufp_timer_start_time_pps_timeout != 0) {
-        //pps_timeout
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_pps_timeout) > pd_prot_timer_th_pps_timeout) && pd_prot_dfp_timer_start_time_pps_timeout != 0) {
-        //pps_timeout
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_prot_err_hard_reset) > pd_prot_timer_th_prot_err_hard_reset) && pd_prot_ufp_timer_start_time_prot_err_hard_reset != 0) {
-        //prot_err_hard_reset
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_prot_err_hard_reset) > pd_prot_timer_th_prot_err_hard_reset) && pd_prot_dfp_timer_start_time_prot_err_hard_reset != 0) {
-        //prot_err_hard_reset
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_prot_err_soft_reset) > pd_prot_timer_th_prot_err_soft_reset) && pd_prot_ufp_timer_start_time_prot_err_soft_reset != 0) {
-        //prot_err_soft_reset
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_prot_err_soft_reset) > pd_prot_timer_th_prot_err_soft_reset) && pd_prot_dfp_timer_start_time_prot_err_soft_reset != 0) {
-        //prot_err_soft_reset
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_pr_swap_wait) > pd_prot_timer_th_pr_swap_wait) && pd_prot_ufp_timer_start_time_pr_swap_wait != 0) {
-        //pr_swap_wait
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_pr_swap_wait) > pd_prot_timer_th_pr_swap_wait) && pd_prot_dfp_timer_start_time_pr_swap_wait != 0) {
-        //pr_swap_wait
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_ps_hard_reset) > pd_prot_timer_th_ps_hard_reset) && pd_prot_ufp_timer_start_time_ps_hard_reset != 0) {
-        //ps_hard_reset
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_ps_hard_reset) > pd_prot_timer_th_ps_hard_reset) && pd_prot_dfp_timer_start_time_ps_hard_reset != 0) {
-        //ps_hard_reset
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_spr_ps_source_off) > pd_prot_timer_th_spr_ps_source_off) && pd_prot_ufp_timer_start_time_spr_ps_source_off != 0) {
-        //spr_ps_source_off
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_spr_ps_source_off) > pd_prot_timer_th_spr_ps_source_off) && pd_prot_dfp_timer_start_time_spr_ps_source_off != 0) {
-        //spr_ps_source_off
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_epr_ps_source_off) > pd_prot_timer_th_epr_ps_source_off) && pd_prot_ufp_timer_start_time_epr_ps_source_off != 0) {
-        //epr_ps_source_off
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_epr_ps_source_off) > pd_prot_timer_th_epr_ps_source_off) && pd_prot_dfp_timer_start_time_epr_ps_source_off != 0) {
-        //epr_ps_source_off
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_ps_source_on) > pd_prot_timer_th_ps_source_on) && pd_prot_ufp_timer_start_time_ps_source_on != 0) {
-        //ps_source_on
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_ps_source_on) > pd_prot_timer_th_ps_source_on) && pd_prot_dfp_timer_start_time_ps_source_on != 0) {
-        //ps_source_on
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_spr_ps_transition) > pd_prot_timer_th_spr_ps_transition) && pd_prot_ufp_timer_start_time_spr_ps_transition != 0) {
-        //spr_ps_transition
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_spr_ps_transition) > pd_prot_timer_th_spr_ps_transition) && pd_prot_dfp_timer_start_time_spr_ps_transition != 0) {
-        //spr_ps_transition
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_epr_ps_transition) > pd_prot_timer_th_epr_ps_transition) && pd_prot_ufp_timer_start_time_epr_ps_transition != 0) {
-        //epr_ps_transition
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_epr_ps_transition) > pd_prot_timer_th_epr_ps_transition) && pd_prot_dfp_timer_start_time_epr_ps_transition != 0) {
-        //epr_ps_transition
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_receive) > pd_prot_timer_th_receive) && pd_prot_ufp_timer_start_time_receive != 0) {
-        //receive
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_receive) > pd_prot_timer_th_receive) && pd_prot_dfp_timer_start_time_receive != 0) {
-        //receive
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_receive_responce) > pd_prot_timer_th_receive_responce) && pd_prot_ufp_timer_start_time_receive_responce != 0) {
-        //receive_responce
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_receive_responce) > pd_prot_timer_th_receive_responce) && pd_prot_dfp_timer_start_time_receive_responce != 0) {
-        //receive_responce
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_retry) > pd_prot_timer_th_retry) && pd_prot_ufp_timer_start_time_retry != 0) {
-        //retry
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_retry) > pd_prot_timer_th_retry) && pd_prot_dfp_timer_start_time_retry != 0) {
-        //retry
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_sender_responce) > pd_prot_timer_th_sender_responce) && pd_prot_ufp_timer_start_time_sender_responce != 0) {
-        //sender_responce
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_sender_responce) > pd_prot_timer_th_sender_responce) && pd_prot_dfp_timer_start_time_sender_responce != 0) {
-        //sender_responce
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_sink_delay) > pd_prot_timer_th_sink_delay) && pd_prot_ufp_timer_start_time_sink_delay != 0) {
-        //sink_delay
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_sink_delay) > pd_prot_timer_th_sink_delay) && pd_prot_dfp_timer_start_time_sink_delay != 0) {
-        //sink_delay
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_sink_tx) > pd_prot_timer_th_sink_tx) && pd_prot_ufp_timer_start_time_sink_tx != 0) {
-        //sink_tx
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_sink_tx) > pd_prot_timer_th_sink_tx) && pd_prot_dfp_timer_start_time_sink_tx != 0) {
-        //sink_tx
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_soft_reset) > pd_prot_timer_th_soft_reset) && pd_prot_ufp_timer_start_time_soft_reset != 0) {
-        //soft_reset
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_soft_reset) > pd_prot_timer_th_soft_reset) && pd_prot_dfp_timer_start_time_soft_reset != 0) {
-        //soft_reset
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_scr_holds_bus) > pd_prot_timer_th_scr_holds_bus) && pd_prot_ufp_timer_start_time_scr_holds_bus != 0) {
-        //scr_holds_bus
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_scr_holds_bus) > pd_prot_timer_th_scr_holds_bus) && pd_prot_dfp_timer_start_time_scr_holds_bus != 0) {
-        //scr_holds_bus
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_swap_sink_ready) > pd_prot_timer_th_swap_sink_ready) && pd_prot_ufp_timer_start_time_swap_sink_ready != 0) {
-        //swap_sink_ready
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_swap_sink_ready) > pd_prot_timer_th_swap_sink_ready) && pd_prot_dfp_timer_start_time_swap_sink_ready != 0) {
-        //swap_sink_ready
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_swap_source_start) > pd_prot_timer_th_swap_source_start) && pd_prot_ufp_timer_start_time_swap_source_start != 0) {
-        //swap_source_start
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_swap_source_start) > pd_prot_timer_th_swap_source_start) && pd_prot_dfp_timer_start_time_swap_source_start != 0) {
-        //swap_source_start
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_transmit) > pd_prot_timer_th_transmit) && pd_prot_ufp_timer_start_time_transmit != 0) {
-        //transmit
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_transmit) > pd_prot_timer_th_transmit) && pd_prot_dfp_timer_start_time_transmit != 0) {
-        //transmit
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_type_c_send_source_cap) > pd_prot_timer_th_type_c_send_source_cap) && pd_prot_ufp_timer_start_time_type_c_send_source_cap != 0) {
-        //type_c_send_source_cap
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_type_c_send_source_cap) > pd_prot_timer_th_type_c_send_source_cap) && pd_prot_dfp_timer_start_time_type_c_send_source_cap != 0) {
-        //type_c_send_source_cap
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_type_c_sink_wait_cap) > pd_prot_timer_th_type_c_sink_wait_cap) && pd_prot_ufp_timer_start_time_type_c_sink_wait_cap != 0) {
-        //type_c_sink_wait_cap
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_type_c_sink_wait_cap) > pd_prot_timer_th_type_c_sink_wait_cap) && pd_prot_dfp_timer_start_time_type_c_sink_wait_cap != 0) {
-        //type_c_sink_wait_cap
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_vconn_source_discharge) > pd_prot_timer_th_vconn_source_discharge) && pd_prot_ufp_timer_start_time_vconn_source_discharge != 0) {
-        //vconn_source_discharge
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_vconn_source_discharge) > pd_prot_timer_th_vconn_source_discharge) && pd_prot_dfp_timer_start_time_vconn_source_discharge != 0) {
-        //vconn_source_discharge
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_vconn_source_off) > pd_prot_timer_th_vconn_source_off) && pd_prot_ufp_timer_start_time_vconn_source_off != 0) {
-        //vconn_source_off
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_vconn_source_off) > pd_prot_timer_th_vconn_source_off) && pd_prot_dfp_timer_start_time_vconn_source_off != 0) {
-        //vconn_source_off
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_vconn_source_on) > pd_prot_timer_th_vconn_source_on) && pd_prot_ufp_timer_start_time_vconn_source_on != 0) {
-        //vconn_source_on
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_vconn_source_on) > pd_prot_timer_th_vconn_source_on) && pd_prot_dfp_timer_start_time_vconn_source_on != 0) {
-        //vconn_source_on
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_vconn_source_timeout) > pd_prot_timer_th_vconn_source_timeout) && pd_prot_ufp_timer_start_time_vconn_source_timeout != 0) {
-        //vconn_source_timeout
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_vconn_source_timeout) > pd_prot_timer_th_vconn_source_timeout) && pd_prot_dfp_timer_start_time_vconn_source_timeout != 0) {
-        //vconn_source_timeout
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_vconn_swap_wait) > pd_prot_timer_th_vconn_swap_wait) && pd_prot_ufp_timer_start_time_vconn_swap_wait != 0) {
-        //vconn_swap_wait
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_vconn_swap_wait) > pd_prot_timer_th_vconn_swap_wait) && pd_prot_dfp_timer_start_time_vconn_swap_wait != 0) {
-        //vconn_swap_wait
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_vdm_busy) > pd_prot_timer_th_vdm_busy) && pd_prot_ufp_timer_start_time_vdm_busy != 0) {
-        //vdm_busy
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_vdm_busy) > pd_prot_timer_th_vdm_busy) && pd_prot_dfp_timer_start_time_vdm_busy != 0) {
-        //vdm_busy
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_vdm_enter_mode) > pd_prot_timer_th_vdm_enter_mode) && pd_prot_ufp_timer_start_time_vdm_enter_mode != 0) {
-        //vdm_enter_mode
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_vdm_enter_mode) > pd_prot_timer_th_vdm_enter_mode) && pd_prot_dfp_timer_start_time_vdm_enter_mode != 0) {
-        //vdm_enter_mode
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_vdm_exit_mode) > pd_prot_timer_th_vdm_exit_mode) && pd_prot_ufp_timer_start_time_vdm_exit_mode != 0) {
-        //vdm_exit_mode
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_vdm_exit_mode) > pd_prot_timer_th_vdm_exit_mode) && pd_prot_dfp_timer_start_time_vdm_exit_mode != 0) {
-        //vdm_exit_mode
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_vdm_receiver_responce) > pd_prot_timer_th_vdm_receiver_responce) && pd_prot_ufp_timer_start_time_vdm_receiver_responce != 0) {
-        //vdm_receiver_responce
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_vdm_receiver_responce) > pd_prot_timer_th_vdm_receiver_responce) && pd_prot_dfp_timer_start_time_vdm_receiver_responce != 0) {
-        //vdm_receiver_responce
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_vdm_sender_responce) > pd_prot_timer_th_vdm_sender_responce) && pd_prot_ufp_timer_start_time_vdm_sender_responce != 0) {
-        //vdm_sender_responce
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_vdm_sender_responce) > pd_prot_timer_th_vdm_sender_responce) && pd_prot_dfp_timer_start_time_vdm_sender_responce != 0) {
-        //vdm_sender_responce
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_vdm_wait_mode_entry) > pd_prot_timer_th_vdm_wait_mode_entry) && pd_prot_ufp_timer_start_time_vdm_wait_mode_entry != 0) {
-        //vdm_wait_mode_entry
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_vdm_wait_mode_entry) > pd_prot_timer_th_vdm_wait_mode_entry) && pd_prot_dfp_timer_start_time_vdm_wait_mode_entry != 0) {
-        //vdm_wait_mode_entry
-    }
-    else if (((current_time - pd_prot_ufp_timer_start_time_vdm_wait_mode_exit) > pd_prot_timer_th_vdm_wait_mode_exit) && pd_prot_ufp_timer_start_time_vdm_wait_mode_exit != 0) {
-        //vdm_wait_mode_exit
-    }
-    else if (((current_time - pd_prot_dfp_timer_start_time_vdm_wait_mode_exit) > pd_prot_timer_th_vdm_wait_mode_exit) && pd_prot_dfp_timer_start_time_vdm_wait_mode_exit != 0) {
-        //vdm_wait_mode_exit
-    }
-
-}
-
 //pd_prot_timer_controler
 //starts or stops timers for the pd prot 
 //ufp_dfp: select witch port to control the times for
@@ -1782,6 +1389,10 @@ void pd_prot_discard_message (enum ufp_dfp ufp_dfp) {
 }
 
 
+void pd_prot_hard_reset_handler_pt_2(enum ufp_dfp ufp_dfp) {
+    
+}
+
 void pd_prot_hard_reset_handeler (enum ufp_dfp ufp_dfp, bool from_policy_engine) {
     //discard last recived message
     pd_prot_discard_message(ufp_dfp);
@@ -1790,10 +1401,11 @@ void pd_prot_hard_reset_handeler (enum ufp_dfp ufp_dfp, bool from_policy_engine)
     if (from_policy_engine) {
         pd_phy_send_hard_reset(ufp_dfp);
         pd_prot_timer_controler(ufp_dfp, hard_reset_complete, start);
+    } else {
+        pd_prot_hard_reset_handler_pt_2(ufp_dfp);
     }
 
 }
-
 
 //pd_prot_set_last_message
 //sets last message vars 
@@ -2238,6 +1850,401 @@ void pd_prot_chunked_rx_state_machine(enum ufp_dfp ufp_dfp) {
 
 }
 
+
+
+void pd_prot_timer_handeler() {
+    //init time var
+    unsigned long current_time = millis();
+
+
+    if (((current_time - pd_prot_ufp_timer_start_time_ac_temp_update) > pd_prot_timer_th_ac_temp_update) && pd_prot_ufp_timer_start_time_ac_temp_update != 0) {
+        //ac_temp_update ufp
+    }   
+    else if (((current_time - pd_prot_dfp_timer_start_time_ac_temp_update) > pd_prot_timer_th_ac_temp_update) && pd_prot_dfp_timer_start_time_ac_temp_update != 0) {
+        //ac_temp_update dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_bist_cont_mode) > pd_prot_timer_th_bist_cont_mode) && pd_prot_ufp_timer_start_time_bist_cont_mode != 0) {
+        //bist_cont_mode ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_bist_cont_mode) > pd_prot_timer_th_bist_cont_mode) && pd_prot_dfp_timer_start_time_bist_cont_mode != 0) {
+        //bist_cont_mode dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_shared_test_mode) > pd_prot_timer_th_shared_test_mode) && pd_prot_ufp_timer_start_time_shared_test_mode != 0) {
+        //shared_test_mode ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_shared_test_mode) > pd_prot_timer_th_shared_test_mode) && pd_prot_dfp_timer_start_time_shared_test_mode != 0) {
+        //shared_test_mode dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_cable_message) > pd_prot_timer_th_cable_message) && pd_prot_ufp_timer_start_time_cable_message != 0) {
+        //cable_message ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_cable_message) > pd_prot_timer_th_cable_message) && pd_prot_dfp_timer_start_time_cable_message != 0) {
+        //cable_message dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_chunking_not_supported) > pd_prot_timer_th_chunking_not_supported) && pd_prot_ufp_timer_start_time_chunking_not_supported != 0) {
+        //chunking_not_supported ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_chunking_not_supported) > pd_prot_timer_th_chunking_not_supported) && pd_prot_dfp_timer_start_time_chunking_not_supported != 0) {
+        //chunking_not_supported dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_chunk_recevier_request) > pd_prot_timer_th_chunk_recevier_request) && pd_prot_ufp_timer_start_time_chunk_recevier_request != 0) {
+        //chunk_recevier_request ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_chunk_recevier_request) > pd_prot_timer_th_chunk_recevier_request) && pd_prot_dfp_timer_start_time_chunk_recevier_request != 0) {
+        //chunk_recevier_request dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_chunk_recevier_response) > pd_prot_timer_th_chunk_recevier_response) && pd_prot_ufp_timer_start_time_chunk_recevier_response != 0) {
+        //chunk_recevier_response ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_chunk_recevier_response) > pd_prot_timer_th_chunk_recevier_response) && pd_prot_dfp_timer_start_time_chunk_recevier_response != 0) {
+        //chunk_recevier_response dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_chunk_sender_request) > pd_prot_timer_th_chunk_sender_request) && pd_prot_ufp_timer_start_time_chunk_sender_request != 0) {
+        //chunk_sender_request ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_chunk_sender_request) > pd_prot_timer_th_chunk_sender_request) && pd_prot_dfp_timer_start_time_chunk_sender_request != 0) {
+        //chunk_sender_request dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_chunk_sender_response) > pd_prot_timer_th_chunk_sender_response) && pd_prot_ufp_timer_start_time_chunk_sender_response != 0) {
+        //chunk_sender_response ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_chunk_sender_response) > pd_prot_timer_th_chunk_sender_response) && pd_prot_dfp_timer_start_time_chunk_sender_response != 0) {
+        //chunk_sender_response dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_data_reset) > pd_prot_timer_th_data_reset) && pd_prot_ufp_timer_start_time_data_reset != 0) {
+        //data_reset ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_data_reset) > pd_prot_timer_th_data_reset) && pd_prot_dfp_timer_start_time_data_reset != 0) {
+        //data_reset dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_data_reset_fail) > pd_prot_timer_th_data_reset_fail) && pd_prot_ufp_timer_start_time_data_reset_fail != 0) {
+        //data_reset_fail ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_data_reset_fail) > pd_prot_timer_th_data_reset_fail) && pd_prot_dfp_timer_start_time_data_reset_fail != 0) {
+        //data_reset_fail dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_data_reset_fail_ufp) > pd_prot_timer_th_data_reset_fail_ufp) && pd_prot_ufp_timer_start_time_data_reset_fail_ufp != 0) {
+        //data_reset_fail ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_data_reset_fail_ufp) > pd_prot_timer_th_data_reset_fail_ufp) && pd_prot_dfp_timer_start_time_data_reset_fail_ufp != 0) {
+        //data_reset_fail dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_discover_identity) > pd_prot_timer_th_discover_identity) && pd_prot_ufp_timer_start_time_discover_identity != 0) {
+        //discover_identity ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_discover_identity) > pd_prot_timer_th_discover_identity) && pd_prot_dfp_timer_start_time_discover_identity != 0) {
+        //discover_identity dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_dr_swap_hard_reset) > pd_prot_timer_th_dr_swap_hard_reset) && pd_prot_ufp_timer_start_time_dr_swap_hard_reset != 0) {
+        //dr_swap_hard_reset ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_dr_swap_hard_reset) > pd_prot_timer_th_dr_swap_hard_reset) && pd_prot_dfp_timer_start_time_dr_swap_hard_reset != 0) {
+        //dr_swap_hard_reset dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_dr_swap_wait) > pd_prot_timer_th_dr_swap_wait) && pd_prot_ufp_timer_start_time_dr_swap_wait != 0) {
+        //dr_swap_wait ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_dr_swap_wait) > pd_prot_timer_th_dr_swap_wait) && pd_prot_dfp_timer_start_time_dr_swap_wait != 0) {
+        //dr_swap_wait dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_enter_usb) > pd_prot_timer_th_enter_usb) && pd_prot_ufp_timer_start_time_enter_usb != 0) {
+        //enter_usb ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_enter_usb) > pd_prot_timer_th_enter_usb) && pd_prot_dfp_timer_start_time_enter_usb != 0) {
+        //enter_usb dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_enter_usb_wait) > pd_prot_timer_th_enter_usb_wait) && pd_prot_ufp_timer_start_time_enter_usb_wait != 0) {
+        //enter_usb_wait ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_enter_usb_wait) > pd_prot_timer_th_enter_usb_wait) && pd_prot_dfp_timer_start_time_enter_usb_wait != 0) {
+        //enter_usb_wait dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_enter_epr) > pd_prot_timer_th_enter_epr) && pd_prot_ufp_timer_start_time_enter_epr != 0) {
+        //enter_epr ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_enter_epr) > pd_prot_timer_th_enter_epr) && pd_prot_dfp_timer_start_time_enter_epr != 0) {
+        //enter_epr dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_epr_soruce_cable_discovvery) > pd_prot_timer_th_epr_soruce_cable_discovvery) && pd_prot_ufp_timer_start_time_epr_soruce_cable_discovvery != 0) {
+        //epr_soruce_cable_discovvery ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_epr_soruce_cable_discovvery) > pd_prot_timer_th_epr_soruce_cable_discovvery) && pd_prot_dfp_timer_start_time_epr_soruce_cable_discovvery != 0) {
+        //epr_soruce_cable_discovvery dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_fisrt_source_cap) > pd_prot_timer_th_fisrt_source_cap) && pd_prot_ufp_timer_start_time_fisrt_source_cap != 0) {
+        //fisrt_source_cap ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_fisrt_source_cap) > pd_prot_timer_th_fisrt_source_cap) && pd_prot_dfp_timer_start_time_fisrt_source_cap != 0) {
+        //fisrt_source_cap dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_fr_swap_5v) > pd_prot_timer_th_fr_swap_5v) && pd_prot_ufp_timer_start_time_fr_swap_5v != 0) {
+        //fr_swap_5v ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_fr_swap_5v) > pd_prot_timer_th_fr_swap_5v) && pd_prot_dfp_timer_start_time_fr_swap_5v != 0) {
+        //fr_swap_5v dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_fr_swap_complete) > pd_prot_timer_th_fr_swap_complete) && pd_prot_ufp_timer_start_time_fr_swap_complete != 0) {
+        //fr_swap_complete ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_fr_swap_complete) > pd_prot_timer_th_fr_swap_complete) && pd_prot_dfp_timer_start_time_fr_swap_complete != 0) {
+        //fr_swap_complete dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_fr_swap_init) > pd_prot_timer_th_fr_swap_init) && pd_prot_ufp_timer_start_time_fr_swap_init != 0) {
+        //fr_swap_init ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_fr_swap_init) > pd_prot_timer_th_fr_swap_init) && pd_prot_dfp_timer_start_time_fr_swap_init != 0) {
+        //fr_swap_init dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_hard_reset) > pd_prot_timer_th_hard_reset) && pd_prot_ufp_timer_start_time_hard_reset != 0) {
+        //hard_reset ufp
+        pd_prot_hard_reset_handler_pt_2(ufp);
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_hard_reset) > pd_prot_timer_th_hard_reset) && pd_prot_dfp_timer_start_time_hard_reset != 0) {
+        //hard_reset dfp
+        pd_prot_hard_reset_handler_pt_2(dfp);
+    }   
+    else if (((current_time - pd_prot_ufp_timer_start_time_hard_reset_complete) > pd_prot_timer_th_hard_reset_complete) && pd_prot_ufp_timer_start_time_hard_reset_complete != 0) {
+        //hard_reset_complete ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_hard_reset_complete) > pd_prot_timer_th_hard_reset_complete) && pd_prot_dfp_timer_start_time_hard_reset_complete != 0) {
+        //hard_reset_complete dfp
+    }   
+    else if (((current_time - pd_prot_ufp_timer_start_time_source_epr_keep_alive) > pd_prot_timer_th_source_epr_keep_alive) && pd_prot_ufp_timer_start_time_source_epr_keep_alive != 0) {
+        //source_epr_keep_alive ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_source_epr_keep_alive) > pd_prot_timer_th_source_epr_keep_alive) && pd_prot_dfp_timer_start_time_source_epr_keep_alive != 0) {
+        //source_epr_keep_alive dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_sink_epr_keep_alive) > pd_prot_timer_th_sink_epr_keep_alive) && pd_prot_ufp_timer_start_time_sink_epr_keep_alive != 0) {
+        //sink_epr_keep_alive ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_sink_epr_keep_alive) > pd_prot_timer_th_sink_epr_keep_alive) && pd_prot_dfp_timer_start_time_sink_epr_keep_alive != 0) {
+        //sink_epr_keep_alive dfp
+    }   
+    else if (((current_time - pd_prot_ufp_timer_start_time_no_responce) > pd_prot_timer_th_no_responce) && pd_prot_ufp_timer_start_time_no_responce != 0) {
+        //no_responce ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_no_responce) > pd_prot_timer_th_no_responce) && pd_prot_dfp_timer_start_time_no_responce != 0) {
+        //no_responce dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_pps_request) > pd_prot_timer_th_pps_request) && pd_prot_ufp_timer_start_time_pps_request != 0) {
+        //pps_request ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_pps_request) > pd_prot_timer_th_pps_request) && pd_prot_dfp_timer_start_time_pps_request != 0) {
+        //pps_request dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_pps_timeout) > pd_prot_timer_th_pps_timeout) && pd_prot_ufp_timer_start_time_pps_timeout != 0) {
+        //pps_timeout ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_pps_timeout) > pd_prot_timer_th_pps_timeout) && pd_prot_dfp_timer_start_time_pps_timeout != 0) {
+        //pps_timeout dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_prot_err_hard_reset) > pd_prot_timer_th_prot_err_hard_reset) && pd_prot_ufp_timer_start_time_prot_err_hard_reset != 0) {
+        //prot_err_hard_reset ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_prot_err_hard_reset) > pd_prot_timer_th_prot_err_hard_reset) && pd_prot_dfp_timer_start_time_prot_err_hard_reset != 0) {
+        //prot_err_hard_reset dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_prot_err_soft_reset) > pd_prot_timer_th_prot_err_soft_reset) && pd_prot_ufp_timer_start_time_prot_err_soft_reset != 0) {
+        //prot_err_soft_reset ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_prot_err_soft_reset) > pd_prot_timer_th_prot_err_soft_reset) && pd_prot_dfp_timer_start_time_prot_err_soft_reset != 0) {
+        //prot_err_soft_reset dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_pr_swap_wait) > pd_prot_timer_th_pr_swap_wait) && pd_prot_ufp_timer_start_time_pr_swap_wait != 0) {
+        //pr_swap_wait ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_pr_swap_wait) > pd_prot_timer_th_pr_swap_wait) && pd_prot_dfp_timer_start_time_pr_swap_wait != 0) {
+        //pr_swap_wait dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_ps_hard_reset) > pd_prot_timer_th_ps_hard_reset) && pd_prot_ufp_timer_start_time_ps_hard_reset != 0) {
+        //ps_hard_reset ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_ps_hard_reset) > pd_prot_timer_th_ps_hard_reset) && pd_prot_dfp_timer_start_time_ps_hard_reset != 0) {
+        //ps_hard_reset dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_spr_ps_source_off) > pd_prot_timer_th_spr_ps_source_off) && pd_prot_ufp_timer_start_time_spr_ps_source_off != 0) {
+        //spr_ps_source_off ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_spr_ps_source_off) > pd_prot_timer_th_spr_ps_source_off) && pd_prot_dfp_timer_start_time_spr_ps_source_off != 0) {
+        //spr_ps_source_off dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_epr_ps_source_off) > pd_prot_timer_th_epr_ps_source_off) && pd_prot_ufp_timer_start_time_epr_ps_source_off != 0) {
+        //epr_ps_source_off  ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_epr_ps_source_off) > pd_prot_timer_th_epr_ps_source_off) && pd_prot_dfp_timer_start_time_epr_ps_source_off != 0) {
+        //epr_ps_source_off dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_ps_source_on) > pd_prot_timer_th_ps_source_on) && pd_prot_ufp_timer_start_time_ps_source_on != 0) {
+        //ps_source_on ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_ps_source_on) > pd_prot_timer_th_ps_source_on) && pd_prot_dfp_timer_start_time_ps_source_on != 0) {
+        //ps_source_on dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_spr_ps_transition) > pd_prot_timer_th_spr_ps_transition) && pd_prot_ufp_timer_start_time_spr_ps_transition != 0) {
+        //spr_ps_transition ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_spr_ps_transition) > pd_prot_timer_th_spr_ps_transition) && pd_prot_dfp_timer_start_time_spr_ps_transition != 0) {
+        //spr_ps_transition dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_epr_ps_transition) > pd_prot_timer_th_epr_ps_transition) && pd_prot_ufp_timer_start_time_epr_ps_transition != 0) {
+        //epr_ps_transition ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_epr_ps_transition) > pd_prot_timer_th_epr_ps_transition) && pd_prot_dfp_timer_start_time_epr_ps_transition != 0) {
+        //epr_ps_transition dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_receive) > pd_prot_timer_th_receive) && pd_prot_ufp_timer_start_time_receive != 0) {
+        //receive ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_receive) > pd_prot_timer_th_receive) && pd_prot_dfp_timer_start_time_receive != 0) {
+        //receive dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_receive_responce) > pd_prot_timer_th_receive_responce) && pd_prot_ufp_timer_start_time_receive_responce != 0) {
+        //receive_responce ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_receive_responce) > pd_prot_timer_th_receive_responce) && pd_prot_dfp_timer_start_time_receive_responce != 0) {
+        //receive_responce dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_retry) > pd_prot_timer_th_retry) && pd_prot_ufp_timer_start_time_retry != 0) {
+        //retry ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_retry) > pd_prot_timer_th_retry) && pd_prot_dfp_timer_start_time_retry != 0) {
+        //retry dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_sender_responce) > pd_prot_timer_th_sender_responce) && pd_prot_ufp_timer_start_time_sender_responce != 0) {
+        //sender_responce ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_sender_responce) > pd_prot_timer_th_sender_responce) && pd_prot_dfp_timer_start_time_sender_responce != 0) {
+        //sender_responce dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_sink_delay) > pd_prot_timer_th_sink_delay) && pd_prot_ufp_timer_start_time_sink_delay != 0) {
+        //sink_delay ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_sink_delay) > pd_prot_timer_th_sink_delay) && pd_prot_dfp_timer_start_time_sink_delay != 0) {
+        //sink_delay dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_sink_tx) > pd_prot_timer_th_sink_tx) && pd_prot_ufp_timer_start_time_sink_tx != 0) {
+        //sink_tx ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_sink_tx) > pd_prot_timer_th_sink_tx) && pd_prot_dfp_timer_start_time_sink_tx != 0) {
+        //sink_tx dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_soft_reset) > pd_prot_timer_th_soft_reset) && pd_prot_ufp_timer_start_time_soft_reset != 0) {
+        //soft_reset ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_soft_reset) > pd_prot_timer_th_soft_reset) && pd_prot_dfp_timer_start_time_soft_reset != 0) {
+        //soft_reset dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_scr_holds_bus) > pd_prot_timer_th_scr_holds_bus) && pd_prot_ufp_timer_start_time_scr_holds_bus != 0) {
+        //scr_holds_bus ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_scr_holds_bus) > pd_prot_timer_th_scr_holds_bus) && pd_prot_dfp_timer_start_time_scr_holds_bus != 0) {
+        //scr_holds_bus dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_swap_sink_ready) > pd_prot_timer_th_swap_sink_ready) && pd_prot_ufp_timer_start_time_swap_sink_ready != 0) {
+        //swap_sink_ready ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_swap_sink_ready) > pd_prot_timer_th_swap_sink_ready) && pd_prot_dfp_timer_start_time_swap_sink_ready != 0) {
+        //swap_sink_ready dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_swap_source_start) > pd_prot_timer_th_swap_source_start) && pd_prot_ufp_timer_start_time_swap_source_start != 0) {
+        //swap_source_start ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_swap_source_start) > pd_prot_timer_th_swap_source_start) && pd_prot_dfp_timer_start_time_swap_source_start != 0) {
+        //swap_source_start dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_transmit) > pd_prot_timer_th_transmit) && pd_prot_ufp_timer_start_time_transmit != 0) {
+        //transmit ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_transmit) > pd_prot_timer_th_transmit) && pd_prot_dfp_timer_start_time_transmit != 0) {
+        //transmit dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_type_c_send_source_cap) > pd_prot_timer_th_type_c_send_source_cap) && pd_prot_ufp_timer_start_time_type_c_send_source_cap != 0) {
+        //type_c_send_source_cap ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_type_c_send_source_cap) > pd_prot_timer_th_type_c_send_source_cap) && pd_prot_dfp_timer_start_time_type_c_send_source_cap != 0) {
+        //type_c_send_source_cap dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_type_c_sink_wait_cap) > pd_prot_timer_th_type_c_sink_wait_cap) && pd_prot_ufp_timer_start_time_type_c_sink_wait_cap != 0) {
+        //type_c_sink_wait_cap ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_type_c_sink_wait_cap) > pd_prot_timer_th_type_c_sink_wait_cap) && pd_prot_dfp_timer_start_time_type_c_sink_wait_cap != 0) {
+        //type_c_sink_wait_cap dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_vconn_source_discharge) > pd_prot_timer_th_vconn_source_discharge) && pd_prot_ufp_timer_start_time_vconn_source_discharge != 0) {
+        //vconn_source_discharge ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_vconn_source_discharge) > pd_prot_timer_th_vconn_source_discharge) && pd_prot_dfp_timer_start_time_vconn_source_discharge != 0) {
+        //vconn_source_discharge dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_vconn_source_off) > pd_prot_timer_th_vconn_source_off) && pd_prot_ufp_timer_start_time_vconn_source_off != 0) {
+        //vconn_source_off ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_vconn_source_off) > pd_prot_timer_th_vconn_source_off) && pd_prot_dfp_timer_start_time_vconn_source_off != 0) {
+        //vconn_source_off dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_vconn_source_on) > pd_prot_timer_th_vconn_source_on) && pd_prot_ufp_timer_start_time_vconn_source_on != 0) {
+        //vconn_source_on ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_vconn_source_on) > pd_prot_timer_th_vconn_source_on) && pd_prot_dfp_timer_start_time_vconn_source_on != 0) {
+        //vconn_source_on dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_vconn_source_timeout) > pd_prot_timer_th_vconn_source_timeout) && pd_prot_ufp_timer_start_time_vconn_source_timeout != 0) {
+        //vconn_source_timeout ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_vconn_source_timeout) > pd_prot_timer_th_vconn_source_timeout) && pd_prot_dfp_timer_start_time_vconn_source_timeout != 0) {
+        //vconn_source_timeout dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_vconn_swap_wait) > pd_prot_timer_th_vconn_swap_wait) && pd_prot_ufp_timer_start_time_vconn_swap_wait != 0) {
+        //vconn_swap_wait ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_vconn_swap_wait) > pd_prot_timer_th_vconn_swap_wait) && pd_prot_dfp_timer_start_time_vconn_swap_wait != 0) {
+        //vconn_swap_wait dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_vdm_busy) > pd_prot_timer_th_vdm_busy) && pd_prot_ufp_timer_start_time_vdm_busy != 0) {
+        //vdm_busy ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_vdm_busy) > pd_prot_timer_th_vdm_busy) && pd_prot_dfp_timer_start_time_vdm_busy != 0) {
+        //vdm_busy dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_vdm_enter_mode) > pd_prot_timer_th_vdm_enter_mode) && pd_prot_ufp_timer_start_time_vdm_enter_mode != 0) {
+        //vdm_enter_mode ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_vdm_enter_mode) > pd_prot_timer_th_vdm_enter_mode) && pd_prot_dfp_timer_start_time_vdm_enter_mode != 0) {
+        //vdm_enter_mode dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_vdm_exit_mode) > pd_prot_timer_th_vdm_exit_mode) && pd_prot_ufp_timer_start_time_vdm_exit_mode != 0) {
+        //vdm_exit_mode ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_vdm_exit_mode) > pd_prot_timer_th_vdm_exit_mode) && pd_prot_dfp_timer_start_time_vdm_exit_mode != 0) {
+        //vdm_exit_mode dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_vdm_receiver_responce) > pd_prot_timer_th_vdm_receiver_responce) && pd_prot_ufp_timer_start_time_vdm_receiver_responce != 0) {
+        //vdm_receiver_responce ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_vdm_receiver_responce) > pd_prot_timer_th_vdm_receiver_responce) && pd_prot_dfp_timer_start_time_vdm_receiver_responce != 0) {
+        //vdm_receiver_responce dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_vdm_sender_responce) > pd_prot_timer_th_vdm_sender_responce) && pd_prot_ufp_timer_start_time_vdm_sender_responce != 0) {
+        //vdm_sender_responce ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_vdm_sender_responce) > pd_prot_timer_th_vdm_sender_responce) && pd_prot_dfp_timer_start_time_vdm_sender_responce != 0) {
+        //vdm_sender_responce dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_vdm_wait_mode_entry) > pd_prot_timer_th_vdm_wait_mode_entry) && pd_prot_ufp_timer_start_time_vdm_wait_mode_entry != 0) {
+        //vdm_wait_mode_entry ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_vdm_wait_mode_entry) > pd_prot_timer_th_vdm_wait_mode_entry) && pd_prot_dfp_timer_start_time_vdm_wait_mode_entry != 0) {
+        //vdm_wait_mode_entry dfp
+    }
+    else if (((current_time - pd_prot_ufp_timer_start_time_vdm_wait_mode_exit) > pd_prot_timer_th_vdm_wait_mode_exit) && pd_prot_ufp_timer_start_time_vdm_wait_mode_exit != 0) {
+        //vdm_wait_mode_exit ufp
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_vdm_wait_mode_exit) > pd_prot_timer_th_vdm_wait_mode_exit) && pd_prot_dfp_timer_start_time_vdm_wait_mode_exit != 0) {
+        //vdm_wait_mode_exit dfp
+    }
+
+}
 
 
 
