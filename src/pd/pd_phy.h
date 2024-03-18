@@ -133,6 +133,12 @@ enum ufp_dfp {
     ufp
 };
 
+//on/off enum 
+enum on_off {
+    on,
+    off
+};
+
 //alert type enum
 enum pd_phy_alert_type {
     vendor_defined_extended,
@@ -197,6 +203,7 @@ void pd_phy_send_rx_one_more (enum ufp_dfp ufp_dfp);
 void pd_phy_send_frs_signal (enum ufp_dfp ufp_dfp);
 void pd_phy_send_reset_transmit_buffer (enum ufp_dfp ufp_dfp);
 void pd_phy_send_reset_recive_buffer (enum ufp_dfp ufp_dfp);
+void pd_phy_vconn_cont(enum ufp_dfp ufp_dfp, enum on_off on_off);
 void pd_phy_send_hard_reset (enum ufp_dfp ufp_dfp);
 void pd_phy_clear_alert (enum ufp_dfp ufp_dfp);
 void pd_phy_clear_extended_alert (enum ufp_dfp ufp_dfp);

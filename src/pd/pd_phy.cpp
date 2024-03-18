@@ -258,6 +258,65 @@ void pd_phy_send_reset_recive_buffer (enum ufp_dfp ufp_dfp) {
     return;
 }
 
+//pd_phy_vconn_cont
+//turns on or off vconn souceing for the given port
+//ufp_dfp: selct port to control
+//on_off: turns vconn on or off for selected port
+void pd_phy_vconn_cont(enum ufp_dfp ufp_dfp, enum on_off on_off) {
+    //init local vars
+    uint8_t reg_contents_b0 = 0;
+    uint8_t reg_contents_b1 = 0;
+
+    // wake phy 
+    pd_phy_send_i2c_wake(ufp_dfp);
+
+    //tell it what port to read from
+    if (ufp_dfp = ufp) {
+        Wire.beginTransmission(pd_phy_add_ufp);
+    } else {
+        Wire.beginTransmission(pd_phy_add_dfp);
+    }
+    Wire.write(pd_phy_reg_power_control);
+    Wire.endTransmission();
+
+    //read register value
+    if (ufp_dfp = ufp) {
+        Wire.requestFrom(pd_phy_add_ufp, 2);
+    } else {
+        Wire.requestFrom(pd_phy_add_dfp, 2);
+    }
+
+    //read reg contents
+    reg_contents_b1 = Wire.read();
+    reg_contents_b0 = Wire.read();
+    Wire.endTransmission();
+
+    //do bitwise operations to trun on or off 
+    if (on_off == on) {
+        reg_contents_b0 = reg_contents_b0 | 0x01;
+    } else {
+        reg_contents_b0 = reg_contents_b0 & 0xFE;
+    }
+
+    //write value back to register
+    if (ufp_dfp = ufp) {
+        Wire.beginTransmission(pd_phy_add_ufp);
+    } else {
+        Wire.beginTransmission(pd_phy_add_dfp);
+    }
+    Wire.write(pd_phy_reg_power_control);
+    Wire.write(reg_contents_b1);
+    Wire.write(reg_contents_b0);
+    Wire.endTransmission();
+
+    //put phy back to sleep
+
+    pd_phy_send_i2c_idle(ufp_dfp);
+
+    return;   
+
+}
+
 //clears the alert register
 void pd_phy_clear_alert (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {

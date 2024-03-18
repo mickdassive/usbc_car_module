@@ -452,6 +452,25 @@ enum pd_prot_power_cap_enum {
     watts_10
 };
 
+//enum for current policy engine state
+enum pd_port_policy_engine_state_enum {
+    pe_src_hard_reset_recived,
+    pe_src_transition_to_dflt,
+    pe_src_hard_reset,
+    pe_src_startup,
+    pe_src_discovery,
+    pe_src_send_capabilitiys,
+    pe_src_disabled,
+    pe_src_negotiate_capabilitiys,
+    pe_src_transition_supply,
+    pe_src_ready,
+    pe_src_epr_keep_alive,
+    pe_src_get_sink_cap,
+    pe_src_give_souce_cap,
+    pe_src_capabilitiy_response,
+    pe_src_wait_new_capabilitiys
+};
+
 //selcted port power (in watts)
 extern enum pd_prot_power_cap_enum pd_prot_ufp_current_power_cap;
 extern enum pd_prot_power_cap_enum pd_prot_dfp_current_power_cap;
@@ -465,6 +484,15 @@ enum pd_prot_message_type_enum {normal, extended};
 //abort flags
 extern bool pd_prot_ufp_abbort_flag;
 extern bool pd_prot_dfp_abbort_flag;
+
+//flags for the policy engine
+extern bool pd_prot_ufp_last_good_crc;
+extern bool pd_prot_dfp_last_good_crc;
+extern enum ufp_dfp pd_prot_ufp_pe_port_data_role;
+extern enum ufp_dfp pd_prot_dfp_pe_port_data_role;
+extern enum pd_port_policy_engine_state_enum pd_prot_ufp_pe_current_state;
+extern enum pd_port_policy_engine_state_enum pd_prot_dfp_pe_current_state;
+
 
 
 
