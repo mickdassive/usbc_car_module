@@ -514,12 +514,20 @@ extern enum pd_port_policy_engine_state_enum pd_prot_dfp_pe_current_state;
 
 //function defines
 void pd_prot_timer_handeler();
-void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names name, enum pd_prot_timer_start_stop start_stop)
+void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names name, enum pd_prot_timer_start_stop start_stop);
 uint16_t pd_prot_biuld_headder (bool extended_msg, uint16_t n_data_objects, uint16_t msg_id, enum pd_prot_port_power_role power_role, uint16_t spec_revision, enum ufp_dfp data_role, uint16_t msg_type);
 uint16_t pd_prot_biuld_ext_headder (bool chunked, uint16_t chunk_number, bool request_chunk, uint16_t data_size);
+enum pd_prot_message_type_enum pd_prot_message_type (enum ufp_dfp ufp_dfp);
+bool pd_prot_ext_msg_chunked (enum ufp_dfp ufp_dfp);
+int pd_prot_ext_msg_n_chunks (enum ufp_dfp ufp_dfp);
+bool pd_prot_check_soft_reset (enum ufp_dfp ufp_dfp);
+void pd_prot_discard_message (enum ufp_dfp ufp_dfp);
+void pd_prot_hard_reset_handeler (enum ufp_dfp ufp_dfp, bool from_policy_engine);
 void pd_prot_set_last_message(enum ufp_dfp ufp_dfp, uint8_t message[256], uint8_t length_of_message);
 void pd_prot_transmit_soucre_capibilitiys (enum ufp_dfp ufp_dfp);
 void pd_prot_transmit_command (enum ufp_dfp ufp_dfp, enum pd_prot_cont_msg_enum pd_prot_cont_msg_enum);
+void pd_prot_rx_state_machine(enum ufp_dfp ufp_dfp);
+void pd_prot_chunked_rx_state_machine(enum ufp_dfp ufp_dfp);
 
 
 

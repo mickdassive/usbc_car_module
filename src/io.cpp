@@ -595,7 +595,7 @@ void io_intrupt_handeler () {
 
     } else if (pd_phy_alert_type(ufp) == recived_hard_reset) {
       Serial.println("recived UFP pd PHY recived hard reset intrupt");
-      // do nothing
+      pd_prot_hard_reset_handeler(ufp, false);
     } else if (pd_phy_alert_type(ufp) == recvied_sop_message_status) {
       Serial.println("recived UFP pd PHY recived sop message status intrupt");
       //set message recived flag and read message contents
@@ -717,7 +717,7 @@ void io_intrupt_handeler () {
 
     } else if (pd_phy_alert_type(dfp) == recived_hard_reset) {
       Serial.println("recived DFP pd PHY recived hard reset intrupt");
-      // do nothing
+      pd_prot_hard_reset_handeler(dfp, false);
     } else if (pd_phy_alert_type(dfp) == recvied_sop_message_status) {
       Serial.println("recived DFP pd PHY recived sop message status intrupt");
       //set message recived flag and read message contents

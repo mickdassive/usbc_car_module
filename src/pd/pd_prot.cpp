@@ -1885,10 +1885,11 @@ void pd_prot_hard_reset_handeler (enum ufp_dfp ufp_dfp, bool from_policy_engine)
     if (from_policy_engine) {
         pd_phy_send_hard_reset(ufp_dfp);
         pd_prot_timer_controler(ufp_dfp, hard_reset_complete, start);
+    } else {
+        pd_prot_hard_reset_handler_pt_2(ufp_dfp);
     }
 
 }
-
 
 //pd_prot_set_last_message
 //sets last message vars 
