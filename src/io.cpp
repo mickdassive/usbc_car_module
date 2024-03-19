@@ -539,8 +539,8 @@ void io_intrupt_handeler () {
       // do nothing
       Serial.println("recived UFP pd PHY extended status changed intrupt");
     } else if (pd_phy_alert_type(ufp) == beginning_sop_message_status) {
-      //do nothing
       Serial.println("recived UFP pd PHY beggining sop message status intrupt");
+      pd_phy_recive_message(ufp);
     } else if (pd_phy_alert_type(ufp) == vbus_sink_disconnect_detected) {
       //do nothing?
       Serial.println("recived UFP pd PHY vbus sink disconnect detected intrupt");
@@ -662,7 +662,8 @@ void io_intrupt_handeler () {
       // do nothing
     } else if (pd_phy_alert_type(dfp) == beginning_sop_message_status) {
       Serial.println("recived DFP pd PHY beggining sop message status intrupt");
-      //do nothing
+      pd_phy_recive_message(dfp);
+      
     } else if (pd_phy_alert_type(dfp) == vbus_sink_disconnect_detected) {
       Serial.println("recived DFP pd PHY vbus sink disconnect detected intrupt");
       //do nothing?

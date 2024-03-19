@@ -90,6 +90,22 @@ const uint16_t pd_prot_data_msg_per_mode = 0x010A;
 const uint16_t pd_prot_data_msg_source_info = 0x010B;
 const uint16_t pd_prot_data_msg_vendor_defined =0x010F;
 
+//pd data message enum
+enum pd_prot_data_msg_enum {
+    sounce_capabilitiys,
+    request,
+    bist,
+    sink_capabilitiys,
+    battery_status,
+    alert,
+    get_country_info,
+    enter_usb,
+    epr_request,
+    per_mode,
+    source_info,
+    vendor_defined
+};
+
 //pd extended control messages
 //usb-if docs page 232
 const uint32_t pd_prot_ext_msg_source_capabilities_extended = 0x81010000;

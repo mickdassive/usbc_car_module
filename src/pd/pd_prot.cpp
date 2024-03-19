@@ -1816,6 +1816,67 @@ void pd_prot_discard_message (enum ufp_dfp ufp_dfp) {
 }
 
 
+//pd_prot_determine_last_data_message_type
+//determines what the last recived message type was
+enum pd_prot_data_msg_enum pd_prot_determine_last_data_message_type (enum ufp_dfp ufp_dfp){
+    
+    //select port to check
+    if(ufp_dfp == ufp) {
+        if ((pd_phy_ufp_last_recived_message_contents[1] & pd_prot_data_msg_alert) == pd_prot_data_msg_alert) {
+            return alert;
+        } else if ((pd_phy_ufp_last_recived_message_contents[1] & pd_prot_data_msg_battery_status) == pd_prot_data_msg_battery_status) {
+            return battery_status;
+        } else if ((pd_phy_ufp_last_recived_message_contents[1] & pd_prot_data_msg_bist) == pd_prot_data_msg_bist) {
+            return bist;
+        } else if ((pd_phy_ufp_last_recived_message_contents[1] & pd_prot_data_msg_enter_usb) == pd_prot_data_msg_enter_usb) {
+            return enter_usb;
+        } else if ((pd_phy_ufp_last_recived_message_contents[1] & pd_prot_data_msg_epr_request) == pd_prot_data_msg_epr_request) {
+            return epr_request;
+        } else if ((pd_phy_ufp_last_recived_message_contents[1] & pd_prot_data_msg_get_country_info) == pd_prot_data_msg_get_country_info) {
+            return get_country_info;
+        } else if ((pd_phy_ufp_last_recived_message_contents[1] & pd_prot_data_msg_per_mode) == pd_prot_data_msg_per_mode) {
+            return per_mode;
+        } else if ((pd_phy_ufp_last_recived_message_contents[1] & pd_prot_data_msg_request) == pd_prot_data_msg_request) {
+            return request;
+        } else if ((pd_phy_ufp_last_recived_message_contents[1] & pd_prot_data_msg_sink_capabilities) == pd_prot_data_msg_sink_capabilities) {
+            return sink_capabilitiys;
+        } else if ((pd_phy_ufp_last_recived_message_contents[1] & pd_prot_data_msg_source_capabilities) == pd_prot_data_msg_source_capabilities) {
+            return sounce_capabilitiys;
+        } else if ((pd_phy_ufp_last_recived_message_contents[1] & pd_prot_data_msg_source_info) == pd_prot_data_msg_source_info) {
+            return source_info;
+        }
+    } else {
+        if ((pd_phy_dfp_last_recived_message_contents[1] & pd_prot_data_msg_alert) == pd_prot_data_msg_alert) {
+            return alert;
+        } else if ((pd_phy_dfp_last_recived_message_contents[1] & pd_prot_data_msg_battery_status) == pd_prot_data_msg_battery_status) {
+            return battery_status;
+        } else if ((pd_phy_dfp_last_recived_message_contents[1] & pd_prot_data_msg_bist) == pd_prot_data_msg_bist) {
+            return bist;
+        } else if ((pd_phy_dfp_last_recived_message_contents[1] & pd_prot_data_msg_enter_usb) == pd_prot_data_msg_enter_usb) {
+            return enter_usb;
+        } else if ((pd_phy_dfp_last_recived_message_contents[1] & pd_prot_data_msg_epr_request) == pd_prot_data_msg_epr_request) {
+            return epr_request;
+        } else if ((pd_phy_dfp_last_recived_message_contents[1] & pd_prot_data_msg_get_country_info) == pd_prot_data_msg_get_country_info) {
+            return get_country_info;
+        } else if ((pd_phy_dfp_last_recived_message_contents[1] & pd_prot_data_msg_per_mode) == pd_prot_data_msg_per_mode) {
+            return per_mode;
+        } else if ((pd_phy_dfp_last_recived_message_contents[1] & pd_prot_data_msg_request) == pd_prot_data_msg_request) {
+            return request;
+        } else if ((pd_phy_dfp_last_recived_message_contents[1] & pd_prot_data_msg_sink_capabilities) == pd_prot_data_msg_sink_capabilities) {
+            return sink_capabilitiys;
+        } else if ((pd_phy_dfp_last_recived_message_contents[1] & pd_prot_data_msg_source_capabilities) == pd_prot_data_msg_source_capabilities) {
+            return sounce_capabilitiys;
+        } else if ((pd_phy_dfp_last_recived_message_contents[1] & pd_prot_data_msg_source_info) == pd_prot_data_msg_source_info) {
+            return source_info;
+        }
+    }
+}
+
+
+enum pd_prot_power_cap_enum pd_prot_pdo_determiner (enum ufp_dfp ufp_dfp) {
+    
+}
+
 void pd_prot_hard_reset_handeler (enum ufp_dfp ufp_dfp, bool from_policy_engine) {
     //discard last recived message
     pd_prot_discard_message(ufp_dfp);
@@ -2318,6 +2379,9 @@ void pd_prot_src_port_policy_engine (enum ufp_dfp ufp_dfp) {
                 break;
             case pe_src_discovery:
                 pd_prot_timer_controler(ufp_dfp, fisrt_source_cap, start);
+                if ((pd_prot_ufp_counter_caps == pd_prot_counter_th_caps) && (pd_prot_ufp_counter_hard_reset == pd_prot_counter_th_hard_reset)) {
+                    pd_prot_ufp_pe_current_state = pe_src_disabled;
+                }
                 break;
             case pe_src_send_capabilitiys:
                 //send souce capabilitiys 
@@ -2329,6 +2393,14 @@ void pd_prot_src_port_policy_engine (enum ufp_dfp ufp_dfp) {
                     pd_prot_ufp_last_good_crc = false;
                     pd_prot_timer_controler(ufp_dfp, no_responce, stop);
                     pd_prot_timer_controler(ufp_dfp, sender_responce, start);
+
+                    //recive message if it has arrived
+                    if (pd_phy_ufp_last_recived_message_lenght != 0) {
+                        if (pd_prot_determine_last_data_message_type == sink_capabilitiys) {
+                            pd_prot_ufp_pe_current_state = pe_src_negotiate_capabilitiys;
+                        }
+                    }
+
                 } else {
                     pd_prot_ufp_pe_current_state = pe_src_discovery;
                 }
@@ -2337,7 +2409,9 @@ void pd_prot_src_port_policy_engine (enum ufp_dfp ufp_dfp) {
                 pd_power_cont_return_to_base_state(ufp_dfp);
                 break;
             case pe_src_negotiate_capabilitiys:
-                //something
+                
+
+
                 break;
             case pe_src_transition_supply:
                 //something
