@@ -15,17 +15,6 @@ This project is a USB 3.1x1 hub designed with KiCad 7.0 and developed with Platf
   - Monitor combined total power consumption of USB-A ports
   - Monitor total system power consumption
 
-## Usage
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/mickdassive/usbc_car_module.git
-   ```
-2. Open the project in KiCad 7.0 for schematic and PCB design.
-
-3. Open the PlatformIO project
-
-4. Biuld and upload firmware to MCU
 
 ## Contributors
 
