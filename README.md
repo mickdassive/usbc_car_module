@@ -1,6 +1,6 @@
 # USB 3.1x1 Hub with USB-C and USB-A Ports
 
-This project is a USB 3.1x1 hub designed with KiCad 7.0 and developed with PlatformIO. It features two USB-C ports (one downstream and one upstream) capable of delivering up to 100W power, along with four regular downstream USB-A ports.
+This project is a USB 3.1x1 hub designed with KiCad 8.0 and developed with PlatformIO. It features two USB-C ports (one downstream and one upstream) capable of delivering up to 100W power, along with four regular downstream USB-A ports.
 
 ## Features
 
