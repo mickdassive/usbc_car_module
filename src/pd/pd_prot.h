@@ -17,6 +17,8 @@
 //15/09/2023
 //Tokyo Andreana
 
+
+
 #ifndef pd_prot_h
 #define pd_prot_h
 
@@ -62,8 +64,8 @@ enum pd_prot_cont_msg_enum {
     pr_swap,
     vconn_swap,
     wait,
-    soft_reset,
-    data_reset,
+    soft_reset_msg,
+    data_reset_msg,
     data_reset_complete,
     not_supported,
     get_status,
@@ -99,11 +101,12 @@ enum pd_prot_data_msg_enum {
     battery_status,
     alert,
     get_country_info,
-    enter_usb,
+    enter_usb_msg,
     epr_request,
     per_mode,
     source_info,
-    vendor_defined
+    vendor_defined,
+    void_msg
 };
 
 //pd extended control messages
@@ -454,9 +457,9 @@ extern int pd_prot_dfp_counter_retry;
 //retransmit vars
 extern bool pd_prot_ufp_retransit_failled;
 extern bool pd_prot_dfp_retransit_failled;
-extern uint8_t pd_prot_ufp_last_message[255];
+extern uint8_t pd_prot_ufp_last_message [255];
 extern int pd_prot_ufp_last_message_length;
-extern uint8_t pd_prot_dfp_last_message[255];
+extern uint8_t pd_prot_dfp_last_message [255];
 extern int pd_prot_dfp_last_message_length;
 
 //enum for power cap 
@@ -486,6 +489,10 @@ enum pd_port_policy_engine_state_enum {
     pe_src_capabilitiy_response,
     pe_src_wait_new_capabilitiys
 };
+
+//previous policy engine state vars
+extern enum pd_port_policy_engine_state_enum pd_prot_ufp_pe_prev_state;
+extern enum pd_port_policy_engine_state_enum pd_prot_dfp_pe_prev_state;
 
 //selcted port power (in watts)
 extern enum pd_prot_power_cap_enum pd_prot_ufp_current_power_cap;

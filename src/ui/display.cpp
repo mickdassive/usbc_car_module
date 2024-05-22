@@ -24,11 +24,18 @@
 #include <Wire.h>
 #include <string>
 #include "display.h"
+#include "pd/pd_phy.h"
 
 
-
-
-//display init function
+/**
+ * @brief Initializes the display controller.
+ * 
+ * This function wakes up the display controller, sets the self-addressing mode,
+ * wakes up the display, sets the decode mode to raw, sets the display scan limit,
+ * and sets the display intensity.
+ * 
+ * @return void
+ */
 void disp_init() {
   //wake up display controler
   Wire.beginTransmission(disp_base_add);
@@ -69,7 +76,9 @@ void disp_init() {
   return;
 }
 
-//display balnk function just writes 0s to the first 4 digit registers but keeps the status leds
+/**
+ * Clears the display by sending blank data to the firdt 4 digits of display module.
+ */
 void disp_blank() {
   Wire.beginTransmission(disp_add);
   Wire.write(disp_digit_0);
@@ -81,8 +90,11 @@ void disp_blank() {
   return;
 }
 
-//set disply brightness
-//desired_brightness: brightness of display from 0-255
+/**
+ * Sets the brightness of the display.
+ *
+ * @param desired_brightness The desired brightness level (0-255).
+ */
 void disp_bright(uint8_t desired_brightness) {
   Wire.beginTransmission(disp_add);
   Wire.write(disp_global_intensity);
@@ -92,9 +104,15 @@ void disp_bright(uint8_t desired_brightness) {
   return;
 }
 
-//disp_write
-//writes numbers to the 7 segment display
-//input: float or int input
+/**
+ * Writes a floating-point number to the display.
+ *
+ * This function takes a floating-point number as input and converts it into a format that can be displayed on the screen.
+ * It separates the individual digits of the number and converts them into binary values that correspond to the display's segments.
+ * The decimal point is also handled and displayed correctly.
+ *
+ * @param input The floating-point number to be displayed.
+ */
 void disp_write(float input) {
   //init local vars
   int digit_binary_array[4];
@@ -175,11 +193,15 @@ void disp_write(float input) {
 
 }
 
-//led_write
-//simplt turns the info leds on and off
-//leds: name of led to turn on or off
-//led_on_off: weather to turn the led on or off
-void disp_led_write (struct leds leds, enum led_on_off led_on_off) {
+/**
+ * @brief Writes the state of a specific LED on the display.
+ *
+ * This function writes the state of a specific LED on the display by updating the corresponding digit register.
+ *
+ * @param leds The structure containing the LED information, including the digit and mask.
+ * @param led_on_off The state of the LED, either "on" or "off".
+ */
+void disp_led_write (struct leds leds, enum on_off led_on_off) {
   //init local vars
   uint8_t current_regter_value = 0x0;
   uint8_t value_to_write = 0x0;

@@ -17,6 +17,8 @@
 //15/09/2023
 //Tokyo Andreana
 
+
+
 #ifndef pd_prot_cpp
 #define pd_prot_cpp
 
@@ -187,14 +189,18 @@ unsigned long pd_prot_dfp_timer_start_time_vdm_wait_mode_exit = 0;
 //retransmit vars
 bool pd_prot_ufp_retransit_failled = false;
 bool pd_prot_dfp_retransit_failled = false;
-uint8_t pd_prot_ufp_last_message[256];
+uint8_t pd_prot_ufp_last_message [255];
 int pd_prot_ufp_last_message_length = 0;
-uint8_t pd_prot_dfp_last_message[256];
+uint8_t pd_prot_dfp_last_message [255];
 int pd_prot_dfp_last_message_length = 0;
 
+//previous policy engine state vars
+enum pd_port_policy_engine_state_enum pd_prot_ufp_pe_prev_state;
+enum pd_port_policy_engine_state_enum pd_prot_dfp_pe_prev_state;
+
 //selcted port power (in watts)
-extern enum pd_prot_power_cap_enum pd_prot_ufp_current_power_cap = watts_100;
-extern enum pd_prot_power_cap_enum pd_prot_dfp_current_power_cap = watts_100;
+enum pd_prot_power_cap_enum pd_prot_ufp_current_power_cap = watts_100;
+enum pd_prot_power_cap_enum pd_prot_dfp_current_power_cap = watts_100;
 
 //abort flags
 bool pd_prot_ufp_abbort_flag = false;
@@ -211,6 +217,14 @@ enum pd_port_policy_engine_state_enum pd_prot_dfp_pe_current_state = pe_src_star
 
 
 
+/**
+ * @brief Handles the timer events for the PD protocol.
+ * 
+ * This function is responsible for handling various timer events in the PD protocol.
+ * It checks the elapsed time for each timer and performs the corresponding actions.
+ * 
+ * @note This function assumes that the necessary variables and timers have been initialized.
+ */
 void pd_prot_timer_handeler() {
     //init time var
     unsigned long current_time = millis();
@@ -625,36 +639,47 @@ void pd_prot_timer_handeler() {
 
 }
 
-//pd_prot_timer_controler
-// WARNING NEEDS TO BE REFACTORD TO NOT RESTART A TIME AFTER ITS BEEN STARTED   
-//starts or stops timers for the pd prot 
-//ufp_dfp: select witch port to control the times for
-//name: nameof timer to control
-//start_stop: start or stop the selcted timer
+/**
+ * Controls the timer for a specific PD protocol event.
+ *
+ * @param ufp_dfp The type of device (UFP or DFP).
+ * @param name The name of the timer to start or stop.
+ * @param start_stop Specifies whether to start or stop the timer.
+ */
 void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names name, enum pd_prot_timer_start_stop start_stop) {
     //slect witch timer to start or stop 
     switch (name) {
     case ac_temp_update:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_ac_temp_update = millis();
+                if (pd_prot_ufp_timer_start_time_ac_temp_update == 0) {
+                    pd_prot_ufp_timer_start_time_ac_temp_update = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_ac_temp_update = millis();
+                if (pd_prot_dfp_timer_start_time_ac_temp_update == 0) {
+                    pd_prot_dfp_timer_start_time_ac_temp_update = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
+
                 pd_prot_ufp_timer_start_time_ac_temp_update = 0;
             } else {
                 pd_prot_dfp_timer_start_time_ac_temp_update = 0;
             }
         }
         break;
+
     case bist_cont_mode:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_bist_cont_mode = millis();
+                if (pd_prot_ufp_timer_start_time_bist_cont_mode == 0) {
+                    pd_prot_ufp_timer_start_time_bist_cont_mode = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_bist_cont_mode = millis();
+                if (pd_prot_dfp_timer_start_time_bist_cont_mode == 0) {
+                    pd_prot_dfp_timer_start_time_bist_cont_mode = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -664,12 +689,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case shared_test_mode:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_shared_test_mode = millis();
+                if (pd_prot_ufp_timer_start_time_shared_test_mode == 0) {
+                    pd_prot_ufp_timer_start_time_shared_test_mode = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_shared_test_mode = millis();
+                if (pd_prot_dfp_timer_start_time_shared_test_mode == 0) {
+                    pd_prot_dfp_timer_start_time_shared_test_mode = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -679,12 +709,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case cable_message:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_cable_message = millis();
+                if (pd_prot_ufp_timer_start_time_cable_message == 0) {
+                    pd_prot_ufp_timer_start_time_cable_message = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_cable_message = millis();
+                if (pd_prot_dfp_timer_start_time_cable_message == 0) {
+                    pd_prot_dfp_timer_start_time_cable_message = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -694,12 +729,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case chunking_not_supported:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_chunking_not_supported = millis();
+                if (pd_prot_ufp_timer_start_time_chunking_not_supported == 0) {
+                    pd_prot_ufp_timer_start_time_chunking_not_supported = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_chunking_not_supported = millis();
+                if (pd_prot_dfp_timer_start_time_chunking_not_supported == 0) {
+                    pd_prot_dfp_timer_start_time_chunking_not_supported = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -709,12 +749,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case chunk_recevier_request:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_chunk_recevier_request = millis();
+                if (pd_prot_ufp_timer_start_time_chunk_recevier_request == 0) {
+                    pd_prot_ufp_timer_start_time_chunk_recevier_request = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_chunk_recevier_request = millis();
+                if (pd_prot_dfp_timer_start_time_chunk_recevier_request == 0) {
+                    pd_prot_dfp_timer_start_time_chunk_recevier_request = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -724,12 +769,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case chunk_recevier_response:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_chunk_recevier_response = millis();
+                if (pd_prot_ufp_timer_start_time_chunk_recevier_response == 0) {
+                    pd_prot_ufp_timer_start_time_chunk_recevier_response = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_chunk_recevier_response = millis();
+                if (pd_prot_dfp_timer_start_time_chunk_recevier_response == 0) {
+                    pd_prot_dfp_timer_start_time_chunk_recevier_response = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -739,12 +789,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case chunk_sender_request:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_chunk_sender_request = millis();
+                if (pd_prot_ufp_timer_start_time_chunk_sender_request == 0) {
+                    pd_prot_ufp_timer_start_time_chunk_sender_request = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_chunk_sender_request = millis();
+                if (pd_prot_dfp_timer_start_time_chunk_sender_request == 0) {
+                    pd_prot_dfp_timer_start_time_chunk_sender_request = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -754,12 +809,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case chunk_sender_response:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_chunk_sender_response = millis();
+                if (pd_prot_ufp_timer_start_time_chunk_sender_response == 0) {
+                    pd_prot_ufp_timer_start_time_chunk_sender_response = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_chunk_sender_response = millis();
+                if (pd_prot_dfp_timer_start_time_chunk_sender_response == 0) {
+                    pd_prot_dfp_timer_start_time_chunk_sender_response = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -769,12 +829,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case data_reset:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_data_reset = millis();
+                if (pd_prot_ufp_timer_start_time_data_reset == 0) {
+                    pd_prot_ufp_timer_start_time_data_reset = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_data_reset = millis();
+                if (pd_prot_dfp_timer_start_time_data_reset == 0) {
+                    pd_prot_dfp_timer_start_time_data_reset = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -784,12 +849,16 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
-    case data_reset_fail:
+        case data_reset_fail:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_data_reset_fail = millis();
+                if (pd_prot_ufp_timer_start_time_data_reset_fail == 0) {
+                    pd_prot_ufp_timer_start_time_data_reset_fail = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_data_reset_fail = millis();
+                if (pd_prot_dfp_timer_start_time_data_reset_fail == 0) {
+                    pd_prot_dfp_timer_start_time_data_reset_fail = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -799,12 +868,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case data_reset_fail_ufp:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_data_reset_fail_ufp = millis();
+                if (pd_prot_ufp_timer_start_time_data_reset_fail_ufp == 0) {
+                    pd_prot_ufp_timer_start_time_data_reset_fail_ufp = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_data_reset_fail_ufp = millis();
+                if (pd_prot_dfp_timer_start_time_data_reset_fail_ufp == 0) {
+                    pd_prot_dfp_timer_start_time_data_reset_fail_ufp = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -814,12 +888,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case discover_identity:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_discover_identity = millis();
+                if (pd_prot_ufp_timer_start_time_discover_identity == 0) {
+                    pd_prot_ufp_timer_start_time_discover_identity = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_discover_identity = millis();
+                if (pd_prot_dfp_timer_start_time_discover_identity == 0) {
+                    pd_prot_dfp_timer_start_time_discover_identity = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -829,12 +908,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case dr_swap_hard_reset:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_dr_swap_hard_reset = millis();
+                if (pd_prot_ufp_timer_start_time_dr_swap_hard_reset == 0) {
+                    pd_prot_ufp_timer_start_time_dr_swap_hard_reset = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_dr_swap_hard_reset = millis();
+                if (pd_prot_dfp_timer_start_time_dr_swap_hard_reset == 0) {
+                    pd_prot_dfp_timer_start_time_dr_swap_hard_reset = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -844,12 +928,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case dr_swap_wait:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_dr_swap_wait = millis();
+                if (pd_prot_ufp_timer_start_time_dr_swap_wait == 0) {
+                    pd_prot_ufp_timer_start_time_dr_swap_wait = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_dr_swap_wait = millis();
+                if (pd_prot_dfp_timer_start_time_dr_swap_wait == 0) {
+                    pd_prot_dfp_timer_start_time_dr_swap_wait = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -859,12 +948,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case enter_usb:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_enter_usb = millis();
+                if (pd_prot_ufp_timer_start_time_enter_usb == 0) {
+                    pd_prot_ufp_timer_start_time_enter_usb = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_enter_usb = millis();
+                if (pd_prot_dfp_timer_start_time_enter_usb == 0) {
+                    pd_prot_dfp_timer_start_time_enter_usb = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -874,12 +968,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case enter_usb_wait:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_enter_usb_wait = millis();
+                if (pd_prot_ufp_timer_start_time_enter_usb_wait == 0) {
+                    pd_prot_ufp_timer_start_time_enter_usb_wait = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_enter_usb_wait = millis();
+                if (pd_prot_dfp_timer_start_time_enter_usb_wait == 0) {
+                    pd_prot_dfp_timer_start_time_enter_usb_wait = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -889,12 +988,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case enter_epr:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_enter_epr = millis();
+                if (pd_prot_ufp_timer_start_time_enter_epr == 0) {
+                    pd_prot_ufp_timer_start_time_enter_epr = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_enter_epr = millis();
+                if (pd_prot_dfp_timer_start_time_enter_epr == 0) {
+                    pd_prot_dfp_timer_start_time_enter_epr = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -904,12 +1008,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case epr_soruce_cable_discovvery:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_epr_soruce_cable_discovvery = millis();
+                if (pd_prot_ufp_timer_start_time_epr_soruce_cable_discovvery == 0) {
+                    pd_prot_ufp_timer_start_time_epr_soruce_cable_discovvery = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_epr_soruce_cable_discovvery = millis();
+                if (pd_prot_dfp_timer_start_time_epr_soruce_cable_discovvery == 0) {
+                    pd_prot_dfp_timer_start_time_epr_soruce_cable_discovvery = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -919,12 +1028,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case fisrt_source_cap:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_fisrt_source_cap = millis();
+                if (pd_prot_ufp_timer_start_time_fisrt_source_cap == 0) {
+                    pd_prot_ufp_timer_start_time_fisrt_source_cap = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_fisrt_source_cap = millis();
+                if (pd_prot_dfp_timer_start_time_fisrt_source_cap == 0) {
+                    pd_prot_dfp_timer_start_time_fisrt_source_cap = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -934,12 +1048,16 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
-    case fr_swap_5v:
+        case fr_swap_5v:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_fr_swap_5v = millis();
+                if (pd_prot_ufp_timer_start_time_fr_swap_5v == 0) {
+                    pd_prot_ufp_timer_start_time_fr_swap_5v = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_fr_swap_5v = millis();
+                if (pd_prot_dfp_timer_start_time_fr_swap_5v == 0) {
+                    pd_prot_dfp_timer_start_time_fr_swap_5v = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -949,12 +1067,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case fr_swap_complete:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_fr_swap_complete = millis();
+                if (pd_prot_ufp_timer_start_time_fr_swap_complete == 0) {
+                    pd_prot_ufp_timer_start_time_fr_swap_complete = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_fr_swap_complete = millis();
+                if (pd_prot_dfp_timer_start_time_fr_swap_complete == 0) {
+                    pd_prot_dfp_timer_start_time_fr_swap_complete = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -964,12 +1087,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case fr_swap_init:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_fr_swap_init = millis();
+                if (pd_prot_ufp_timer_start_time_fr_swap_init == 0) {
+                    pd_prot_ufp_timer_start_time_fr_swap_init = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_fr_swap_init = millis();
+                if (pd_prot_dfp_timer_start_time_fr_swap_init == 0) {
+                    pd_prot_dfp_timer_start_time_fr_swap_init = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -979,12 +1107,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case hard_reset:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_hard_reset = millis();
+                if (pd_prot_ufp_timer_start_time_hard_reset == 0) {
+                    pd_prot_ufp_timer_start_time_hard_reset = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_hard_reset = millis();
+                if (pd_prot_dfp_timer_start_time_hard_reset == 0) {
+                    pd_prot_dfp_timer_start_time_hard_reset = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -994,12 +1127,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case hard_reset_complete:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_hard_reset_complete = millis();
+                if (pd_prot_ufp_timer_start_time_hard_reset_complete == 0) {
+                    pd_prot_ufp_timer_start_time_hard_reset_complete = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_hard_reset_complete = millis();
+                if (pd_prot_dfp_timer_start_time_hard_reset_complete == 0) {
+                    pd_prot_dfp_timer_start_time_hard_reset_complete = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1009,12 +1147,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case source_epr_keep_alive:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_source_epr_keep_alive = millis();
+                if (pd_prot_ufp_timer_start_time_source_epr_keep_alive == 0) {
+                    pd_prot_ufp_timer_start_time_source_epr_keep_alive = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_source_epr_keep_alive = millis();
+                if (pd_prot_dfp_timer_start_time_source_epr_keep_alive == 0) {
+                    pd_prot_dfp_timer_start_time_source_epr_keep_alive = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1024,12 +1167,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case sink_epr_keep_alive:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_sink_epr_keep_alive = millis();
+                if (pd_prot_ufp_timer_start_time_sink_epr_keep_alive == 0) {
+                    pd_prot_ufp_timer_start_time_sink_epr_keep_alive = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_sink_epr_keep_alive = millis();
+                if (pd_prot_dfp_timer_start_time_sink_epr_keep_alive == 0) {
+                    pd_prot_dfp_timer_start_time_sink_epr_keep_alive = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1039,12 +1187,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case no_responce:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_no_responce = millis();
+                if (pd_prot_ufp_timer_start_time_no_responce == 0) {
+                    pd_prot_ufp_timer_start_time_no_responce = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_no_responce = millis();
+                if (pd_prot_dfp_timer_start_time_no_responce == 0) {
+                    pd_prot_dfp_timer_start_time_no_responce = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1054,12 +1207,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case pps_request:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_pps_request = millis();
+                if (pd_prot_ufp_timer_start_time_pps_request == 0) {
+                    pd_prot_ufp_timer_start_time_pps_request = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_pps_request = millis();
+                if (pd_prot_dfp_timer_start_time_pps_request == 0) {
+                    pd_prot_dfp_timer_start_time_pps_request = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1069,12 +1227,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case pps_timeout:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_pps_timeout = millis();
+                if (pd_prot_ufp_timer_start_time_pps_timeout == 0) {
+                    pd_prot_ufp_timer_start_time_pps_timeout = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_pps_timeout = millis();
+                if (pd_prot_dfp_timer_start_time_pps_timeout == 0) {
+                    pd_prot_dfp_timer_start_time_pps_timeout = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1084,12 +1247,16 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
-    case prot_err_hard_reset:
+        case prot_err_hard_reset:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_prot_err_hard_reset = millis();
+                if (pd_prot_ufp_timer_start_time_prot_err_hard_reset == 0) {
+                    pd_prot_ufp_timer_start_time_prot_err_hard_reset = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_prot_err_hard_reset = millis();
+                if (pd_prot_dfp_timer_start_time_prot_err_hard_reset == 0) {
+                    pd_prot_dfp_timer_start_time_prot_err_hard_reset = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1099,12 +1266,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case prot_err_soft_reset:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_prot_err_soft_reset = millis();
+                if (pd_prot_ufp_timer_start_time_prot_err_soft_reset == 0) {
+                    pd_prot_ufp_timer_start_time_prot_err_soft_reset = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_prot_err_soft_reset = millis();
+                if (pd_prot_dfp_timer_start_time_prot_err_soft_reset == 0) {
+                    pd_prot_dfp_timer_start_time_prot_err_soft_reset = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1114,12 +1286,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case pr_swap_wait:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_pr_swap_wait = millis();
+                if (pd_prot_ufp_timer_start_time_pr_swap_wait == 0) {
+                    pd_prot_ufp_timer_start_time_pr_swap_wait = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_pr_swap_wait = millis();
+                if (pd_prot_dfp_timer_start_time_pr_swap_wait == 0) {
+                    pd_prot_dfp_timer_start_time_pr_swap_wait = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1129,12 +1306,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case ps_hard_reset:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_ps_hard_reset = millis();
+                if (pd_prot_ufp_timer_start_time_ps_hard_reset == 0) {
+                    pd_prot_ufp_timer_start_time_ps_hard_reset = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_ps_hard_reset = millis();
+                if (pd_prot_dfp_timer_start_time_ps_hard_reset == 0) {
+                    pd_prot_dfp_timer_start_time_ps_hard_reset = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1144,12 +1326,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case spr_ps_source_off:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_spr_ps_source_off = millis();
+                if (pd_prot_ufp_timer_start_time_spr_ps_source_off == 0) {
+                    pd_prot_ufp_timer_start_time_spr_ps_source_off = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_spr_ps_source_off = millis();
+                if (pd_prot_dfp_timer_start_time_spr_ps_source_off == 0) {
+                    pd_prot_dfp_timer_start_time_spr_ps_source_off = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1159,12 +1346,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case epr_ps_source_off:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_epr_ps_source_off = millis();
+                if (pd_prot_ufp_timer_start_time_epr_ps_source_off == 0) {
+                    pd_prot_ufp_timer_start_time_epr_ps_source_off = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_epr_ps_source_off = millis();
+                if (pd_prot_dfp_timer_start_time_epr_ps_source_off == 0) {
+                    pd_prot_dfp_timer_start_time_epr_ps_source_off = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1174,12 +1366,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case ps_source_on:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_ps_source_on = millis();
+                if (pd_prot_ufp_timer_start_time_ps_source_on == 0) {
+                    pd_prot_ufp_timer_start_time_ps_source_on = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_ps_source_on = millis();
+                if (pd_prot_dfp_timer_start_time_ps_source_on == 0) {
+                    pd_prot_dfp_timer_start_time_ps_source_on = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1189,12 +1386,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case spr_ps_transition:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_spr_ps_transition = millis();
+                if (pd_prot_ufp_timer_start_time_spr_ps_transition == 0) {
+                    pd_prot_ufp_timer_start_time_spr_ps_transition = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_spr_ps_transition = millis();
+                if (pd_prot_dfp_timer_start_time_spr_ps_transition == 0) {
+                    pd_prot_dfp_timer_start_time_spr_ps_transition = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1204,12 +1406,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case epr_ps_transition:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_epr_ps_transition = millis();
+                if (pd_prot_ufp_timer_start_time_epr_ps_transition == 0) {
+                    pd_prot_ufp_timer_start_time_epr_ps_transition = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_epr_ps_transition = millis();
+                if (pd_prot_dfp_timer_start_time_epr_ps_transition == 0) {
+                    pd_prot_dfp_timer_start_time_epr_ps_transition = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1219,12 +1426,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case receive:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_receive = millis();
+                if (pd_prot_ufp_timer_start_time_receive == 0) {
+                    pd_prot_ufp_timer_start_time_receive = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_receive = millis();
+                if (pd_prot_dfp_timer_start_time_receive == 0) {
+                    pd_prot_dfp_timer_start_time_receive = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1234,12 +1446,16 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
-    case receive_responce:
+        case receive_responce:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_receive_responce = millis();
+                if (pd_prot_ufp_timer_start_time_receive_responce == 0) {
+                    pd_prot_ufp_timer_start_time_receive_responce = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_receive_responce = millis();
+                if (pd_prot_dfp_timer_start_time_receive_responce == 0) {
+                    pd_prot_dfp_timer_start_time_receive_responce = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1249,12 +1465,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case retry:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_retry = millis();
+                if (pd_prot_ufp_timer_start_time_retry == 0) {
+                    pd_prot_ufp_timer_start_time_retry = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_retry = millis();
+                if (pd_prot_dfp_timer_start_time_retry == 0) {
+                    pd_prot_dfp_timer_start_time_retry = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1264,12 +1485,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case sender_responce:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_sender_responce = millis();
+                if (pd_prot_ufp_timer_start_time_sender_responce == 0) {
+                    pd_prot_ufp_timer_start_time_sender_responce = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_sender_responce = millis();
+                if (pd_prot_dfp_timer_start_time_sender_responce == 0) {
+                    pd_prot_dfp_timer_start_time_sender_responce = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1279,12 +1505,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case sink_delay:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_sink_delay = millis();
+                if (pd_prot_ufp_timer_start_time_sink_delay == 0) {
+                    pd_prot_ufp_timer_start_time_sink_delay = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_sink_delay = millis();
+                if (pd_prot_dfp_timer_start_time_sink_delay == 0) {
+                    pd_prot_dfp_timer_start_time_sink_delay = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1294,12 +1525,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case sink_tx:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_sink_tx = millis();
+                if (pd_prot_ufp_timer_start_time_sink_tx == 0) {
+                    pd_prot_ufp_timer_start_time_sink_tx = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_sink_tx = millis();
+                if (pd_prot_dfp_timer_start_time_sink_tx == 0) {
+                    pd_prot_dfp_timer_start_time_sink_tx = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1309,12 +1545,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case soft_reset:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_soft_reset = millis();
+                if (pd_prot_ufp_timer_start_time_soft_reset == 0) {
+                    pd_prot_ufp_timer_start_time_soft_reset = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_soft_reset = millis();
+                if (pd_prot_dfp_timer_start_time_soft_reset == 0) {
+                    pd_prot_dfp_timer_start_time_soft_reset = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1324,12 +1565,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case scr_holds_bus:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_scr_holds_bus = millis();
+                if (pd_prot_ufp_timer_start_time_scr_holds_bus == 0) {
+                    pd_prot_ufp_timer_start_time_scr_holds_bus = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_scr_holds_bus = millis();
+                if (pd_prot_dfp_timer_start_time_scr_holds_bus == 0) {
+                    pd_prot_dfp_timer_start_time_scr_holds_bus = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1339,12 +1585,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case swap_sink_ready:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_swap_sink_ready = millis();
+                if (pd_prot_ufp_timer_start_time_swap_sink_ready == 0) {
+                    pd_prot_ufp_timer_start_time_swap_sink_ready = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_swap_sink_ready = millis();
+                if (pd_prot_dfp_timer_start_time_swap_sink_ready == 0) {
+                    pd_prot_dfp_timer_start_time_swap_sink_ready = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1354,12 +1605,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case swap_source_start:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_swap_source_start = millis();
+                if (pd_prot_ufp_timer_start_time_swap_source_start == 0) {
+                    pd_prot_ufp_timer_start_time_swap_source_start = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_swap_source_start = millis();
+                if (pd_prot_dfp_timer_start_time_swap_source_start == 0) {
+                    pd_prot_dfp_timer_start_time_swap_source_start = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1369,12 +1625,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case transmit:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_transmit = millis();
+                if (pd_prot_ufp_timer_start_time_transmit == 0) {
+                    pd_prot_ufp_timer_start_time_transmit = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_transmit = millis();
+                if (pd_prot_dfp_timer_start_time_transmit == 0) {
+                    pd_prot_dfp_timer_start_time_transmit = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1384,12 +1645,16 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
-    case type_c_send_source_cap:
+        case type_c_send_source_cap:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_type_c_send_source_cap = millis();
+                if (pd_prot_ufp_timer_start_time_type_c_send_source_cap == 0) {
+                    pd_prot_ufp_timer_start_time_type_c_send_source_cap = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_type_c_send_source_cap = millis();
+                if (pd_prot_dfp_timer_start_time_type_c_send_source_cap == 0) {
+                    pd_prot_dfp_timer_start_time_type_c_send_source_cap = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1399,12 +1664,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case type_c_sink_wait_cap:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_type_c_sink_wait_cap = millis();
+                if (pd_prot_ufp_timer_start_time_type_c_sink_wait_cap == 0) {
+                    pd_prot_ufp_timer_start_time_type_c_sink_wait_cap = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_type_c_sink_wait_cap = millis();
+                if (pd_prot_dfp_timer_start_time_type_c_sink_wait_cap == 0) {
+                    pd_prot_dfp_timer_start_time_type_c_sink_wait_cap = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1414,12 +1684,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case vconn_source_discharge:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_vconn_source_discharge = millis();
+                if (pd_prot_ufp_timer_start_time_vconn_source_discharge == 0) {
+                    pd_prot_ufp_timer_start_time_vconn_source_discharge = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_vconn_source_discharge = millis();
+                if (pd_prot_dfp_timer_start_time_vconn_source_discharge == 0) {
+                    pd_prot_dfp_timer_start_time_vconn_source_discharge = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1429,12 +1704,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case vconn_source_off:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_vconn_source_off = millis();
+                if (pd_prot_ufp_timer_start_time_vconn_source_off == 0) {
+                    pd_prot_ufp_timer_start_time_vconn_source_off = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_vconn_source_off = millis();
+                if (pd_prot_dfp_timer_start_time_vconn_source_off == 0) {
+                    pd_prot_dfp_timer_start_time_vconn_source_off = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1444,12 +1724,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case vconn_source_on:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_vconn_source_on = millis();
+                if (pd_prot_ufp_timer_start_time_vconn_source_on == 0) {
+                    pd_prot_ufp_timer_start_time_vconn_source_on = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_vconn_source_on = millis();
+                if (pd_prot_dfp_timer_start_time_vconn_source_on == 0) {
+                    pd_prot_dfp_timer_start_time_vconn_source_on = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1459,12 +1744,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case vconn_source_timeout:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_vconn_source_timeout = millis();
+                if (pd_prot_ufp_timer_start_time_vconn_source_timeout == 0) {
+                    pd_prot_ufp_timer_start_time_vconn_source_timeout = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_vconn_source_timeout = millis();
+                if (pd_prot_dfp_timer_start_time_vconn_source_timeout == 0) {
+                    pd_prot_dfp_timer_start_time_vconn_source_timeout = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1474,12 +1764,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case vconn_swap_wait:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_vconn_swap_wait = millis();
+                if (pd_prot_ufp_timer_start_time_vconn_swap_wait == 0) {
+                    pd_prot_ufp_timer_start_time_vconn_swap_wait = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_vconn_swap_wait = millis();
+                if (pd_prot_dfp_timer_start_time_vconn_swap_wait == 0) {
+                    pd_prot_dfp_timer_start_time_vconn_swap_wait = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1489,12 +1784,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case vdm_busy:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_vdm_busy = millis();
+                if (pd_prot_ufp_timer_start_time_vdm_busy == 0) {
+                    pd_prot_ufp_timer_start_time_vdm_busy = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_vdm_busy = millis();
+                if (pd_prot_dfp_timer_start_time_vdm_busy == 0) {
+                    pd_prot_dfp_timer_start_time_vdm_busy = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1504,12 +1804,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case vdm_enter_mode:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_vdm_enter_mode = millis();
+                if (pd_prot_ufp_timer_start_time_vdm_enter_mode == 0) {
+                    pd_prot_ufp_timer_start_time_vdm_enter_mode = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_vdm_enter_mode = millis();
+                if (pd_prot_dfp_timer_start_time_vdm_enter_mode == 0) {
+                    pd_prot_dfp_timer_start_time_vdm_enter_mode = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1519,12 +1824,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case vdm_exit_mode:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_vdm_exit_mode = millis();
+                if (pd_prot_ufp_timer_start_time_vdm_exit_mode == 0) {
+                    pd_prot_ufp_timer_start_time_vdm_exit_mode = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_vdm_exit_mode = millis();
+                if (pd_prot_dfp_timer_start_time_vdm_exit_mode == 0) {
+                    pd_prot_dfp_timer_start_time_vdm_exit_mode = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1534,12 +1844,16 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
-    case vdm_receiver_responce:
+        case vdm_receiver_responce:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_vdm_receiver_responce = millis();
+                if (pd_prot_ufp_timer_start_time_vdm_receiver_responce == 0) {
+                    pd_prot_ufp_timer_start_time_vdm_receiver_responce = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_vdm_receiver_responce = millis();
+                if (pd_prot_dfp_timer_start_time_vdm_receiver_responce == 0) {
+                    pd_prot_dfp_timer_start_time_vdm_receiver_responce = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1549,12 +1863,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case vdm_sender_responce:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_vdm_sender_responce = millis();
+                if (pd_prot_ufp_timer_start_time_vdm_sender_responce == 0) {
+                    pd_prot_ufp_timer_start_time_vdm_sender_responce = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_vdm_sender_responce = millis();
+                if (pd_prot_dfp_timer_start_time_vdm_sender_responce == 0) {
+                    pd_prot_dfp_timer_start_time_vdm_sender_responce = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1564,12 +1883,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case vdm_wait_mode_entry:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_vdm_wait_mode_entry = millis();
+                if (pd_prot_ufp_timer_start_time_vdm_wait_mode_entry == 0) {
+                    pd_prot_ufp_timer_start_time_vdm_wait_mode_entry = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_vdm_wait_mode_entry = millis();
+                if (pd_prot_dfp_timer_start_time_vdm_wait_mode_entry == 0) {
+                    pd_prot_dfp_timer_start_time_vdm_wait_mode_entry = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1579,12 +1903,17 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
+    
     case vdm_wait_mode_exit:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_vdm_wait_mode_exit = millis();
+                if (pd_prot_ufp_timer_start_time_vdm_wait_mode_exit == 0) {
+                    pd_prot_ufp_timer_start_time_vdm_wait_mode_exit = millis();
+                }
             } else {
-                pd_prot_dfp_timer_start_time_vdm_wait_mode_exit = millis();
+                if (pd_prot_dfp_timer_start_time_vdm_wait_mode_exit == 0) {
+                    pd_prot_dfp_timer_start_time_vdm_wait_mode_exit = millis();
+                }
             }
         } else {
             if (ufp_dfp == ufp) {
@@ -1594,23 +1923,26 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
-    default:
-        //do nothing
-        break;
-    }
 
+    }
+    
     return;
 }
 
-//pd_prot_biuld_headder
-//biulds the headders of messages for pd protocol interaction
-//extended_msg: true=extended message false=nonextended messgae
-//n_data_objects: number of data objects to be transmitted
-//msg_id: message id for pd protocall shold be incermentd each message
-//power_role: sets the port power role (can be src or sink)
-//spec_revision: indecates supported protocall revision
-//data_role: data role of port that the messgae is being transmitted from
-//msg_type: 
+/**
+ * @brief Builds the header contents for a PD protocol message.
+ *
+ * This function constructs the header contents for a PD protocol message based on the provided parameters.
+ *
+ * @param extended_msg A boolean indicating whether the message is extended or not.
+ * @param n_data_objects The number of data objects in the message.
+ * @param msg_id The message ID.
+ * @param power_role The power role of the port.
+ * @param spec_revision The specification revision.
+ * @param data_role The data role of the port.
+ * @param msg_type The message type.
+ * @return The header contents for the PD protocol message.
+ */
 uint16_t pd_prot_biuld_headder (bool extended_msg, uint16_t n_data_objects, uint16_t msg_id, enum pd_prot_port_power_role power_role, uint16_t spec_revision, enum ufp_dfp data_role, uint16_t msg_type) {
     //init local vars
     uint16_t headder_contents = 0;
@@ -1669,12 +2001,18 @@ uint16_t pd_prot_biuld_headder (bool extended_msg, uint16_t n_data_objects, uint
 
 }
 
-//pd_prot_biuld_ext_headder
-//biulds the headders of extended messages for pd protocol interaction
-//chunked: set true if message is chunked
-//chunk_number: number of chunks in the message, use only when the cunked flag is set to ture
-//request_chunk: reqwest for a certan chunk of a data message
-//data_size: how many bytes in total the extended message is 
+/**
+ * @brief Builds the extended header for PD protocol.
+ *
+ * This function builds the extended header for PD protocol based on the provided parameters.
+ *
+ * @param chunked         A boolean indicating whether the message is chunked or not.
+ * @param chunk_number    The chunk number if the message is chunked.
+ * @param request_chunk   A boolean indicating whether the chunk is a request chunk or not.
+ * @param data_size       The size of the data in the message.
+ *
+ * @return The built extended header as a 16-bit unsigned integer.
+ */
 uint16_t pd_prot_biuld_ext_headder (bool chunked, uint16_t chunk_number, bool request_chunk, uint16_t data_size) {
     //init local vars
     uint16_t ext_headder_contents = 0;
@@ -1708,11 +2046,17 @@ uint16_t pd_prot_biuld_ext_headder (bool chunked, uint16_t chunk_number, bool re
     return ext_headder_contents;
 }
 
-//pd_prot_message_type
-//determines if the incoming message is extended or not
-//returns 
-//normal: message recived is not extended
-//extended: message is extended
+/**
+ * @brief Determines the message type for the given UFP/DFP port.
+ * 
+ * This function checks the received message contents for the specified UFP/DFP port
+ * and determines whether the message type is normal or extended. The message type is
+ * determined based on the most significant bit (MSB) of the first byte of the received
+ * message contents.
+ * 
+ * @param ufp_dfp The UFP/DFP port to check.
+ * @return The message type, either normal or extended.
+ */
 enum pd_prot_message_type_enum pd_prot_message_type (enum ufp_dfp ufp_dfp) {
 
     //select port to determine if its chunked
@@ -1731,10 +2075,12 @@ enum pd_prot_message_type_enum pd_prot_message_type (enum ufp_dfp ufp_dfp) {
     }
 }
 
-//pd_prot_ext_msg_chunked
-//determines if a extended message is chunked
-//true: message is chunked
-//false: message is not chunked
+/**
+ * Determines if the received PD message is chunked.
+ * 
+ * @param ufp_dfp The enum value representing the port type (ufp or dfp).
+ * @return True if the message is chunked, false otherwise.
+ */
 bool pd_prot_ext_msg_chunked (enum ufp_dfp ufp_dfp) {
 
     //select port to determine if its chunked
@@ -1754,8 +2100,14 @@ bool pd_prot_ext_msg_chunked (enum ufp_dfp ufp_dfp) {
 
 }
 
-//pd_prot_etx_msg_n_chunks
-//determines and returns the number of chunks in an extended message
+/**
+ * @brief Calculates the number of chunks in an extended message.
+ * 
+ * This function calculates the number of chunks in an extended message based on the type of port (ufp or dfp).
+ * 
+ * @param ufp_dfp The type of port (ufp or dfp).
+ * @return The number of chunks in the extended message.
+ */
 int pd_prot_ext_msg_n_chunks (enum ufp_dfp ufp_dfp) {
 
     //detrmine port to chek
@@ -1766,12 +2118,14 @@ int pd_prot_ext_msg_n_chunks (enum ufp_dfp ufp_dfp) {
     }
 }
 
-
-//pd_prot_chek_soft_reset
-//checks if the recived message is a soft reset command
-//ufp_dfp: port to check
-//true: soft reset recived
-//false: message is not a soft reset command
+/**
+ * @brief Checks if a soft reset has occurred.
+ * 
+ * This function checks if a soft reset has occurred based on the received message contents.
+ * 
+ * @param ufp_dfp The type of device (UFP or DFP).
+ * @return True if a soft reset has occurred, false otherwise.
+ */
 bool pd_prot_check_soft_reset (enum ufp_dfp ufp_dfp) {
 
     if (ufp_dfp == ufp) {
@@ -1789,8 +2143,15 @@ bool pd_prot_check_soft_reset (enum ufp_dfp ufp_dfp) {
     }
 }
 
-//pd_prot_discard_message
-//discards the most recently recived message of the selceted port
+/**
+ * @brief Discards the message and resets receive variables for a given port.
+ * 
+ * This function is used to discard the message and reset all receive variables for a given port.
+ * It takes an enum parameter `ufp_dfp` which specifies whether the port is UFP (Upstream Facing Port) or DFP (Downstream Facing Port).
+ * If the port is UFP, it resets the receive variables for UFP. If the port is DFP, it resets the receive variables for DFP.
+ * 
+ * @param ufp_dfp The enum value specifying the port type (UFP or DFP).
+ */
 void pd_prot_discard_message (enum ufp_dfp ufp_dfp) {
 
     if (ufp_dfp == ufp) {
@@ -1815,9 +2176,12 @@ void pd_prot_discard_message (enum ufp_dfp ufp_dfp) {
     }
 }
 
-
-//pd_prot_determine_last_data_message_type
-//determines what the last recived message type was
+/**
+ * @brief Determines the last data message type based on the selected port.
+ * 
+ * @param ufp_dfp The selected port (ufp or dfp).
+ * @return The last data message type.
+ */
 enum pd_prot_data_msg_enum pd_prot_determine_last_data_message_type (enum ufp_dfp ufp_dfp){
     
     //select port to check
@@ -1829,7 +2193,7 @@ enum pd_prot_data_msg_enum pd_prot_determine_last_data_message_type (enum ufp_df
         } else if ((pd_phy_ufp_last_recived_message_contents[1] & pd_prot_data_msg_bist) == pd_prot_data_msg_bist) {
             return bist;
         } else if ((pd_phy_ufp_last_recived_message_contents[1] & pd_prot_data_msg_enter_usb) == pd_prot_data_msg_enter_usb) {
-            return enter_usb;
+            return enter_usb_msg;
         } else if ((pd_phy_ufp_last_recived_message_contents[1] & pd_prot_data_msg_epr_request) == pd_prot_data_msg_epr_request) {
             return epr_request;
         } else if ((pd_phy_ufp_last_recived_message_contents[1] & pd_prot_data_msg_get_country_info) == pd_prot_data_msg_get_country_info) {
@@ -1853,7 +2217,7 @@ enum pd_prot_data_msg_enum pd_prot_determine_last_data_message_type (enum ufp_df
         } else if ((pd_phy_dfp_last_recived_message_contents[1] & pd_prot_data_msg_bist) == pd_prot_data_msg_bist) {
             return bist;
         } else if ((pd_phy_dfp_last_recived_message_contents[1] & pd_prot_data_msg_enter_usb) == pd_prot_data_msg_enter_usb) {
-            return enter_usb;
+            return enter_usb_msg;
         } else if ((pd_phy_dfp_last_recived_message_contents[1] & pd_prot_data_msg_epr_request) == pd_prot_data_msg_epr_request) {
             return epr_request;
         } else if ((pd_phy_dfp_last_recived_message_contents[1] & pd_prot_data_msg_get_country_info) == pd_prot_data_msg_get_country_info) {
@@ -1870,12 +2234,14 @@ enum pd_prot_data_msg_enum pd_prot_determine_last_data_message_type (enum ufp_df
             return source_info;
         }
     }
+    return void_msg;
 }
 
-
+/*
 enum pd_prot_power_cap_enum pd_prot_pdo_determiner (enum ufp_dfp ufp_dfp) {
     
 }
+
 
 void pd_prot_hard_reset_handeler (enum ufp_dfp ufp_dfp, bool from_policy_engine) {
     //discard last recived message
@@ -1890,10 +2256,18 @@ void pd_prot_hard_reset_handeler (enum ufp_dfp ufp_dfp, bool from_policy_engine)
     }
 
 }
+*/
 
-//pd_prot_set_last_message
-//sets last message vars 
-//this function must be called after createing/splitting a message
+/**
+ * @brief Sets the last message for the specified UFP/DFP.
+ * 
+ * This function sets the last message for the specified UFP (Upstream Facing Port) or DFP (Downstream Facing Port).
+ * The last message is stored in an array and its length is also updated.
+ * 
+ * @param ufp_dfp The UFP/DFP for which to set the last message.
+ * @param message The message to be set as the last message.
+ * @param length_of_message The length of the message.
+ */
 void pd_prot_set_last_message(enum ufp_dfp ufp_dfp, uint8_t message[256], uint8_t length_of_message) {
     if (ufp_dfp == ufp) {
         for (int i; i < 255; ++i) {
@@ -1910,8 +2284,15 @@ void pd_prot_set_last_message(enum ufp_dfp ufp_dfp, uint8_t message[256], uint8_
     }
 }
 
-//pd_prot_transmit_soucre_capibilitiys
-//transmits source PDOs based on the selcted power cap of the port 
+/**
+ * @brief Transmits the source capabilities message for the specified UFP/DFP port.
+ *
+ * This function builds and transmits a message containing the source capabilities for the specified UFP/DFP port.
+ * The message includes the number of PDOs and the current message ID. The PDOs are appended to the message based on
+ * the given power capability of the port.
+ *
+ * @param ufp_dfp The type of port (UFP or DFP) for which to transmit the source capabilities.
+ */
 void pd_prot_transmit_soucre_capibilitiys (enum ufp_dfp ufp_dfp) {
     //init local vars
     uint8_t message[256];
@@ -2172,10 +2553,14 @@ void pd_prot_transmit_soucre_capibilitiys (enum ufp_dfp ufp_dfp) {
     return;
 }
 
-//pd_prot_transmit_command
-//transmits usbpd command messages
-//ufp_dfp: port to send command from
-//pd_prot_cont_msg_enum: what command to send
+/**
+ * @brief Transmits a PD protocol command.
+ *
+ * This function transmits a PD protocol command based on the provided command type.
+ *
+ * @param ufp_dfp The type of port (UFP or DFP) to transmit the command on.
+ * @param pd_prot_cont_msg_enum The PD protocol command type to transmit.
+ */
 void pd_prot_transmit_command (enum ufp_dfp ufp_dfp, enum pd_prot_cont_msg_enum pd_prot_cont_msg_enum) {
     //init local vars
     uint8_t message[256];
@@ -2216,10 +2601,10 @@ void pd_prot_transmit_command (enum ufp_dfp ufp_dfp, enum pd_prot_cont_msg_enum 
     case wait:
         selected_comand = pd_prot_cont_msg_wait;
         break;
-    case soft_reset:
+    case soft_reset_msg:
         selected_comand = pd_prot_cont_msg_soft_reset;
         break;
-    case data_reset:
+    case data_reset_msg:
         selected_comand = pd_prot_cont_msg_data_reset;
         break;
     case data_reset_complete:
@@ -2266,7 +2651,17 @@ void pd_prot_transmit_command (enum ufp_dfp ufp_dfp, enum pd_prot_cont_msg_enum 
 
 }
 
-//normal message state machine
+/**
+ * @brief Handles the receive state machine for the PD protocol.
+ *
+ * This function is responsible for processing received messages and performing
+ * necessary checks and actions based on the message content and the current
+ * state of the protocol. It checks for soft reset, verifies the message ID,
+ * and passes the message to the policy engine for further processing.
+ *
+ * @param ufp_dfp The role of the device (UFP or DFP) for which the receive
+ *                state machine is being executed.
+ */
 void pd_prot_rx_state_machine(enum ufp_dfp ufp_dfp) {
 
     //check for soft reset
@@ -2296,7 +2691,16 @@ void pd_prot_rx_state_machine(enum ufp_dfp ufp_dfp) {
 
 }
 
-//chunked rx statemachine
+/**
+ * @brief Handles the state machine for receiving chunked messages in the PD protocol.
+ * 
+ * This function is responsible for managing the reception of chunked messages in the PD protocol.
+ * It resets the extended receive buffer and abort flags based on the UFP/DFP type.
+ * If the received message is an extended message and is chunked, it performs additional checks.
+ * Otherwise, it calls the `pd_prot_rx_state_machine` function to handle the reception of non-chunked messages.
+ * 
+ * @param ufp_dfp The type of UFP/DFP (UFP or DFP).
+ */
 void pd_prot_chunked_rx_state_machine(enum ufp_dfp ufp_dfp) {
     //init local vars
 
@@ -2337,111 +2741,140 @@ void pd_prot_chunked_rx_state_machine(enum ufp_dfp ufp_dfp) {
 
 
 
+/**
+ * @brief Implements the policy engine for the source port in the PD protocol.
+ * 
+ * This function is responsible for handling the state transitions and actions
+ * of the source port policy engine in the PD protocol. It takes an argument
+ * `ufp_dfp` which specifies whether the port is a UFP (Upstream Facing Port)
+ * or a DFP (Downstream Facing Port).
+ * 
+ * @param ufp_dfp The type of the port (UFP or DFP).
+ */
 void pd_prot_src_port_policy_engine (enum ufp_dfp ufp_dfp) {
 
-
-    if (ufp_dfp = ufp) {
-        switch (pd_prot_ufp_pe_current_state){
+    if (ufp_dfp == ufp) {
+        switch (pd_prot_ufp_pe_current_state) {
             case pe_src_hard_reset_recived:
-                //start timers
-                pd_prot_timer_controler(ufp_dfp, ps_hard_reset, start);
-                pd_prot_timer_controler(ufp_dfp, no_responce, start);
+                if (pd_prot_ufp_pe_prev_state != pe_src_hard_reset_recived) {
+                    // start timers
+                    pd_prot_timer_controler(ufp_dfp, ps_hard_reset, start);
+                    pd_prot_timer_controler(ufp_dfp, no_responce, start);
 
-            
-                pd_power_cont_en_vsafe5v(ufp_dfp);
-
+                    pd_power_cont_en_vsafe5v(ufp_dfp);
+                }
                 break;
             case pe_src_transition_to_dflt:
-                //kill vconn power
-                pd_phy_vconn_cont(ufp_dfp, off);
+                if (pd_prot_ufp_pe_prev_state != pe_src_transition_to_dflt) {
+                    // kill vconn power
+                    pd_phy_vconn_cont(ufp_dfp, off);
 
-                //set port data role to dfp
-                pd_prot_ufp_pe_port_data_role = dfp;
+                    // set port data role to dfp
+                    pd_prot_ufp_pe_port_data_role = dfp;
 
-                //turn vconn power back on 
-                pd_phy_vconn_cont(ufp_dfp, on);
+                    // turn vconn power back on 
+                    pd_phy_vconn_cont(ufp_dfp, on);
 
-                //reset timer
-                pd_prot_timer_controler(ufp_dfp, ps_hard_reset, stop);
+                    // reset timer
+                    pd_prot_timer_controler(ufp_dfp, ps_hard_reset, stop);
 
-                //set current state var
-                pd_prot_ufp_pe_current_state = pe_src_startup;
-
+                    // set current state var
+                    pd_prot_ufp_pe_current_state = pe_src_startup;
+                }
                 break;
             case pe_src_startup:
-                //reset caps counter
-                pd_prot_ufp_counter_caps = 0;
+                if (pd_prot_ufp_pe_prev_state != pe_src_startup) {
+                    // reset caps counter
+                    pd_prot_ufp_counter_caps = 0;
 
-                //rest protocol layer
+                    // reset protocol layer
+                    // ...
 
-
-                //this willc hange later 
-            
+                    // this will change later 
+                }
                 break;
             case pe_src_discovery:
-                pd_prot_timer_controler(ufp_dfp, fisrt_source_cap, start);
-                if ((pd_prot_ufp_counter_caps == pd_prot_counter_th_caps) && (pd_prot_ufp_counter_hard_reset == pd_prot_counter_th_hard_reset)) {
-                    pd_prot_ufp_pe_current_state = pe_src_disabled;
+                if (pd_prot_ufp_pe_prev_state != pe_src_discovery) {
+                    pd_prot_timer_controler(ufp_dfp, fisrt_source_cap, start);
+                    if ((pd_prot_ufp_counter_caps == pd_prot_counter_th_caps) && (pd_prot_ufp_counter_hard_reset == pd_prot_counter_th_hard_reset)) {
+                        pd_prot_ufp_pe_current_state = pe_src_disabled;
+                    }
                 }
                 break;
             case pe_src_send_capabilitiys:
-                //send souce capabilitiys 
-                pd_prot_transmit_soucre_capibilitiys(ufp);
+                if (pd_prot_ufp_pe_prev_state != pe_src_send_capabilitiys) {
+                    // send source capabilities 
+                    pd_prot_transmit_soucre_capibilitiys(ufp);
 
-                //check if we got a good crc 
-                if (pd_prot_ufp_last_good_crc){
-                    //reset the crc flag
-                    pd_prot_ufp_last_good_crc = false;
-                    pd_prot_timer_controler(ufp_dfp, no_responce, stop);
-                    pd_prot_timer_controler(ufp_dfp, sender_responce, start);
+                    // check if we got a good crc 
+                    if (pd_prot_ufp_last_good_crc) {
+                        // reset the crc flag
+                        pd_prot_ufp_last_good_crc = false;
+                        pd_prot_timer_controler(ufp_dfp, no_responce, stop);
+                        pd_prot_timer_controler(ufp_dfp, sender_responce, start);
 
-                    //recive message if it has arrived
-                    if (pd_phy_ufp_last_recived_message_lenght != 0) {
-                        if (pd_prot_determine_last_data_message_type == sink_capabilitiys) {
-                            pd_prot_ufp_pe_current_state = pe_src_negotiate_capabilitiys;
+                        // receive message if it has arrived
+                        if (pd_phy_ufp_last_recived_message_lenght != 0) {
+                            if (pd_prot_determine_last_data_message_type(ufp) == sink_capabilitiys) {
+                                pd_prot_ufp_pe_current_state = pe_src_negotiate_capabilitiys;
+                            }
                         }
+                    } else {
+                        pd_prot_ufp_pe_current_state = pe_src_discovery;
                     }
-
-                } else {
-                    pd_prot_ufp_pe_current_state = pe_src_discovery;
                 }
                 break;
             case pe_src_disabled:
-                pd_power_cont_return_to_base_state(ufp_dfp);
+                if (pd_prot_ufp_pe_prev_state != pe_src_disabled) {
+                    pd_power_cont_return_to_base_state(ufp_dfp);
+                }
                 break;
             case pe_src_negotiate_capabilitiys:
-                
-
-
+                if (pd_prot_ufp_pe_prev_state != pe_src_negotiate_capabilitiys) {
+                    // something
+                }
                 break;
             case pe_src_transition_supply:
-                //something
+                if (pd_prot_ufp_pe_prev_state != pe_src_transition_supply) {
+                    // something
+                }
                 break;
             case pe_src_ready:
-                //soething
+                if (pd_prot_ufp_pe_prev_state != pe_src_ready) {
+                    // something
+                }
                 break;
             case pe_src_epr_keep_alive:
-                //something
+                if (pd_prot_ufp_pe_prev_state != pe_src_epr_keep_alive) {
+                    // something
+                }
                 break;
             case pe_src_get_sink_cap:
-                //soething
+                if (pd_prot_ufp_pe_prev_state != pe_src_get_sink_cap) {
+                    // something
+                }
                 break;
             case pe_src_give_souce_cap:
-                //something
+                if (pd_prot_ufp_pe_prev_state != pe_src_give_souce_cap) {
+                    // something
+                }
                 break;
             case pe_src_capabilitiy_response:
-                //soething
+                if (pd_prot_ufp_pe_prev_state != pe_src_capabilitiy_response) {
+                    // something
+                }
                 break;
             case pe_src_wait_new_capabilitiys:
-                //somethig
+                if (pd_prot_ufp_pe_prev_state != pe_src_wait_new_capabilitiys) {
+                    // something
+                }
                 break;
-            
+            pd_prot_ufp_pe_prev_state = pd_prot_ufp_pe_current_state; // update previous state
         }
+
+
     }
-
-
 }
-
 
 
 

@@ -25,8 +25,11 @@
 #include "hub.h"
 
 
-//hub_reg_write 
-//just write the 2 bytes of the register
+/**
+ * Writes a 16-bit value to the hub register.
+ * 
+ * @param input The value to be written to the hub register.
+ */
 void hub_reg_write (uint16_t input) {
     //init local vars
     uint8_t hub_reg_msb = 0;
@@ -40,8 +43,9 @@ void hub_reg_write (uint16_t input) {
     return;
 }
 
-//hub_send_reboot
-//sends reboot command to hub
+/**
+ * Sends a reboot command to the hub.
+ */
 void hub_send_reboot() {
     Wire.beginTransmission(hub_addr);
     hub_reg_write(0x9936);
@@ -50,8 +54,9 @@ void hub_send_reboot() {
     return;
 }
 
-//hub_send_usb_attach
-//sends usb attach command to hub
+/**
+ * Sends a USB attach signal to the hub.
+ */
 void hub_send_usb_attach() {
     Wire.beginTransmission(hub_addr);
     hub_reg_write(0xAA55);
@@ -60,8 +65,9 @@ void hub_send_usb_attach() {
     return;
 }
 
-//hub_send_usb_attach_with_smbus_active
-//sends usb attach with smbus active command to hub
+/**
+ * Sends a USB attach command with SMBus active to the hub.
+ */
 void hub_send_usb_attach_with_smbus_active() {
     Wire.beginTransmission(hub_addr);
     hub_reg_write(0xAA56);
@@ -70,8 +76,9 @@ void hub_send_usb_attach_with_smbus_active() {
     return;
 }
 
-//hub_send_command_register_accsess_command
-//sends command register access command command to hub
+/**
+ * Sends a command to register access command to the hub.
+ */
 void hub_send_command_register_accsess_command() {
     Wire.beginTransmission(hub_addr);
     hub_reg_write(0x9937);
@@ -80,8 +87,9 @@ void hub_send_command_register_accsess_command() {
     return;
 }
 
-//hub_send_otp_write
-//sends OTP write command to hub
+/**
+ * Sends a write command to the hub to perform OTP (One-Time Programmable) write operation.
+ */
 void hub_send_otp_write() {
     Wire.beginTransmission(hub_addr);
     hub_reg_write(0x9933);
@@ -90,8 +98,9 @@ void hub_send_otp_write() {
     return;
 }
 
-//hub_send_otp_read
-//sends OTP read command to hub
+/**
+ * Sends a command to the hub to read the OTP (One-Time Programmable) memory.
+ */
 void hub_send_otp_read() {
     Wire.beginTransmission(hub_addr);
     hub_reg_write(0x9934);
@@ -100,7 +109,11 @@ void hub_send_otp_read() {
     return;
 }
 
-//hub init fuction
+/**
+ * Initializes the hub by sending commands to configure various registers.
+ * This function sets the default values for different hub registers.
+ * 
+ */
 void hub_init() {
 
     hub_send_command_register_accsess_command();

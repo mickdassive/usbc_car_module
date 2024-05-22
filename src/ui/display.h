@@ -21,6 +21,7 @@
 #define display_defines_h
 
 #include <Arduino.h>
+#include "pd/pd_phy.h"
 
 //display driver drightness var
 const uint8_t disp_intense_defult = 0xFF; //set this number in hex to set 7 segment display brightness
@@ -84,13 +85,6 @@ const uint8_t disp_num_9 = 0b01111011;
 const uint8_t disp_num_dp = 0b10000000;
 
 
-//led control defines
-
-enum led_on_off {
-  on,
-  off
-};
-
 struct leds {
   uint8_t mask;
   int digit;
@@ -114,7 +108,7 @@ void disp_init();
 void disp_blank();
 void disp_bright(uint8_t desired_brightness);
 void disp_write(float input);
-void disp_led_write (struct leds leds, enum led_on_off led_on_off);
+void disp_led_write (struct leds leds, enum on_off led_on_off);
 
 
 

@@ -4,5 +4,6 @@
         "string_view": "cpp",
         "ranges": "cpp",
         "type_traits": "cpp"
-    }
+    },
+    "cmake.configureOnOpen": false
 }

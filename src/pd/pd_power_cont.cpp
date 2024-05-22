@@ -32,7 +32,15 @@ int pd_power_cont_dfp_current_voltage = 0;
 bool pd_power_cont_ufp_allow_output = false;
 bool pd_power_cont_dfp_allow_output = false;
 
-//disabels given port output
+
+/**
+ * @brief Resets the power control state to the base state for the specified UFP/DFP.
+ *
+ * This function resets the power control state to the base state for the specified UFP/DFP.
+ * It sets the current voltage to 0, clears the ADC thresholds, and writes low values to various IO pins.
+ *
+ * @param ufp_dfp The UFP/DFP type (ufp or dfp).
+ */
 void pd_power_cont_return_to_base_state (enum ufp_dfp ufp_dfp) {
 
     if (ufp_dfp == ufp) {
@@ -66,8 +74,11 @@ void pd_power_cont_return_to_base_state (enum ufp_dfp ufp_dfp) {
     return;
 }
 
-//sets buck cotroler for a given port to output 5 volts
-//ufp_dfp: select port to en vsafe5v
+/**
+ * Enables the VSafe5V power control for the specified UFP/DFP mode.
+ *
+ * @param ufp_dfp The UFP/DFP mode to enable VSafe5V power control for.
+ */
 void pd_power_cont_en_vsafe5v (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
         if (pd_power_cont_ufp_allow_output != true) {
@@ -116,8 +127,11 @@ void pd_power_cont_en_vsafe5v (enum ufp_dfp ufp_dfp) {
     return;    
 }
 
-//sets buck cotroler for a given port to output 9 volts
-//ufp_dfp: select port to en 9 volt out
+/**
+ * Enables the power control for 9V voltage level based on the specified UFP/DFP mode.
+ *
+ * @param ufp_dfp The UFP/DFP mode (ufp or dfp).
+ */
 void pd_power_cont_en_9v (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
         if (pd_power_cont_ufp_allow_output != true) {
@@ -165,8 +179,11 @@ void pd_power_cont_en_9v (enum ufp_dfp ufp_dfp) {
     return;    
 }
 
-//sets buck cotroler for a given port to output 12 volts
-//ufp_dfp: select port to en 12 volt out
+/**
+ * Enables the 12V power control for the specified UFP/DFP.
+ *
+ * @param ufp_dfp The UFP/DFP type (ufp or dfp).
+ */
 void pd_power_cont_en_12v (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
         if (pd_power_cont_ufp_allow_output  != true) {
@@ -214,8 +231,16 @@ void pd_power_cont_en_12v (enum ufp_dfp ufp_dfp) {
     return;    
 }
 
-//sets buck cotroler for a given port to output 15 volts
-//ufp_dfp: select port to en 15 volt out
+/**
+ * @brief Enables the power control for 15V on the USB Type-C port.
+ * 
+ * This function sets the current voltage to 15V and configures the necessary
+ * I/O calls and ADC thresholds based on the type of USB port (UFP or DFP).
+ * If the output is not allowed, it returns to the base state where the output
+ * is disabled.
+ * 
+ * @param ufp_dfp The type of USB port (UFP or DFP).
+ */
 void pd_power_cont_en_15v (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
         if (pd_power_cont_ufp_allow_output  != true) {
@@ -263,8 +288,16 @@ void pd_power_cont_en_15v (enum ufp_dfp ufp_dfp) {
     return;    
 }
 
-//sets buck cotroler for a given port to output 20 volts
-//ufp_dfp: select port to en 20 volt out
+/**
+ * @brief Enables the power control for 20V on the USB Type-C port.
+ * 
+ * This function sets the current voltage to 20V and configures the necessary
+ * I/O calls and ADC thresholds based on the type of port (UFP or DFP).
+ * If the output is not allowed for the specified port, it returns to the base state
+ * where the output is not allowed.
+ * 
+ * @param ufp_dfp The type of port (UFP or DFP).
+ */
 void pd_power_cont_en_20v (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
         if (pd_power_cont_ufp_allow_output  != true) {
@@ -312,11 +345,17 @@ void pd_power_cont_en_20v (enum ufp_dfp ufp_dfp) {
     return;    
 }
 
-//pd_power_cont_pgood determines if the current voltage for a given port is within 10% of what it shold be
-//ufp_dfp: select port to read voltage from
-//voltage: voltage that we are cheking for
-//true = voltage good & within range
-//false = voltage more than 10% out 
+/**
+ * @brief Checks if the power controller's output voltage is within a valid range.
+ * 
+ * This function calculates the expected voltage after the voltage divider and
+ * then converts it to counts based on the ADC's reference voltage. It then checks
+ * if the ADC reading for the corresponding channel is within the valid range.
+ * 
+ * @param ufp_dfp The type of power controller (UFP or DFP).
+ * @param voltage The input voltage to the power controller.
+ * @return True if the power controller's output voltage is within the valid range (10%), false otherwise.
+ */
 bool pd_power_cont_pgood (enum ufp_dfp ufp_dfp, int voltage) {
     //init local vars 
     float upper_valid_value = 0;
@@ -351,10 +390,15 @@ bool pd_power_cont_pgood (enum ufp_dfp ufp_dfp, int voltage) {
     return false;
 }
 
-
-//full voltage range check
-//true = passed
-//false = failed
+/**
+ * @brief Performs a self-check of the power control module.
+ * 
+ * This function tests the power control module by sequentially enabling and disabling different voltage levels
+ * and checking if the power good signal is received for each voltage level. The function returns true if all tests pass,
+ * otherwise it returns false.
+ * 
+ * @return true if all tests pass, false otherwise.
+ */
 bool pd_power_cont_self_check () {
     //init local vars
     int n_tests_passed = 0;

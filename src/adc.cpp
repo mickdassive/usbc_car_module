@@ -24,7 +24,16 @@
 #include <Wire.h>
 #include "adc.h"
 
-//initiates the self cal rutine on the adc and waits till its compltete and returns
+
+/**
+ * @brief Performs self calibration for the ADC module.
+ * 
+ * This function starts a self calibration process for the ADC module. It reads the current configuration state
+ * of the ADC, sets the self calibration bit, and writes the updated configuration back to the ADC. Then, it continuously
+ * checks the self calibration bit until it is cleared, indicating that the calibration process is complete.
+ * 
+ * @note This function assumes that the ADC module is connected and accessible via the Wire library.
+ */
 void adc_self_cal () {
   //local vars
   bool cal_complete = false;
@@ -82,8 +91,21 @@ void adc_self_cal () {
   return; 
 }
 
-//adc bootup init
-//fast_mode: when set to true the i2c bus will be jump up to fast mode speed when sending channel config data to the adc
+/**
+ * @brief Initializes the ADC module with the specified configuration.
+ * 
+ * This function initializes the ADC module by configuring various parameters such as
+ * general configuration, data configuration, oversampling setup, mode and clock setup,
+ * pin modes, sequence configuration, alert channel selection, alert mapping, alert pin
+ * configuration, and digital window comparator setup. It also sets the channel-specific
+ * configuration values and sends all the configuration data to the ADC.
+ * 
+ * @param fast_mode Specifies whether to enable fast mode or not.
+ *                 If true, the ADC operates in fast mode with a clock frequency of 3.4 MHz.
+ *                 If false, the ADC operates in normal mode with a clock frequency of 400 kHz.
+ * 
+ * @return None.
+ */
 void adc_init (bool fast_mode) {
   //init local vars
   uint8_t ch0_hysteresis = 0b0;
@@ -325,11 +347,17 @@ void adc_init (bool fast_mode) {
 
 }
 
-//adc_threshold set
-//set the treshold vlaues for a given channel
-//adc_channel: disired channel on adc to change threshold values
-//high_th: upper threshold vale to set (max 12 bit number)
-//low_th: lower threshold vale to set (max 12 bit number) 
+/**
+ * @brief Sets the threshold values for the specified ADC channel.
+ * 
+ * This function sets the high and low threshold values for the specified ADC channel.
+ * It reads the current hysteresis and event count values for the channel, converts the
+ * threshold values to the format accepted by the ADC, and writes the new values to the ADC.
+ * 
+ * @param adc_channel The ADC channel for which to set the threshold values.
+ * @param high_th The high threshold value to set (12 bits max).
+ * @param low_th The low threshold value to set (12 bits max).
+ */
 void adc_threshold_set(enum adc_channel adc_channel, uint16_t high_th, uint16_t low_th) {
   //init local vars
   uint8_t chx_hysteresis = 0b0;
@@ -461,10 +489,16 @@ void adc_threshold_set(enum adc_channel adc_channel, uint16_t high_th, uint16_t 
 
 }
 
-//adc_hysteresis_set
-//sets adc channel hysteresis value
-//adc_channel: disired channel on adc to set hysteresis value 
-//hysteresis_set: value to set hysteresis for a given cnannel (4 bit number max)
+/**
+ * @brief Sets the hysteresis value for a specific ADC channel.
+ *
+ * This function sets the hysteresis value for the specified ADC channel. The hysteresis value determines the
+ * difference in input voltage required to trigger a change in the ADC reading. The function reads the current
+ * hysteresis register value, calculates the new value to write, and writes it to the hysteresis register.
+ *
+ * @param adc_channel The ADC channel for which to set the hysteresis value.
+ * @param hysteresis_set The hysteresis value to set for the ADC channel (4 bits max).
+ */
 void adc_hysteresis_set(enum adc_channel adc_channel, uint8_t hysteresis_set) {
   //init local vars
   uint8_t curent_hysteresis_reg_val = 0x00;
@@ -548,9 +582,14 @@ void adc_hysteresis_set(enum adc_channel adc_channel, uint8_t hysteresis_set) {
   
 }
 
-//adc_event_count_read
-//read current event count for a given channel
-//adc_channel: disired channel on adc to read event count from
+/**
+ * @brief Reads the event count for a specific ADC channel.
+ * 
+ * This function reads the event count for the specified ADC channel using the I2C communication protocol.
+ * 
+ * @param adc_channel The ADC channel for which to read the event count.
+ * @return The current event count for the specified ADC channel.
+ */
 int adc_event_count_read(enum adc_channel adc_channel) {
   //init local vars 
   uint8_t chx_current_event_count = 0x00;
@@ -591,9 +630,16 @@ int adc_event_count_read(enum adc_channel adc_channel) {
   return chx_current_event_count;
 }
 
-//adc_event clear
-//resets event count for given channel 
-//adc_channel: disired channel on adc to reset event count on
+/**
+ * @brief Clears the event count for the specified ADC channel.
+ * 
+ * This function clears the event count register for the specified ADC channel.
+ * It first reads the current event count value, then writes 0 to the event count register.
+ * 
+ * @param adc_channel The ADC channel to clear the event count for.
+ * 
+ * @return None.
+ */
 void adc_event_clear(enum adc_channel adc_channel) {
   //init local vars
   uint8_t event_count_val = 0x00;
@@ -674,8 +720,12 @@ void adc_event_clear(enum adc_channel adc_channel) {
 
 //}
 
-//reads from the ADC returns value in 16bit ADC counts
-//adc_channel: select the desired channel to read from
+/**
+ * @brief Reads the analog value from the specified ADC channel.
+ * 
+ * @param adc_channel The ADC channel to read from.
+ * @return The 16-bit analog value read from the ADC.
+ */
 int adc_read(enum adc_channel adc_channel) {
   //init local vars
   uint16_t read_word = 0x0000;
@@ -721,6 +771,9 @@ int adc_read(enum adc_channel adc_channel) {
 
 }
 
+/**
+ * Clears the event flag for the ADC module.
+ */
 void adc_clear_event_flag() {
   Wire.write(adc_add);
   Wire.write(adc_op_single_write);
@@ -729,6 +782,11 @@ void adc_clear_event_flag() {
   Wire.endTransmission();
 }
 
+/**
+ * @brief Determines the alert source based on the current event flag register value.
+ * 
+ * @return The ADC channel corresponding to the alert source, or `empty` if no alert is detected.
+ */
 enum adc_channel adc_determine_alert_source() {
   //init local vars 
   uint8_t current_event_flag_reg_value = 0;

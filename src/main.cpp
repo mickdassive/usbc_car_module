@@ -22,6 +22,11 @@
 
 #include <Arduino.h>
 #include <Wire.h>
+#include <ESP8266WiFi.h>
+#include <ESP8266mDNS.h>
+#include <WiFiClient.h>
+#include <ESP8266WebServer.h>
+#include <ESP8266HTTPUpdateServer.h>
 #include "main_defines.h"
 #include "adc.h"
 #include "ui/display.h"
@@ -33,6 +38,13 @@
 #include "hub.h"
 #include "i2c_scanner.h"
 
+
+//wifi defines
+const char* ssid = "xxxx";
+const char* password = "xxxx";
+const int wifi_wait_time = 1000; 
+ESP8266HTTPUpdateServer httpUpdater;
+ESP8266WebServer httpServer(80);
 
 //firmware version
 const char* firmware_version = "V 0.1";
@@ -52,6 +64,40 @@ void setup() {
   Serial.print("Firmware version: ");
   Serial.print(firmware_version);
   Serial.println(" ");
+
+  //ask on the console 
+  Serial.println("Press any key to enable Wi-Fi...");
+  unsigned long wifistartTime = millis();
+  while (millis() - wifistartTime < wifi_wait_time) {
+        if (Serial.available()) {
+            Serial.read(); // Consume the keypress
+            Serial.println("Initializing Wi-Fi...");
+            WiFi.begin(ssid, password);
+            
+            while (WiFi.status() != WL_CONNECTED) {
+                delay(1000);
+                Serial.println("Connecting to WiFi...");
+            }
+            
+            Serial.println("Connected to WiFi");
+            Serial.print("IP Address: ");
+            Serial.println(WiFi.localIP());
+            
+            MDNS.begin("esp8266");
+            httpUpdater.setup(&httpServer); // This line initializes the OTA update server
+            httpServer.begin();
+
+            MDNS.addService("http", "tcp", 80);
+            Serial.printf("HTTPUpdateServer ready! Open http://%s.local/update in your browser\n", "esp8266");
+            break;
+        }
+    }
+  
+  if (WiFi.status() != WL_CONNECTED) {
+    Serial.println("Wi-Fi not enabled");
+  }
+
+
 
   //begin i2c
   Wire.begin(sda.pin_number, scl.pin_number);
@@ -98,8 +144,8 @@ void setup() {
   pd_phy_init();
   Serial.println("USB-PD PHY UFP&DFP init complete");
 
-
-  //determine if boot was sucsessful
+  /*
+    //determine if boot was sucsessful
   if (boot_sucsesful >= 2) {
     //do nothing
   } else {
@@ -111,12 +157,20 @@ void setup() {
       delay(100);
     }
   }
+  */
   
 }
 
 
 
 void loop() {
+
+  if (WiFi.status() == WL_CONNECTED) {
+    httpServer.handleClient();
+    MDNS.update();
+  }
+
+
   //see if intrupt was flaged and run the handeler
   if (io_interupt_flag) {
     io_intrupt_handeler();

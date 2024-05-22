@@ -42,13 +42,15 @@ int pd_phy_ufp_last_recived_message_id = 0;
 enum message_type pd_phy_ufp_last_recived_message_type;
 int pd_phy_dfp_last_recived_message_contents[256];
 int pd_phy_dfp_last_recived_message_lenght = 0;
-int pd_phy_ufp_last_recived_message_id = 0;
+int pd_phy_dfp_last_recived_message_id = 0;
 enum message_type pd_phy_dfp_last_recived_message_type;
 
 
-//pd_phy_send_looking_4_connection
-//sends looking 4 connection command to port controler 
-//ufp_dfp: select port to sent command to
+/**
+ * Sends a "looking for connection" command to the PD PHY.
+ * 
+ * @param ufp_dfp The type of device (UFP or DFP) to send the command to.
+ */
 void pd_phy_send_looking_4_connection (enum ufp_dfp ufp_dfp) {
     //send looking for connection command
     if (ufp_dfp == ufp) {
@@ -63,9 +65,17 @@ void pd_phy_send_looking_4_connection (enum ufp_dfp ufp_dfp) {
     return;
 }
 
-//pd_phy_send_enable_vbus_detect
-//sends enable vbus detect command to port controler 
-//ufp_dfp: select port to sent command to
+/**
+ * @brief Sends a command to enable VBUS detection for the specified UFP/DFP.
+ * 
+ * This function sends a command to enable VBUS detection for the specified UFP (Upstream Facing Port)
+ * or DFP (Downstream Facing Port). It uses the Wire library to communicate with the PD PHY (Physical Layer)
+ * device and sends the appropriate command based on the value of the ufp_dfp parameter.
+ * 
+ * @param ufp_dfp The UFP/DFP for which VBUS detection should be enabled. It can be either ufp or dfp.
+ * 
+ * @return None.
+ */
 void pd_phy_send_enable_vbus_detect(enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
@@ -79,9 +89,17 @@ void pd_phy_send_enable_vbus_detect(enum ufp_dfp ufp_dfp) {
     return;
 }
 
-//pd_phy_send_disabel_vbus_detect
-//sends disabel vbus detect command to port controler 
-//ufp_dfp: select port to sent command to
+/**
+ * @brief Sends a command to disable VBUS detection for the specified UFP/DFP.
+ * 
+ * This function sends a command to disable VBUS detection for the specified UFP/DFP.
+ * The function uses the Wire library to begin a transmission, write the command and data,
+ * and end the transmission.
+ * 
+ * @param ufp_dfp The UFP/DFP to disable VBUS detection for.
+ * 
+ * @return None.
+ */
 void pd_phy_send_disabel_vbus_detect(enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
@@ -95,9 +113,12 @@ void pd_phy_send_disabel_vbus_detect(enum ufp_dfp ufp_dfp) {
     return;
 }
 
-//pd_phy_send_disabel_source_vbus
-//sends disabel souce vbus command to port controler 
-//ufp_dfp: select port to sent command to
+/**
+ * Sends a command to disable the source VBUS for the specified UFP/DFP.
+ *
+ * @param ufp_dfp The type of UFP/DFP to disable the source VBUS for.
+ *                Must be either ufp or dfp.
+ */
 void pd_phy_send_disabel_source_vbus (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
@@ -111,9 +132,11 @@ void pd_phy_send_disabel_source_vbus (enum ufp_dfp ufp_dfp) {
     return;
 }
 
-//pd_phy_send_source_vbus_dflt
-//sends enabel souce vbus command to port controler 
-//ufp_dfp: select port to sent command to
+/**
+ * Sends a command to set the source VBUS default voltage.
+ * 
+ * @param ufp_dfp The type of device (UFP or DFP).
+ */
 void pd_phy_send_source_vbus_dflt (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
@@ -127,9 +150,11 @@ void pd_phy_send_source_vbus_dflt (enum ufp_dfp ufp_dfp) {
     return;
 }
 
-//pd_phy_send_source_vbus_high
-//sends enabel souce vbus high voltage command to port controler 
-//ufp_dfp: select port to sent command to
+/**
+ * Sends a command to set the source VBUS high voltage.
+ * 
+ * @param ufp_dfp The type of device (UFP or DFP).
+ */
 void pd_phy_send_source_vbus_high (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
@@ -143,9 +168,11 @@ void pd_phy_send_source_vbus_high (enum ufp_dfp ufp_dfp) {
     return;
 }
 
-//pd_phy_send_i2c_wake
-//sends i2c wake command to port controler 
-//ufp_dfp: select port to sent command to
+/**
+ * Sends an I2C wake command to the specified UFP or DFP device.
+ *
+ * @param ufp_dfp The device type (UFP or DFP) to send the command to.
+ */
 void pd_phy_send_i2c_wake (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
@@ -159,9 +186,11 @@ void pd_phy_send_i2c_wake (enum ufp_dfp ufp_dfp) {
     return;
 }
 
-//pd_phy_send_i2c_idle
-//sends i2c sleep command to port controler 
-//ufp_dfp: select port to sent command to
+/**
+ * Sends an I2C idle command to the specified UFP or DFP device.
+ *
+ * @param ufp_dfp The type of device to send the command to (ufp or dfp).
+ */
 void pd_phy_send_i2c_idle (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
@@ -175,9 +204,11 @@ void pd_phy_send_i2c_idle (enum ufp_dfp ufp_dfp) {
     return;
 }
 
-//pd_phy_send_rx_one_more
-//sends rx one more command to port controler 
-//ufp_dfp: select port to sent command to
+/**
+ * Sends a command to the PD PHY to receive one more packet.
+ * 
+ * @param ufp_dfp The type of device (UFP or DFP).
+ */
 void pd_phy_send_rx_one_more (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
@@ -191,9 +222,11 @@ void pd_phy_send_rx_one_more (enum ufp_dfp ufp_dfp) {
     return;
 }
 
-//pd_phy_send_frs_signal
-//sends rx one more command to port controler 
-//ufp_dfp: select port to sent command to
+/**
+ * Sends a Fast Role Swap (FRS) signal to the specified UFP or DFP.
+ *
+ * @param ufp_dfp The type of device to send the FRS signal to (ufp or dfp).
+ */
 void pd_phy_send_frs_signal (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
@@ -207,9 +240,14 @@ void pd_phy_send_frs_signal (enum ufp_dfp ufp_dfp) {
     return;
 }
 
-//pd_phy_send_reset_transmit_buffer
-//sends reset transmit buffer command to port controler 
-//ufp_dfp: select port to sent command to
+/**
+ * @brief Sends a reset transmit buffer command to the PD PHY.
+ * 
+ * This function sends a command to reset the transmit buffer of the PD PHY.
+ * The command is sent to either the UFP or DFP based on the value of the ufp_dfp parameter.
+ * 
+ * @param ufp_dfp The type of device to send the command to (UFP or DFP).
+ */
 void pd_phy_send_reset_transmit_buffer (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
@@ -223,8 +261,11 @@ void pd_phy_send_reset_transmit_buffer (enum ufp_dfp ufp_dfp) {
     return;
 }
 
-//pd_phy_send_hard_reset
-//sends hard reset from the given port
+/**
+ * Sends a hard reset command to the PD PHY.
+ * 
+ * @param ufp_dfp The type of device (UFP or DFP) to send the hard reset to.
+ */
 void pd_phy_send_hard_reset (enum ufp_dfp ufp_dfp) {
 
     pd_phy_send_i2c_wake(ufp_dfp);
@@ -242,9 +283,15 @@ void pd_phy_send_hard_reset (enum ufp_dfp ufp_dfp) {
     pd_phy_send_i2c_idle(ufp_dfp);
 }
 
-//pd_phy_send_reset_recive_buffer
-//sends reset recive buffer command to port controler 
-//ufp_dfp: select port to sent command to
+/**
+ * @brief Sends a reset command to the receive buffer of the PD PHY.
+ * 
+ * This function sends a reset command to the receive buffer of the PD PHY based on the specified UFP/DFP mode.
+ * 
+ * @param ufp_dfp The UFP/DFP mode to determine the target PD PHY address.
+ *                - If `ufp_dfp` is `ufp`, the command is sent to the UFP PD PHY address.
+ *                - If `ufp_dfp` is `dfp`, the command is sent to the DFP PD PHY address.
+ */
 void pd_phy_send_reset_recive_buffer (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
@@ -258,10 +305,16 @@ void pd_phy_send_reset_recive_buffer (enum ufp_dfp ufp_dfp) {
     return;
 }
 
-//pd_phy_vconn_cont
-//turns on or off vconn souceing for the given port
-//ufp_dfp: selct port to control
-//on_off: turns vconn on or off for selected port
+/**
+ * @brief Controls the VCONN power for the specified UFP or DFP port.
+ *
+ * This function wakes up the PHY, reads the power control register, performs bitwise operations
+ * to turn on or off the VCONN power, and writes the updated value back to the register.
+ * Finally, it puts the PHY back to sleep.
+ *
+ * @param ufp_dfp The type of port (UFP or DFP) for which to control the VCONN power.
+ * @param on_off The desired state of the VCONN power (on or off).
+ */
 void pd_phy_vconn_cont(enum ufp_dfp ufp_dfp, enum on_off on_off) {
     //init local vars
     uint8_t reg_contents_b0 = 0;
@@ -317,7 +370,15 @@ void pd_phy_vconn_cont(enum ufp_dfp ufp_dfp, enum on_off on_off) {
 
 }
 
-//clears the alert register
+/**
+ * @brief Clears the alert register of the PD PHY.
+ * 
+ * This function clears the alert register of the PD PHY based on the specified UFP/DFP mode.
+ * 
+ * @param ufp_dfp The UFP/DFP mode to clear the alert register for.
+ *                - If `ufp_dfp` is `ufp`, the alert register of the UFP mode will be cleared.
+ *                - If `ufp_dfp` is `dfp`, the alert register of the DFP mode will be cleared.
+ */
 void pd_phy_clear_alert (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
@@ -330,7 +391,16 @@ void pd_phy_clear_alert (enum ufp_dfp ufp_dfp) {
     return;    
 }
 
-//clears the extended alert register
+/**
+ * @brief Clears the extended alert for the specified UFP/DFP.
+ * 
+ * This function clears the extended alert for the specified UFP (Upstream Facing Port) or DFP (Downstream Facing Port).
+ * It uses the Wire library to communicate with the PD PHY (Physical Layer) device and writes the appropriate values
+ * to clear the extended alert register.
+ * 
+ * @param ufp_dfp The UFP/DFP for which the extended alert needs to be cleared.
+ *                Possible values are 'ufp' for UFP and 'dfp' for DFP.
+ */
 void pd_phy_clear_extended_alert (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
@@ -343,7 +413,14 @@ void pd_phy_clear_extended_alert (enum ufp_dfp ufp_dfp) {
     return;    
 }
 
-//clears the fault register
+/**
+ * @brief Clears the fault status of the USB Power Delivery (PD) PHY.
+ * 
+ * This function clears the fault status of the PD PHY for the specified UFP/DFP role.
+ * 
+ * @param ufp_dfp The role of the USB Function/Device Port (UFP/DFP). 
+ *                Must be either `ufp` or `dfp`.
+ */
 void pd_phy_clear_fault (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
@@ -356,7 +433,18 @@ void pd_phy_clear_fault (enum ufp_dfp ufp_dfp) {
     return;    
 }
 
-//init the pd phys
+/**
+ * @brief Initializes the PD PHY module.
+ * 
+ * This function initializes the PD PHY module by performing the following steps:
+ * 1. Sends I2C wake signal to the upstream facing port (ufp) and downstream facing port (dfp).
+ * 2. Clears all faults on the ufp.
+ * 3. Writes default values to various registers using the Wire library.
+ * 4. Clears all faults on both ufp and dfp.
+ * 5. Sends I2C idle signal to both ufp and dfp.
+ * 
+ * @return None.
+ */
 void pd_phy_init() {
     //wake i2c interface on the phys
     pd_phy_send_i2c_wake(ufp);
@@ -535,8 +623,17 @@ void pd_phy_init() {
 
 }
 
-//reads allert type from a given port controler
-//ufp_dfp: select port to read allert registter from
+/**
+ * @brief Determines the alert type based on the current alert register status.
+ * 
+ * This function reads the current alert register status of the specified PHY and determines the type of alert that has occurred.
+ * The function first sets the current PHY address based on the UFP/DFP parameter. Then, it wakes up the I2C interface on the given PHY.
+ * Next, it reads the current alert register status and checks each bit to identify the type of alert. If a specific bit is set, the function
+ * sends an I2C idle command and returns the corresponding alert type.
+ * 
+ * @param ufp_dfp The UFP/DFP parameter indicating the type of PHY (UFP or DFP).
+ * @return The enum value representing the determined alert type.
+ */
 enum pd_phy_alert_type pd_phy_determine_alert_type (enum ufp_dfp ufp_dfp) {
     //init local vars
     uint8_t current_phy_addres = 0;
@@ -663,8 +760,20 @@ enum pd_phy_alert_type pd_phy_determine_alert_type (enum ufp_dfp ufp_dfp) {
     return alert_empty;
 }
 
-//once a plug attach event is detected complete the conection
-//ufp_dfp: select port to complete the attach seqwice
+/**
+ * @brief Completes the attachment process for the PD PHY.
+ * 
+ * This function initializes the local variables, sets the current PHY address based on the UFP/DFP type,
+ * wakes up the PD PHY I2C interface, reads the current CC status register value, determines if looking4connection is 1,
+ * reads the plug orientation, sets the orientation variables, reads the current power control register status,
+ * sets auto discharge to false, enables VCONN, writes to the power control register, enables VSAFE5V,
+ * checks if the voltage is within range, sends the source VBUS command, clears the alert, sends the I2C sleep command,
+ * and sets the port attached variable to true.
+ * 
+ * @param ufp_dfp The UFP/DFP type (enum ufp_dfp).
+ * 
+ * @return None.
+ */
 void pd_phy_complite_attach (enum ufp_dfp ufp_dfp) {
     //init local vars 
     uint8_t current_phy_addres = 0;
@@ -765,8 +874,20 @@ void pd_phy_complite_attach (enum ufp_dfp ufp_dfp) {
     
 }
 
-//once a plug detatch event is detected complete the disconnect
-//ufp_dfp: select port to complete the attach seqwice
+/**
+ * @brief Completes the detach process for the PD PHY.
+ * 
+ * This function performs the necessary steps to complete the detach process for the PD PHY.
+ * It initializes local variables, sets the current PHY address based on the UFP/DFP type,
+ * wakes up the PD PHY from I2C sleep, clears alerts, reads the current CC status register value,
+ * determines if a detach actually happened, turns off power to the given port, clears alerts,
+ * reads the current power status register value, disables VCONN, voltage alarms, and VBUS voltage monitor,
+ * sends the new power control value to the PHY, sends disable source VBUS command, disables SOP* and resets,
+ * sends disable VBUS detect command, sets up for the next attach, sends looking for connection command,
+ * sends sleep command, and updates the attachment status.
+ * 
+ * @param ufp_dfp The UFP/DFP type (enum ufp_dfp) indicating whether it is UFP or DFP.
+ */
 void pd_phy_complite_detatch (enum ufp_dfp ufp_dfp) {
     //init local vars 
     uint8_t current_phy_addres = 0;
@@ -880,8 +1001,21 @@ void pd_phy_complite_detatch (enum ufp_dfp ufp_dfp) {
     return;
  }
 
-//pd_phy_transmit_hard_reset
-//transmits a hard reset message with 3 retrys 
+/**
+ * @brief Transmits a hard reset command to the PD PHY.
+ *
+ * This function transmits a hard reset command to the PD PHY. It performs the following steps:
+ * 1. Initializes local variables.
+ * 2. Wakes up the I2C interface.
+ * 3. Resets the transmit buffer.
+ * 4. Sets the current PHY address based on the UFP/DFP mode.
+ * 5. Begins the I2C transmission to the current PHY address.
+ * 6. Writes the transmit register address and the hard reset command.
+ * 7. Ends the I2C transmission.
+ * 8. Puts the I2C interface to sleep.
+ *
+ * @param ufp_dfp The mode of the PD PHY (UFP or DFP).
+ */
 void pd_phy_transmit_hard_reset (enum ufp_dfp ufp_dfp) {
     //inti local vars
     uint8_t current_phy_addres = 0;
@@ -910,8 +1044,15 @@ void pd_phy_transmit_hard_reset (enum ufp_dfp ufp_dfp) {
     return;
 }
 
-//pd_phy_transmit_cable_reset
-//transmits a hard reset message with 3 retrys 
+/**
+ * @brief Transmits a cable reset command to the PD PHY.
+ *
+ * This function transmits a cable reset command to the PD PHY. It wakes up the I2C interface,
+ * resets the transmit buffer, sets the current PHY address based on the UFP/DFP mode, writes
+ * the cable reset command to the transmit register of the PHY, and puts the I2C interface to sleep.
+ *
+ * @param ufp_dfp The mode of operation (UFP or DFP).
+ */
 void pd_phy_transmit_cable_reset (enum ufp_dfp ufp_dfp) {
     //inti local vars
     uint8_t current_phy_addres = 0;
@@ -939,12 +1080,18 @@ void pd_phy_transmit_cable_reset (enum ufp_dfp ufp_dfp) {
     return;
 }
 
-//pd_phy_transmit
-//function to transmit a given message over the pd bus
-//ufp_dfp: given port to tramit the message from
-//to_transmit: messgae to transmit in array seperated by individual bytes
-//true = transmit sucsessful
-//false = trasmit failled/discarded
+/**
+ * @brief Transmits data over the PD PHY interface.
+ *
+ * This function transmits the provided data over the PD PHY interface. It takes the type of the device (UFP or DFP),
+ * the data to transmit, and the length of the transmission as input parameters. It returns a boolean value indicating
+ * whether the transmission was successful or not.
+ *
+ * @param ufp_dfp The type of the device (UFP or DFP).
+ * @param to_transmit The data to transmit.
+ * @param length_of_transmission The length of the transmission.
+ * @return True if the transmission was successful, false otherwise.
+ */
 bool pd_phy_transmit (enum ufp_dfp ufp_dfp, uint8_t to_transmit[], int lenght_of_transmission) {
     //inti local vars
     uint8_t current_phy_addres = 0;
@@ -994,9 +1141,17 @@ bool pd_phy_transmit (enum ufp_dfp ufp_dfp, uint8_t to_transmit[], int lenght_of
 
 }
 
-//pd_phy_recive_message
-//function reads recive buffer and loads necicary info in to the respective ports last_message_lenght, last_message_contents[], and last_messgae_type vars
-//ufp_dfp: given port to recive the message from
+/**
+ * @brief Receives a message from the PD PHY.
+ * 
+ * This function receives a message from the PD PHY and performs the necessary operations
+ * to extract and store the message details. It wakes up the I2C interface, checks if a
+ * SOP message has been received, reads the message length and type, reads the actual
+ * message contents, resets the receive buffer, determines the message ID, determines
+ * the message type, and stores the values in the respective variables.
+ * 
+ * @param ufp_dfp The enum value indicating whether the message is from UFP or DFP.
+ */
 void pd_phy_recive_message (enum ufp_dfp ufp_dfp) {
     //init local vars
     uint8_t current_phy_addres = 0;

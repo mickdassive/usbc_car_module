@@ -31,9 +31,11 @@
 
 uint8_t hub_placeholder = 0;
 
-//scans i2c bus and dermines if all devicesa are present
-//true = passed, all devices present
-//false = failed missing one or more devices
+/**
+ * Scans the I2C bus for connected devices and checks if all expected devices are present.
+ * 
+ * @return true if all expected I2C devices are found, false otherwise.
+ */
 bool bus_scan() {
     // Initialize local variables
     int devices_found = 0;

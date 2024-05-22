@@ -26,6 +26,12 @@
 #include "adc.h"
 #include "display.h"
 
+/**
+ * Calculates and displays the power values for a given zone and output type.
+ *
+ * @param zone The power monitoring zone to calculate and display the power values for.
+ * @param v_a_w The type of power values to display (volts, amps, or watts).
+ */
 void power_mon_calc_and_display(power_mon_zones zone, power_mon_v_a_w v_a_w) {
     //init local vars
     uint16_t csp_adc_value = 0;

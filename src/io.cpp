@@ -47,9 +47,13 @@ unsigned long io_src_btn_pressed_time = 0;
 bool io_intrupt_ufp_msg_recived = false;
 bool io_intrupt_dfp_msg_recived = false;
 
-//reads current pin state of the io expander outputs
-//port: port of iox to read
-//iox_num: number of iox to read from
+/**
+ * Reads the current input/output state from the specified port and IOX number.
+ *
+ * @param port The port number (0 or 1) to read from.
+ * @param iox_num The IOX number (0 or 1) to read from.
+ * @return The current IO state as a uint8_t value.
+ */
 uint8_t io_read_current_io_state(int port, int iox_num) {
   uint8_t iox_address = (iox_num == 0) ? iox_0_add : iox_1_add;
   uint8_t iox_output_register = (port == 0) ? iox_output_port_0 : iox_output_port_1;
@@ -62,11 +66,16 @@ uint8_t io_read_current_io_state(int port, int iox_num) {
   return Wire.read();
 }
 
-//io_call function
-//This function is used to read or write digital values to onboard or offboard IOs.
-//pin_needed: a pin struct that defines the pin being read/written to
-//read_write: a read_write enum value that specifies if the function should read or write
-//high_low: a high_low enum value that specifies if the function should write a high or low value
+/**
+ * @brief Performs read or write operations on a pin.
+ * 
+ * This function allows you to read or write to a pin, either onboard or offboard.
+ * 
+ * @param pin_needed The pin structure containing information about the pin to be operated on.
+ * @param read_write Specifies whether to perform a read or write operation.
+ * @param high_low Specifies whether to set the pin high or low (applicable for write operations).
+ * @return If performing a read operation, returns the value read from the pin. If performing a write operation, returns 0.
+ */
 int io_call(struct pin pin_needed, enum read_write read_write, enum high_low high_low) {
 
   //Check if the pin is onboard or offboard
@@ -175,7 +184,13 @@ int io_call(struct pin pin_needed, enum read_write read_write, enum high_low hig
 
 }
 
-//GPIO pin auto init for both iox and onborad pins
+/**
+ * @brief Initializes the GPIO pins for input/output and sets up interrupt masks for IO expanders.
+ * 
+ * This function initializes the GPIO pins based on the pin mode specified for each pin. It sets the pin mode for each pin,
+ * configures interrupt masks for IO expanders, and sets all outputs of IO expanders to low.
+ * 
+ */
 void io_gpio_init() {
 
   //init vars
@@ -334,8 +349,13 @@ void io_gpio_init() {
   return;
 };
 
-
-//de assert intrupt from the iox's 
+/**
+ * @brief Configures the IO expanders for interrupt handling.
+ * 
+ * This function configures the IO expanders for interrupt handling by setting the interrupt mask registers
+ * and enabling the desired interrupt pins.
+ * 
+ */
 void io_deaseert_iox_int () {
   
   Wire.beginTransmission(iox_0_add);
@@ -363,10 +383,11 @@ void io_deaseert_iox_int () {
   Wire.endTransmission();
 }
 
-
-//io_determine_intrupt_source
-//determines the souce of an intrupt
-//returns souce of intrupt from the pin struct
+/**
+ * Determines the interrupt source based on the values read from the interrupt registers of IOX 0 and IOX 1.
+ * 
+ * @return The pin struct representing the interrupt source. If no interrupt source is detected, an empty struct is returned.
+ */
 struct pin io_determine_intrupt_source() {
   //init local vars
   uint8_t iox_0_int_reg_0_value = 0;
@@ -424,15 +445,25 @@ struct pin io_determine_intrupt_source() {
 };
 
 
-//set intrupt flag true and return as fast as possabel
+/**
+ * @brief Sets the interrupt flag.
+ * 
+ * This function sets the interrupt flag `io_interupt_flag` to true.
+ */
 void io_pin_intrupt_flagger () {
   //set the intrupt flag
   io_interupt_flag = true;
   return;
 }
 
-
-//determines intrupt souce and take appropriate actions
+/**
+ * @brief Handles the interrupt events for IO operations.
+ * 
+ * This function is responsible for handling various interrupt events related to IO operations.
+ * It determines the interrupt source and performs the corresponding actions based on the source.
+ * The function also prints debug messages to the Serial monitor for each interrupt event.
+ * 
+ */
 void io_intrupt_handeler () {
 
   io_interupt_flag = false;
