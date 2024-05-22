@@ -40,8 +40,8 @@
 
 
 //wifi defines
-const char* ssid = "xxxx";
-const char* password = "xxxx";
+const char* ssid = "baahome";
+const char* password = "!!!abahome12345!!!";
 const int wifi_wait_time = 1000; 
 ESP8266HTTPUpdateServer httpUpdater;
 ESP8266WebServer httpServer(80);
