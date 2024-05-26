@@ -172,6 +172,7 @@ void adc_init(bool fast_mode) {
   Wire.beginTransmission(adc_add);
   Wire.write(adc_op_single_write);
   Wire.write(adc_opmode_config);
+
   // ADC datasheet pages 35&36
   // conv_on_err, conv_mode_b1, conv_mode_b0, osc_sel, clk_div_b3, clk_div_b2, clk_div_b1, clk_div_b0
   Wire.write(0b00000000);
@@ -181,6 +182,7 @@ void adc_init(bool fast_mode) {
   Wire.beginTransmission(adc_add);
   Wire.write(adc_op_single_write);
   Wire.write(adc_pin_config);
+
   // ADC datasheet pages 36
   // gpio_cfg_7, gpio_cfg_, gpio_cfg_5, gpio_cfg_4, gpio_cfg_3, gpio_cfg_2, gpio_cfg_1, gpio_cfg_0
   Wire.write(0b00000000); // all pins as analog inputs
@@ -211,6 +213,33 @@ void adc_init(bool fast_mode) {
   // ADC datasheet page 39
   // ch7, ch6, ch5, ch4, ch3, ch2, ch1, ch0
   Wire.write(0b11111111); // all channels can assert
+  Wire.endTransmission();
+
+  //setup other alert assert conditions 
+  Wire.beginTransmission(adc_add);
+  Wire.write(adc_op_single_write);
+  Wire.write(adc_alert_map);
+  //adc datasheet page 40
+  //resv, resv, resv, resv, resv, resv, alert_rms, alert_crc
+  Wire.write(0b00000000);
+  Wire.endTransmission();
+
+  //setup alert pin config
+  Wire.beginTransmission(adc_add);
+  Wire.write(adc_op_single_write);
+  Wire.write(adc_alert_pin_config);
+  //adc datasheet page 40
+  //resv, resv, resv, resv, resv, alert_drive, alert_logic_b1, alert_logic_b0
+  Wire.write(0b00000101);
+  Wire.endTransmission();
+
+  //set digital window comparitor to alert on vlaues within the upper and lower limits
+  Wire.beginTransmission(adc_add);
+  Wire.write(adc_op_single_write);
+  Wire.write(adc_event_rgn);
+  //adc datasheet page 42
+  //ch7, ch6, ch5, ch4, ch3, ch2, ch1, ch0
+  Wire.write(0b11111111);
   Wire.endTransmission();
 
   // Begin configuring bytes to be sent for channel config

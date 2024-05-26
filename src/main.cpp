@@ -165,6 +165,7 @@ void setup() {
 
 void loop() {
 
+  //run update server
   if (WiFi.status() == WL_CONNECTED) {
     httpServer.handleClient();
     MDNS.update();

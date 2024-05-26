@@ -1843,40 +1843,40 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
-        case vdm_receiver_responce:
+    case vdm_receiver_responce:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                            if (pd_prot_ufp_timer_start_time_vdm_receiver_response == 0) {
-                                pd_prot_ufp_timer_start_time_vdm_receiver_response = millis();
-                            }
-                        } else {
-                            if (pd_prot_dfp_timer_start_time_vdm_receiver_response == 0) {
-                                pd_prot_dfp_timer_start_time_vdm_receiver_response = millis();
-                            }
-                        }
-                    } else {
-                        if (ufp_dfp == ufp) {
-                            pd_prot_ufp_timer_start_time_vdm_receiver_response = 0;
-                        } else {
-                            pd_prot_dfp_timer_start_time_vdm_receiver_response = 0;
-                        }
-                    }
-                    break;
-                
-                case vdm_sender_responce:
-                    if (start_stop == start) {
-                        if (ufp_dfp == ufp) {
-                            if (pd_prot_ufp_timer_start_time_vdm_sender_response == 0) {
-                                pd_prot_ufp_timer_start_time_vdm_sender_response = millis();
-                            }
-                        } else {
-                            if (pd_prot_dfp_timer_start_time_vdm_sender_response == 0) {
-                                pd_prot_dfp_timer_start_time_vdm_sender_response = millis();
-                            }
-                        }
-                    } else {
-                        if (ufp_dfp == ufp) {
-                            pd_prot_ufp_timer_start_time_vdm_sender_response = 0;
+                if (pd_prot_ufp_timer_start_time_vdm_receiver_response == 0) {
+                    pd_prot_ufp_timer_start_time_vdm_receiver_response = millis();
+                }
+            } else {
+                if (pd_prot_dfp_timer_start_time_vdm_receiver_response == 0) {
+                    pd_prot_dfp_timer_start_time_vdm_receiver_response = millis();
+                }
+            }
+            } else {
+                if (ufp_dfp == ufp) {
+                    pd_prot_ufp_timer_start_time_vdm_receiver_response = 0;
+                } else {
+                    pd_prot_dfp_timer_start_time_vdm_receiver_response = 0;
+                }
+            }
+        break;
+    
+    case vdm_sender_responce:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                if (pd_prot_ufp_timer_start_time_vdm_sender_response == 0) {
+                    pd_prot_ufp_timer_start_time_vdm_sender_response = millis();
+                }
+            } else {
+                if (pd_prot_dfp_timer_start_time_vdm_sender_response == 0) {
+                    pd_prot_dfp_timer_start_time_vdm_sender_response = millis();
+                }
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_vdm_sender_response = 0;
             } else {
                 pd_prot_dfp_timer_start_time_vdm_sender_responce = 0;
             }
@@ -2799,6 +2799,27 @@ void pd_prot_src_port_policy_engine (enum ufp_dfp ufp_dfp) {
                 }
                 break;
             case pe_src_send_capabilitiys:
+                if (pd_prot_ufp_pe_prev_state != pe_src_send_capabilitiys) {
+                    // send source capabilities 
+                    pd_prot_transmit_source_capabilities(ufp);
+
+                    // check if we got a good crc 
+                    if (pd_prot_ufp_last_good_crc) {
+                        // reset the crc flag
+                        pd_prot_ufp_last_good_crc = false;
+                        pd_prot_timer_controler(ufp_dfp, no_responce, stop);
+                        pd_prot_timer_controler(ufp_dfp, sender_response, start);
+
+                        // receive message if it has arrived
+                        if (pd_phy_ufp_last_received_message_length != 0) {
+                           if (pd_prot_determine_last_data_message_type(ufp) == sink_capabilitiys) {
+                              pd_prot_ufp_pe_current_state = pe_src_negotiate_capabilitiys;
+                          }
+                        }
+                    }
+                    } else {
+                        pd_prot_ufp_pe_current_state = pe_src_discovery;
+                    } 
                 if (pd_phy_ufp_last_received_message_length != 0) {
                     if (pd_prot_determine_last_data_message_type(ufp) == sink_capabilitiys) {
                         pd_prot_ufp_pe_current_state = pe_src_negotiate_capabilitiys;

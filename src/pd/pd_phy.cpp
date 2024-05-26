@@ -106,7 +106,7 @@ void pd_phy_send_disabel_vbus_detect(enum ufp_dfp ufp_dfp) {
         Wire.beginTransmission(pd_phy_add_dfp);
     }
     Wire.write(pd_phy_reg_command);
-    Wire.write(pd_phy_comm_disable_vbus_detect); // Fixed spelling of "disable"
+    Wire.write(pd_phy_comm_disable_vbus_detect);
     Wire.endTransmission();
 
     return;
@@ -125,7 +125,7 @@ void pd_phy_send_disabel_source_vbus (enum ufp_dfp ufp_dfp) {
         Wire.beginTransmission(pd_phy_add_dfp);
     }
     Wire.write(pd_phy_reg_command);
-    Wire.write(pd_phy_comm_disable_source_vbus); // Fixed spelling of "disable"
+    Wire.write(pd_phy_comm_disable_source_vbus);
     Wire.endTransmission();
 
     return;
@@ -143,7 +143,7 @@ void pd_phy_send_source_vbus_default (enum ufp_dfp ufp_dfp) {
         Wire.beginTransmission(pd_phy_add_dfp);
     }
     Wire.write(pd_phy_reg_command);
-    Wire.write(pd_phy_comm_source_vbus_default_voltage); // Fixed spelling of "default"
+    Wire.write(pd_phy_comm_source_vbus_default_voltage);
     Wire.endTransmission();
 
     return;
@@ -161,7 +161,7 @@ void pd_phy_send_source_vbus_high (enum ufp_dfp ufp_dfp) {
         Wire.beginTransmission(pd_phy_add_dfp);
     }
     Wire.write(pd_phy_reg_command);
-    Wire.write(pd_phy_comm_source_vbus_high_voltage); // Fixed spelling of "source"
+    Wire.write(pd_phy_comm_source_vbus_high_voltage);
     Wire.endTransmission();
 
     return;
@@ -467,6 +467,13 @@ void pd_phy_init() {
     Wire.endTransmission();
 
     //write power control
+    Wire.beginTransmission(pd_phy_add_ufp);
+    Wire.write(pd_phy_reg_message_header_info);
+    Wire.write(pd_phy_ufp_default_message_header_info);
+    Wire.endTransmission();
+
+    
+    //write header info
     Wire.beginTransmission(pd_phy_add_ufp);
     Wire.write(pd_phy_reg_message_header_info);
     Wire.write(pd_phy_ufp_default_message_header_info);
