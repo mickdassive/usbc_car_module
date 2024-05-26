@@ -118,6 +118,7 @@ unsigned long pd_prot_ufp_timer_start_time_vdm_receiver_response = 0;
 unsigned long pd_prot_ufp_timer_start_time_vdm_sender_response = 0;
 unsigned long pd_prot_ufp_timer_start_time_vdm_wait_mode_entry = 0;
 unsigned long pd_prot_ufp_timer_start_time_vdm_wait_mode_exit = 0;
+unsigned long pd_prot_ufp_timer_start_time_source_pps_comm = 0;
 
 //pd timer start times for dfp
 //usb-if docs page 271
@@ -185,6 +186,7 @@ unsigned long pd_prot_dfp_timer_start_time_vdm_receiver_response = 0;
 unsigned long pd_prot_dfp_timer_start_time_vdm_sender_response = 0;
 unsigned long pd_prot_dfp_timer_start_time_vdm_wait_mode_entry = 0;
 unsigned long pd_prot_dfp_timer_start_time_vdm_wait_mode_exit = 0;
+unsigned long pd_prot_dfp_timer_start_time_source_pps_comm = 0;
 
 //retransmit vars
 bool pd_prot_ufp_retransit_failed = false;
@@ -201,6 +203,12 @@ enum pd_port_policy_engine_state_enum pd_prot_dfp_pe_prev_state;
 //selected port power (in watts)
 enum pd_prot_power_cap_enum pd_prot_ufp_current_power_cap = watts_100;
 enum pd_prot_power_cap_enum pd_prot_dfp_current_power_cap = watts_100;
+
+//vars for sink necgotiation
+int pd_prot_ufp_negotiated_sink_voltage;
+bool pd_prot_ufp_negotiated_sink_met; //true if we can souce the negotiated voltage
+int pd_prot_dfp_negotiated_sink_voltage;
+bool pd_prot_dfp_negotiated_sink_met; //true if we can souce the negotiated voltage
 
 //abort flags
 bool pd_prot_ufp_abort_flag = false;
@@ -401,9 +409,14 @@ void pd_prot_timer_handeler() {
     }   
     else if (((current_time - pd_prot_ufp_timer_start_time_no_response) > pd_prot_timer_th_no_response) && pd_prot_ufp_timer_start_time_no_response != 0) {
         //no_responce
+
         //reatct to noresponce 
         if (pd_prot_ufp_counter_hard_reset < pd_prot_counter_th_hard_reset) {
-            pd_prot_ufp_pe_current_state = pe_src_hard_reset;
+            if (pd_phy_ufp_attached && pd_prot_ufp_negotiated_sink_met) {
+                pd_prot_ufp_pe_current_state = error_recovery;
+            } else {
+                pd_prot_ufp_pe_current_state = pe_src_hard_reset;
+            }
         } else {
             pd_prot_ufp_pe_current_state = pe_src_disabled;
         }
@@ -412,9 +425,14 @@ void pd_prot_timer_handeler() {
     }
     else if (((current_time - pd_prot_dfp_timer_start_time_no_response) > pd_prot_timer_th_no_response) && pd_prot_dfp_timer_start_time_no_response != 0) {
         //no_responce
+
         //reatct to noresponce 
         if (pd_prot_dfp_counter_hard_reset < pd_prot_counter_th_hard_reset) {
-            pd_prot_dfp_pe_current_state = pe_src_hard_reset;
+            if (pd_phy_dfp_attached && pd_prot_dfp_negotiated_sink_met) {
+                pd_prot_dfp_pe_current_state = error_recovery;
+            } else {
+                pd_prot_dfp_pe_current_state = pe_src_hard_reset;
+            }
         } else {
             pd_prot_dfp_pe_current_state = pe_src_disabled;
         }
@@ -505,9 +523,15 @@ void pd_prot_timer_handeler() {
     }
     else if (((current_time - pd_prot_ufp_timer_start_time_sender_response) > pd_prot_timer_th_sender_response) && pd_prot_ufp_timer_start_time_sender_response != 0) {
         //sender_responce
+        
+        //transition policy engine to pe_src_hard_reset
+        pd_prot_ufp_pe_current_state = pe_src_hard_reset;
     }
     else if (((current_time - pd_prot_dfp_timer_start_time_sender_response) > pd_prot_timer_th_sender_response) && pd_prot_dfp_timer_start_time_sender_response != 0) {
         //sender_responce
+
+        //transition policy engine to pe_src_hard_reset
+        pd_prot_dfp_pe_current_state = pe_src_hard_reset;
     }
     else if (((current_time - pd_prot_ufp_timer_start_time_sink_delay) > pd_prot_timer_th_sink_delay) && pd_prot_ufp_timer_start_time_sink_delay != 0) {
         //sink_delay
@@ -541,9 +565,16 @@ void pd_prot_timer_handeler() {
     }
     else if (((current_time - pd_prot_ufp_timer_start_time_swap_source_start) > pd_prot_timer_th_swap_source_start) && pd_prot_ufp_timer_start_time_swap_source_start != 0) {
         //swap_source_start
+
+        //transition to pe_src_send_capabilitiys
+        pd_prot_ufp_pe_current_state = pe_src_send_capabilitiys;
+    
     }
     else if (((current_time - pd_prot_dfp_timer_start_time_swap_source_start) > pd_prot_timer_th_swap_source_start) && pd_prot_dfp_timer_start_time_swap_source_start != 0) {
         //swap_source_start
+
+        //transition to pe_src_send_capabilitiys
+        pd_prot_dfp_pe_current_state = pe_src_send_capabilitiys;
     }
     else if (((current_time - pd_prot_ufp_timer_start_time_transmit) > pd_prot_timer_th_transmit) && pd_prot_ufp_timer_start_time_transmit != 0) {
         //transmit
@@ -634,8 +665,18 @@ void pd_prot_timer_handeler() {
     }
     else if (((current_time - pd_prot_dfp_timer_start_time_vdm_wait_mode_exit) > pd_prot_timer_th_vdm_wait_mode_exit) && pd_prot_dfp_timer_start_time_vdm_wait_mode_exit != 0) {
         //vdm_wait_mode_exit
+    } 
+    else if (((current_time - pd_prot_ufp_timer_start_time_source_pps_comm) > pd_prot_timer_th_source_pps_comm) && pd_prot_ufp_timer_start_time_source_pps_comm != 0) {
+        //source_pps_comm
+        pd_prot_ufp_pe_current_state = pe_src_hard_reset;
+    }
+    else if (((current_time - pd_prot_dfp_timer_start_time_source_pps_comm) > pd_prot_timer_th_source_pps_comm) && pd_prot_dfp_timer_start_time_source_pps_comm != 0) {
+        //source_pps_comm
+        pd_prot_dfp_pe_current_state = pe_src_hard_reset;
     }
 
+
+    return;
 }
 
 /**
@@ -1923,6 +1964,26 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
         }
         break;
 
+    case source_pps_comm:
+        if (start_stop == start) {
+            if (ufp_dfp == ufp) {
+                if (pd_prot_ufp_timer_start_time_source_pps_comm == 0) {
+                    pd_prot_ufp_timer_start_time_source_pps_comm = millis();
+                }
+            } else {
+                if (pd_prot_dfp_timer_start_time_source_pps_comm == 0) {
+                    pd_prot_dfp_timer_start_time_source_pps_comm = millis();
+                }
+            }
+        } else {
+            if (ufp_dfp == ufp) {
+                pd_prot_ufp_timer_start_time_source_pps_comm = 0;
+            } else {
+                pd_prot_dfp_timer_start_time_source_pps_comm = 0;
+            }
+        }
+        break;
+
     }
     
     return;
@@ -2555,6 +2616,141 @@ void pd_prot_transmit_source_capabilities (enum ufp_dfp ufp_dfp) {
 }
 
 /**
+ * @brief Decodes the sink capabilities message and determines if the negotiated sink voltage can be met.
+ * 
+ * This function decodes the sink capabilities message received from the UFP (Upstream Facing Port) or DFP (Downstream Facing Port).
+ * It determines the number of PDOs in the message and checks if the negotiated sink voltage can be met within a certain tolerance.
+ * If the negotiated sink voltage can be met, it sets the corresponding variables (`pd_prot_ufp_negotiated_sink_met` and `pd_prot_ufp_negotiated_sink_voltage`
+ * for UFP, `pd_prot_dfp_negotiated_sink_met` and `pd_prot_dfp_negotiated_sink_voltage` for DFP) to true and the negotiated voltage value.
+ * Otherwise, it sets the variables to false and 0.
+ * 
+ * @param ufp_dfp The type of port (UFP or DFP) for which to decode the sink capabilities.
+ */
+void pd_prot_decode_sink_capabilities (enum ufp_dfp ufp_dfp) {
+    //init local vars
+    int n_pdo = 0;
+    u_int32_t sink_pdo = 0;
+    u_int16_t headder = 0;
+    u_int16_t voltage = 0;
+    
+    //check how many PDOs are in the message
+    if (ufp_dfp == ufp) {
+        headder = pd_phy_ufp_last_received_message_contents[1];
+        headder = pd_phy_ufp_last_received_message_contents[0] << 8 | headder;
+        n_pdo = ((headder >> 12) & 0x0007);
+
+        if (n_pdo == 1) {
+            //if only one pdo go straight to vsafe5v
+            pd_prot_ufp_negotiated_sink_met = true;
+            pd_prot_ufp_negotiated_sink_voltage = 5;
+            return;
+
+        } else {
+            //if more than one pdo determine if they can be met
+            sink_pdo = (pd_phy_dfp_last_received_message_contents[6] << 24);
+            sink_pdo = (pd_phy_dfp_last_received_message_contents[7] << 16) | sink_pdo;
+            sink_pdo = (pd_phy_dfp_last_received_message_contents[8] << 8) | sink_pdo;
+            sink_pdo = pd_phy_dfp_last_received_message_contents[9] | sink_pdo;
+
+            if ((sink_pdo & 0xC0000000) >> 30 == 0x00) {
+                //decode voltage portion of message
+                voltage = (sink_pdo >> 10) & 9;
+                voltage = voltage * 0.05;
+
+                //check if voltage can be met within 10% of the requested voltage
+                if (abs(voltage - 5) <= 0.5) {
+                    pd_prot_ufp_negotiated_sink_met = true;
+                    pd_prot_ufp_negotiated_sink_voltage = 5;
+                    return;
+                } else if (abs(voltage - 9) <= 0.9) {
+                    pd_prot_ufp_negotiated_sink_met = true;
+                    pd_prot_ufp_negotiated_sink_voltage = 9;
+                    return;
+                } else if (abs(voltage - 12) <= 1.2) {
+                    pd_prot_ufp_negotiated_sink_met = true;
+                    pd_prot_ufp_negotiated_sink_voltage = 12;
+                    return;
+                } else if (abs(voltage - 15) <= 1.5) {
+                    pd_prot_ufp_negotiated_sink_met = true;
+                    pd_prot_ufp_negotiated_sink_voltage = 15;
+                    return;
+                } else if (abs(voltage - 20) <= 2) {
+                    pd_prot_ufp_negotiated_sink_met = true;
+                    pd_prot_ufp_negotiated_sink_voltage = 20;
+                    return;
+                } else {
+                    pd_prot_ufp_negotiated_sink_met = false;
+                    pd_prot_ufp_negotiated_sink_voltage = 0;
+                    return;
+                }
+            } else {
+                pd_prot_ufp_negotiated_sink_met = false;
+                pd_prot_ufp_negotiated_sink_voltage = 0;
+                return;
+            }
+        }
+        
+    } else {
+        headder = pd_phy_dfp_last_received_message_contents[1];
+        headder = pd_phy_dfp_last_received_message_contents[0] << 8 | headder;
+        n_pdo = ((headder >> 12) & 0x0007);
+
+        if (n_pdo == 1) {
+            //if only one pdo go straight to vsafe5v
+            pd_prot_dfp_negotiated_sink_met = true;
+            pd_prot_dfp_negotiated_sink_voltage = 5;
+            return;
+
+        } else {
+            //if more than one pdo determine if they can be met
+            sink_pdo = (pd_phy_dfp_last_received_message_contents[6] << 24);
+            sink_pdo = (pd_phy_dfp_last_received_message_contents[7] << 16) | sink_pdo;
+            sink_pdo = (pd_phy_dfp_last_received_message_contents[8] << 8) | sink_pdo;
+            sink_pdo = pd_phy_dfp_last_received_message_contents[9] | sink_pdo;
+
+            if ((sink_pdo & 0xC0000000) >> 30 == 0x00) {
+                //decode voltage portion of message
+                voltage = (sink_pdo >> 10) & 9;
+                voltage = voltage * 0.05;
+
+                //check if voltage can be met within 10% of the requested voltage
+                if (abs(voltage - 5) <= 0.5) {
+                    pd_prot_dfp_negotiated_sink_met = true;
+                    pd_prot_dfp_negotiated_sink_voltage = 5;
+                    return;
+                } else if (abs(voltage - 9) <= 0.9) {
+                    pd_prot_dfp_negotiated_sink_met = true;
+                    pd_prot_dfp_negotiated_sink_voltage = 9;
+                    return;
+                } else if (abs(voltage - 12) <= 1.2) {
+                    pd_prot_dfp_negotiated_sink_met = true;
+                    pd_prot_dfp_negotiated_sink_voltage = 12;
+                    return;
+                } else if (abs(voltage - 15) <= 1.5) {
+                    pd_prot_dfp_negotiated_sink_met = true;
+                    pd_prot_dfp_negotiated_sink_voltage = 15;
+                    return;
+                } else if (abs(voltage - 20) <= 2) {
+                    pd_prot_dfp_negotiated_sink_met = true;
+                    pd_prot_dfp_negotiated_sink_voltage = 20;
+                    return;
+                } else {
+                    pd_prot_dfp_negotiated_sink_met = false;
+                    pd_prot_dfp_negotiated_sink_voltage = 0;
+                    return;
+                }
+            } else {
+                pd_prot_dfp_negotiated_sink_met = false;
+                pd_prot_dfp_negotiated_sink_voltage = 0;
+                return;
+            }
+        }
+    }
+
+    return;
+}
+
+/**
  * @brief Transmits a PD protocol command.
  *
  * This function transmits a PD protocol command based on the provided command type.
@@ -2769,13 +2965,19 @@ void pd_prot_src_port_policy_engine (enum ufp_dfp ufp_dfp) {
                     // set port data role to dfp
                     pd_prot_ufp_pe_port_data_role = dfp;
 
-                    // turn vconn power back on 
+                    //turn off psu
+                    pd_power_cont_return_to_base_state(ufp_dfp);
+
+                    //start psu at vsafe5v again
+                    pd_power_cont_en_vsafe5v(ufp_dfp);
+                }
+
+                //check exit condition
+                if (pd_power_cont_pgood(ufp_dfp, 5)) {
+                    //turn vconn back on
                     pd_phy_vconn_cont(ufp_dfp, on);
 
-                    // reset timer
-                    pd_prot_timer_controler(ufp_dfp, ps_hard_reset, stop);
-
-                    // set current state var
+                    //transistion to pe_src_startup
                     pd_prot_ufp_pe_current_state = pe_src_startup;
                 }
                 break;
@@ -2784,11 +2986,11 @@ void pd_prot_src_port_policy_engine (enum ufp_dfp ufp_dfp) {
                     // reset caps counter
                     pd_prot_ufp_counter_caps = 0;
 
-                    // reset protocol layer
-                    // ...
-
-                    // this will change later 
+                    //reset message id counter
+                    pd_prot_ufp_counter_message_id = 0;
                 }
+
+                
                 break;
             case pe_src_discovery:
                 if (pd_prot_ufp_pe_prev_state != pe_src_discovery) {
@@ -2799,34 +3001,32 @@ void pd_prot_src_port_policy_engine (enum ufp_dfp ufp_dfp) {
                 }
                 break;
             case pe_src_send_capabilitiys:
-                if (pd_prot_ufp_pe_prev_state != pe_src_send_capabilitiys) {
-                    // send source capabilities 
-                    pd_prot_transmit_source_capabilities(ufp);
+                // send source capabilities 
+                pd_prot_transmit_source_capabilities(ufp);
 
-                    // check if we got a good crc 
-                    if (pd_prot_ufp_last_good_crc) {
-                        // reset the crc flag
-                        pd_prot_ufp_last_good_crc = false;
-                        pd_prot_timer_controler(ufp_dfp, no_responce, stop);
-                        pd_prot_timer_controler(ufp_dfp, sender_response, start);
+                //incriment caps counter
+                pd_prot_ufp_counter_caps++;
 
-                        // receive message if it has arrived
-                        if (pd_phy_ufp_last_received_message_length != 0) {
-                           if (pd_prot_determine_last_data_message_type(ufp) == sink_capabilitiys) {
-                              pd_prot_ufp_pe_current_state = pe_src_negotiate_capabilitiys;
-                          }
-                        }
-                    }
-                    } else {
-                        pd_prot_ufp_pe_current_state = pe_src_discovery;
-                    } 
-                if (pd_phy_ufp_last_received_message_length != 0) {
-                    if (pd_prot_determine_last_data_message_type(ufp) == sink_capabilitiys) {
+                
+                // check if we got a good crc 
+                if (pd_prot_ufp_last_good_crc) {
+                    // reset the crc flag
+                    pd_prot_ufp_last_good_crc = false;
+
+                    //start and stop timers
+                    pd_prot_timer_controler(ufp_dfp, no_responce, stop);
+                    pd_prot_timer_controler(ufp_dfp, sender_response, start);
+
+                    //reset counters
+                    pd_prot_ufp_counter_caps = 0;
+
+                    // transition to negotiations once we recive a sink_capabilitiys message
+                    if (pd_phy_ufp_last_received_message_length != 0 && pd_prot_determine_last_data_message_type(ufp) == sink_capabilitiys) {
                         pd_prot_ufp_pe_current_state = pe_src_negotiate_capabilitiys;
                     }
-                } else {
-                    pd_prot_ufp_pe_current_state = pe_src_discovery;
                 }
+
+
                 break;
             case pe_src_disabled:
                 if (pd_prot_ufp_pe_prev_state != pe_src_disabled) {
@@ -2835,17 +3035,59 @@ void pd_prot_src_port_policy_engine (enum ufp_dfp ufp_dfp) {
                 break;
             case pe_src_negotiate_capabilitiys:
                 if (pd_prot_ufp_pe_prev_state != pe_src_negotiate_capabilitiys) {
-                    // something
+                    pd_prot_decode_sink_capabilities(ufp_dfp);
+                    if (pd_prot_ufp_negotiated_sink_met) {
+                        pd_prot_ufp_pe_current_state = pe_src_transition_supply;
+                    } else {
+                        pd_prot_transmit_command(ufp_dfp, reject);
+                        pd_prot_ufp_pe_current_state = pe_src_capabilitiy_response;
+                    }
                 }
                 break;
             case pe_src_transition_supply:
                 if (pd_prot_ufp_pe_prev_state != pe_src_transition_supply) {
-                    // something
+                    //send accept message
+                    pd_prot_transmit_command(ufp_dfp, accept);
+
+                    //trnsistion the supply
+                    if(pd_prot_ufp_negotiated_sink_voltage == 5) {
+                        pd_power_cont_en_vsafe5v(ufp_dfp);
+                    } else if (pd_prot_ufp_negotiated_sink_voltage == 5 && pd_power_cont_ufp_current_voltage == 5) {
+                        //do nothing
+                    } else if (pd_prot_ufp_negotiated_sink_voltage == 9) {
+                        pd_power_cont_en_9v(ufp_dfp);
+                    } else if (pd_prot_ufp_negotiated_sink_voltage == 12) {
+                        pd_power_cont_en_12v(ufp_dfp);
+                    } else if (pd_prot_ufp_negotiated_sink_voltage == 15) {
+                        pd_power_cont_en_15v(ufp_dfp);
+                    } else if (pd_prot_ufp_negotiated_sink_voltage == 20) {
+                        pd_power_cont_en_20v(ufp_dfp);
+                    }
+                }
+
+                //check if the ps is in pgood state
+                if (pd_power_cont_pgood(ufp_dfp, pd_prot_ufp_negotiated_sink_voltage)) {
+                    //transmit ps_rdy
+                    pd_prot_transmit_command(ufp_dfp, ps_rdy);
+
+                    //transiton to pe_src_rdy
+                    pd_prot_ufp_pe_current_state = pe_src_ready;
                 }
                 break;
             case pe_src_ready:
                 if (pd_prot_ufp_pe_prev_state != pe_src_ready) {
-                    // something
+                    //start timers
+                    pd_prot_timer_controler(ufp_dfp, discover_identity, start);
+                    pd_prot_timer_controler(ufp_dfp, source_pps_comm, start);
+                }
+
+                //check exit states
+                if (pd_prot_message_type(ufp_dfp) == get_source_cap) {
+                    //transition to pe_src_send_capabilitiys
+                    pd_prot_ufp_pe_current_state = pe_src_send_capabilitiys;
+                } else if (pd_prot_message_type(ufp_dfp) == request) {
+                    //transition to pe_src_negotiate_capabilitiy
+                    pd_prot_ufp_pe_current_state = pe_src_negotiate_capabilitiys;
                 }
                 break;
             case pe_src_epr_keep_alive:
@@ -2865,17 +3107,43 @@ void pd_prot_src_port_policy_engine (enum ufp_dfp ufp_dfp) {
                 break;
             case pe_src_capabilitiy_response:
                 if (pd_prot_ufp_pe_prev_state != pe_src_capabilitiy_response) {
-                    // something
+                    //send a reject message 
+                    pd_prot_transmit_command(ufp_dfp, reject);
                 }
+
+                //check exit conditions
+                if (pd_prot_ufp_negotiated_sink_met) {
+                    //transition to placy engine to pe_src_ready
+                    pd_prot_ufp_pe_current_state = pe_src_ready;
+                    
+                } 
                 break;
             case pe_src_wait_new_capabilitiys:
                 if (pd_prot_ufp_pe_prev_state != pe_src_wait_new_capabilitiys) {
                     // something
                 }
                 break;
-            pd_prot_ufp_pe_prev_state = pd_prot_ufp_pe_current_state; // update previous state
-        }
+            case pe_src_hard_reset:
+                if (pd_prot_ufp_pe_prev_state != pe_src_hard_reset) {
+                    //send hard reset via phy
+                    pd_phy_send_hard_reset(ufp_dfp);
+                    
+                    //start timers
+                    pd_prot_timer_controler(ufp_dfp, no_responce, start);
+                    pd_prot_timer_controler(ufp_dfp, ps_hard_reset, start);
 
+                    //incriment counters
+                    pd_prot_ufp_counter_hard_reset++;
+
+                }
+                break;
+            case error_recovery:
+                if (pd_prot_ufp_pe_prev_state != error_recovery) {
+                    // something
+                }
+                break;  
+        }
+        pd_prot_ufp_pe_prev_state = pd_prot_ufp_pe_current_state; // update previous state
 
     }
 }

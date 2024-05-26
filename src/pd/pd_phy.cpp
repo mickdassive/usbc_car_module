@@ -24,6 +24,7 @@
 #include <Wire.h>
 #include "pd_phy.h"
 #include "pd_power_cont.h"
+#include "pd_prot.h"
 
 
 
@@ -866,6 +867,18 @@ void pd_phy_complite_attach (enum ufp_dfp ufp_dfp) {
             pd_phy_dfp_attached = true;
         }
 
+        //tranistion plolicy engine to pe_src_send_capabilitiys
+        //and reset hard reset counters
+        if (ufp_dfp == ufp) {
+            pd_prot_ufp_pe_current_state = pe_src_send_capabilitiys;
+            pd_prot_ufp_counter_hard_reset = 0;
+        } else {
+            pd_prot_dfp_pe_current_state = pe_src_send_capabilitiys;
+            pd_prot_dfp_counter_hard_reset = 0;
+        }
+
+
+
         return;
 
     } else {
@@ -1096,6 +1109,21 @@ bool pd_phy_transmit (enum ufp_dfp ufp_dfp, uint8_t to_transmit[], int lenght_of
     //inti local vars
     uint8_t current_phy_addres = 0;
     uint8_t lenght_of_message = lenght_of_transmission;
+
+    //check if we are trying to transmit when disconnected
+    if (ufp_dfp == ufp) {
+        if (pd_phy_ufp_attached == false) {
+            //transition policy engine to pe_src_discovery
+            pd_prot_ufp_pe_current_state = pe_src_discovery;
+            return false;
+        }
+    } else if (ufp_dfp == dfp) {
+        if (pd_phy_dfp_attached == false) {
+            //transition policy engine to pe_src_discovery
+            pd_prot_dfp_pe_current_state = pe_src_discovery;
+            return false;
+        }
+    }
     
     //set current phy address
     if (ufp_dfp == ufp) {

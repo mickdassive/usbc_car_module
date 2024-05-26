@@ -221,6 +221,7 @@ const int pd_prot_timer_th_vdm_receiver_response = 15;
 const int pd_prot_timer_th_vdm_sender_response = 30;
 const int pd_prot_timer_th_vdm_wait_mode_entry = 50;
 const int pd_prot_timer_th_vdm_wait_mode_exit = 50;
+const int pd_prot_timer_th_source_pps_comm = 15000;
 
 //pd timer start times for ufp
 //usb-if docs page 271
@@ -288,6 +289,7 @@ extern unsigned long pd_prot_ufp_timer_start_time_vdm_receiver_response;
 extern unsigned long pd_prot_ufp_timer_start_time_vdm_sender_response;
 extern unsigned long pd_prot_ufp_timer_start_time_vdm_wait_mode_entry;
 extern unsigned long pd_prot_ufp_timer_start_time_vdm_wait_mode_exit;
+extern unsigned long pd_prot_ufp_timer_start_time_source_pps_comm;
 
 //pd timer start times for dfp
 //usb-if docs page 271
@@ -355,6 +357,7 @@ extern unsigned long pd_prot_dfp_timer_start_time_vdm_receiver_responce;
 extern unsigned long pd_prot_dfp_timer_start_time_vdm_sender_responce;
 extern unsigned long pd_prot_dfp_timer_start_time_vdm_wait_mode_entry;
 extern unsigned long pd_prot_dfp_timer_start_time_vdm_wait_mode_exit;
+extern unsigned long pd_prot_dfp_timer_start_time_source_pps_comm;
 
 //pd timer names enum
 enum pd_prot_timer_names {
@@ -421,7 +424,8 @@ vdm_exit_mode,
 vdm_receiver_responce,
 vdm_sender_responce,
 vdm_wait_mode_entry,
-vdm_wait_mode_exit
+vdm_wait_mode_exit,
+source_pps_comm
 };
 
 //enum for start/stop of timers
@@ -487,7 +491,8 @@ enum pd_port_policy_engine_state_enum {
     pe_src_get_sink_cap,
     pe_src_give_souce_cap,
     pe_src_capabilitiy_response,
-    pe_src_wait_new_capabilitiys
+    pe_src_wait_new_capabilitiys,
+    error_recovery
 };
 
 //previous policy engine state vars
@@ -497,6 +502,12 @@ extern enum pd_port_policy_engine_state_enum pd_prot_dfp_pe_prev_state;
 //selcted port power (in watts)
 extern enum pd_prot_power_cap_enum pd_prot_ufp_current_power_cap;
 extern enum pd_prot_power_cap_enum pd_prot_dfp_current_power_cap;
+
+//vars for sink necgotiation
+extern int pd_prot_ufp_negotiated_sink_voltage;
+extern bool pd_prot_ufp_negotiated_sink_met; //true if we can souce the negotiated voltage
+extern int pd_prot_dfp_negotiated_sink_voltage;
+extern bool pd_prot_dfp_negotiated_sink_met; //true if we can souce the negotiated voltage
 
 //enum for port power role
 enum pd_prot_port_power_role {src, sink};
