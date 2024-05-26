@@ -31,6 +31,7 @@
 
 uint8_t hub_placeholder = 0;
 
+
 /**
  * Scans the I2C bus for connected devices and checks if all expected devices are present.
  * 

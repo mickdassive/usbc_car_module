@@ -70,7 +70,7 @@ void disp_init() {
   //set display intensity
   Wire.beginTransmission(disp_add);
   Wire.write(disp_global_intensity);
-  Wire.write(disp_intense_defult);
+  Wire.write(disp_intense_defult); 
   Wire.endTransmission();
 
   return;
@@ -94,24 +94,6 @@ void disp_blank() {
  * Sets the brightness of the display.
  *
  * @param desired_brightness The desired brightness level (0-255).
- */
-void disp_bright(uint8_t desired_brightness) {
-  Wire.beginTransmission(disp_add);
-  Wire.write(disp_global_intensity);
-  Wire.write(desired_brightness);
-  Wire.endTransmission();
-
-  return;
-}
-
-/**
- * Writes a floating-point number to the display.
- *
- * This function takes a floating-point number as input and converts it into a format that can be displayed on the screen.
- * It separates the individual digits of the number and converts them into binary values that correspond to the display's segments.
- * The decimal point is also handled and displayed correctly.
- *
- * @param input The floating-point number to be displayed.
  */
 void disp_write(float input) {
   //init local vars
@@ -201,13 +183,31 @@ void disp_write(float input) {
  * @param leds The structure containing the LED information, including the digit and mask.
  * @param led_on_off The state of the LED, either "on" or "off".
  */
+void disp_bright(uint8_t desired_brightness) {
+  Wire.beginTransmission(disp_add);
+  Wire.write(disp_global_intensity);
+  Wire.write(desired_brightness);
+  Wire.endTransmission();
+
+  return;
+}
+
+/**
+ * Writes a floating-point number to the display.
+ *
+ * This function takes a floating-point number as input and converts it into a format that can be displayed on the screen.
+ * It separates the individual digits of the number and converts them into binary values that correspond to the display's segments.
+ * The decimal point is also handled and displayed correctly.
+ *
+ * @param input The floating-point number to be displayed.
+ */
 void disp_led_write (struct leds leds, enum on_off led_on_off) {
   //init local vars
-  uint8_t current_regter_value = 0x0;
+  uint8_t current_register_value = 0x0;
   uint8_t value_to_write = 0x0;
 
-  //detirmine what digit of the diplay register the disired led is
-  //& read the respective didgit register
+  //determine what digit of the display register the desired led is
+  //& read the respective digit register
   Wire.beginTransmission(disp_add);
   if (leds.digit == 6) {
     Wire.write(disp_digit_6);
@@ -218,14 +218,14 @@ void disp_led_write (struct leds leds, enum on_off led_on_off) {
   Wire.endTransmission();
 
   Wire.requestFrom(disp_add, 1);
-  current_regter_value = Wire.read();
+  current_register_value = Wire.read();
   Wire.endTransmission();
 
   //mask and set bits
   if (led_on_off == on) {
-    value_to_write = current_regter_value | leds.mask;
+    value_to_write = current_register_value | leds.mask;
   } else if (led_on_off == off) {
-    value_to_write = current_regter_value ^ leds.mask;
+    value_to_write = current_register_value ^ leds.mask;
   } 
 
   //write new value to registers

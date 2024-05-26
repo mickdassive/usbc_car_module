@@ -49,8 +49,8 @@ ESP8266WebServer httpServer(80);
 //firmware version
 const char* firmware_version = "V 0.1";
 
-//boot sucsessful var
-int boot_sucsesful = 0;
+//boot successful var
+int boot_successful = 0;
 
 
 
@@ -102,11 +102,11 @@ void setup() {
   //begin i2c
   Wire.begin(sda.pin_number, scl.pin_number);
   Wire.setClock(400000);
-  Serial.println("I2c strated");
+  Serial.println("I2c started");
 
-  //begin scaning i2c bus for all devices
+  //begin scanning i2c bus for all devices
   if (bus_scan()) {
-    ++boot_sucsesful;
+    ++boot_successful;
   }
 
   //begin GPIO inits for on and offboard 
@@ -116,7 +116,7 @@ void setup() {
   //set onboard led to low to not be annoying
   io_call(onboard_led, write, low);
 
-  //bgegin init for ADC
+  //begin init for ADC
   //adc_init(false);
   Serial.println("ADC init and self cal complete");
 
@@ -129,10 +129,10 @@ void setup() {
   Serial.println("USB-hub init complete");
 
   //begin USB-PD power supply check 
-  Serial.println("Begin PSU self chek");
+  Serial.println("Begin PSU self check");
   if (pd_power_cont_self_check()) {
     Serial.println("UFP&DFP voltages within safe range");
-    ++boot_sucsesful;
+    ++boot_successful;
   } else {
     Serial.println("PSU self check failed");
   }
@@ -145,12 +145,12 @@ void setup() {
   Serial.println("USB-PD PHY UFP&DFP init complete");
 
   /*
-    //determine if boot was sucsessful
-  if (boot_sucsesful >= 2) {
+    //determine if boot was successful
+  if (boot_successful >= 2) {
     //do nothing
   } else {
-    Serial.println("Boot falled in one or more ways !!!!!!!!!");
-    while (boot_sucsesful != 2)  {
+    Serial.println("Boot failed in one or more ways !!!!!!!!!");
+    while (boot_successful != 2)  {
       io_call(onboard_led, write, high);
       delay(100);
       io_call(onboard_led, write, low);
@@ -170,9 +170,8 @@ void loop() {
     MDNS.update();
   }
 
-
-  //see if intrupt was flaged and run the handeler
-  if (io_interupt_flag) {
+  //see if interrupt was flagged and run the handler
+  if (io_interrupt_flag) {
     io_intrupt_handeler();
   }
 

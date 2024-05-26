@@ -35,7 +35,7 @@ const int power_mon_b_c_r1 = 10000;
 const int power_mon_b_c_r2 = 1000;
 const float power_mon_b_c_rs = 0.01;
 
-//enum for difrent power "zones"
+//enum for different power "zones"
 enum power_mon_zones {
     back_c,
     front_c,

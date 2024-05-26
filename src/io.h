@@ -171,14 +171,14 @@ enum high_low {
   read_mode
 };
 
-//iox intrupt register values
+//iox interrupt register values
 extern uint8_t iox_0_port_0_interrupt;
 extern uint8_t iox_0_port_1_interrupt;
 extern uint8_t iox_1_port_0_interrupt;
 extern uint8_t iox_1_port_1_interrupt;
-extern bool io_interupt_flag;
+extern bool io_interrupt_flag;
 
-//buttion info defines
+//button info defines
 extern bool io_unit_btn_pressed;
 extern unsigned long io_unit_btn_pressed_time;
 extern bool io_mode_btn_pressed;
@@ -186,17 +186,17 @@ extern unsigned long io_mode_btn_pressed_time;
 extern bool io_src_btn_pressed;
 extern unsigned long io_src_btn_pressed_time;
 
-//message recived intrupt flags
-extern bool io_intrupt_ufp_msg_recived;
-extern bool io_intrupt_dfp_msg_recived;
+//message received interrupt flags
+extern bool io_interrupt_ufp_msg_received;
+extern bool io_interrupt_dfp_msg_received;
  
-//fuction defines
+//function defines
 uint8_t io_read_current_io_state(int port, int iox_num);
 int io_call(struct pin pin_needed, enum read_write read_write, enum high_low high_low);
 void io_gpio_init();
-struct pin io_determine_intrupt_source();
-void io_pin_intrupt_flagger ();
-void io_intrupt_handeler ();
+struct pin io_determine_interrupt_source();
+void io_pin_interrupt_flagger();
+void io_intrupt_handeler();
 
 
 

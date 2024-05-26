@@ -75,9 +75,14 @@ void pd_power_cont_return_to_base_state (enum ufp_dfp ufp_dfp) {
 }
 
 /**
- * Enables the VSafe5V power control for the specified UFP/DFP mode.
- *
- * @param ufp_dfp The UFP/DFP mode to enable VSafe5V power control for.
+ * @brief Enables the power control for vsafe5v on the usbc Type-C port.
+ * 
+ * This function sets the current voltage to vsafe5v and configures the necessary
+ * I/O calls and ADC thresholds based on the type of usbc port (UFP or DFP).
+ * If the output is not allowed, it returns to the base state where the output
+ * is disabled.
+ * 
+ * @param ufp_dfp The type of usbc port (UFP or DFP).
  */
 void pd_power_cont_en_vsafe5v (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
@@ -128,9 +133,14 @@ void pd_power_cont_en_vsafe5v (enum ufp_dfp ufp_dfp) {
 }
 
 /**
- * Enables the power control for 9V voltage level based on the specified UFP/DFP mode.
- *
- * @param ufp_dfp The UFP/DFP mode (ufp or dfp).
+ * @brief Enables the power control for 9V on the usbc Type-C port.
+ * 
+ * This function sets the current voltage to 9V and configures the necessary
+ * I/O calls and ADC thresholds based on the type of usbc port (UFP or DFP).
+ * If the output is not allowed, it returns to the base state where the output
+ * is disabled.
+ * 
+ * @param ufp_dfp The type of usbc port (UFP or DFP).
  */
 void pd_power_cont_en_9v (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
@@ -180,9 +190,14 @@ void pd_power_cont_en_9v (enum ufp_dfp ufp_dfp) {
 }
 
 /**
- * Enables the 12V power control for the specified UFP/DFP.
- *
- * @param ufp_dfp The UFP/DFP type (ufp or dfp).
+ * @brief Enables the power control for 12V on the usbc Type-C port.
+ * 
+ * This function sets the current voltage to 12V and configures the necessary
+ * I/O calls and ADC thresholds based on the type of usbc port (UFP or DFP).
+ * If the output is not allowed, it returns to the base state where the output
+ * is disabled.
+ * 
+ * @param ufp_dfp The type of usbc port (UFP or DFP).
  */
 void pd_power_cont_en_12v (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
@@ -232,14 +247,14 @@ void pd_power_cont_en_12v (enum ufp_dfp ufp_dfp) {
 }
 
 /**
- * @brief Enables the power control for 15V on the USB Type-C port.
+ * @brief Enables the power control for 15V on the usbc Type-C port.
  * 
  * This function sets the current voltage to 15V and configures the necessary
- * I/O calls and ADC thresholds based on the type of USB port (UFP or DFP).
+ * I/O calls and ADC thresholds based on the type of usbc port (UFP or DFP).
  * If the output is not allowed, it returns to the base state where the output
  * is disabled.
  * 
- * @param ufp_dfp The type of USB port (UFP or DFP).
+ * @param ufp_dfp The type of usbc port (UFP or DFP).
  */
 void pd_power_cont_en_15v (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
@@ -289,14 +304,14 @@ void pd_power_cont_en_15v (enum ufp_dfp ufp_dfp) {
 }
 
 /**
- * @brief Enables the power control for 20V on the USB Type-C port.
+ * @brief Enables the power control for 20V on the usbc Type-C port.
  * 
  * This function sets the current voltage to 20V and configures the necessary
- * I/O calls and ADC thresholds based on the type of port (UFP or DFP).
- * If the output is not allowed for the specified port, it returns to the base state
- * where the output is not allowed.
+ * I/O calls and ADC thresholds based on the type of usbc port (UFP or DFP).
+ * If the output is not allowed, it returns to the base state where the output
+ * is disabled.
  * 
- * @param ufp_dfp The type of port (UFP or DFP).
+ * @param ufp_dfp The type of usbc port (UFP or DFP).
  */
 void pd_power_cont_en_20v (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
@@ -369,7 +384,7 @@ bool pd_power_cont_pgood (enum ufp_dfp ufp_dfp, int voltage) {
     //calculate expected counts
     expected_voltage_in_counts = (3.3 / expected_voltage_after_devider) * 65535;
 
-    //calulate upper and lower limmits
+    //calculate upper and lower limits
     upper_valid_value = expected_voltage_in_counts * 1.1;
     lower_valid_value = expected_voltage_in_counts * 0.9;
 

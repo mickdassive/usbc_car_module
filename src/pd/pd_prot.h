@@ -162,8 +162,8 @@ const int pd_prot_timer_th_bist_cont_mode = 60;
 const int pd_prot_timer_th_shared_test_mode = 1000;
 const int pd_prot_timer_th_cable_message = 1;
 const int pd_prot_timer_th_chunking_not_supported = 50;
-const int pd_prot_timer_th_chunk_recevier_request = 15;
-const int pd_prot_timer_th_chunk_recevier_response = 15;
+const int pd_prot_timer_th_chunk_receiver_request = 15;
+const int pd_prot_timer_th_chunk_receiver_response = 15;
 const int pd_prot_timer_th_chunk_sender_request = 30;
 const int pd_prot_timer_th_chunk_sender_response = 30;
 const int pd_prot_timer_th_data_reset = 250;
@@ -175,8 +175,8 @@ const int pd_prot_timer_th_dr_swap_wait = 100;
 const int pd_prot_timer_th_enter_usb = 500;
 const int pd_prot_timer_th_enter_usb_wait = 100;
 const int pd_prot_timer_th_enter_epr = 550;
-const int pd_prot_timer_th_epr_soruce_cable_discovvery = 2000;
-const int pd_prot_timer_th_fisrt_source_cap = 250;
+const int pd_prot_timer_th_epr_source_cable_discovery = 2000;
+const int pd_prot_timer_th_first_source_cap = 250;
 const int pd_prot_timer_th_fr_swap_5v = 15;
 const int pd_prot_timer_th_fr_swap_complete = 15;
 const int pd_prot_timer_th_fr_swap_init = 15;
@@ -184,7 +184,7 @@ const int pd_prot_timer_th_hard_reset = 5;
 const int pd_prot_timer_th_hard_reset_complete = 5;
 const int pd_prot_timer_th_source_epr_keep_alive = 1000;
 const int pd_prot_timer_th_sink_epr_keep_alive = 500;
-const int pd_prot_timer_th_no_responce = 5500;
+const int pd_prot_timer_th_no_response = 5500;
 const int pd_prot_timer_th_pps_request = 10000;
 const int pd_prot_timer_th_pps_timeout = 15000;
 const int pd_prot_timer_th_prot_err_hard_reset = 15;
@@ -197,9 +197,9 @@ const int pd_prot_timer_th_ps_source_on = 480;
 const int pd_prot_timer_th_spr_ps_transition = 550;
 const int pd_prot_timer_th_epr_ps_transition = 1020;
 const int pd_prot_timer_th_receive = 1;
-const int pd_prot_timer_th_receive_responce = 15;
+const int pd_prot_timer_th_receive_response = 15;
 const int pd_prot_timer_th_retry = 195;
-const int pd_prot_timer_th_sender_responce = 33;
+const int pd_prot_timer_th_sender_response = 33;
 const int pd_prot_timer_th_sink_delay = 5;
 const int pd_prot_timer_th_sink_tx = 20;
 const int pd_prot_timer_th_soft_reset = 15;
@@ -217,8 +217,8 @@ const int pd_prot_timer_th_vconn_swap_wait = 100;
 const int pd_prot_timer_th_vdm_busy = 50;
 const int pd_prot_timer_th_vdm_enter_mode = 25;
 const int pd_prot_timer_th_vdm_exit_mode = 25;
-const int pd_prot_timer_th_vdm_receiver_responce = 15;
-const int pd_prot_timer_th_vdm_sender_responce = 30;
+const int pd_prot_timer_th_vdm_receiver_response = 15;
+const int pd_prot_timer_th_vdm_sender_response = 30;
 const int pd_prot_timer_th_vdm_wait_mode_entry = 50;
 const int pd_prot_timer_th_vdm_wait_mode_exit = 50;
 
@@ -229,8 +229,8 @@ extern unsigned long pd_prot_ufp_timer_start_time_bist_cont_mode;
 extern unsigned long pd_prot_ufp_timer_start_time_shared_test_mode;
 extern unsigned long pd_prot_ufp_timer_start_time_cable_message;
 extern unsigned long pd_prot_ufp_timer_start_time_chunking_not_supported;
-extern unsigned long pd_prot_ufp_timer_start_time_chunk_recevier_request;
-extern unsigned long pd_prot_ufp_timer_start_time_chunk_recevier_response;
+extern unsigned long pd_prot_ufp_timer_start_time_chunk_receiver_request;
+extern unsigned long pd_prot_ufp_timer_start_time_chunk_receiver_response;
 extern unsigned long pd_prot_ufp_timer_start_time_chunk_sender_request;
 extern unsigned long pd_prot_ufp_timer_start_time_chunk_sender_response;
 extern unsigned long pd_prot_ufp_timer_start_time_data_reset;
@@ -242,8 +242,8 @@ extern unsigned long pd_prot_ufp_timer_start_time_dr_swap_wait;
 extern unsigned long pd_prot_ufp_timer_start_time_enter_usb;
 extern unsigned long pd_prot_ufp_timer_start_time_enter_usb_wait;
 extern unsigned long pd_prot_ufp_timer_start_time_enter_epr;
-extern unsigned long pd_prot_ufp_timer_start_time_epr_soruce_cable_discovvery;
-extern unsigned long pd_prot_ufp_timer_start_time_fisrt_source_cap;
+extern unsigned long pd_prot_ufp_timer_start_time_epr_source_cable_discovery;
+extern unsigned long pd_prot_ufp_timer_start_time_first_source_cap;
 extern unsigned long pd_prot_ufp_timer_start_time_fr_swap_5v;
 extern unsigned long pd_prot_ufp_timer_start_time_fr_swap_complete;
 extern unsigned long pd_prot_ufp_timer_start_time_fr_swap_init;
@@ -251,7 +251,7 @@ extern unsigned long pd_prot_ufp_timer_start_time_hard_reset;
 extern unsigned long pd_prot_ufp_timer_start_time_hard_reset_complete;
 extern unsigned long pd_prot_ufp_timer_start_time_source_epr_keep_alive;
 extern unsigned long pd_prot_ufp_timer_start_time_sink_epr_keep_alive;
-extern unsigned long pd_prot_ufp_timer_start_time_no_responce;
+extern unsigned long pd_prot_ufp_timer_start_time_no_response;
 extern unsigned long pd_prot_ufp_timer_start_time_pps_request;
 extern unsigned long pd_prot_ufp_timer_start_time_pps_timeout;
 extern unsigned long pd_prot_ufp_timer_start_time_prot_err_hard_reset;
@@ -264,9 +264,9 @@ extern unsigned long pd_prot_ufp_timer_start_time_ps_source_on;
 extern unsigned long pd_prot_ufp_timer_start_time_spr_ps_transition;
 extern unsigned long pd_prot_ufp_timer_start_time_epr_ps_transition;
 extern unsigned long pd_prot_ufp_timer_start_time_receive;
-extern unsigned long pd_prot_ufp_timer_start_time_receive_responce;
+extern unsigned long pd_prot_ufp_timer_start_time_receive_response;
 extern unsigned long pd_prot_ufp_timer_start_time_retry;
-extern unsigned long pd_prot_ufp_timer_start_time_sender_responce;
+extern unsigned long pd_prot_ufp_timer_start_time_sender_response;
 extern unsigned long pd_prot_ufp_timer_start_time_sink_delay;
 extern unsigned long pd_prot_ufp_timer_start_time_sink_tx;
 extern unsigned long pd_prot_ufp_timer_start_time_soft_reset;
@@ -284,8 +284,8 @@ extern unsigned long pd_prot_ufp_timer_start_time_vconn_swap_wait;
 extern unsigned long pd_prot_ufp_timer_start_time_vdm_busy;
 extern unsigned long pd_prot_ufp_timer_start_time_vdm_enter_mode;
 extern unsigned long pd_prot_ufp_timer_start_time_vdm_exit_mode;
-extern unsigned long pd_prot_ufp_timer_start_time_vdm_receiver_responce;
-extern unsigned long pd_prot_ufp_timer_start_time_vdm_sender_responce;
+extern unsigned long pd_prot_ufp_timer_start_time_vdm_receiver_response;
+extern unsigned long pd_prot_ufp_timer_start_time_vdm_sender_response;
 extern unsigned long pd_prot_ufp_timer_start_time_vdm_wait_mode_entry;
 extern unsigned long pd_prot_ufp_timer_start_time_vdm_wait_mode_exit;
 
@@ -296,8 +296,8 @@ extern unsigned long pd_prot_dfp_timer_start_time_bist_cont_mode;
 extern unsigned long pd_prot_dfp_timer_start_time_shared_test_mode;
 extern unsigned long pd_prot_dfp_timer_start_time_cable_message;
 extern unsigned long pd_prot_dfp_timer_start_time_chunking_not_supported;
-extern unsigned long pd_prot_dfp_timer_start_time_chunk_recevier_request;
-extern unsigned long pd_prot_dfp_timer_start_time_chunk_recevier_response;
+extern unsigned long pd_prot_dfp_timer_start_time_chunk_receiver_request;
+extern unsigned long pd_prot_dfp_timer_start_time_chunk_receiver_response;
 extern unsigned long pd_prot_dfp_timer_start_time_chunk_sender_request;
 extern unsigned long pd_prot_dfp_timer_start_time_chunk_sender_response;
 extern unsigned long pd_prot_dfp_timer_start_time_data_reset;
@@ -309,8 +309,8 @@ extern unsigned long pd_prot_dfp_timer_start_time_dr_swap_wait;
 extern unsigned long pd_prot_dfp_timer_start_time_enter_usb;
 extern unsigned long pd_prot_dfp_timer_start_time_enter_usb_wait;
 extern unsigned long pd_prot_dfp_timer_start_time_enter_epr;
-extern unsigned long pd_prot_dfp_timer_start_time_epr_soruce_cable_discovvery;
-extern unsigned long pd_prot_dfp_timer_start_time_fisrt_source_cap;
+extern unsigned long pd_prot_dfp_timer_start_time_epr_source_cable_discovery;
+extern unsigned long pd_prot_dfp_timer_start_time_first_source_cap;
 extern unsigned long pd_prot_dfp_timer_start_time_fr_swap_5v;
 extern unsigned long pd_prot_dfp_timer_start_time_fr_swap_complete;
 extern unsigned long pd_prot_dfp_timer_start_time_fr_swap_init;
@@ -318,7 +318,7 @@ extern unsigned long pd_prot_dfp_timer_start_time_hard_reset;
 extern unsigned long pd_prot_dfp_timer_start_time_hard_reset_complete;
 extern unsigned long pd_prot_dfp_timer_start_time_source_epr_keep_alive;
 extern unsigned long pd_prot_dfp_timer_start_time_sink_epr_keep_alive;
-extern unsigned long pd_prot_dfp_timer_start_time_no_responce;
+extern unsigned long pd_prot_dfp_timer_start_time_no_response;
 extern unsigned long pd_prot_dfp_timer_start_time_pps_request;
 extern unsigned long pd_prot_dfp_timer_start_time_pps_timeout;
 extern unsigned long pd_prot_dfp_timer_start_time_prot_err_hard_reset;
@@ -398,9 +398,9 @@ ps_source_on,
 spr_ps_transition,
 epr_ps_transition,
 receive,
-receive_responce,
+receive_response,
 retry,
-sender_responce,
+sender_response,
 sink_delay,
 sink_tx,
 soft_reset,
@@ -516,25 +516,8 @@ extern enum ufp_dfp pd_prot_dfp_pe_port_data_role;
 extern enum pd_port_policy_engine_state_enum pd_prot_ufp_pe_current_state;
 extern enum pd_port_policy_engine_state_enum pd_prot_dfp_pe_current_state;
 
-
-
-
 //function defines
-void pd_prot_timer_handeler();
-void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names name, enum pd_prot_timer_start_stop start_stop);
-uint16_t pd_prot_biuld_headder (bool extended_msg, uint16_t n_data_objects, uint16_t msg_id, enum pd_prot_port_power_role power_role, uint16_t spec_revision, enum ufp_dfp data_role, uint16_t msg_type);
-uint16_t pd_prot_biuld_ext_headder (bool chunked, uint16_t chunk_number, bool request_chunk, uint16_t data_size);
-enum pd_prot_message_type_enum pd_prot_message_type (enum ufp_dfp ufp_dfp);
-bool pd_prot_ext_msg_chunked (enum ufp_dfp ufp_dfp);
-int pd_prot_ext_msg_n_chunks (enum ufp_dfp ufp_dfp);
-bool pd_prot_check_soft_reset (enum ufp_dfp ufp_dfp);
-void pd_prot_discard_message (enum ufp_dfp ufp_dfp);
 void pd_prot_hard_reset_handeler (enum ufp_dfp ufp_dfp, bool from_policy_engine);
-void pd_prot_set_last_message(enum ufp_dfp ufp_dfp, uint8_t message[256], uint8_t length_of_message);
-void pd_prot_transmit_soucre_capibilitiys (enum ufp_dfp ufp_dfp);
-void pd_prot_transmit_command (enum ufp_dfp ufp_dfp, enum pd_prot_cont_msg_enum pd_prot_cont_msg_enum);
-void pd_prot_rx_state_machine(enum ufp_dfp ufp_dfp);
-void pd_prot_chunked_rx_state_machine(enum ufp_dfp ufp_dfp);
 
 
 

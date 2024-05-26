@@ -81,7 +81,7 @@ unsigned long pd_prot_ufp_timer_start_time_hard_reset = 0;
 unsigned long pd_prot_ufp_timer_start_time_hard_reset_complete = 0;
 unsigned long pd_prot_ufp_timer_start_time_source_epr_keep_alive = 0;
 unsigned long pd_prot_ufp_timer_start_time_sink_epr_keep_alive = 0;
-unsigned long pd_prot_ufp_timer_start_time_no_responce = 0;
+unsigned long pd_prot_ufp_timer_start_time_no_response = 0;
 unsigned long pd_prot_ufp_timer_start_time_pps_request = 0;
 unsigned long pd_prot_ufp_timer_start_time_pps_timeout = 0;
 unsigned long pd_prot_ufp_timer_start_time_prot_err_hard_reset = 0;
@@ -94,9 +94,9 @@ unsigned long pd_prot_ufp_timer_start_time_ps_source_on = 0;
 unsigned long pd_prot_ufp_timer_start_time_spr_ps_transition = 0;
 unsigned long pd_prot_ufp_timer_start_time_epr_ps_transition = 0;
 unsigned long pd_prot_ufp_timer_start_time_receive = 0;
-unsigned long pd_prot_ufp_timer_start_time_receive_responce = 0;
+unsigned long pd_prot_ufp_timer_start_time_receive_response = 0;
 unsigned long pd_prot_ufp_timer_start_time_retry = 0;
-unsigned long pd_prot_ufp_timer_start_time_sender_responce = 0;
+unsigned long pd_prot_ufp_timer_start_time_sender_response = 0;
 unsigned long pd_prot_ufp_timer_start_time_sink_delay = 0;
 unsigned long pd_prot_ufp_timer_start_time_sink_tx = 0;
 unsigned long pd_prot_ufp_timer_start_time_soft_reset = 0;
@@ -114,8 +114,8 @@ unsigned long pd_prot_ufp_timer_start_time_vconn_swap_wait = 0;
 unsigned long pd_prot_ufp_timer_start_time_vdm_busy = 0;
 unsigned long pd_prot_ufp_timer_start_time_vdm_enter_mode = 0;
 unsigned long pd_prot_ufp_timer_start_time_vdm_exit_mode = 0;
-unsigned long pd_prot_ufp_timer_start_time_vdm_receiver_responce = 0;
-unsigned long pd_prot_ufp_timer_start_time_vdm_sender_responce = 0;
+unsigned long pd_prot_ufp_timer_start_time_vdm_receiver_response = 0;
+unsigned long pd_prot_ufp_timer_start_time_vdm_sender_response = 0;
 unsigned long pd_prot_ufp_timer_start_time_vdm_wait_mode_entry = 0;
 unsigned long pd_prot_ufp_timer_start_time_vdm_wait_mode_exit = 0;
 
@@ -148,7 +148,7 @@ unsigned long pd_prot_dfp_timer_start_time_hard_reset = 0;
 unsigned long pd_prot_dfp_timer_start_time_hard_reset_complete = 0;
 unsigned long pd_prot_dfp_timer_start_time_source_epr_keep_alive = 0;
 unsigned long pd_prot_dfp_timer_start_time_sink_epr_keep_alive = 0;
-unsigned long pd_prot_dfp_timer_start_time_no_responce = 0;
+unsigned long pd_prot_dfp_timer_start_time_no_response = 0;
 unsigned long pd_prot_dfp_timer_start_time_pps_request = 0;
 unsigned long pd_prot_dfp_timer_start_time_pps_timeout = 0;
 unsigned long pd_prot_dfp_timer_start_time_prot_err_hard_reset = 0;
@@ -161,9 +161,9 @@ unsigned long pd_prot_dfp_timer_start_time_ps_source_on = 0;
 unsigned long pd_prot_dfp_timer_start_time_spr_ps_transition = 0;
 unsigned long pd_prot_dfp_timer_start_time_epr_ps_transition = 0;
 unsigned long pd_prot_dfp_timer_start_time_receive = 0;
-unsigned long pd_prot_dfp_timer_start_time_receive_responce = 0;
+unsigned long pd_prot_dfp_timer_start_time_receive_response = 0;
 unsigned long pd_prot_dfp_timer_start_time_retry = 0;
-unsigned long pd_prot_dfp_timer_start_time_sender_responce = 0;
+unsigned long pd_prot_dfp_timer_start_time_sender_response = 0;
 unsigned long pd_prot_dfp_timer_start_time_sink_delay = 0;
 unsigned long pd_prot_dfp_timer_start_time_sink_tx = 0;
 unsigned long pd_prot_dfp_timer_start_time_soft_reset = 0;
@@ -181,14 +181,14 @@ unsigned long pd_prot_dfp_timer_start_time_vconn_swap_wait = 0;
 unsigned long pd_prot_dfp_timer_start_time_vdm_busy = 0;
 unsigned long pd_prot_dfp_timer_start_time_vdm_enter_mode = 0;
 unsigned long pd_prot_dfp_timer_start_time_vdm_exit_mode = 0;
-unsigned long pd_prot_dfp_timer_start_time_vdm_receiver_responce = 0;
-unsigned long pd_prot_dfp_timer_start_time_vdm_sender_responce = 0;
+unsigned long pd_prot_dfp_timer_start_time_vdm_receiver_response = 0;
+unsigned long pd_prot_dfp_timer_start_time_vdm_sender_response = 0;
 unsigned long pd_prot_dfp_timer_start_time_vdm_wait_mode_entry = 0;
 unsigned long pd_prot_dfp_timer_start_time_vdm_wait_mode_exit = 0;
 
 //retransmit vars
-bool pd_prot_ufp_retransit_failled = false;
-bool pd_prot_dfp_retransit_failled = false;
+bool pd_prot_ufp_retransit_failed = false;
+bool pd_prot_dfp_retransit_failed = false;
 uint8_t pd_prot_ufp_last_message [255];
 int pd_prot_ufp_last_message_length = 0;
 uint8_t pd_prot_dfp_last_message [255];
@@ -198,13 +198,13 @@ int pd_prot_dfp_last_message_length = 0;
 enum pd_port_policy_engine_state_enum pd_prot_ufp_pe_prev_state;
 enum pd_port_policy_engine_state_enum pd_prot_dfp_pe_prev_state;
 
-//selcted port power (in watts)
+//selected port power (in watts)
 enum pd_prot_power_cap_enum pd_prot_ufp_current_power_cap = watts_100;
 enum pd_prot_power_cap_enum pd_prot_dfp_current_power_cap = watts_100;
 
 //abort flags
-bool pd_prot_ufp_abbort_flag = false;
-bool pd_prot_dfp_abbort_flag = false;
+bool pd_prot_ufp_abort_flag = false;
+bool pd_prot_dfp_abort_flag = false;
 
 //flags for the policy engine
 bool pd_prot_ufp_last_good_crc = false;
@@ -223,7 +223,6 @@ enum pd_port_policy_engine_state_enum pd_prot_dfp_pe_current_state = pe_src_star
  * This function is responsible for handling various timer events in the PD protocol.
  * It checks the elapsed time for each timer and performs the corresponding actions.
  * 
- * @note This function assumes that the necessary variables and timers have been initialized.
  */
 void pd_prot_timer_handeler() {
     //init time var
@@ -260,16 +259,16 @@ void pd_prot_timer_handeler() {
     else if (((current_time - pd_prot_dfp_timer_start_time_chunking_not_supported) > pd_prot_timer_th_chunking_not_supported) && pd_prot_dfp_timer_start_time_chunking_not_supported != 0) {
         //chunking_not_supported
     }
-    else if (((current_time - pd_prot_ufp_timer_start_time_chunk_recevier_request) > pd_prot_timer_th_chunk_recevier_request) && pd_prot_ufp_timer_start_time_chunk_recevier_request != 0) {
+    else if (((current_time - pd_prot_ufp_timer_start_time_chunk_recevier_request) > pd_prot_timer_th_chunk_receiver_request) && pd_prot_ufp_timer_start_time_chunk_recevier_request != 0) {
         //chunk_recevier_request
     }
-    else if (((current_time - pd_prot_dfp_timer_start_time_chunk_recevier_request) > pd_prot_timer_th_chunk_recevier_request) && pd_prot_dfp_timer_start_time_chunk_recevier_request != 0) {
+    else if (((current_time - pd_prot_dfp_timer_start_time_chunk_recevier_request) > pd_prot_timer_th_chunk_receiver_request) && pd_prot_dfp_timer_start_time_chunk_recevier_request != 0) {
         //chunk_recevier_request
     }
-    else if (((current_time - pd_prot_ufp_timer_start_time_chunk_recevier_response) > pd_prot_timer_th_chunk_recevier_response) && pd_prot_ufp_timer_start_time_chunk_recevier_response != 0) {
+    else if (((current_time - pd_prot_ufp_timer_start_time_chunk_recevier_response) > pd_prot_timer_th_chunk_receiver_response) && pd_prot_ufp_timer_start_time_chunk_recevier_response != 0) {
         //chunk_recevier_response
     }
-    else if (((current_time - pd_prot_dfp_timer_start_time_chunk_recevier_response) > pd_prot_timer_th_chunk_recevier_response) && pd_prot_dfp_timer_start_time_chunk_recevier_response != 0) {
+    else if (((current_time - pd_prot_dfp_timer_start_time_chunk_recevier_response) > pd_prot_timer_th_chunk_receiver_response) && pd_prot_dfp_timer_start_time_chunk_recevier_response != 0) {
         //chunk_recevier_response
     }
     else if (((current_time - pd_prot_ufp_timer_start_time_chunk_sender_request) > pd_prot_timer_th_chunk_sender_request) && pd_prot_ufp_timer_start_time_chunk_sender_request != 0) {
@@ -338,19 +337,19 @@ void pd_prot_timer_handeler() {
     else if (((current_time - pd_prot_dfp_timer_start_time_enter_epr) > pd_prot_timer_th_enter_epr) && pd_prot_dfp_timer_start_time_enter_epr != 0) {
         //enter_epr
     }
-    else if (((current_time - pd_prot_ufp_timer_start_time_epr_soruce_cable_discovvery) > pd_prot_timer_th_epr_soruce_cable_discovvery) && pd_prot_ufp_timer_start_time_epr_soruce_cable_discovvery != 0) {
+    else if (((current_time - pd_prot_ufp_timer_start_time_epr_soruce_cable_discovvery) > pd_prot_timer_th_epr_source_cable_discovery) && pd_prot_ufp_timer_start_time_epr_soruce_cable_discovvery != 0) {
         //epr_soruce_cable_discovvery
     }
-    else if (((current_time - pd_prot_dfp_timer_start_time_epr_soruce_cable_discovvery) > pd_prot_timer_th_epr_soruce_cable_discovvery) && pd_prot_dfp_timer_start_time_epr_soruce_cable_discovvery != 0) {
+    else if (((current_time - pd_prot_dfp_timer_start_time_epr_soruce_cable_discovvery) > pd_prot_timer_th_epr_source_cable_discovery) && pd_prot_dfp_timer_start_time_epr_soruce_cable_discovvery != 0) {
         //epr_soruce_cable_discovvery
     }
-    else if (((current_time - pd_prot_ufp_timer_start_time_fisrt_source_cap) > pd_prot_timer_th_fisrt_source_cap) && pd_prot_ufp_timer_start_time_fisrt_source_cap != 0) {
+    else if (((current_time - pd_prot_ufp_timer_start_time_first_source_cap) > pd_prot_timer_th_first_source_cap) && pd_prot_ufp_timer_start_time_first_source_cap != 0) {
         //fisrt_source_cap
         if (pd_prot_ufp_counter_caps < pd_prot_counter_th_caps) {
             pd_prot_ufp_pe_current_state = pe_src_send_capabilitiys;
         }
     }
-    else if (((current_time - pd_prot_dfp_timer_start_time_fisrt_source_cap) > pd_prot_timer_th_fisrt_source_cap) && pd_prot_dfp_timer_start_time_fisrt_source_cap != 0) {
+    else if (((current_time - pd_prot_dfp_timer_start_time_first_source_cap) > pd_prot_timer_th_first_source_cap) && pd_prot_dfp_timer_start_time_first_source_cap != 0) {
         //fisrt_source_cap
         if (pd_prot_dfp_counter_caps < pd_prot_counter_th_caps) {
             pd_prot_dfp_pe_current_state = pe_src_send_capabilitiys;
@@ -400,7 +399,7 @@ void pd_prot_timer_handeler() {
     else if (((current_time - pd_prot_dfp_timer_start_time_sink_epr_keep_alive) > pd_prot_timer_th_sink_epr_keep_alive) && pd_prot_dfp_timer_start_time_sink_epr_keep_alive != 0) {
         //sink_epr_keep_alive
     }   
-    else if (((current_time - pd_prot_ufp_timer_start_time_no_responce) > pd_prot_timer_th_no_responce) && pd_prot_ufp_timer_start_time_no_responce != 0) {
+    else if (((current_time - pd_prot_ufp_timer_start_time_no_response) > pd_prot_timer_th_no_response) && pd_prot_ufp_timer_start_time_no_response != 0) {
         //no_responce
         //reatct to noresponce 
         if (pd_prot_ufp_counter_hard_reset < pd_prot_counter_th_hard_reset) {
@@ -411,7 +410,7 @@ void pd_prot_timer_handeler() {
         
 
     }
-    else if (((current_time - pd_prot_dfp_timer_start_time_no_responce) > pd_prot_timer_th_no_responce) && pd_prot_dfp_timer_start_time_no_responce != 0) {
+    else if (((current_time - pd_prot_dfp_timer_start_time_no_response) > pd_prot_timer_th_no_response) && pd_prot_dfp_timer_start_time_no_response != 0) {
         //no_responce
         //reatct to noresponce 
         if (pd_prot_dfp_counter_hard_reset < pd_prot_counter_th_hard_reset) {
@@ -492,10 +491,10 @@ void pd_prot_timer_handeler() {
     else if (((current_time - pd_prot_dfp_timer_start_time_receive) > pd_prot_timer_th_receive) && pd_prot_dfp_timer_start_time_receive != 0) {
         //receive
     }
-    else if (((current_time - pd_prot_ufp_timer_start_time_receive_responce) > pd_prot_timer_th_receive_responce) && pd_prot_ufp_timer_start_time_receive_responce != 0) {
+    else if (((current_time - pd_prot_ufp_timer_start_time_receive_response) > pd_prot_timer_th_receive_response) && pd_prot_ufp_timer_start_time_receive_response != 0) {
         //receive_responce
     }
-    else if (((current_time - pd_prot_dfp_timer_start_time_receive_responce) > pd_prot_timer_th_receive_responce) && pd_prot_dfp_timer_start_time_receive_responce != 0) {
+    else if (((current_time - pd_prot_dfp_timer_start_time_receive_response) > pd_prot_timer_th_receive_response) && pd_prot_dfp_timer_start_time_receive_response != 0) {
         //receive_responce
     }
     else if (((current_time - pd_prot_ufp_timer_start_time_retry) > pd_prot_timer_th_retry) && pd_prot_ufp_timer_start_time_retry != 0) {
@@ -504,10 +503,10 @@ void pd_prot_timer_handeler() {
     else if (((current_time - pd_prot_dfp_timer_start_time_retry) > pd_prot_timer_th_retry) && pd_prot_dfp_timer_start_time_retry != 0) {
         //retry
     }
-    else if (((current_time - pd_prot_ufp_timer_start_time_sender_responce) > pd_prot_timer_th_sender_responce) && pd_prot_ufp_timer_start_time_sender_responce != 0) {
+    else if (((current_time - pd_prot_ufp_timer_start_time_sender_response) > pd_prot_timer_th_sender_response) && pd_prot_ufp_timer_start_time_sender_response != 0) {
         //sender_responce
     }
-    else if (((current_time - pd_prot_dfp_timer_start_time_sender_responce) > pd_prot_timer_th_sender_responce) && pd_prot_dfp_timer_start_time_sender_responce != 0) {
+    else if (((current_time - pd_prot_dfp_timer_start_time_sender_response) > pd_prot_timer_th_sender_response) && pd_prot_dfp_timer_start_time_sender_response != 0) {
         //sender_responce
     }
     else if (((current_time - pd_prot_ufp_timer_start_time_sink_delay) > pd_prot_timer_th_sink_delay) && pd_prot_ufp_timer_start_time_sink_delay != 0) {
@@ -612,17 +611,17 @@ void pd_prot_timer_handeler() {
     else if (((current_time - pd_prot_dfp_timer_start_time_vdm_exit_mode) > pd_prot_timer_th_vdm_exit_mode) && pd_prot_dfp_timer_start_time_vdm_exit_mode != 0) {
         //vdm_exit_mode
     }
-    else if (((current_time - pd_prot_ufp_timer_start_time_vdm_receiver_responce) > pd_prot_timer_th_vdm_receiver_responce) && pd_prot_ufp_timer_start_time_vdm_receiver_responce != 0) {
-        //vdm_receiver_responce
+    else if (((current_time - pd_prot_ufp_timer_start_time_vdm_receiver_response) > pd_prot_timer_th_vdm_receiver_response) && pd_prot_ufp_timer_start_time_vdm_receiver_response != 0) {
+        //vdm_receiver_response
     }
-    else if (((current_time - pd_prot_dfp_timer_start_time_vdm_receiver_responce) > pd_prot_timer_th_vdm_receiver_responce) && pd_prot_dfp_timer_start_time_vdm_receiver_responce != 0) {
-        //vdm_receiver_responce
+    else if (((current_time - pd_prot_dfp_timer_start_time_vdm_receiver_response) > pd_prot_timer_th_vdm_receiver_response) && pd_prot_dfp_timer_start_time_vdm_receiver_response != 0) {
+        //vdm_receiver_response
     }
-    else if (((current_time - pd_prot_ufp_timer_start_time_vdm_sender_responce) > pd_prot_timer_th_vdm_sender_responce) && pd_prot_ufp_timer_start_time_vdm_sender_responce != 0) {
+    else if (((current_time - pd_prot_ufp_timer_start_time_vdm_sender_response) > pd_prot_timer_th_vdm_sender_response) && pd_prot_ufp_timer_start_time_vdm_sender_response != 0) {
         //vdm_sender_responce
     }
-    else if (((current_time - pd_prot_dfp_timer_start_time_vdm_sender_responce) > pd_prot_timer_th_vdm_sender_responce) && pd_prot_dfp_timer_start_time_vdm_sender_responce != 0) {
-        //vdm_sender_responce
+    else if (((current_time - pd_prot_dfp_timer_start_time_vdm_sender_response) > pd_prot_timer_th_vdm_sender_response) && pd_prot_dfp_timer_start_time_vdm_sender_response != 0) {
+        //vdm_sender_response
     }
     else if (((current_time - pd_prot_ufp_timer_start_time_vdm_wait_mode_entry) > pd_prot_timer_th_vdm_wait_mode_entry) && pd_prot_ufp_timer_start_time_vdm_wait_mode_entry != 0) {
         //vdm_wait_mode_entry
@@ -642,7 +641,7 @@ void pd_prot_timer_handeler() {
 /**
  * Controls the timer for a specific PD protocol event.
  *
- * @param ufp_dfp The type of device (UFP or DFP).
+ * @param ufp_dfp The prt to contrtol (UFP or DFP).
  * @param name The name of the timer to start or stop.
  * @param start_stop Specifies whether to start or stop the timer.
  */
@@ -1191,19 +1190,19 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
     case no_responce:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                if (pd_prot_ufp_timer_start_time_no_responce == 0) {
-                    pd_prot_ufp_timer_start_time_no_responce = millis();
+                if (pd_prot_ufp_timer_start_time_no_response == 0) {
+                    pd_prot_ufp_timer_start_time_no_response = millis();
                 }
             } else {
-                if (pd_prot_dfp_timer_start_time_no_responce == 0) {
-                    pd_prot_dfp_timer_start_time_no_responce = millis();
+                if (pd_prot_dfp_timer_start_time_no_response == 0) {
+                    pd_prot_dfp_timer_start_time_no_response = millis();
                 }
             }
         } else {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_no_responce = 0;
+                pd_prot_ufp_timer_start_time_no_response = 0;
             } else {
-                pd_prot_dfp_timer_start_time_no_responce = 0;
+                pd_prot_dfp_timer_start_time_no_response = 0;
             }
         }
         break;
@@ -1446,22 +1445,22 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
             }
         }
         break;
-        case receive_responce:
+        case receive_response:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                if (pd_prot_ufp_timer_start_time_receive_responce == 0) {
-                    pd_prot_ufp_timer_start_time_receive_responce = millis();
+                if (pd_prot_ufp_timer_start_time_receive_response == 0) {
+                    pd_prot_ufp_timer_start_time_receive_response = millis();
                 }
             } else {
-                if (pd_prot_dfp_timer_start_time_receive_responce == 0) {
-                    pd_prot_dfp_timer_start_time_receive_responce = millis();
+                if (pd_prot_dfp_timer_start_time_receive_response == 0) {
+                    pd_prot_dfp_timer_start_time_receive_response = millis();
                 }
             }
         } else {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_receive_responce = 0;
+                pd_prot_ufp_timer_start_time_receive_response = 0;
             } else {
-                pd_prot_dfp_timer_start_time_receive_responce = 0;
+                pd_prot_dfp_timer_start_time_receive_response = 0;
             }
         }
         break;
@@ -1486,22 +1485,22 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
         }
         break;
     
-    case sender_responce:
+    case sender_response:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                if (pd_prot_ufp_timer_start_time_sender_responce == 0) {
-                    pd_prot_ufp_timer_start_time_sender_responce = millis();
+                if (pd_prot_ufp_timer_start_time_sender_response == 0) {
+                    pd_prot_ufp_timer_start_time_sender_response = millis();
                 }
             } else {
-                if (pd_prot_dfp_timer_start_time_sender_responce == 0) {
-                    pd_prot_dfp_timer_start_time_sender_responce = millis();
+                if (pd_prot_dfp_timer_start_time_sender_response == 0) {
+                    pd_prot_dfp_timer_start_time_sender_response = millis();
                 }
             }
         } else {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_sender_responce = 0;
+                pd_prot_ufp_timer_start_time_sender_response = 0;
             } else {
-                pd_prot_dfp_timer_start_time_sender_responce = 0;
+                pd_prot_dfp_timer_start_time_sender_response = 0;
             }
         }
         break;
@@ -1847,37 +1846,37 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
         case vdm_receiver_responce:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                if (pd_prot_ufp_timer_start_time_vdm_receiver_responce == 0) {
-                    pd_prot_ufp_timer_start_time_vdm_receiver_responce = millis();
-                }
-            } else {
-                if (pd_prot_dfp_timer_start_time_vdm_receiver_responce == 0) {
-                    pd_prot_dfp_timer_start_time_vdm_receiver_responce = millis();
-                }
-            }
-        } else {
-            if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_vdm_receiver_responce = 0;
-            } else {
-                pd_prot_dfp_timer_start_time_vdm_receiver_responce = 0;
-            }
-        }
-        break;
-    
-    case vdm_sender_responce:
-        if (start_stop == start) {
-            if (ufp_dfp == ufp) {
-                if (pd_prot_ufp_timer_start_time_vdm_sender_responce == 0) {
-                    pd_prot_ufp_timer_start_time_vdm_sender_responce = millis();
-                }
-            } else {
-                if (pd_prot_dfp_timer_start_time_vdm_sender_responce == 0) {
-                    pd_prot_dfp_timer_start_time_vdm_sender_responce = millis();
-                }
-            }
-        } else {
-            if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_vdm_sender_responce = 0;
+                            if (pd_prot_ufp_timer_start_time_vdm_receiver_response == 0) {
+                                pd_prot_ufp_timer_start_time_vdm_receiver_response = millis();
+                            }
+                        } else {
+                            if (pd_prot_dfp_timer_start_time_vdm_receiver_response == 0) {
+                                pd_prot_dfp_timer_start_time_vdm_receiver_response = millis();
+                            }
+                        }
+                    } else {
+                        if (ufp_dfp == ufp) {
+                            pd_prot_ufp_timer_start_time_vdm_receiver_response = 0;
+                        } else {
+                            pd_prot_dfp_timer_start_time_vdm_receiver_response = 0;
+                        }
+                    }
+                    break;
+                
+                case vdm_sender_responce:
+                    if (start_stop == start) {
+                        if (ufp_dfp == ufp) {
+                            if (pd_prot_ufp_timer_start_time_vdm_sender_response == 0) {
+                                pd_prot_ufp_timer_start_time_vdm_sender_response = millis();
+                            }
+                        } else {
+                            if (pd_prot_dfp_timer_start_time_vdm_sender_response == 0) {
+                                pd_prot_dfp_timer_start_time_vdm_sender_response = millis();
+                            }
+                        }
+                    } else {
+                        if (ufp_dfp == ufp) {
+                            pd_prot_ufp_timer_start_time_vdm_sender_response = 0;
             } else {
                 pd_prot_dfp_timer_start_time_vdm_sender_responce = 0;
             }
@@ -1943,23 +1942,23 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
  * @param msg_type The message type.
  * @return The header contents for the PD protocol message.
  */
-uint16_t pd_prot_biuld_headder (bool extended_msg, uint16_t n_data_objects, uint16_t msg_id, enum pd_prot_port_power_role power_role, uint16_t spec_revision, enum ufp_dfp data_role, uint16_t msg_type) {
+uint16_t pd_prot_build_header (bool extended_msg, uint16_t n_data_objects, uint16_t msg_id, enum pd_prot_port_power_role power_role, uint16_t spec_revision, enum ufp_dfp data_role, uint16_t msg_type) {
     //init local vars
-    uint16_t headder_contents = 0;
+    uint16_t header_contents = 0;
 
     //set extended bit if msg is extended
     if (extended_msg) {
-        headder_contents = 0x8000;
+        header_contents = 0x8000;
     }
 
     //mask n of data objects
     n_data_objects = n_data_objects & 0x0007;
 
-    //shift n data objects to correct pos in headder
+    //shift n data objects to correct pos in header
     n_data_objects = n_data_objects << 12;
 
-    //add n data objects to headder
-    headder_contents = headder_contents | n_data_objects;
+    //add n data objects to header
+    header_contents = header_contents | n_data_objects;
 
     //mask msg id 
     msg_id = msg_id & 0x0007;
@@ -1967,37 +1966,37 @@ uint16_t pd_prot_biuld_headder (bool extended_msg, uint16_t n_data_objects, uint
     //shift msg id to correct pos in header
     msg_id = msg_id << 9;
 
-    //add msg_id to headder
-    headder_contents = headder_contents | msg_id;
+    //add msg_id to header
+    header_contents = header_contents | msg_id;
 
     //set port power role 
     if (power_role == src) {
-        headder_contents = headder_contents | 0x0100;
+        header_contents = header_contents | 0x0100;
     }
 
     //set spec revision 
     if (spec_revision == 1) {
         // do nothing leave bits at 0
     } else if (spec_revision == 2) {
-        headder_contents = headder_contents | 0x0040;
+        header_contents = header_contents | 0x0040;
     } else if (spec_revision == 3) {
-        headder_contents = headder_contents | 0x0080;
+        header_contents = header_contents | 0x0080;
     }
 
     //set port data role
     if (data_role == ufp) {
         //do nothing leave at 0
     } else if (data_role == dfp) {
-        headder_contents = headder_contents | 0x0020;
+        header_contents = header_contents | 0x0020;
     }
 
     //set message type
     msg_type = msg_type & 0x001F;
 
-    //add message type to headder 
-    headder_contents = headder_contents | msg_type;
+    //add message type to header 
+    header_contents = header_contents | msg_type;
 
-    return headder_contents;
+    return header_contents;
 
 }
 
@@ -2013,26 +2012,26 @@ uint16_t pd_prot_biuld_headder (bool extended_msg, uint16_t n_data_objects, uint
  *
  * @return The built extended header as a 16-bit unsigned integer.
  */
-uint16_t pd_prot_biuld_ext_headder (bool chunked, uint16_t chunk_number, bool request_chunk, uint16_t data_size) {
+uint16_t pd_prot_build_ext_header (bool chunked, uint16_t chunk_number, bool request_chunk, uint16_t data_size) {
     //init local vars
-    uint16_t ext_headder_contents = 0;
+    uint16_t ext_header_contents = 0;
 
     //set chunked bit
     if (chunked) {
-        ext_headder_contents = ext_headder_contents | 0x8000;
+        ext_header_contents = ext_header_contents | 0x8000;
 
         //mask chunk number
         chunk_number = chunk_number & 0x0007;
 
-        //shift chunk nummber to correct place 
+        //shift chunk number to correct place 
         chunk_number = chunk_number << 11;
 
         //add chunk number to header contents
-        ext_headder_contents = ext_headder_contents | chunk_number;
+        ext_header_contents = ext_header_contents | chunk_number;
 
-        //set reqwest bit
+        //set request bit
         if (request_chunk) {
-            ext_headder_contents = ext_headder_contents | 0x0400;
+            ext_header_contents = ext_header_contents | 0x0400;
         }
 
     }
@@ -2040,10 +2039,10 @@ uint16_t pd_prot_biuld_ext_headder (bool chunked, uint16_t chunk_number, bool re
     //mask data size
     data_size = data_size & 0x001F;
 
-    //add data size to headder
-    ext_headder_contents = ext_headder_contents | data_size;
+    //add data size to header
+    ext_header_contents = ext_header_contents | data_size;
 
-    return ext_headder_contents;
+    return ext_header_contents;
 }
 
 /**
@@ -2061,13 +2060,13 @@ enum pd_prot_message_type_enum pd_prot_message_type (enum ufp_dfp ufp_dfp) {
 
     //select port to determine if its chunked
     if (ufp_dfp == ufp) {
-        if ((pd_phy_ufp_last_recived_message_contents[0] & 0x80) == 0){
+        if ((pd_phy_ufp_last_received_message_contents[0] & 0x80) == 0){
             return normal;
         } else {
             return extended;
         }
     } else {
-        if ((pd_phy_dfp_last_recived_message_contents[0] & 0x80) == 0){
+        if ((pd_phy_dfp_last_received_message_contents[0] & 0x80) == 0){
             return normal;
         } else {
             return extended;
@@ -2085,13 +2084,13 @@ bool pd_prot_ext_msg_chunked (enum ufp_dfp ufp_dfp) {
 
     //select port to determine if its chunked
     if (ufp_dfp == ufp) {
-        if ((pd_phy_ufp_last_recived_message_contents[2] & 0x80) == 0) {
+        if ((pd_phy_ufp_last_received_message_contents[2] & 0x80) == 0) {
             return false;
         } else {
             return true;
         }
     } else {
-        if ((pd_phy_dfp_last_recived_message_contents[2] & 0x80) == 0) {
+        if ((pd_phy_dfp_last_received_message_contents[2] & 0x80) == 0) {
             return false;
         } else {
             return true;
@@ -2110,11 +2109,11 @@ bool pd_prot_ext_msg_chunked (enum ufp_dfp ufp_dfp) {
  */
 int pd_prot_ext_msg_n_chunks (enum ufp_dfp ufp_dfp) {
 
-    //detrmine port to chek
+    //determine port to check
     if (ufp_dfp == ufp) {
-        return ((pd_phy_ufp_last_recived_message_contents[2] & 0x01) << 8) | pd_phy_ufp_last_recived_message_contents[3];
+        return ((pd_phy_ufp_last_received_message_contents[2] & 0x01) << 8) | pd_phy_ufp_last_received_message_contents[3];
     } else {
-        return ((pd_phy_dfp_last_recived_message_contents[2] & 0x01) << 8) | pd_phy_dfp_last_recived_message_contents[3];
+        return ((pd_phy_dfp_last_received_message_contents[2] & 0x01) << 8) | pd_phy_dfp_last_received_message_contents[3];
     }
 }
 
@@ -2129,13 +2128,13 @@ int pd_prot_ext_msg_n_chunks (enum ufp_dfp ufp_dfp) {
 bool pd_prot_check_soft_reset (enum ufp_dfp ufp_dfp) {
 
     if (ufp_dfp == ufp) {
-        if ((pd_phy_ufp_last_recived_message_contents[1] & 0x1F) == 0x0D){
+        if ((pd_phy_ufp_last_received_message_contents[1] & 0x1F) == 0x0D){
             return true;
         } else {
             return false;
         }
     } else {
-        if ((pd_phy_dfp_last_recived_message_contents[1] & 0x1F) == 0x0D){
+        if ((pd_phy_dfp_last_received_message_contents[1] & 0x1F) == 0x0D){
             return true;
         } else {
             return false;
@@ -2155,23 +2154,23 @@ bool pd_prot_check_soft_reset (enum ufp_dfp ufp_dfp) {
 void pd_prot_discard_message (enum ufp_dfp ufp_dfp) {
 
     if (ufp_dfp == ufp) {
-        //reset all recive vars for given port
+        //reset all receive vars for given port
         pd_prot_ufp_counter_message_id = 0;
-        pd_phy_ufp_last_recived_message_id = 0;
-        pd_phy_ufp_last_recived_message_lenght = 0;
-        pd_phy_ufp_last_recived_message_type = sop;
+        pd_phy_ufp_last_received_message_id = 0;
+        pd_phy_ufp_last_received_message_length = 0;
+        pd_phy_ufp_last_received_message_type = sop;
         for (int i; i < 256; ++i) {
-            pd_phy_ufp_last_recived_message_contents[i] = 0;
+            pd_phy_ufp_last_received_message_contents[i] = 0;
         }
 
     } else {
-        //reset all recive vars for given port
+        //reset all receive vars for given port
         pd_prot_dfp_counter_message_id = 0;
-        pd_phy_dfp_last_recived_message_id = 0;
-        pd_phy_dfp_last_recived_message_lenght = 0;
-        pd_phy_dfp_last_recived_message_type = sop;
+        pd_phy_dfp_last_received_message_id = 0;
+        pd_phy_dfp_last_received_message_length = 0;
+        pd_phy_dfp_last_received_message_type = sop;
         for (int i; i < 256; ++i) {
-            pd_phy_dfp_last_recived_message_contents[i] = 0;
+            pd_phy_dfp_last_received_message_contents[i] = 0;
         }
     }
 }
@@ -2186,51 +2185,51 @@ enum pd_prot_data_msg_enum pd_prot_determine_last_data_message_type (enum ufp_df
     
     //select port to check
     if(ufp_dfp == ufp) {
-        if ((pd_phy_ufp_last_recived_message_contents[1] & pd_prot_data_msg_alert) == pd_prot_data_msg_alert) {
+        if ((pd_phy_ufp_last_received_message_contents[1] & pd_prot_data_msg_alert) == pd_prot_data_msg_alert) {
             return alert;
-        } else if ((pd_phy_ufp_last_recived_message_contents[1] & pd_prot_data_msg_battery_status) == pd_prot_data_msg_battery_status) {
+        } else if ((pd_phy_ufp_last_received_message_contents[1] & pd_prot_data_msg_battery_status) == pd_prot_data_msg_battery_status) {
             return battery_status;
-        } else if ((pd_phy_ufp_last_recived_message_contents[1] & pd_prot_data_msg_bist) == pd_prot_data_msg_bist) {
+        } else if ((pd_phy_ufp_last_received_message_contents[1] & pd_prot_data_msg_bist) == pd_prot_data_msg_bist) {
             return bist;
-        } else if ((pd_phy_ufp_last_recived_message_contents[1] & pd_prot_data_msg_enter_usb) == pd_prot_data_msg_enter_usb) {
+        } else if ((pd_phy_ufp_last_received_message_contents[1] & pd_prot_data_msg_enter_usb) == pd_prot_data_msg_enter_usb) {
             return enter_usb_msg;
-        } else if ((pd_phy_ufp_last_recived_message_contents[1] & pd_prot_data_msg_epr_request) == pd_prot_data_msg_epr_request) {
+        } else if ((pd_phy_ufp_last_received_message_contents[1] & pd_prot_data_msg_epr_request) == pd_prot_data_msg_epr_request) {
             return epr_request;
-        } else if ((pd_phy_ufp_last_recived_message_contents[1] & pd_prot_data_msg_get_country_info) == pd_prot_data_msg_get_country_info) {
+        } else if ((pd_phy_ufp_last_received_message_contents[1] & pd_prot_data_msg_get_country_info) == pd_prot_data_msg_get_country_info) {
             return get_country_info;
-        } else if ((pd_phy_ufp_last_recived_message_contents[1] & pd_prot_data_msg_per_mode) == pd_prot_data_msg_per_mode) {
+        } else if ((pd_phy_ufp_last_received_message_contents[1] & pd_prot_data_msg_per_mode) == pd_prot_data_msg_per_mode) {
             return per_mode;
-        } else if ((pd_phy_ufp_last_recived_message_contents[1] & pd_prot_data_msg_request) == pd_prot_data_msg_request) {
+        } else if ((pd_phy_ufp_last_received_message_contents[1] & pd_prot_data_msg_request) == pd_prot_data_msg_request) {
             return request;
-        } else if ((pd_phy_ufp_last_recived_message_contents[1] & pd_prot_data_msg_sink_capabilities) == pd_prot_data_msg_sink_capabilities) {
+        } else if ((pd_phy_ufp_last_received_message_contents[1] & pd_prot_data_msg_sink_capabilities) == pd_prot_data_msg_sink_capabilities) {
             return sink_capabilitiys;
-        } else if ((pd_phy_ufp_last_recived_message_contents[1] & pd_prot_data_msg_source_capabilities) == pd_prot_data_msg_source_capabilities) {
+        } else if ((pd_phy_ufp_last_received_message_contents[1] & pd_prot_data_msg_source_capabilities) == pd_prot_data_msg_source_capabilities) {
             return sounce_capabilitiys;
-        } else if ((pd_phy_ufp_last_recived_message_contents[1] & pd_prot_data_msg_source_info) == pd_prot_data_msg_source_info) {
+        } else if ((pd_phy_ufp_last_received_message_contents[1] & pd_prot_data_msg_source_info) == pd_prot_data_msg_source_info) {
             return source_info;
         }
     } else {
-        if ((pd_phy_dfp_last_recived_message_contents[1] & pd_prot_data_msg_alert) == pd_prot_data_msg_alert) {
+        if ((pd_phy_dfp_last_received_message_contents[1] & pd_prot_data_msg_alert) == pd_prot_data_msg_alert) {
             return alert;
-        } else if ((pd_phy_dfp_last_recived_message_contents[1] & pd_prot_data_msg_battery_status) == pd_prot_data_msg_battery_status) {
+        } else if ((pd_phy_dfp_last_received_message_contents[1] & pd_prot_data_msg_battery_status) == pd_prot_data_msg_battery_status) {
             return battery_status;
-        } else if ((pd_phy_dfp_last_recived_message_contents[1] & pd_prot_data_msg_bist) == pd_prot_data_msg_bist) {
+        } else if ((pd_phy_dfp_last_received_message_contents[1] & pd_prot_data_msg_bist) == pd_prot_data_msg_bist) {
             return bist;
-        } else if ((pd_phy_dfp_last_recived_message_contents[1] & pd_prot_data_msg_enter_usb) == pd_prot_data_msg_enter_usb) {
+        } else if ((pd_phy_dfp_last_received_message_contents[1] & pd_prot_data_msg_enter_usb) == pd_prot_data_msg_enter_usb) {
             return enter_usb_msg;
-        } else if ((pd_phy_dfp_last_recived_message_contents[1] & pd_prot_data_msg_epr_request) == pd_prot_data_msg_epr_request) {
+        } else if ((pd_phy_dfp_last_received_message_contents[1] & pd_prot_data_msg_epr_request) == pd_prot_data_msg_epr_request) {
             return epr_request;
-        } else if ((pd_phy_dfp_last_recived_message_contents[1] & pd_prot_data_msg_get_country_info) == pd_prot_data_msg_get_country_info) {
+        } else if ((pd_phy_dfp_last_received_message_contents[1] & pd_prot_data_msg_get_country_info) == pd_prot_data_msg_get_country_info) {
             return get_country_info;
-        } else if ((pd_phy_dfp_last_recived_message_contents[1] & pd_prot_data_msg_per_mode) == pd_prot_data_msg_per_mode) {
+        } else if ((pd_phy_dfp_last_received_message_contents[1] & pd_prot_data_msg_per_mode) == pd_prot_data_msg_per_mode) {
             return per_mode;
-        } else if ((pd_phy_dfp_last_recived_message_contents[1] & pd_prot_data_msg_request) == pd_prot_data_msg_request) {
+        } else if ((pd_phy_dfp_last_received_message_contents[1] & pd_prot_data_msg_request) == pd_prot_data_msg_request) {
             return request;
-        } else if ((pd_phy_dfp_last_recived_message_contents[1] & pd_prot_data_msg_sink_capabilities) == pd_prot_data_msg_sink_capabilities) {
+        } else if ((pd_phy_dfp_last_received_message_contents[1] & pd_prot_data_msg_sink_capabilities) == pd_prot_data_msg_sink_capabilities) {
             return sink_capabilitiys;
-        } else if ((pd_phy_dfp_last_recived_message_contents[1] & pd_prot_data_msg_source_capabilities) == pd_prot_data_msg_source_capabilities) {
+        } else if ((pd_phy_dfp_last_received_message_contents[1] & pd_prot_data_msg_source_capabilities) == pd_prot_data_msg_source_capabilities) {
             return sounce_capabilitiys;
-        } else if ((pd_phy_dfp_last_recived_message_contents[1] & pd_prot_data_msg_source_info) == pd_prot_data_msg_source_info) {
+        } else if ((pd_phy_dfp_last_received_message_contents[1] & pd_prot_data_msg_source_info) == pd_prot_data_msg_source_info) {
             return source_info;
         }
     }
@@ -2242,6 +2241,8 @@ enum pd_prot_power_cap_enum pd_prot_pdo_determiner (enum ufp_dfp ufp_dfp) {
     
 }
 
+*/
+
 
 void pd_prot_hard_reset_handeler (enum ufp_dfp ufp_dfp, bool from_policy_engine) {
     //discard last recived message
@@ -2252,11 +2253,11 @@ void pd_prot_hard_reset_handeler (enum ufp_dfp ufp_dfp, bool from_policy_engine)
         pd_phy_send_hard_reset(ufp_dfp);
         pd_prot_timer_controler(ufp_dfp, hard_reset_complete, start);
     } else {
-        pd_prot_hard_reset_handler_pt_2(ufp_dfp);
+        //pd_prot_hard_reset_handler_pt_2(ufp_dfp);
     }
 
 }
-*/
+
 
 /**
  * @brief Sets the last message for the specified UFP/DFP.
@@ -2293,7 +2294,7 @@ void pd_prot_set_last_message(enum ufp_dfp ufp_dfp, uint8_t message[256], uint8_
  *
  * @param ufp_dfp The type of port (UFP or DFP) for which to transmit the source capabilities.
  */
-void pd_prot_transmit_soucre_capibilitiys (enum ufp_dfp ufp_dfp) {
+void pd_prot_transmit_source_capabilities (enum ufp_dfp ufp_dfp) {
     //init local vars
     uint8_t message[256];
     uint32_t temp = 0;
@@ -2336,7 +2337,7 @@ void pd_prot_transmit_soucre_capibilitiys (enum ufp_dfp ufp_dfp) {
     }
 
     //biuld headder
-    uint16_t headder = pd_prot_biuld_headder(false, n_pdo, current_msg_id, src, 3, ufp_dfp, pd_prot_data_msg_source_capabilities);
+    uint16_t headder = pd_prot_build_header(false, n_pdo, current_msg_id, src, 3, ufp_dfp, pd_prot_data_msg_source_capabilities);
 
     message[1] = headder & 0xFF;
     message[0] = (headder >> 8) & 0xFF;
@@ -2635,7 +2636,7 @@ void pd_prot_transmit_command (enum ufp_dfp ufp_dfp, enum pd_prot_cont_msg_enum 
     
 
     //biuld headder  
-    uint16_t headder = pd_prot_biuld_headder(false, 0, 0, src, 3, ufp_dfp, selected_comand);
+    uint16_t headder = pd_prot_build_header(false, 0, 0, src, 3, ufp_dfp, selected_comand);
 
     //load headder in to array
     message[1] = headder & 0xFF;
@@ -2665,23 +2666,23 @@ void pd_prot_transmit_command (enum ufp_dfp ufp_dfp, enum pd_prot_cont_msg_enum 
 void pd_prot_rx_state_machine(enum ufp_dfp ufp_dfp) {
 
     //check for soft reset
-    if (pd_prot_check_soft_reset(ufp_dfp)) {
+    if (pd_phy_ufp_last_received_message_id == pd_prot_ufp_counter_message_id){
         pd_prot_discard_message(ufp_dfp);
     }
 
     //check if message id matches expected id
-    //if not set current message id to last recived id
+    //if not set current message id to last received id
     if (ufp_dfp == ufp) {
-        if (pd_phy_ufp_last_recived_message_id == pd_prot_ufp_counter_message_id){
+        if (pd_phy_ufp_last_received_message_id == pd_prot_ufp_counter_message_id){
             pd_prot_discard_message(ufp_dfp);
         } else {
-            pd_prot_ufp_counter_message_id = pd_phy_ufp_last_recived_message_id;
+            pd_prot_ufp_counter_message_id = pd_phy_ufp_last_received_message_id;
         }
     } else {
-        if (pd_phy_dfp_last_recived_message_id == pd_prot_dfp_counter_message_id){
+        if (pd_phy_dfp_last_received_message_id == pd_prot_dfp_counter_message_id){
             pd_prot_discard_message(ufp_dfp);
         } else {
-            pd_prot_dfp_counter_message_id = pd_phy_dfp_last_recived_message_id;
+            pd_prot_dfp_counter_message_id = pd_phy_dfp_last_received_message_id;
         }
     }
 
@@ -2691,6 +2692,8 @@ void pd_prot_rx_state_machine(enum ufp_dfp ufp_dfp) {
 
 }
 
+
+/*
 /**
  * @brief Handles the state machine for receiving chunked messages in the PD protocol.
  * 
@@ -2700,7 +2703,7 @@ void pd_prot_rx_state_machine(enum ufp_dfp ufp_dfp) {
  * Otherwise, it calls the `pd_prot_rx_state_machine` function to handle the reception of non-chunked messages.
  * 
  * @param ufp_dfp The type of UFP/DFP (UFP or DFP).
- */
+ *
 void pd_prot_chunked_rx_state_machine(enum ufp_dfp ufp_dfp) {
     //init local vars
 
@@ -2708,24 +2711,18 @@ void pd_prot_chunked_rx_state_machine(enum ufp_dfp ufp_dfp) {
 
     //reset extended rx buffer and abort flags
     if (ufp_dfp == ufp) {
-        pd_prot_ufp_abbort_flag = false;
-        for (int i; i < 256; ++i) {
-            pd_phy_ufp_last_recived_message_contents[i] = 0;
-        }
-        pd_phy_ufp_last_recived_message_lenght = 0;
-        pd_phy_ufp_last_recived_message_type = sop;
+        pd_phy_ufp_last_received_message_contents[i] = 0;
+        pd_phy_ufp_last_received_message_length = 0;
+        pd_phy_ufp_last_received_message_type = sop;
     } else if (ufp_dfp == dfp) {
-        pd_prot_dfp_abbort_flag = false;
-        for (int i; i < 256; ++i) {
-            pd_phy_dfp_last_recived_message_contents[i] = 0;
-        }
-        pd_phy_dfp_last_recived_message_lenght = 0;
-        pd_phy_dfp_last_recived_message_type = sop;
+        pd_phy_dfp_last_received_message_contents[i] = 0;
+        pd_phy_dfp_last_received_message_length = 0;
+        pd_phy_dfp_last_received_message_type = sop;
     }
 
     if (pd_prot_message_type(ufp_dfp) == extended) {
         //determine if message is chunked
-        if (pd_prot_ext_msg_chunked) {
+        if (pd_prot_ext_msg_chunked(ufp_dfp)) {
             if (pd_prot_ext_msg_n_chunks(ufp_dfp) == 0) {
 
             }
@@ -2737,7 +2734,7 @@ void pd_prot_chunked_rx_state_machine(enum ufp_dfp ufp_dfp) {
 
 
 }
-
+*/
 
 
 
@@ -2802,26 +2799,12 @@ void pd_prot_src_port_policy_engine (enum ufp_dfp ufp_dfp) {
                 }
                 break;
             case pe_src_send_capabilitiys:
-                if (pd_prot_ufp_pe_prev_state != pe_src_send_capabilitiys) {
-                    // send source capabilities 
-                    pd_prot_transmit_soucre_capibilitiys(ufp);
-
-                    // check if we got a good crc 
-                    if (pd_prot_ufp_last_good_crc) {
-                        // reset the crc flag
-                        pd_prot_ufp_last_good_crc = false;
-                        pd_prot_timer_controler(ufp_dfp, no_responce, stop);
-                        pd_prot_timer_controler(ufp_dfp, sender_responce, start);
-
-                        // receive message if it has arrived
-                        if (pd_phy_ufp_last_recived_message_lenght != 0) {
-                            if (pd_prot_determine_last_data_message_type(ufp) == sink_capabilitiys) {
-                                pd_prot_ufp_pe_current_state = pe_src_negotiate_capabilitiys;
-                            }
-                        }
-                    } else {
-                        pd_prot_ufp_pe_current_state = pe_src_discovery;
+                if (pd_phy_ufp_last_received_message_length != 0) {
+                    if (pd_prot_determine_last_data_message_type(ufp) == sink_capabilitiys) {
+                        pd_prot_ufp_pe_current_state = pe_src_negotiate_capabilitiys;
                     }
+                } else {
+                    pd_prot_ufp_pe_current_state = pe_src_discovery;
                 }
                 break;
             case pe_src_disabled:

@@ -29,7 +29,7 @@ extern int pd_power_cont_dfp_current_voltage;
 extern bool pd_power_cont_ufp_allow_output;
 extern bool pd_power_cont_dfp_allow_output;
 
-//fuction defines
+//function defines
 void pd_power_cont_return_to_base_state (enum ufp_dfp ufp_dfp);
 void pd_power_cont_en_vsafe5v (enum ufp_dfp ufp_dfp);
 void pd_power_cont_en_9v (enum ufp_dfp ufp_dfp);

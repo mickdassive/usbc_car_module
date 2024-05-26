@@ -150,11 +150,11 @@ const uint8_t adc_op_clr_bit = 0x20;
 const uint8_t adc_op_continuous_read = 0x30;
 const uint8_t adc_op_continuous_write = 0x28;
 
-//adc defult window coparitor config values
-//adc_chX_high_treshold 12bits max defult 16383
-//adc_chX_low_treshold 12bits max defult 0
-//adc_chX_event_count 4bits max defult 0 number of events that pass the threshold values before the event flag is rased
-//adc_chX_hysteresis 4bits max defult 0
+//adc default window comparator config values
+//adc_chX_high_threshold 12bits max default 16383
+//adc_chX_low_threshold 12bits max default 0
+//adc_chX_event_count 4bits max default 0 number of events that pass the threshold values before the event flag is raised
+//adc_chX_hysteresis 4bits max default 0
 const uint16_t adc_ch0_high_threshold = 0b111111111111;
 const uint16_t adc_ch0_low_threshold = 0b0;
 const uint8_t adc_ch0_event_count = 0b0;
@@ -209,6 +209,6 @@ int adc_event_count_read(enum adc_channel adc_channel);
 void adc_event_clear(enum adc_channel adc_channel);
 int adc_read(enum adc_channel adc_channel);
 enum adc_channel adc_determine_alert_source();
-void adc_clear_event_flag();
+void adc_clear_event_flags();
 
 #endif // adc_defines_h

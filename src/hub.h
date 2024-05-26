@@ -160,10 +160,10 @@ const uint16_t hub_reg_usb3_default_pidl = 0x4121;
 const uint16_t hub_reg_hfc_en = 0x4130;
 const uint16_t hub_reg_runtime_flags = 0x4134;
 const uint16_t hub_reg_bc_vbus_dis_time = 0x4135;
-const uint16_t hub_reg_detatch_timer_a_lsb = 0x413C;
-const uint16_t hub_reg_detatch_timer_a_msb = 0x413D;
-const uint16_t hub_reg_detatch_timer_b_lsb = 0x413E;
-const uint16_t hub_reg_detatch_timer_b_msb = 0x413F;
+const uint16_t hub_reg_detach_timer_a_lsb = 0x413C;
+const uint16_t hub_reg_detach_timer_a_msb = 0x413D;
+const uint16_t hub_reg_detach_timer_b_lsb = 0x413E;
+const uint16_t hub_reg_detach_timer_b_msb = 0x413F;
 const uint16_t hub_reg_bb_pf_pin = 0x4142;
 const uint16_t hub_reg_otp_lock = 0x414E;
 const uint16_t hub_reg_prtpwr1_usb3_split = 0x416A;
@@ -273,10 +273,10 @@ const uint16_t hub_reg_ss_p7_test_pipe_pipe_ctl_0 = 0x7DD0;
 const uint8_t hub_over_current_lockout_bypas_time = 0x0A;
 
 //fuction defines
-void hub_send_reboot();
-void hub_send_usb_attach();
+void hub_send_reset();
+void hub_send_command_register_access_command();
 void hub_send_usb_attach_with_smbus_active();
-void hub_send_command_register_accsess_command();
+void hub_send_command_register_access_command();
 void hub_send_otp_write();
 void hub_send_otp_read();
 void hub_init();

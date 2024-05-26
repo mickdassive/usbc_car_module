@@ -27,23 +27,23 @@
 
 
 
-//plug orientaion vars
-int pd_phy_ufp_plug_orientaion = 0;
-int pd_phy_dfp_plug_orientaion = 0;
+//plug orientation vars
+int pd_phy_ufp_plug_orientation = 0;
+int pd_phy_dfp_plug_orientation = 0;
 
 //port attach status
 bool pd_phy_ufp_attached = false;
 bool pd_phy_dfp_attached = false;
 
-//recived message vars 
-int pd_phy_ufp_last_recived_message_contents[256];
-int pd_phy_ufp_last_recived_message_lenght = 0;
-int pd_phy_ufp_last_recived_message_id = 0;
-enum message_type pd_phy_ufp_last_recived_message_type;
-int pd_phy_dfp_last_recived_message_contents[256];
-int pd_phy_dfp_last_recived_message_lenght = 0;
-int pd_phy_dfp_last_recived_message_id = 0;
-enum message_type pd_phy_dfp_last_recived_message_type;
+//received message vars 
+int pd_phy_ufp_last_received_message_contents[256];
+int pd_phy_ufp_last_received_message_length = 0;
+int pd_phy_ufp_last_received_message_id = 0;
+enum message_type pd_phy_ufp_last_received_message_type;
+int pd_phy_dfp_last_received_message_contents[256];
+int pd_phy_dfp_last_received_message_length = 0;
+int pd_phy_dfp_last_received_message_id = 0;
+enum message_type pd_phy_dfp_last_received_message_type;
 
 
 /**
@@ -74,7 +74,6 @@ void pd_phy_send_looking_4_connection (enum ufp_dfp ufp_dfp) {
  * 
  * @param ufp_dfp The UFP/DFP for which VBUS detection should be enabled. It can be either ufp or dfp.
  * 
- * @return None.
  */
 void pd_phy_send_enable_vbus_detect(enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
@@ -107,7 +106,7 @@ void pd_phy_send_disabel_vbus_detect(enum ufp_dfp ufp_dfp) {
         Wire.beginTransmission(pd_phy_add_dfp);
     }
     Wire.write(pd_phy_reg_command);
-    Wire.write(pd_phy_comm_disabel_vbus_detect);
+    Wire.write(pd_phy_comm_disable_vbus_detect); // Fixed spelling of "disable"
     Wire.endTransmission();
 
     return;
@@ -126,7 +125,7 @@ void pd_phy_send_disabel_source_vbus (enum ufp_dfp ufp_dfp) {
         Wire.beginTransmission(pd_phy_add_dfp);
     }
     Wire.write(pd_phy_reg_command);
-    Wire.write(pd_phy_comm_disabel_source_vbus);
+    Wire.write(pd_phy_comm_disable_source_vbus); // Fixed spelling of "disable"
     Wire.endTransmission();
 
     return;
@@ -137,14 +136,14 @@ void pd_phy_send_disabel_source_vbus (enum ufp_dfp ufp_dfp) {
  * 
  * @param ufp_dfp The type of device (UFP or DFP).
  */
-void pd_phy_send_source_vbus_dflt (enum ufp_dfp ufp_dfp) {
+void pd_phy_send_source_vbus_default (enum ufp_dfp ufp_dfp) {
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
     } else if (ufp_dfp == dfp) {
         Wire.beginTransmission(pd_phy_add_dfp);
     }
     Wire.write(pd_phy_reg_command);
-    Wire.write(pd_phy_comm_source_vbus_defult_voltage);
+    Wire.write(pd_phy_comm_source_vbus_default_voltage); // Fixed spelling of "default"
     Wire.endTransmission();
 
     return;
@@ -162,7 +161,7 @@ void pd_phy_send_source_vbus_high (enum ufp_dfp ufp_dfp) {
         Wire.beginTransmission(pd_phy_add_dfp);
     }
     Wire.write(pd_phy_reg_command);
-    Wire.write(pd_phy_comm_souce_vbus_high_voltage);
+    Wire.write(pd_phy_comm_source_vbus_high_voltage); // Fixed spelling of "source"
     Wire.endTransmission();
 
     return;
@@ -458,153 +457,147 @@ void pd_phy_init() {
     //write tptc control
     Wire.beginTransmission(pd_phy_add_ufp);
     Wire.write(pd_phy_reg_tcpc_control);
-    Wire.write(pd_phy_dflt_tptc_control);
+    Wire.write(pd_phy_default_tptc_control);
     Wire.endTransmission();
 
     //write fault control
     Wire.beginTransmission(pd_phy_add_ufp);
     Wire.write(pd_phy_reg_fault_control);
-    Wire.write(pd_phy_dflt_fault_control);
+    Wire.write(pd_phy_default_fault_control);
     Wire.endTransmission();
 
     //write power control
     Wire.beginTransmission(pd_phy_add_ufp);
-    Wire.write(pd_phy_reg_power_control);
-    Wire.write(pd_phy_dflt_power_control);
+    Wire.write(pd_phy_reg_message_header_info);
+    Wire.write(pd_phy_ufp_default_message_header_info);
     Wire.endTransmission();
 
-    //write headder info
+    //write receive detect
     Wire.beginTransmission(pd_phy_add_ufp);
-    Wire.write(pd_phy_reg_message_headder_info);
-    Wire.write(pd_phy_ufp_dflt_message_header_info);
-    Wire.endTransmission();
-
-    //write recive detect
-    Wire.beginTransmission(pd_phy_add_ufp);
-    Wire.write(pd_phy_reg_recive_detect);
-    Wire.write(pd_phy_dflt_recive_detect);
+    Wire.write(pd_phy_reg_receive_detect);
+    Wire.write(pd_phy_default_receive_detect);
     Wire.endTransmission();
 
     //write ext gpio config
     Wire.beginTransmission(pd_phy_add_ufp);
     Wire.write(pd_phy_reg_ext_gpio_config);
-    Wire.write(pd_phy_dflt_ext_gpio_config);
+    Wire.write(pd_phy_default_ext_gpio_config);
     Wire.endTransmission();
 
     //write ext gpio control
     Wire.beginTransmission(pd_phy_add_ufp);
     Wire.write(pd_phy_reg_ext_gpio_control);
-    Wire.write(pd_phy_dflt_ext_gpio_control);
+    Wire.write(pd_phy_default_ext_gpio_control);
     Wire.endTransmission();
 
     //write ext gpio alert config
     Wire.beginTransmission(pd_phy_add_ufp);
     Wire.write(pd_phy_reg_ext_gpio_alert_config);
-    Wire.write(pd_phy_dflt_ext_gpio_alert_config);
+    Wire.write(pd_phy_default_ext_gpio_alert_config);
     Wire.endTransmission();
 
     //write vconn config
     Wire.beginTransmission(pd_phy_add_ufp);
     Wire.write(pd_phy_reg_vconn_config);
-    Wire.write(pd_phy_dflt_vconn_config);
+    Wire.write(pd_phy_default_vconn_config);
     Wire.endTransmission();
 
-    //write vconn fault attemps
+    //write vconn fault attempts
     Wire.beginTransmission(pd_phy_add_ufp);
     Wire.write(pd_phy_reg_vconn_fault_attempts);
-    Wire.write(pd_phy_dflt_vconn_fault_attemps);
+    Wire.write(pd_phy_default_vconn_fault_attempts);
     Wire.endTransmission();
 
     //write role control
     Wire.beginTransmission(pd_phy_add_ufp);
     Wire.write(pd_phy_reg_role_control);
-    Wire.write(pd_phy_ufp_dflt_role_control);
+    Wire.write(pd_phy_ufp_default_role_control);
     Wire.endTransmission();
 
     //write device capabilities
     Wire.beginTransmission(pd_phy_add_ufp);
     Wire.write(pd_phy_reg_device_capabilities_1);
-    Wire.write(pd_phy_dflt_device_capabilities_1);
+    Wire.write(pd_phy_default_device_capabilities_1);
     Wire.endTransmission();
     Wire.beginTransmission(pd_phy_add_ufp);
     Wire.write(pd_phy_reg_device_capabilities_2);
-    Wire.write(pd_phy_dflt_device_capabilities_2);
+    Wire.write(pd_phy_default_device_capabilities_2);
     Wire.endTransmission();
 
     //write tptc control
     Wire.beginTransmission(pd_phy_add_dfp);
     Wire.write(pd_phy_reg_tcpc_control);
-    Wire.write(pd_phy_dflt_tptc_control);
+    Wire.write(pd_phy_default_tptc_control);
     Wire.endTransmission();
 
     //write fault control
     Wire.beginTransmission(pd_phy_add_dfp);
     Wire.write(pd_phy_reg_fault_control);
-    Wire.write(pd_phy_dflt_fault_control);
+    Wire.write(pd_phy_default_fault_control);
     Wire.endTransmission();
 
     //write power control
     Wire.beginTransmission(pd_phy_add_dfp);
     Wire.write(pd_phy_reg_power_control);
-    Wire.write(pd_phy_dflt_power_control);
+    Wire.write(pd_phy_default_power_control);
     Wire.endTransmission();
 
-    //write headder info
+    //write header info
     Wire.beginTransmission(pd_phy_add_dfp);
-    Wire.write(pd_phy_reg_message_headder_info);
-    Wire.write(pd_phy_dfp_dflt_message_header_info);
+    Wire.write(pd_phy_reg_message_header_info);
+    Wire.write(pd_phy_dfp_default_message_header_info);
     Wire.endTransmission();
 
-    //write recive detect
+    //write receive detect
     Wire.beginTransmission(pd_phy_add_dfp);
-    Wire.write(pd_phy_reg_recive_detect);
-    Wire.write(pd_phy_dflt_recive_detect);
+    Wire.write(pd_phy_reg_receive_detect);
+    Wire.write(pd_phy_default_receive_detect);
     Wire.endTransmission();
 
     //write ext gpio config
     Wire.beginTransmission(pd_phy_add_dfp);
     Wire.write(pd_phy_reg_ext_gpio_config);
-    Wire.write(pd_phy_dflt_ext_gpio_config);
+    Wire.write(pd_phy_default_ext_gpio_config);
     Wire.endTransmission();
 
     //write ext gpio control
     Wire.beginTransmission(pd_phy_add_dfp);
     Wire.write(pd_phy_reg_ext_gpio_control);
-    Wire.write(pd_phy_dflt_ext_gpio_control);
+    Wire.write(pd_phy_default_ext_gpio_control);
     Wire.endTransmission();
 
     //write ext gpio alert config
     Wire.beginTransmission(pd_phy_add_dfp);
     Wire.write(pd_phy_reg_ext_gpio_alert_config);
-    Wire.write(pd_phy_dflt_ext_gpio_alert_config);
+    Wire.write(pd_phy_default_ext_gpio_alert_config);
     Wire.endTransmission();
 
     //write vconn config
     Wire.beginTransmission(pd_phy_add_dfp);
     Wire.write(pd_phy_reg_vconn_config);
-    Wire.write(pd_phy_dflt_vconn_config);
+    Wire.write(pd_phy_default_vconn_config);
     Wire.endTransmission();
 
-    //write vconn fault attemps
+    //write vconn fault attempts
     Wire.beginTransmission(pd_phy_add_dfp);
     Wire.write(pd_phy_reg_vconn_fault_attempts);
-    Wire.write(pd_phy_dflt_vconn_fault_attemps);
+    Wire.write(pd_phy_default_vconn_fault_attempts);
     Wire.endTransmission();
 
     //write role control
     Wire.beginTransmission(pd_phy_add_dfp);
     Wire.write(pd_phy_reg_role_control);
-    Wire.write(pd_phy_dfp_dflt_role_control);
+    Wire.write(pd_phy_dfp_default_role_control);
     Wire.endTransmission();
 
     //write device capabilities
     Wire.beginTransmission(pd_phy_add_dfp);
     Wire.write(pd_phy_reg_device_capabilities_1);
-    Wire.write(pd_phy_dflt_device_capabilities_1);
+    Wire.write(pd_phy_default_device_capabilities_1);
     Wire.endTransmission();
     Wire.beginTransmission(pd_phy_add_dfp);
     Wire.write(pd_phy_reg_device_capabilities_2);
-    Wire.write(pd_phy_dflt_device_capabilities_2);
+    Wire.write(pd_phy_default_device_capabilities_2);
     Wire.endTransmission();
 
     //clear all faults
@@ -678,7 +671,7 @@ enum pd_phy_alert_type pd_phy_determine_alert_type (enum ufp_dfp ufp_dfp) {
             return extended_timer_expired;
         } else if ((current_alert_extended_reg_value & 0x0002) != 0) {
             pd_phy_send_i2c_idle(ufp_dfp);
-            return extended_souce_frs;
+            return extended_source_frs;
         } else if ((current_alert_extended_reg_value & 0x0001) != 0) {
             pd_phy_send_i2c_idle(ufp_dfp);
             return extended_sink_frs;
@@ -687,7 +680,7 @@ enum pd_phy_alert_type pd_phy_determine_alert_type (enum ufp_dfp ufp_dfp) {
         
     } else if ((current_alert_reg_value & 0x2000) != 0) {
         pd_phy_send_i2c_idle(ufp_dfp);
-        return extended_status_cahnged;
+        return extended_status_changed;
     } else if ((current_alert_reg_value & 0x1000) != 0) {
         pd_phy_send_i2c_idle(ufp_dfp);
         return beginning_sop_message_status;
@@ -712,10 +705,10 @@ enum pd_phy_alert_type pd_phy_determine_alert_type (enum ufp_dfp ufp_dfp) {
             return force_off_vbus_status;
         } else if ((current_fault_reg_value & 0x20) != 0) {
             pd_phy_send_i2c_idle(ufp_dfp);
-            return auto_discahrge_failed;
-        } else if ((current_fault_reg_value & 0x10) != 0) {
-            pd_phy_send_i2c_idle(ufp_dfp);
-            return force_discharge_failled;
+                return auto_discharge_failed;
+            } else if ((current_fault_reg_value & 0x10) != 0) {
+                pd_phy_send_i2c_idle(ufp_dfp);
+                return force_discharge_failed;
         } else if ((current_fault_reg_value & 0x08) != 0) {
             pd_phy_send_i2c_idle(ufp_dfp);
             return internal_or_external_vbus_over_current_protection_fault;
@@ -737,7 +730,7 @@ enum pd_phy_alert_type pd_phy_determine_alert_type (enum ufp_dfp ufp_dfp) {
         return vbus_voltage_high;
     } else if ((current_alert_reg_value & 0x0040) != 0) {
         pd_phy_send_i2c_idle(ufp_dfp);
-        return transmit_sop_message_succsessful;
+        return transmit_sop_message_successful;
     } else if ((current_alert_reg_value & 0x0020) != 0) {
         pd_phy_send_i2c_idle(ufp_dfp);
         return transmit_sop_message_discarded;
@@ -746,10 +739,10 @@ enum pd_phy_alert_type pd_phy_determine_alert_type (enum ufp_dfp ufp_dfp) {
         return transmit_sop_message_failed;
     } else if ((current_alert_reg_value & 0x0008) != 0) {
         pd_phy_send_i2c_idle(ufp_dfp);
-        return recived_hard_reset;
+        return received_hard_reset;
     } else if ((current_alert_reg_value & 0x0004) != 0) {
         pd_phy_send_i2c_idle(ufp_dfp);
-        return recvied_sop_message_status;
+        return received_sop_message_status;
     } else if ((current_alert_reg_value & 0x0002) != 0) {
         pd_phy_send_i2c_idle(ufp_dfp);
         return port_power_status_changed;
@@ -809,18 +802,18 @@ void pd_phy_complite_attach (enum ufp_dfp ufp_dfp) {
         current_tcpc_control_reg_value = Wire.read();
         Wire.endTransmission();
 
-        //set orentation vars
+        //set orientation vars
         if ((current_tcpc_control_reg_value & 0x01) == 0){
             if (ufp_dfp == ufp) {
-                pd_phy_ufp_plug_orientaion = 0;
+                pd_phy_ufp_plug_orientation = 0;
             } else if (ufp_dfp == dfp) {
-                pd_phy_dfp_plug_orientaion = 0;
+                pd_phy_dfp_plug_orientation = 0;
             }
         } else if ((current_tcpc_control_reg_value & 0x01) != 0) {
             if (ufp_dfp == ufp) {
-                pd_phy_ufp_plug_orientaion = 1;
+                pd_phy_ufp_plug_orientation = 1;
             } else if (ufp_dfp == dfp) {
-                pd_phy_dfp_plug_orientaion = 1;
+                pd_phy_dfp_plug_orientation = 1;
             }
         }
 
@@ -852,7 +845,7 @@ void pd_phy_complite_attach (enum ufp_dfp ufp_dfp) {
         }
         
         //send souce vbus command
-        pd_phy_send_source_vbus_dflt(ufp_dfp);
+        pd_phy_send_source_vbus_default(ufp_dfp);
 
         pd_phy_clear_alert(ufp_dfp);
 
@@ -959,26 +952,26 @@ void pd_phy_complite_detatch (enum ufp_dfp ufp_dfp) {
                 Wire.write(current_power_control_reg_value);
                 Wire.endTransmission();
 
-                //send disabel source vbus command
-                pd_phy_send_disabel_source_vbus(ufp_dfp);
+                //send disable source vbus command
+                pd_phy_send_disable_source_vbus(ufp_dfp);
 
-                //disabel sop* and resets 
+                //disable sop* and resets 
                 Wire.beginTransmission(current_phy_addres);
-                Wire.write(pd_phy_reg_recive_detect);
+                Wire.write(pd_phy_reg_receive_detect);
                 Wire.write(0x00);
                 Wire.endTransmission();
 
-                //send disabel vbus detect command
-                pd_phy_send_disabel_vbus_detect(ufp_dfp);
+                //send disable vbus detect command
+                pd_phy_send_disable_vbus_detect(ufp_dfp);
 
 
                 //setup for next attach 
                 Wire.beginTransmission(current_phy_addres);
                 Wire.write(pd_phy_reg_role_control);
                 if (ufp_dfp == ufp) {
-                    Wire.write(pd_phy_ufp_dflt_role_control);
+                    Wire.write(pd_phy_ufp_default_role_control);
                 } else if (ufp_dfp == dfp) {
-                    Wire.write(pd_phy_dfp_dflt_role_control);
+                    Wire.write(pd_phy_dfp_default_role_control);
                 }
 
                 //send looking 4 connection command
@@ -1125,10 +1118,10 @@ bool pd_phy_transmit (enum ufp_dfp ufp_dfp, uint8_t to_transmit[], int lenght_of
     Wire.write(0x30);
     Wire.endTransmission();
 
-    //wait for messgae to be sent
+    //wait for message to be sent
     delay(pd_phy_transmit_wait_time);
 
-    if (pd_phy_alert_type(ufp_dfp) == transmit_sop_message_succsessful) {
+    if (pd_phy_alert_type(ufp_dfp) == transmit_sop_message_successful) {
         pd_phy_clear_alert(ufp_dfp);
         pd_phy_send_i2c_idle(ufp_dfp);
         return true;
@@ -1214,9 +1207,9 @@ void pd_phy_recive_message (enum ufp_dfp ufp_dfp) {
 
         //determine message id
         if (ufp_dfp == ufp) {
-            pd_phy_ufp_last_recived_message_id = (current_message_contents[0] & 0x0D) >> 1;
+            pd_phy_ufp_last_received_message_id = (current_message_contents[0] & 0x0D) >> 1;
         } else {
-            pd_phy_dfp_last_recived_message_id = (current_message_contents[0] & 0x0D) >> 1;
+            pd_phy_dfp_last_received_message_id = (current_message_contents[0] & 0x0D) >> 1;
         }
 
         //determine message type and store it 
@@ -1236,16 +1229,16 @@ void pd_phy_recive_message (enum ufp_dfp ufp_dfp) {
 
         //load values in to port respective vars
         if (ufp_dfp == ufp) {
-            pd_phy_ufp_last_recived_message_type = current_message_type;
-            pd_phy_ufp_last_recived_message_lenght = (current_message_length - 2);
+            pd_phy_ufp_last_received_message_type = current_message_type;
+            pd_phy_ufp_last_received_message_length = (current_message_length - 2);
             for (int i; i < (current_message_length - 2); ++i) {
-                pd_phy_ufp_last_recived_message_contents[i] = current_message_contents[i];
+                pd_phy_ufp_last_received_message_contents[i] = current_message_contents[i];
             }
         } else if (ufp_dfp == dfp) {
-            pd_phy_dfp_last_recived_message_type = current_message_type;
-            pd_phy_dfp_last_recived_message_lenght = (current_message_length - 2);
+            pd_phy_dfp_last_received_message_type = current_message_type;
+            pd_phy_dfp_last_received_message_length = (current_message_length - 2);
             for (int i; i < (current_message_length - 2); ++i) {
-                pd_phy_dfp_last_recived_message_contents[i] = current_message_contents[i];
+                pd_phy_dfp_last_received_message_contents[i] = current_message_contents[i];
             }
         }
     }

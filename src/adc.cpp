@@ -32,82 +32,74 @@
  * of the ADC, sets the self calibration bit, and writes the updated configuration back to the ADC. Then, it continuously
  * checks the self calibration bit until it is cleared, indicating that the calibration process is complete.
  * 
- * @note This function assumes that the ADC module is connected and accessible via the Wire library.
  */
 void adc_self_cal () {
-  //local vars
+  // Local variables
   bool cal_complete = false;
   uint8_t self_cal_mask = 0b0000010;
   uint8_t current_gen_config_state = 0b0;
 
-  //read current config register state
-  //check if i can actuly do this when i have the hardware
+  // Read current config register state
   Wire.beginTransmission(adc_add);
   Wire.write(adc_op_single_read);
   Wire.write(adc_gen_config);
   Wire.endTransmission();
 
-  //begin read
+  // Begin read
   Wire.requestFrom(adc_add, 1);
   current_gen_config_state = Wire.read();
   Wire.endTransmission();
 
-  //bitwise or current state with self cal mask
-  current_gen_config_state = current_gen_config_state | self_cal_mask;
+  // Bitwise OR current state with self cal mask
+  current_gen_config_state |= self_cal_mask;
 
-  //write to gen config register to start a self cal
+  // Write to gen config register to start a self cal
   Wire.beginTransmission(adc_add);
   Wire.write(adc_op_single_write);
   Wire.write(adc_gen_config);
   Wire.write(current_gen_config_state);
   Wire.endTransmission();
 
-  //set current state to 0 so it can be reused later
+  // Set current state to 0 so it can be reused later
   current_gen_config_state = 0b0;
 
-  //begin checking if the self cal is complete
-  while(!cal_complete) {
-    //read current self cal bit state
-    //check if i can actuly do this when i have the hardware
+  // Begin checking if the self cal is complete
+  while (!cal_complete) {
+    // Read current self cal bit state
     Wire.beginTransmission(adc_add);
     Wire.write(adc_op_single_read);
     Wire.write(adc_gen_config);
     Wire.endTransmission();
 
-    //begin read
+    // Begin read
     Wire.requestFrom(adc_add, 1);
     current_gen_config_state = Wire.read();
     Wire.endTransmission();
 
-    //bitwise and the current self cal bit with the self cal mask'
-    current_gen_config_state = current_gen_config_state & self_cal_mask;
+    // Bitwise AND the current self cal bit with the self cal mask
+    current_gen_config_state &= self_cal_mask;
 
-    if(current_gen_config_state == 0) {
+    if (current_gen_config_state == 0) {
       cal_complete = true;
     }
-
   }
-
-  return; 
+  return;
 }
 
 /**
  * @brief Initializes the ADC module with the specified configuration.
  * 
  * This function initializes the ADC module by configuring various parameters such as
- * general configuration, data configuration, oversampling setup, mode and clock setup,
- * pin modes, sequence configuration, alert channel selection, alert mapping, alert pin
- * configuration, and digital window comparator setup. It also sets the channel-specific
- * configuration values and sends all the configuration data to the ADC.
+ * hysteresis, thresholds, event counts, and pin modes. It also performs self-calibration
+ * and sets up oversampling, mode, clock, sequence, and alert channel configurations.
  * 
- * @param fast_mode Specifies whether to enable fast mode or not.
- *                 If true, the ADC operates in fast mode with a clock frequency of 3.4 MHz.
- *                 If false, the ADC operates in normal mode with a clock frequency of 400 kHz.
+ * @param fast_mode Flag indicating whether to enable fast mode or not.
+ *                  If set to true, the ADC will operate in i2c fast mode with a higher clock speed for sending config information.
+ *                  If set to false, the ADC will operate in i2c normal mode with a lower clock speed for sending config information.
  * 
- * @return None.
  */
-void adc_init (bool fast_mode) {
-  //init local vars
+void adc_init(bool fast_mode) {
+  // Initialize local variables
   uint8_t ch0_hysteresis = 0b0;
   uint8_t ch0_high_threshold = 0b0;
   uint8_t ch0_event_count = 0b0;
@@ -115,191 +107,164 @@ void adc_init (bool fast_mode) {
   uint8_t ch1_hysteresis = 0b0;
   uint8_t ch1_high_threshold = 0b0;
   uint8_t ch1_event_count = 0b0;
-  uint8_t ch1_low_threshold =0b0;
+  uint8_t ch1_low_threshold = 0b0;
   uint8_t ch2_hysteresis = 0b0;
   uint8_t ch2_high_threshold = 0b0;
   uint8_t ch2_event_count = 0b0;
-  uint8_t ch2_low_threshold =0b0;
+  uint8_t ch2_low_threshold = 0b0;
   uint8_t ch3_hysteresis = 0b0;
   uint8_t ch3_high_threshold = 0b0;
   uint8_t ch3_event_count = 0b0;
-  uint8_t ch3_low_threshold =0b0;
+  uint8_t ch3_low_threshold = 0b0;
   uint8_t ch4_hysteresis = 0b0;
   uint8_t ch4_high_threshold = 0b0;
   uint8_t ch4_event_count = 0b0;
-  uint8_t ch4_low_threshold =0b0;
+  uint8_t ch4_low_threshold = 0b0;
   uint8_t ch5_hysteresis = 0b0;
   uint8_t ch5_high_threshold = 0b0;
   uint8_t ch5_event_count = 0b0;
-  uint8_t ch5_low_threshold =0b0;
+  uint8_t ch5_low_threshold = 0b0;
   uint8_t ch6_hysteresis = 0b0;
   uint8_t ch6_high_threshold = 0b0;
   uint8_t ch6_event_count = 0b0;
-  uint8_t ch6_low_threshold =0b0;
+  uint8_t ch6_low_threshold = 0b0;
   uint8_t ch7_hysteresis = 0b0;
   uint8_t ch7_high_threshold = 0b0;
   uint8_t ch7_event_count = 0b0;
-  uint8_t ch7_low_threshold =0b0;
+  uint8_t ch7_low_threshold = 0b0;
 
-  //bordcast on i2c bus for adc self addresing
+  // Broadcast on I2C bus for ADC self-addressing
   Wire.beginTransmission(0x00);
   Wire.write(0x04);
   Wire.endTransmission();
 
-  //begin geniral config 
+  // Begin general config
   Wire.beginTransmission(adc_add);
   Wire.write(adc_op_single_write);
   Wire.write(adc_gen_config);
-  //adc datasheet page 34
-  //rms_en, crc_en, stats_en, dwc_en, cnvst, ch_rst, cal, rst
+  // ADC datasheet page 34
+  // rms_en, crc_en, stats_en, dwc_en, cnvst, ch_rst, cal, rst
   Wire.write(0b00011100);
   Wire.endTransmission();
 
-  //self cal the adc
+  // Self-calibrate the ADC
   adc_self_cal();
 
-  //begin data config init
+  // Begin data config init
   Wire.beginTransmission(adc_add);
   Wire.write(adc_op_single_write);
   Wire.write(adc_data_config);
-  //adc datasheet page 35
-  //fix_pat, resv, append_stat_b1, append_stat_b0, resv, resv, resv, resv
+  // ADC datasheet page 35
+  // fix_pat, resv, appendstat_b1, append_stat_b0, resv, resv, resv, resv
   Wire.write(0b00100000);
   Wire.endTransmission();
 
-  //begin over sampel setup
+  // Begin oversample setup
   Wire.beginTransmission(adc_add);
   Wire.write(adc_op_single_write);
   Wire.write(adc_osr_config);
-  //adc datasheet page 35
-  //resv, resv, resv, resv, resv, osr_b2, osr_b1, osr_b0
-  Wire.write(0b00000111);//128 oversampels
+  // ADC datasheet page 35
+  // resv, resv, resv, res, resv, osr_b2, osr_b1, osr_b0
+  Wire.write(0b00000111); // 128 oversamples
   Wire.endTransmission();
 
-  //begin mode and clock setup
+  // Begin mode and clock setup
   Wire.beginTransmission(adc_add);
   Wire.write(adc_op_single_write);
   Wire.write(adc_opmode_config);
-  //adc data sheet pages 35&36
-  //conv_on_err, conv_mode_b1, conv_mode_b0, osc_sel, clk_div_b3, clk_div_b2, clk_div_b1, clk_div_b0
+  // ADC datasheet pages 35&36
+  // conv_on_err, conv_mode_b1, conv_mode_b0, osc_sel, clk_div_b3, clk_div_b2, clk_div_b1, clk_div_b0
   Wire.write(0b00000000);
   Wire.endTransmission();
 
-  //set pinmodes all to analogue input
+  // Set pin modes all to analog input
   Wire.beginTransmission(adc_add);
   Wire.write(adc_op_single_write);
   Wire.write(adc_pin_config);
-  //adc datasheet pages 36
-  //gpio_cfg_7, gpio_cfg_6, gpio_cfg_5, gpio_cfg_4, gpio_cfg_3, gpio_cfg_2, gpio_cfg_1, gpio_cfg_0
-  Wire.write(0b00000000);//all pins as anlouge inputs
+  // ADC datasheet pages 36
+  // gpio_cfg_7, gpio_cfg_, gpio_cfg_5, gpio_cfg_4, gpio_cfg_3, gpio_cfg_2, gpio_cfg_1, gpio_cfg_0
+  Wire.write(0b00000000); // all pins as analog inputs
   Wire.endTransmission();
 
-  //seqwincer setup 
+  // Sequence setup
   Wire.beginTransmission(adc_add);
   Wire.write(adc_op_single_write);
   Wire.write(adc_sequence_config);
-  //adc datasheet page 38
-  //resv, resv, resv, seq_start, resv, resv, seq_mode_b1, seq_mode_b0
-  Wire.write(0b00000000);//no seqwinceing of anykind
+  // ADC datasheet page 38
+  // resv, resv, resv, seq_start, resv, resv, seq_mode_b1, seq_mode_b0
+  Wire.write(0b00000000); // no sequencing of any kind
   Wire.endTransmission();
 
-  //remove all analouge inputs form the auto seqwincer
+  // Remove all analog inputs from the auto sequencer
   Wire.beginTransmission(adc_add);
   Wire.write(adc_op_single_write);
   Wire.write(adc_auto_sequence_channel_sel);
-  //adc datasheet page 39
-  //ain_7, ain_6, ain_5, ain_4, ain_3, ain_2, ain_1, ain_0
+  // ADC datasheet page 39
+  // ain_7, ain_6, ain_5, ain_4, ain_3, ain_2, ain_1, ain_0
   Wire.write(0b00000000);
   Wire.endTransmission();
 
-  //setup witch channels will be allowed to asert the alert pin
+  // Setup which channels will be allowed to assert the alert pin
   Wire.beginTransmission(adc_add);
   Wire.write(adc_op_single_write);
   Wire.write(adc_alert_channel_sel);
-  //adc datasheet page 39
-  //ch7, ch6, ch5, ch4, ch3, ch2, ch1, ch0
-  Wire.write(0b11111111);//all channels can asert
+  // ADC datasheet page 39
+  // ch7, ch6, ch5, ch4, ch3, ch2, ch1, ch0
+  Wire.write(0b11111111); // all channels can assert
   Wire.endTransmission();
 
-  //setup other alert assert conditions 
-  Wire.beginTransmission(adc_add);
-  Wire.write(adc_op_single_write);
-  Wire.write(adc_alert_map);
-  //adc datasheet page 40
-  //resv, resv, resv, resv, resv, resv, alert_rms, alert_crc
-  Wire.write(0b00000000);
-  Wire.endTransmission();
-
-  //setup alert pin config
-  Wire.beginTransmission(adc_add);
-  Wire.write(adc_op_single_write);
-  Wire.write(adc_alert_pin_config);
-  //adc datasheet page 40
-  //resv, resv, resv, resv, resv, alert_drive, alert_logic_b1, alert_logic_b0
-  Wire.write(0b00000101);
-  Wire.endTransmission();
-
-  //set digital window comparitor to alert on vlaues within the upper and lower limits
-  Wire.beginTransmission(adc_add);
-  Wire.write(adc_op_single_write);
-  Wire.write(adc_event_rgn);
-  //adc datasheet page 42
-  //ch7, ch6, ch5, ch4, ch3, ch2, ch1, ch0
-  Wire.write(0b11111111);
-  Wire.endTransmission();
-
-  //begin configureing bytes to be sent for channel config
-  //ch0 bitwise opertations
+  // Begin configuring bytes to be sent for channel config
+  // Ch0 bitwise operations
   ch0_hysteresis = (adc_ch0_hysteresis << 4) | (adc_ch0_high_threshold & 0x000F);
   ch0_high_threshold = (adc_ch0_high_threshold >> 4);
   ch0_event_count = ((adc_ch0_low_threshold & 0x00F0) >> 4) | (adc_ch0_event_count << 4);
   ch0_low_threshold = (adc_ch0_low_threshold >> 4);
 
-  //ch1 bitwise operations
+  // Ch1 bitwise operations
   ch1_hysteresis = (adc_ch1_hysteresis << 4) | (adc_ch1_high_threshold & 0x000F);
   ch1_high_threshold = (adc_ch1_high_threshold >> 4);
   ch1_event_count = ((adc_ch1_low_threshold & 0x00F0) >> 4) | (adc_ch1_event_count << 4);
   ch1_low_threshold = (adc_ch1_low_threshold >> 4);
 
-  //ch2 bitwise opertations
+  // Ch2 bitwise operations
   ch2_hysteresis = (adc_ch2_hysteresis << 4) | (adc_ch2_high_threshold & 0x000F);
   ch2_high_threshold = (adc_ch2_high_threshold >> 4);
   ch2_event_count = ((adc_ch2_low_threshold & 0x00F0) >> 4) | (adc_ch2_event_count << 4);
   ch2_low_threshold = (adc_ch2_low_threshold >> 4);
 
-  //ch3 bitwise opertations
+  // Ch3 bitwise operations
   ch3_hysteresis = (adc_ch3_hysteresis << 4) | (adc_ch3_high_threshold & 0x000F);
   ch3_high_threshold = (adc_ch3_high_threshold >> 4);
   ch3_event_count = ((adc_ch3_low_threshold & 0x00F0) >> 4) | (adc_ch3_event_count << 4);
   ch3_low_threshold = (adc_ch3_low_threshold >> 4);
 
-  //ch4 bitwise opertations
+  // Ch4 bitwise operations
   ch4_hysteresis = (adc_ch4_hysteresis << 4) | (adc_ch4_high_threshold & 0x000F);
   ch4_high_threshold = (adc_ch4_high_threshold >> 4);
   ch4_event_count = ((adc_ch4_low_threshold & 0x00F0) >> 4) | (adc_ch4_event_count << 4);
   ch4_low_threshold = (adc_ch4_low_threshold >> 4);
 
-  //ch5 bitwise opertations
+  // Ch5 bitwise operations
   ch5_hysteresis = (adc_ch5_hysteresis << 4) | (adc_ch5_high_threshold & 0x000F);
   ch5_high_threshold = (adc_ch5_high_threshold >> 4);
   ch5_event_count = ((adc_ch5_low_threshold & 0x00F0) >> 4) | (adc_ch5_event_count << 4);
   ch5_low_threshold = (adc_ch5_low_threshold >> 4);
 
-  //ch6 bitwise opertations
+  // Ch6 bitwise operations
   ch6_hysteresis = (adc_ch6_hysteresis << 4) | (adc_ch6_high_threshold & 0x000F);
   ch6_high_threshold = (adc_ch6_high_threshold >> 4);
   ch6_event_count = ((adc_ch6_low_threshold & 0x00F0) >> 4) | (adc_ch6_event_count << 4);
   ch6_low_threshold = (adc_ch6_low_threshold >> 4);
 
-  //ch7 bitwise opertations
+  // Ch7 bitwise operations
   ch7_hysteresis = (adc_ch7_hysteresis << 4) | (adc_ch7_high_threshold & 0x000F);
   ch7_high_threshold = (adc_ch7_high_threshold >> 4);
   ch7_event_count = ((adc_ch7_low_threshold & 0x00F0) >> 4) | (adc_ch7_event_count << 4);
   ch7_low_threshold = (adc_ch7_low_threshold >> 4);
 
-  //begin sending all the config data to the adc
+  // Begin sending all the config data to the ADC
   Wire.beginTransmission(adc_add);
-  if (fast_mode) { //jump to fast mode if enabeld
+  if (fast_mode) { // Jump to fast mode if enabled
     Wire.write(0xB0);
     Wire.setClock(3400000);
   }
@@ -341,10 +306,7 @@ void adc_init (bool fast_mode) {
   if (fast_mode) {
     Wire.setClock(400000);
   }
-  
   return;
-
-
 }
 
 /**
@@ -501,7 +463,7 @@ void adc_threshold_set(enum adc_channel adc_channel, uint16_t high_th, uint16_t 
  */
 void adc_hysteresis_set(enum adc_channel adc_channel, uint8_t hysteresis_set) {
   //init local vars
-  uint8_t curent_hysteresis_reg_val = 0x00;
+  uint8_t current_hysteresis_reg_val = 0x00;
   uint8_t chx_hysteresis = 0x00;
 
   //read current hysteresis register value
@@ -539,15 +501,16 @@ void adc_hysteresis_set(enum adc_channel adc_channel, uint8_t hysteresis_set) {
   Wire.endTransmission();
 
   Wire.requestFrom(adc_add, 1);
-  curent_hysteresis_reg_val = (Wire.read() & 0xF0);
+  current_hysteresis_reg_val = (Wire.read() & 0x0F);
   Wire.endTransmission();
+  
+  //convert values to format the adc accepts 
+  chx_hysteresis = (((hysteresis_set & 0x000F) << 4) | current_hysteresis_reg_val);
 
-  //calculate value to write to the hysteresis register
-  chx_hysteresis = curent_hysteresis_reg_val | (hysteresis_set & 0x0F);
-
-  //begin write to hysteresis register
+  // begin writeing to adc
   Wire.beginTransmission(adc_add);
-  Wire.write(adc_op_single_write);
+  Wire.write(adc_op_continuous_write);
+
   switch (adc_channel){
   case ch0:
     Wire.write(adc_ch0_hysteresis);
@@ -574,12 +537,12 @@ void adc_hysteresis_set(enum adc_channel adc_channel, uint8_t hysteresis_set) {
     Wire.write(adc_ch7_hysteresis);
     break;
   }
-
+  
   Wire.write(chx_hysteresis);
   Wire.endTransmission();
 
   return;
-  
+
 }
 
 /**
@@ -638,11 +601,10 @@ int adc_event_count_read(enum adc_channel adc_channel) {
  * 
  * @param adc_channel The ADC channel to clear the event count for.
  * 
- * @return None.
  */
 void adc_event_clear(enum adc_channel adc_channel) {
   //init local vars
-  uint8_t event_count_val = 0x00;
+  uint8_t event_count_value = 0x00;
 
   //begin read
   Wire.beginTransmission(adc_add);
@@ -676,7 +638,7 @@ void adc_event_clear(enum adc_channel adc_channel) {
   Wire.endTransmission();
 
   Wire.requestFrom(adc_add, 1);
-  event_count_val = (Wire.read() & 0xF0);
+  event_count_value = (Wire.read() & 0xF0);
 
   //write 0 to event count register
   Wire.beginTransmission(adc_add);
@@ -707,7 +669,7 @@ void adc_event_clear(enum adc_channel adc_channel) {
     Wire.write(adc_ch7_event_count);
     break;
   }
-  Wire.write(event_count_val);
+  Wire.write(event_count_value);
   Wire.endTransmission();
   
   return;
@@ -757,7 +719,7 @@ int adc_read(enum adc_channel adc_channel) {
     Wire.write(adc_recent_ch6_lsb);
     break;
   case ch7:
-    Wire.write(adc_recent_ch6_lsb);
+    Wire.write(adc_recent_ch7_lsb);
     break;
   }
   
@@ -772,9 +734,9 @@ int adc_read(enum adc_channel adc_channel) {
 }
 
 /**
- * Clears the event flag for the ADC module.
+ * Clears the event flags for the ADC module.
  */
-void adc_clear_event_flag() {
+void adc_clear_event_flags() {
   Wire.write(adc_add);
   Wire.write(adc_op_single_write);
   Wire.write(adc_event_flag);
@@ -789,7 +751,7 @@ void adc_clear_event_flag() {
  */
 enum adc_channel adc_determine_alert_source() {
   //init local vars 
-  uint8_t current_event_flag_reg_value = 0;
+  uint8_t current_event_flag_register_value = 0;
 
   //read alert flag register
   Wire.beginTransmission(adc_add);
@@ -797,24 +759,24 @@ enum adc_channel adc_determine_alert_source() {
   Wire.write(adc_event_flag);
   Wire.endTransmission();
   Wire.requestFrom(adc_add, 1);
-  current_event_flag_reg_value = Wire.read();
+  current_event_flag_register_value = Wire.read();
   Wire.endTransmission();
 
-  if ((current_event_flag_reg_value & 0x01) != 0) {
+  if ((current_event_flag_register_value & 0x01) != 0) {
     return ch0;
-  } else if ((current_event_flag_reg_value & 0x02) != 0) {
+  } else if ((current_event_flag_register_value & 0x02) != 0) {
     return ch1;
-  } else if ((current_event_flag_reg_value & 0x04) != 0) {
+  } else if ((current_event_flag_register_value & 0x04) != 0) {
     return ch2;
-  } else if ((current_event_flag_reg_value & 0x08) != 0) {
+  } else if ((current_event_flag_register_value & 0x08) != 0) {
     return ch3;
-  } else if ((current_event_flag_reg_value & 0x10) != 0) {
+  } else if ((current_event_flag_register_value & 0x10) != 0) {
     return ch4;
-  } else if ((current_event_flag_reg_value & 0x20) != 0) {
+  } else if ((current_event_flag_register_value & 0x20) != 0) {
     return ch5;
-  } else if ((current_event_flag_reg_value & 0x40) != 0) {
+  } else if ((current_event_flag_register_value & 0x40) != 0) {
     return ch6;
-  } else if ((current_event_flag_reg_value & 0x80) != 0) {
+  } else if ((current_event_flag_register_value & 0x80) != 0) {
     return ch7;
   }
 

@@ -28,14 +28,14 @@
 #include "pd/pd_phy.h"
 #include "pd/pd_prot.h"
 
-//iox intrupt register values
+//iox interrupt register values
 uint8_t iox_0_port_0_interrupt = 0xFF;
 uint8_t iox_0_port_1_interrupt = 0xFF;
 uint8_t iox_1_port_0_interrupt = 0xFF;
 uint8_t iox_1_port_1_interrupt = 0xFF;
-bool io_interupt_flag = false;
+bool io_interrupt_flag = false;
 
-//buttion info defines
+//button info defines
 bool io_unit_btn_pressed = false;
 unsigned long io_unit_btn_pressed_time = 0;
 bool io_mode_btn_pressed = false;
@@ -43,9 +43,9 @@ unsigned long io_mode_btn_pressed_time = 0;
 bool io_src_btn_pressed = false;
 unsigned long io_src_btn_pressed_time = 0;
 
-//message recived intrupt flags
-bool io_intrupt_ufp_msg_recived = false;
-bool io_intrupt_dfp_msg_recived = false;
+//message received interrupt flags
+bool io_interrupt_ufp_msg_received = false;
+bool io_interrupt_dfp_msg_received = false;
 
 /**
  * Reads the current input/output state from the specified port and IOX number.
@@ -56,10 +56,10 @@ bool io_intrupt_dfp_msg_recived = false;
  */
 uint8_t io_read_current_io_state(int port, int iox_num) {
   uint8_t iox_address = (iox_num == 0) ? iox_0_add : iox_1_add;
-  uint8_t iox_output_register = (port == 0) ? iox_output_port_0 : iox_output_port_1;
+  uint8_t iox_input_port_register = (port == 0) ? iox_input_port_0 : iox_input_port_1;
 
   Wire.beginTransmission(iox_address);
-  Wire.write(iox_output_register);
+  Wire.write(iox_input_port_register);
   Wire.endTransmission();
 
   Wire.requestFrom(iox_address, 1);
@@ -78,110 +78,107 @@ uint8_t io_read_current_io_state(int port, int iox_num) {
  */
 int io_call(struct pin pin_needed, enum read_write read_write, enum high_low high_low) {
 
-  //Check if the pin is onboard or offboard
-  if (pin_needed.onboard == true) {
-    //If the pin is onboard, check if we need to read or write
+  if (pin_needed.onboard) {
     if (read_write == write) {
-      //If we need to write, check if we need to write high or low
-      if (high_low == high) { //onborad digital write
+      if (high_low == high) {
         digitalWrite(pin_needed.pin_number, HIGH);
-        
-      } else if (high_low == low) { //onborad digital write low
-        digitalWrite (pin_needed.pin_number, LOW);
+
+      } else if (high_low == low) {
+        digitalWrite(pin_needed.pin_number, LOW);
         
       } else {
-         //If high_low is not high or low, do something here (error handling?)
+        // Error handling for invalid high_low value
+
       }
-    } else if (read_write == read) { //onboard digital read
+    } else if (read_write == read) {
       int read_value = digitalRead(pin_needed.pin_number);
-      return(read_value);
+      return read_value;
+
     } else {
-       //If read_write is not read or write, do something here (error handling?)
+      // Error handling for invalid read_write value
+
     }
 
-  } else if (pin_needed.onboard == false){ //digital write to io expander
-    
-    if (read_write == write) {  //chek to see if we are writeing the the ioxepander
-
-      //int local varibels
-      uint8_t current = io_read_current_io_state(pin_needed.port, pin_needed.iox_number); //read and store the current state of the output register of the the given pin
+  } else {
+    if (read_write == write) {
+      uint8_t current = io_read_current_io_state(pin_needed.port, pin_needed.iox_number);
       uint8_t output = 0b00000000;
       uint8_t mask_not = ~pin_needed.mask;
 
-      //bitwise logic to ether set high or low a given pin
       if (high_low == high) {
         output = current | pin_needed.mask;
-      } else if (high_low == low){
+
+      } else if (high_low == low) {
         output = current & mask_not;
+
+      } else {
+        // Error handling for invalid high_low value
+
       }
 
-      //begin write to iox
       if (pin_needed.iox_number == 0) {
         Wire.beginTransmission(iox_0_add);
+
       } else {
         Wire.beginTransmission(iox_1_add);
+
       }
-        
-      //write to selcted port
+
       if (pin_needed.port == 0) {
         Wire.write(iox_output_port_0);
+
       } else {
         Wire.write(iox_output_port_1);
-      }
-      
-      Wire.write(output);
 
+      }
+
+      Wire.write(output);
       Wire.endTransmission();
 
-    } else if (read_write == read) {  //check to see if we are reading from the io expanders input
-      
-      //init local varibles
-      uint8_t readval = 0b00000000;
-      uint8_t output_byte = 0b00000000;
-      
-      //select witch iox to red from
+    } else if (read_write == read) {
+
+      uint8_t readval = 0;
+      uint8_t output_byte = 0;
+
       if (pin_needed.iox_number == 0) {
         Wire.beginTransmission(iox_0_add);
+
       } else {
         Wire.beginTransmission(iox_1_add);
+
       }
-      
-      //selcect port based on given pin
+
       if (pin_needed.port == 0) {
         Wire.write(iox_input_port_0);
+
       } else if (pin_needed.port == 1) {
         Wire.write(iox_input_port_1);
+
       }
 
       Wire.endTransmission();
-
-      //begin reading from selcted iox
+      
       if (pin_needed.iox_number == 0) {
         Wire.requestFrom(iox_0_add, 1);
+
       } else {
         Wire.requestFrom(iox_1_add, 1);
-      }
-      
-      //read the given value from the i2c bus
-      readval = Wire.read();
 
-      //isolate the indivdual bit of the given pin bsed on its mask
+      }
+
+      readval = Wire.read();
       output_byte = readval & pin_needed.mask;
 
-      //return high or low based on wether or not the byte is more than 0
       if (output_byte == 0) {
-        return (LOW);
-      } else {
-        return (HIGH);
-      }
-      
-    }
+        return LOW;
 
-  } else { //return if input bad
-    return 0;
+      } else {
+        return HIGH;
+
+      }
+    }
   }
   return 0;
-
 }
 
 /**
@@ -199,29 +196,30 @@ void io_gpio_init() {
   uint8_t iox_1_port_0_pinmode = 0x00;
   uint8_t iox_1_port_1_pinmode = 0x00;
 
-  //begin iterationg thru pins
+  //begin iterating through pins
   for (uint i = 1; i < sizeof(pin_names[0]); i++) {
 
-    //init local loop vars
-    //struct pin* curent_pin = pin_names[i];
-
-    switch (pin_names[i]->pin_mode)
-    {
+    switch (pin_names[i]->pin_mode) {
     case in:
       if (pin_names[i]->onboard) {
         pinMode(pin_names[i]->pin_number, INPUT);
+
       } else {
         if (pin_names[i]->iox_number == 0) {
           if (pin_names[i]->port == 0){
-            iox_0_port_0_pinmode = pin_names[i]->mask | iox_0_port_0_pinmode;
+            iox_0_port_0_pinmode |= pin_names[i]->mask;
+
           } else {
-            iox_0_port_1_pinmode = pin_names[i]->mask | iox_0_port_1_pinmode;
+            iox_0_port_1_pinmode |= pin_names[i]->mask;
+
           }
         } else {
           if (pin_names[i]->port == 0) {
-            iox_1_port_0_pinmode = pin_names[i]->mask | iox_1_port_0_pinmode;
+            iox_1_port_0_pinmode |= pin_names[i]->mask;
+
           } else {
-            iox_1_port_1_pinmode = pin_names[i]->mask | iox_1_port_1_pinmode;
+            iox_1_port_1_pinmode |= pin_names[i]->mask;
+
           }
         }
       }
@@ -230,18 +228,20 @@ void io_gpio_init() {
     case out:
       if (pin_names[i]->onboard) {
         pinMode(pin_names[i]->pin_number, OUTPUT);
+
       }
-      //no need to do anything to the iox all pins defult to output
+      //no need to do anything to the iox, all pins default to output
       break;
 
     case bi_dir:
-      //do nothing only used for i2c coms witch are defined else-ware 
+      //do nothing, only used for i2c coms which are defined elsewhere 
       break;
     
-    case intr: //setup iterups for cheking when io state is changed
+    case intr: //setup interrupts for checking when io state is changed
       if(pin_names[i]->onboard) {
         pinMode(pin_names[i]->pin_number, INPUT);
-        attachInterrupt(digitalPinToInterrupt(pin_names[i]->pin_number), io_pin_intrupt_flagger, RISING);
+        attachInterrupt(digitalPinToInterrupt(pin_names[i]->pin_number), io_pin_interrupt_flagger, RISING);
+
       }      
       break;
     case empty_pin:
@@ -253,15 +253,19 @@ void io_gpio_init() {
     if (pin_names[i]->allow_interrupt && !pin_names[i]->onboard) {
       if (pin_names[i]->iox_number == 0) {
         if (pin_names[i]->port == 0) {
-          iox_0_port_0_interrupt = iox_0_port_0_interrupt ^ pin_names[i]->mask;
+          iox_0_port_0_interrupt ^= pin_names[i]->mask;
+
         } else {
-          iox_0_port_1_interrupt = iox_0_port_1_interrupt ^ pin_names[i]->mask;
+          iox_0_port_1_interrupt ^= pin_names[i]->mask;
+
         }
       } else {
         if (pin_names[i]->port == 0) {
-          iox_1_port_0_interrupt = iox_1_port_0_interrupt ^ pin_names[i]->mask;
+          iox_1_port_0_interrupt ^= pin_names[i]->mask;
+
         } else {
-          iox_1_port_1_interrupt = iox_1_port_1_interrupt ^ pin_names[i]->mask;
+          iox_1_port_1_interrupt ^= pin_names[i]->mask;
+
         }
       }
     }
@@ -294,7 +298,7 @@ void io_gpio_init() {
   Wire.endTransmission();
 
 
-  //begin writeing pinmodes to ioxs 
+  //begin writing pinmodes to ioxs 
   //write pinmode to iox 0 port 0 
   Wire.beginTransmission(iox_0_add);
   Wire.write(iox_config_port_0);
@@ -320,7 +324,7 @@ void io_gpio_init() {
   Wire.endTransmission();
 
 
-  //write to ioxs interup mask registers
+  //write to ioxs interrupt mask registers
   //write mask to iox 0 port 0
   Wire.beginTransmission(iox_0_add);
   Wire.write(iox_int_mask_register_0);
@@ -356,7 +360,7 @@ void io_gpio_init() {
  * and enabling the desired interrupt pins.
  * 
  */
-void io_deaseert_iox_int () {
+void io_assert_iox_int () {
   
   Wire.beginTransmission(iox_0_add);
   Wire.write(iox_int_mask_register_0);
@@ -388,34 +392,36 @@ void io_deaseert_iox_int () {
  * 
  * @return The pin struct representing the interrupt source. If no interrupt source is detected, an empty struct is returned.
  */
-struct pin io_determine_intrupt_source() {
+struct pin io_determine_interrupt_source() {
   //init local vars
   uint8_t iox_0_int_reg_0_value = 0;
   uint8_t iox_0_int_reg_1_value = 0;
   uint8_t iox_1_int_reg_0_value = 0;
   uint8_t iox_1_int_reg_1_value = 0;
 
-  //read iterupt register values from iox 0  
+  //read interrupt register values from iox 0  
   Wire.beginTransmission(iox_0_add);
   Wire.write(iox_int_stat_register_0);
   Wire.endTransmission();
+
   Wire.requestFrom(iox_0_add, 2);
   iox_0_int_reg_0_value = Wire.read();
   iox_0_int_reg_1_value = Wire.read();
   Wire.endTransmission();
 
-  //chek if interupt came from other iox
+  //check if interrupt came from other iox
   if ((iox_0_int_reg_0_value & iox_1_int.mask) != 0) {
-    //read iterupt register values from iox 1
+    //read interrupt register values from iox 1
     Wire.beginTransmission(iox_1_add);
     Wire.write(iox_int_stat_register_0);
     Wire.endTransmission();
+
     Wire.requestFrom(iox_1_add, 2);
     iox_1_int_reg_0_value = Wire.read();
     iox_1_int_reg_1_value = Wire.read();
     Wire.endTransmission();
 
-    //determine if iterupt came from adc or f/b pgood
+    //determine if interrupt came from adc or f/b pgood
     if ((iox_1_int_reg_1_value & adc_alert.mask) != 0) {
       return adc_alert;
     } else if ((iox_1_int_reg_0_value & f_usbc_pgood.mask) != 0) {
@@ -425,7 +431,7 @@ struct pin io_determine_intrupt_source() {
     }
   }
 
-  //determine if intertrupt came from source btn, unit btn, mode btn, display, or ufp/dfp pd phy alert
+  //determine if interrupt came from source btn, unit btn, mode btn, display, or ufp/dfp pd phy alert
   if ((iox_0_int_reg_1_value & src_btn.mask) != 0) {
     return src_btn;
   } else if ((iox_0_int_reg_1_value & unit_btn.mask) != 0) {
@@ -441,18 +447,17 @@ struct pin io_determine_intrupt_source() {
   }
 
   return empty_struct_pin;
-
 };
 
 
 /**
  * @brief Sets the interrupt flag.
  * 
- * This function sets the interrupt flag `io_interupt_flag` to true.
+ * This function sets the interrupt flag `io_interrupt_flag` to true.
  */
-void io_pin_intrupt_flagger () {
-  //set the intrupt flag
-  io_interupt_flag = true;
+void io_pin_interrupt_flagger () {
+  //set the interrupt flag
+  io_interrupt_flag = true;
   return;
 }
 
@@ -466,9 +471,9 @@ void io_pin_intrupt_flagger () {
  */
 void io_intrupt_handeler () {
 
-  io_interupt_flag = false;
+  io_interrupt_flag = false;
 
-  if (io_determine_intrupt_source().pin_ident == 'x') { //adc alert
+  if (io_determine_interrupt_source().pin_ident == 'x') { //adc alert
     //determine channel that flagged the alert 
     if (adc_determine_alert_source() == ch0) {
       //21V csp do nothing
@@ -525,9 +530,9 @@ void io_intrupt_handeler () {
     }
 
     //clear adc alert
-    adc_clear_event_flag();
+    adc_clear_event_flags();
 
-  } else if (io_determine_intrupt_source().pin_ident == 'q') { //f usbc pgood
+  } else if (io_determine_interrupt_source().pin_ident == 'q') { //f usbc pgood
     // read pin to see if high or low
     if (io_call(f_usbc_pgood, read, read_mode) == 1) {
       //set allow output to  true
@@ -538,7 +543,7 @@ void io_intrupt_handeler () {
       pd_power_cont_dfp_allow_output = false;
       Serial.println("recived DFP PSU pbad intrupt");
     }
-  } else if (io_determine_intrupt_source().pin_ident == 'j') { //b usbc pgood
+  } else if (io_determine_interrupt_source().pin_ident == 'j') { //b usbc pgood
     // read pin to see if high or low
     if (io_call(b_usbc_pgood, read, read_mode) == 1) {
       //set allow output to  true
@@ -549,35 +554,35 @@ void io_intrupt_handeler () {
       pd_power_cont_ufp_allow_output = false;
       Serial.println("recived UFP PSU pbad intrupt");
     }
-  } else if (io_determine_intrupt_source().pin_ident == '4') { //source buttion
+  } else if (io_determine_interrupt_source().pin_ident == '4') { //source buttion
     io_src_btn_pressed = true;
     Serial.println("recived src buttion intrupt");
-  } else if (io_determine_intrupt_source().pin_ident == '3') { //unit buttion
+  } else if (io_determine_interrupt_source().pin_ident == '3') { //unit buttion
     io_unit_btn_pressed = true;
     Serial.println("recived unit buttion intrupt");
-  } else if (io_determine_intrupt_source().pin_ident == '5') { //mode buttion
+  } else if (io_determine_interrupt_source().pin_ident == '5') { //mode buttion
     io_mode_btn_pressed = true;
     Serial.println("recived mode buttion intrupt");
-  } else if (io_determine_intrupt_source().pin_ident == '2') { //display itrupt
+  } else if (io_determine_interrupt_source().pin_ident == '2') { //display itrupt
     //do nothing, not used 
     Serial.println("recived display intrupt (this sholdent happen)");
-  } else if (io_determine_intrupt_source().pin_ident == '0') { //ufp alert n
+  } else if (io_determine_interrupt_source().pin_ident == '0') { //ufp alert n
     //determine alert type
     if (pd_phy_alert_type(ufp) == vendor_defined_extended) {
       // do nothing
       Serial.println("recived UFP pd PHY vendor defined extended intrupt");
-    } else if (pd_phy_alert_type(ufp) == extended_status_cahnged) {
+    } else if (pd_phy_alert_type(ufp) == extended_status_changed) {
       // do nothing
       Serial.println("recived UFP pd PHY extended status changed intrupt");
     } else if (pd_phy_alert_type(ufp) == beginning_sop_message_status) {
       Serial.println("recived UFP pd PHY beggining sop message status intrupt");
-      pd_phy_recive_message(ufp);
+      pd_phy_receive_message(ufp);
     } else if (pd_phy_alert_type(ufp) == vbus_sink_disconnect_detected) {
       //do nothing?
       Serial.println("recived UFP pd PHY vbus sink disconnect detected intrupt");
     } else if (pd_phy_alert_type(ufp) == rx_buffer_overflow) {
       //reset recive buffer
-      pd_phy_send_reset_recive_buffer(ufp);
+      pd_phy_send_reset_receive_buffer(ufp);
       Serial.println("recived UFP pd PHY RX buffer overflow intrupt");
     } else if (pd_phy_alert_type(ufp) == vbus_voltage_low) {
       Serial.println("recived UFP pd PHY vbus voltage low intrupt");
@@ -599,7 +604,7 @@ void io_intrupt_handeler () {
         pd_power_cont_return_to_base_state(ufp);
         pd_power_cont_ufp_allow_output = false;
       }
-    } else if (pd_phy_alert_type(ufp) == transmit_sop_message_succsessful) {
+    } else if (pd_phy_alert_type(ufp) == transmit_sop_message_successful) {
       Serial.println("recived UFP pd PHY transmit sop message susessful intrupt");
 
       //hit good crc flag
@@ -624,42 +629,42 @@ void io_intrupt_handeler () {
       //add to retrasnmit counter
       ++pd_prot_ufp_counter_retry;
 
-    } else if (pd_phy_alert_type(ufp) == recived_hard_reset) {
-      Serial.println("recived UFP pd PHY recived hard reset intrupt");
+    } else if (pd_phy_alert_type(ufp) == received_hard_reset) {
+      Serial.println("received UFP pd PHY received hard reset interrupt");
       pd_prot_hard_reset_handeler(ufp, false);
-    } else if (pd_phy_alert_type(ufp) == recvied_sop_message_status) {
-      Serial.println("recived UFP pd PHY recived sop message status intrupt");
-      //set message recived flag and read message contents
-      io_intrupt_ufp_msg_recived = true;
-      pd_phy_recive_message(ufp);
+    } else if (pd_phy_alert_type(ufp) == received_sop_message_status) {
+      Serial.println("received UFP pd PHY received sop message status interrupt");
+      //set message received flag and read message contents
+      io_interrupt_ufp_msg_received = true;
+      pd_phy_receive_message(ufp);
 
     } else if (pd_phy_alert_type(ufp) == port_power_status_changed) {
-      Serial.println("recived UFP pd PHY port power status changed intrupt");
+      Serial.println("received UFP pd PHY port power status changed interrupt");
       // do nothing?
     } else if (pd_phy_alert_type(ufp) == cc_status_alert) {
-      Serial.println("recived UFP pd PHY cc status alert intrupt");
-      // determine if port is in attched or detached state 
+      Serial.println("received UFP pd PHY cc status alert interrupt");
+      // determine if port is in attached or detached state 
       if (pd_phy_ufp_attached) {
-        //complite detach seqwince
-        pd_phy_complite_detatch(ufp);
+        //complete detach sequence
+        pd_phy_complete_detach(ufp);
       } else {
-        // complite attach
-        pd_phy_complite_attach(ufp);
+        // complete attach
+        pd_phy_complete_attach(ufp);
       }
     } else if (pd_phy_alert_type(ufp) == extended_timer_expired) {
-      Serial.println("recived UFP pd PHY extended timer expired intrupt");
+      Serial.println("received UFP pd PHY extended timer expired interrupt");
       // do nothing
-    } else if (pd_phy_alert_type(ufp) == extended_souce_frs) {
-      Serial.println("recived UFP pd PHY extended souce frs intrupt");
+    } else if (pd_phy_alert_type(ufp) == extended_source_frs) {
+      Serial.println("received UFP pd PHY extended source frs interrupt");
       // do nothing
     } else if (pd_phy_alert_type(ufp) == extended_sink_frs) {
-      Serial.println("recived UFP pd PHY extended sink frs intrupt");
+      Serial.println("received UFP pd PHY extended sink frs interrupt");
       // do nothing
-    } else if (pd_phy_alert_type(ufp) == force_discharge_failled) {
-      Serial.println("recived UFP pd PHY force discharge failled intrupt");
+    } else if (pd_phy_alert_type(ufp) == force_discharge_failed) {
+      Serial.println("received UFP pd PHY force discharge failed interrupt");
       // turn port power supply off
       pd_power_cont_return_to_base_state(ufp);
-    } else if (pd_phy_alert_type(ufp) == auto_discahrge_failed) {
+    } else if (pd_phy_alert_type(ufp) == auto_discharge_failed) {
       Serial.println("recived UFP pd PHY auto discharge failled intrupt");
       // do nothing for now
     } else if (pd_phy_alert_type(ufp) == internal_or_external_vbus_over_current_protection_fault) {
@@ -675,7 +680,7 @@ void io_intrupt_handeler () {
     } else if (pd_phy_alert_type(ufp) == i2c_error) {
       Serial.println("recived UFP pd PHY i2c error intrupt");
       //reset rx & tx buffers
-      pd_phy_send_reset_recive_buffer(ufp);
+      pd_phy_send_reset_receive_buffer(ufp);
       pd_phy_send_reset_transmit_buffer(ufp);
     }
 
@@ -683,25 +688,25 @@ void io_intrupt_handeler () {
     pd_phy_clear_fault(ufp);
     pd_phy_clear_extended_alert(ufp);
 
-  } else if (io_determine_intrupt_source().pin_ident == '?') { //dfp alert n
+  } else if (io_determine_interrupt_source().pin_ident == '?') { //dfp alert n
     //determine alert type
     if (pd_phy_alert_type(dfp) == vendor_defined_extended) {
       Serial.println("recived DFP pd PHY vendor defined extended intrupt");
       // do nothing
-    } else if (pd_phy_alert_type(dfp) == extended_status_cahnged) {
-      Serial.println("recived DFP pd PHY extended status changed intrupt");
+    } else if (pd_phy_alert_type(dfp) == extended_status_changed) {
+      Serial.println("received DFP pd PHY extended status changed interrupt");
       // do nothing
     } else if (pd_phy_alert_type(dfp) == beginning_sop_message_status) {
-      Serial.println("recived DFP pd PHY beggining sop message status intrupt");
-      pd_phy_recive_message(dfp);
+      Serial.println("received DFP pd PHY beginning sop message status interrupt");
+      pd_phy_receive_message(dfp);
       
     } else if (pd_phy_alert_type(dfp) == vbus_sink_disconnect_detected) {
       Serial.println("recived DFP pd PHY vbus sink disconnect detected intrupt");
       //do nothing?
     } else if (pd_phy_alert_type(dfp) == rx_buffer_overflow) {
       Serial.println("recived DFP pd PHY RX buffer overflow intrupt");
-      //reset recive buffer
-      pd_phy_send_reset_recive_buffer(dfp);
+      //reset receive buffer
+      pd_phy_send_reset_receive_buffer(dfp);
     } else if (pd_phy_alert_type(dfp) == vbus_voltage_low) {
       Serial.println("recived DFP pd PHY vbus voltage low intrupt");
       //see if power is actuly bad
@@ -722,7 +727,7 @@ void io_intrupt_handeler () {
         pd_power_cont_return_to_base_state(dfp);
         pd_power_cont_dfp_allow_output = false;
       }
-    } else if (pd_phy_alert_type(dfp) == transmit_sop_message_succsessful) {
+    } else if (pd_phy_alert_type(dfp) == transmit_sop_message_successful) {
       Serial.println("recived DFP pd PHY transmit sop message susessful intrupt");
 
       //hit good crc flag
@@ -746,14 +751,14 @@ void io_intrupt_handeler () {
       //add to retrasnmit counter
       ++pd_prot_ufp_counter_retry;
 
-    } else if (pd_phy_alert_type(dfp) == recived_hard_reset) {
-      Serial.println("recived DFP pd PHY recived hard reset intrupt");
+    } else if (pd_phy_alert_type(dfp) == received_hard_reset) {
+      Serial.println("received DFP pd PHY received hard reset interrupt");
       pd_prot_hard_reset_handeler(dfp, false);
-    } else if (pd_phy_alert_type(dfp) == recvied_sop_message_status) {
-      Serial.println("recived DFP pd PHY recived sop message status intrupt");
-      //set message recived flag and read message contents
-      io_intrupt_dfp_msg_recived = true;
-      pd_phy_recive_message(dfp);
+    } else if (pd_phy_alert_type(dfp) == received_sop_message_status) {
+      Serial.println("received DFP pd PHY received sop message status interrupt");
+      //set message received flag and read message contents
+      io_interrupt_dfp_msg_received = true;
+      pd_phy_receive_message(dfp);
     } else if (pd_phy_alert_type(dfp) == port_power_status_changed) {
       Serial.println("recived DFP pd PHY extended sink frs intrupt");
       // do nothing?
@@ -761,26 +766,26 @@ void io_intrupt_handeler () {
       Serial.println("recived DFP pd PHY cc status alert intrupt");
       // determine if port is in attched or detached state 
       if (pd_phy_dfp_attached) {
-        //complite detach seqwince
-        pd_phy_complite_detatch(dfp);
+        //complete detach sequence
+        pd_phy_complete_detach(dfp);
       } else {
-        // complite attach
-        pd_phy_complite_attach(dfp);
+        // complete attach
+        pd_phy_complete_attach(dfp);
       }
     } else if (pd_phy_alert_type(dfp) == extended_timer_expired) {
       Serial.println("recived DFP pd PHY extended timer expired intrupt");
       // do nothing
-    } else if (pd_phy_alert_type(dfp) == extended_souce_frs) {
-      Serial.println("recived DFP pd PHY extended souce frs intrupt");
+    } else if (pd_phy_alert_type(dfp) == extended_source_frs) {
+      Serial.println("recived DFP pd PHY extended source frs interrupt");
       // do nothing
     } else if (pd_phy_alert_type(dfp) == extended_sink_frs) {
-      Serial.println("recived DFP pd PHY extended sink frs intrupt");
+      Serial.println("recived DFP pd PHY extended sink frs interrupt");
       // do nothing
-    } else if (pd_phy_alert_type(dfp) == force_discharge_failled) {
-      Serial.println("recived DFP pd PHY force discharge failled intrupt");
+    } else if (pd_phy_alert_type(dfp) == force_discharge_failed) {
+      Serial.println("recived DFP pd PHY force discharge failed interrupt");
       // turn port power supply off
       pd_power_cont_return_to_base_state(dfp);
-    } else if (pd_phy_alert_type(dfp) == auto_discahrge_failed) {
+    } else if (pd_phy_alert_type(dfp) == auto_discharge_failed) {
       Serial.println("recived DFP pd PHY auto discharge failled intrupt");
       // do nothing for now
     } else if (pd_phy_alert_type(dfp) == internal_or_external_vbus_over_current_protection_fault) {
@@ -796,23 +801,21 @@ void io_intrupt_handeler () {
     } else if (pd_phy_alert_type(dfp) == i2c_error) {
       Serial.println("recived DFP pd PHY i2c error intrupt");
       //reset rx & tx buffers
-      pd_phy_send_reset_recive_buffer(dfp);
-      pd_phy_send_reset_transmit_buffer(dfp);
-    }
+          pd_phy_send_reset_receive_buffer(dfp);
+          pd_phy_send_reset_transmit_buffer(dfp);
+        }
 
-    pd_phy_clear_alert(dfp);
-    pd_phy_clear_fault(dfp);
-    pd_phy_clear_extended_alert(dfp);
+        pd_phy_clear_alert(dfp);
+        pd_phy_clear_fault(dfp);
+        pd_phy_clear_extended_alert(dfp);
 
-  }
-  //deasert iox_intrupts
-  io_deaseert_iox_int();
+      }
+      //deassert iox_interrupts
+      io_assert_iox_int();
 
   return;
 
 }
-
-
 
 
 #endif // io_cpp

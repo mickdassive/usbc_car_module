@@ -72,10 +72,10 @@ void power_mon_calc_and_display(power_mon_zones zone, power_mon_v_a_w v_a_w) {
         csp_volts = ((0.00005035 * csp_adc_value) * (power_mon_21v_r1 + power_mon_21v_r2)) / power_mon_21v_r2;
         csn_volts = ((0.00005035 * csn_adc_value) * (power_mon_21v_r1 + power_mon_21v_r2)) / power_mon_21v_r2;
 
-        //calulate delta volts
+        //calculate delta volts
         delta_volts = csp_volts - csn_volts;
 
-        //selct calculation for given output type
+        //select calculation for given output type
         if (v_a_w == volts) {
             disp_write(csp_volts);
         } else if (v_a_w == amps) {
@@ -101,10 +101,10 @@ void power_mon_calc_and_display(power_mon_zones zone, power_mon_v_a_w v_a_w) {
         csp_volts = ((0.00005035 * csp_adc_value) * (power_mon_5v_r1 + power_mon_5v_r2)) / power_mon_5v_r2;
         csn_volts = ((0.00005035 * csn_adc_value) * (power_mon_5v_r1 + power_mon_5v_r2)) / power_mon_5v_r2;
 
-        //calulate delta volts
+        //calculate delta volts
         delta_volts = csp_volts - csn_volts;
 
-        //selct calculation for given output type
+        //select calculation for given output type
         if (v_a_w == volts) {
             disp_write(csp_volts);
         } else if (v_a_w == amps) {
@@ -130,10 +130,10 @@ void power_mon_calc_and_display(power_mon_zones zone, power_mon_v_a_w v_a_w) {
         csp_volts = ((0.00005035 * csp_adc_value) * (power_mon_f_c_r1 + power_mon_f_c_r2)) / power_mon_f_c_r2;
         csn_volts = ((0.00005035 * csn_adc_value) * (power_mon_f_c_r1 + power_mon_f_c_r2)) / power_mon_f_c_r2;
 
-        //calulate delta volts
+        //calculate delta volts
         delta_volts = csp_volts - csn_volts;
 
-        //selct calculation for given output type
+        //select calculation for given output type
         if (v_a_w == volts) {
             disp_write(csp_volts);
         } else if (v_a_w == amps) {
@@ -159,10 +159,10 @@ void power_mon_calc_and_display(power_mon_zones zone, power_mon_v_a_w v_a_w) {
         csp_volts = ((0.00005035 * csp_adc_value) * (power_mon_b_c_r1 + power_mon_b_c_r2)) / power_mon_b_c_r2;
         csn_volts = ((0.00005035 * csn_adc_value) * (power_mon_b_c_r1 + power_mon_b_c_r2)) / power_mon_b_c_r2;
 
-        //calulate delta volts
+        //calculate delta volts
         delta_volts = csp_volts - csn_volts;
 
-        //selct calculation for given output type
+        //select calculation for given output type
         if (v_a_w == volts) {
             disp_write(csp_volts);
         } else if (v_a_w == amps) {
