@@ -43,6 +43,10 @@
 const char* ssid = "baahome";
 const char* password = "!!!abahome12345!!!";
 const int wifi_wait_time = 1000; 
+bool wifi_dhcp_enabled = true;
+IPAddress ip(0, 0, 0, 0);
+IPAddress gateway(0, 0, 0, 0);
+IPAddress subnet(255, 255, 255, 0);
 ESP8266HTTPUpdateServer httpUpdater;
 ESP8266WebServer httpServer(80);
 
@@ -66,32 +70,84 @@ void setup() {
   Serial.println(" ");
 
   //ask on the console 
-  Serial.println("Press any key to enable Wi-Fi...");
+  Serial.println("Press any key to enable or configure Wi-Fi...");
   unsigned long wifistartTime = millis();
   while (millis() - wifistartTime < wifi_wait_time) {
-        if (Serial.available()) {
-            Serial.read(); // Consume the keypress
-            Serial.println("Initializing Wi-Fi...");
-            WiFi.begin(ssid, password);
-            
-            while (WiFi.status() != WL_CONNECTED) {
-                delay(1000);
-                Serial.println("Connecting to WiFi...");
-            }
-            
-            Serial.println("Connected to WiFi");
-            Serial.print("IP Address: ");
-            Serial.println(WiFi.localIP());
-            
-            MDNS.begin("esp8266");
-            httpUpdater.setup(&httpServer); // This line initializes the OTA update server
-            httpServer.begin();
+    if (Serial.available()) {
+      Serial.read(); // Consume the keypress
 
-            MDNS.addService("http", "tcp", 80);
-            Serial.printf("HTTPUpdateServer ready! Open http://%s.local/update in your browser\n", "esp8266");
-            break;
+      Serial.println("Wi-Fi menu");
+      Serial.println("1) Enable Wi-Fi");
+      Serial.println("2) Configure Wi-Fi");
+
+      char key = Serial.read(); // Read the keypress
+      if (key == '1') {
+        Serial.println("Initializing Wi-Fi...");
+        if (wifi_dhcp_enabled) {
+          WiFi.begin(ssid, password);
+        } else {
+          WiFi.config(ip, gateway, subnet);
+          WiFi.begin(ssid, password);
         }
+                  
+                  
+        while (WiFi.status() != WL_CONNECTED) {
+          delay(1000);
+          Serial.println("Connecting to WiFi...");
+        }
+                
+        Serial.println("Connected to WiFi");
+        Serial.print("IP Address: ");
+        Serial.println(WiFi.localIP());
+                
+        MDNS.begin("esp8266");
+        httpUpdater.setup(&httpServer); // This line initializes the OTA update server
+        httpServer.begin();
+        MDNS.addService("http", "tcp", 80);
+        Serial.printf("HTTPUpdateServer ready! Open http://%s.local/update in your browser\n", "esp8266");
+        break;
+      } else if (key == '2') {
+        Serial.println("Use DHCP? (y/n)");
+        while (true) {
+          if (Serial.available()) {
+            char input = Serial.read();
+            Serial.print("You entered: ");
+            Serial.println(input);
+            Serial.println("Press enter to confirm");
+            while (true) {
+              if (Serial.available() && Serial.read() == '\n') {
+                if (input == 'y' || input == 'Y') {
+                  wifi_dhcp_enabled = true;
+                } else if (input == 'n' || input == 'N') {
+                  wifi_dhcp_enabled = false;
+                } else {
+                  Serial.println("Invalid key. Please try again.");
+              break;
+              }
+              delay(100); // Add a small delay to avoid excessive looping
+            }
+            break;
+          }
+          delay(100); // Add a small delay to avoid excessive looping
+        }
+
+        if (!wifi_dhcp_enabled) {
+          Serial.println("Enter IP address (format: xxx.xxx.xxx.xxx):");
+          String ipString = Serial.readStringUntil('\n');
+          ip.fromString(ipString);
+
+          Serial.println("Enter subnet mask (format: xxx.xxx.xxx.xxx):");
+          String subnetString = Serial.readStringUntil('\n');
+          subnet.fromString(subnetString);
+
+          Serial.println("Enter gateway (format: xxx.xxx.xxx.xxx):");
+          String gatewayString = Serial.readStringUntil('\n');
+          gateway.fromString(gatewayString);
+        }
+        Serial.println("Invalid key. Please try again.");
+      }
     }
+  }
   
   if (WiFi.status() != WL_CONNECTED) {
     Serial.println("Wi-Fi not enabled");
