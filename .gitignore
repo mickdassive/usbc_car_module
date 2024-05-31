@@ -38,5 +38,5 @@ fp-info-cache
 # User lock files
 *.lck
 
-#platform io setup ignore
-#platformio.ini
+#wifi credential ignore
+wifi.h
