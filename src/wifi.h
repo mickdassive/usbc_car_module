@@ -21,8 +21,8 @@
 #define wifi_h
 
 //config vars
-const char* wifi_ssid = "xxxxxxxxxx";
-const char* wifi_password = "xxxxxxxxxx";
+const char* wifi_ssid = "baahome";
+const char* wifi_password = "!!!abahome12345!!!";
 const int wifi_wait_time = 1000; 
 
 

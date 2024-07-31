@@ -5138,6 +5138,12 @@
 		(uuid "637d7d5a-f144-45f8-a666-828d542847d9")
 	)
 	(junction
+		(at 170.18 163.83)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "7310c3a4-f292-42bb-b056-8897145a010a")
+	)
+	(junction
 		(at 154.94 125.73)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5174,6 +5180,12 @@
 		(uuid "c542ed4d-9472-4b47-82e4-bc4e0a47138e")
 	)
 	(junction
+		(at 170.18 142.24)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d460d884-6a03-45a2-a23e-7ec0f0e9b638")
+	)
+	(junction
 		(at 124.46 176.53)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5190,10 +5202,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "eedf930e-6332-47b6-bc7e-f9e157c85038")
-	)
-	(no_connect
-		(at 106.68 162.56)
-		(uuid "410dd46c-c127-46c0-ae8d-bb0312433e15")
 	)
 	(no_connect
 		(at 48.26 86.36)
@@ -5292,6 +5300,16 @@
 			(type default)
 		)
 		(uuid "18a8d513-e068-4b24-81d5-5a9632b41e39")
+	)
+	(wire
+		(pts
+			(xy 170.18 163.83) (xy 181.61 163.83)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1aa3e6e3-a4f2-42c9-ba64-690f92b09ff6")
 	)
 	(wire
 		(pts
@@ -5715,6 +5733,16 @@
 	)
 	(wire
 		(pts
+			(xy 106.68 162.56) (xy 96.52 162.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6fbe9591-5c37-4f0c-b049-da42c439c503")
+	)
+	(wire
+		(pts
 			(xy 49.53 45.72) (xy 49.53 48.26)
 		)
 		(stroke
@@ -5832,6 +5860,16 @@
 			(type default)
 		)
 		(uuid "8c795f7a-f269-4a27-827c-727502546da9")
+	)
+	(wire
+		(pts
+			(xy 170.18 142.24) (xy 182.88 142.24)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8fceb710-77ea-4b53-bc2d-e25d2d8a9c66")
 	)
 	(wire
 		(pts
@@ -6155,6 +6193,16 @@
 	)
 	(wire
 		(pts
+			(xy 96.52 162.56) (xy 96.52 165.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cd7f31d3-2277-4083-b33a-9395c4953ad4")
+	)
+	(wire
+		(pts
 			(xy 68.58 135.89) (xy 68.58 137.16)
 		)
 		(stroke
@@ -6205,7 +6253,7 @@
 	)
 	(wire
 		(pts
-			(xy 158.75 163.83) (xy 181.61 163.83)
+			(xy 158.75 163.83) (xy 170.18 163.83)
 		)
 		(stroke
 			(width 0)
@@ -6235,7 +6283,7 @@
 	)
 	(wire
 		(pts
-			(xy 153.67 142.24) (xy 182.88 142.24)
+			(xy 153.67 142.24) (xy 170.18 142.24)
 		)
 		(stroke
 			(width 0)
@@ -8442,6 +8490,73 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 170.18 163.83 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3053d61e-386b-470d-9ed2-dbf9e2b1a53e")
+		(property "Reference" "TP28"
+			(at 171.577 159.3158 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 171.577 161.7401 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
+			(at 175.26 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 175.26 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 170.18 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2d94933c-b209-423f-b6e7-952e4b04204a")
+		)
+		(instances
+			(project "usbc-car-module"
+				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
+					(reference "TP28")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 186.69 142.24 90)
 		(unit 1)
@@ -8851,7 +8966,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
 			(at 71.12 154.94 0)
 			(effects
 				(font
@@ -10345,6 +10460,70 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 96.52 165.1 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d881c969-6015-4a44-b841-8c022f25b6f6")
+		(property "Reference" "TP26"
+			(at 92.8751 168.402 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 94.7961 168.402 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
+			(at 91.44 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 91.44 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 96.52 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e4191992-aa0d-4e68-b6e2-3585352a547c")
+		)
+		(instances
+			(project "usbc-car-module"
+				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
+					(reference "TP26")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 185.42 163.83 90)
 		(unit 1)
@@ -10551,6 +10730,73 @@
 	)
 	(symbol
 		(lib_id "Connector:TestPoint")
+		(at 170.18 142.24 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f7d2f389-b640-4ad1-92ed-92751d310460")
+		(property "Reference" "TP27"
+			(at 171.577 137.7258 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 171.577 140.1501 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
+			(at 175.26 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 175.26 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 170.18 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2d94933c-b209-423f-b6e7-952e4b04204b")
+		)
+		(instances
+			(project "usbc-car-module"
+				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/bb20a659-2b02-48fa-8ef7-389a14e86ba7"
+					(reference "TP27")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
 		(at 151.13 138.43 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -10577,7 +10823,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
 			(at 151.13 143.51 0)
 			(effects
 				(font

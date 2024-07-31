@@ -39,4 +39,4 @@ fp-info-cache
 *.lck
 
 #wifi credential ignore
-wifi.h
+src/wifi.h

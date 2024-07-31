@@ -5102,6 +5102,12 @@
 		(uuid "10adbaba-faa6-434a-987d-b435f8b5193a")
 	)
 	(junction
+		(at 166.37 140.97)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "133c3dce-7228-4797-9ec3-40b1b76e0584")
+	)
+	(junction
 		(at 121.92 175.26)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5136,6 +5142,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a6541943-9547-4ded-ba75-159d11050cd0")
+	)
+	(junction
+		(at 166.37 162.56)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a74d946e-c120-44ee-8d93-b28e3293b471")
 	)
 	(junction
 		(at 69.85 135.89)
@@ -5417,6 +5429,16 @@
 	)
 	(wire
 		(pts
+			(xy 166.37 140.97) (xy 180.34 140.97)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "240a226b-97d1-463f-b7ff-4046df9d65e5")
+	)
+	(wire
+		(pts
 			(xy 99.06 173.99) (xy 99.06 175.26)
 		)
 		(stroke
@@ -5597,7 +5619,7 @@
 	)
 	(wire
 		(pts
-			(xy 151.13 140.97) (xy 180.34 140.97)
+			(xy 151.13 140.97) (xy 166.37 140.97)
 		)
 		(stroke
 			(width 0)
@@ -5614,6 +5636,16 @@
 			(type default)
 		)
 		(uuid "45eedaf1-f431-448a-9b58-b52a5110f002")
+	)
+	(wire
+		(pts
+			(xy 166.37 162.56) (xy 179.07 162.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4618ea4c-5bf6-4004-93a6-2512fcfe9a8f")
 	)
 	(wire
 		(pts
@@ -6397,7 +6429,7 @@
 	)
 	(wire
 		(pts
-			(xy 156.21 162.56) (xy 179.07 162.56)
+			(xy 156.21 162.56) (xy 166.37 162.56)
 		)
 		(stroke
 			(width 0)
@@ -7592,7 +7624,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
 			(at 264.16 41.91 0)
 			(effects
 				(font
@@ -7693,6 +7725,73 @@
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
 					(reference "#PWR0121")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 166.37 162.56 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1d78033e-9f7e-4e66-97dc-77f89aae52d2")
+		(property "Reference" "TP30"
+			(at 167.767 158.0458 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 167.767 160.4701 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
+			(at 171.45 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 171.45 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 166.37 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "fd59557f-8806-42ca-8e34-398af96359ac")
+		)
+		(instances
+			(project "usbc-car-module"
+				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
+					(reference "TP30")
 					(unit 1)
 				)
 			)
@@ -7973,7 +8072,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
 			(at 68.58 153.67 0)
 			(effects
 				(font
@@ -8593,7 +8692,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
 			(at 148.59 142.24 0)
 			(effects
 				(font
@@ -10281,6 +10380,73 @@
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
 					(reference "Q24")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 166.37 140.97 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ecaa42b3-73bb-4e28-98b8-130e09637329")
+		(property "Reference" "TP29"
+			(at 167.767 136.4558 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 167.767 138.8801 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
+			(at 171.45 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 171.45 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 166.37 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "fd59557f-8806-42ca-8e34-398af96359ad")
+		)
+		(instances
+			(project "usbc-car-module"
+				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ad0dde3f-c33d-40ce-8876-17a95cda421b"
+					(reference "TP29")
 					(unit 1)
 				)
 			)

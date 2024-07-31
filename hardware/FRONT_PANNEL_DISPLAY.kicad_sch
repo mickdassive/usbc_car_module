@@ -14,6 +14,108 @@
 		(comment 3 "TOTAL SYSTEM POWER IS ~275w")
 	)
 	(lib_symbols
+		(symbol "Connector:TestPoint"
+			(pin_numbers hide)
+			(pin_names
+				(offset 0.762) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "TP"
+				(at 0 6.858 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "TestPoint"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "test point"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "test point tp"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Pin* Test*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "TestPoint_0_1"
+				(circle
+					(center 0 3.302)
+					(radius 0.762)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "TestPoint_1_1"
+				(pin passive line
+					(at 0 0 90)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Device:C"
 			(pin_numbers hide)
 			(pin_names
@@ -2325,6 +2427,16 @@
 	)
 	(wire
 		(pts
+			(xy 92.71 73.66) (xy 107.95 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2da82eac-5f67-4fd0-afcd-50b11a05256f")
+	)
+	(wire
+		(pts
 			(xy 35.56 44.45) (xy 35.56 43.18)
 		)
 		(stroke
@@ -2413,6 +2525,16 @@
 		)
 		(uuid "3ffe3e2c-8053-483a-843a-6e42ba8af1ee")
 	)
+	(wire
+		(pts
+			(xy 92.71 76.2) (xy 107.95 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4040cdd0-3dfe-4e08-afdb-fdfecaff30c4")
+	)
 	(polyline
 		(pts
 			(xy 10.16 104.14) (xy 142.24 104.14)
@@ -2452,6 +2574,16 @@
 			(type default)
 		)
 		(uuid "4fa48f3d-33d0-4212-8e1d-8035726734d7")
+	)
+	(wire
+		(pts
+			(xy 92.71 88.9) (xy 95.25 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4fbd236f-d3f4-4801-a96e-fa6031cddadc")
 	)
 	(wire
 		(pts
@@ -2695,7 +2827,7 @@
 	)
 	(wire
 		(pts
-			(xy 118.11 86.36) (xy 118.11 53.34)
+			(xy 120.65 86.36) (xy 120.65 53.34)
 		)
 		(stroke
 			(width 0)
@@ -2895,7 +3027,7 @@
 	)
 	(wire
 		(pts
-			(xy 92.71 86.36) (xy 118.11 86.36)
+			(xy 92.71 86.36) (xy 120.65 86.36)
 		)
 		(stroke
 			(width 0)
@@ -2905,7 +3037,7 @@
 	)
 	(wire
 		(pts
-			(xy 118.11 53.34) (xy 92.71 53.34)
+			(xy 92.71 53.34) (xy 120.65 53.34)
 		)
 		(stroke
 			(width 0)
@@ -3888,7 +4020,7 @@
 	)
 	(global_label "DISP_SEG_G"
 		(shape input)
-		(at 118.11 53.34 0)
+		(at 120.65 53.34 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3898,7 +4030,7 @@
 		)
 		(uuid "e202a983-820d-4812-8e5e-c921ad8d71c7")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 132.2038 53.34 0)
+			(at 134.7438 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5034,6 +5166,73 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 107.95 76.2 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "69f5fdf3-5fb1-48df-b40f-5095d744faf0")
+		(property "Reference" "TP32"
+			(at 109.347 78.2898 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 109.347 80.7141 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
+			(at 102.87 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 102.87 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 107.95 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "436e9d08-add2-43ae-a48f-6f835f5dc88e")
+		)
+		(instances
+			(project "usbc-car-module"
+				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
+					(reference "TP32")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:LED")
 		(at 187.96 83.82 180)
 		(unit 1)
@@ -5512,6 +5711,73 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 107.95 73.66 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "bc5a7d2e-3da6-4f9b-b5c4-531f1712582e")
+		(property "Reference" "TP31"
+			(at 109.347 69.1458 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 109.347 71.5701 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
+			(at 113.03 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 113.03 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 107.95 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "436e9d08-add2-43ae-a48f-6f835f5dc88f")
+		)
+		(instances
+			(project "usbc-car-module"
+				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
+					(reference "TP31")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Switch:SW_Push")
 		(at 72.39 161.29 0)
 		(unit 1)
@@ -5642,6 +5908,73 @@
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
 					(reference "D33")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 95.25 88.9 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c6d7fd7c-7f24-415b-9cf9-cea9fefa857a")
+		(property "Reference" "TP33"
+			(at 96.647 90.9898 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 96.647 93.4141 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
+			(at 90.17 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 90.17 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 95.25 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "11f56c46-4514-49c3-96b2-d61388071fe6")
+		)
+		(instances
+			(project "usbc-car-module"
+				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
+					(reference "TP33")
 					(unit 1)
 				)
 			)
