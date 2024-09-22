@@ -25,6 +25,7 @@
 #include "pd_phy.h"
 #include "pd_power_cont.h"
 #include "pd_prot.h"
+#include "debug.h"
 
 
 
@@ -53,6 +54,9 @@ enum message_type pd_phy_dfp_last_received_message_type;
  * @param ufp_dfp The type of device (UFP or DFP) to send the command to.
  */
 void pd_phy_send_looking_4_connection (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_pd_phy, "pd_phy_send_looking_4_update called, sending command", false, 0);
+
     //send looking for connection command
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
@@ -77,6 +81,9 @@ void pd_phy_send_looking_4_connection (enum ufp_dfp ufp_dfp) {
  * 
  */
 void pd_phy_send_enable_vbus_detect(enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_pd_phy, "pd_phy_send_enable_vbus_detect called", false, 0);
+
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
     } else if (ufp_dfp == dfp) {
@@ -101,6 +108,9 @@ void pd_phy_send_enable_vbus_detect(enum ufp_dfp ufp_dfp) {
  * @return None.
  */
 void pd_phy_send_disabel_vbus_detect(enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_pd_phy, "pd_phy_send_disabel_vbus_detect called", false, 0);
+
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
     } else if (ufp_dfp == dfp) {
@@ -120,6 +130,9 @@ void pd_phy_send_disabel_vbus_detect(enum ufp_dfp ufp_dfp) {
  *                Must be either ufp or dfp.
  */
 void pd_phy_send_disabel_source_vbus (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_pd_phy, "pd_phy_send_disabel_source_vbus called", false, 0);
+
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
     } else if (ufp_dfp == dfp) {
@@ -138,6 +151,9 @@ void pd_phy_send_disabel_source_vbus (enum ufp_dfp ufp_dfp) {
  * @param ufp_dfp The type of device (UFP or DFP).
  */
 void pd_phy_send_source_vbus_default (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_pd_phy, "pd_phy_send_source_vbus_default called", false, 0);
+
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
     } else if (ufp_dfp == dfp) {
@@ -156,6 +172,9 @@ void pd_phy_send_source_vbus_default (enum ufp_dfp ufp_dfp) {
  * @param ufp_dfp The type of device (UFP or DFP).
  */
 void pd_phy_send_source_vbus_high (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_pd_phy, "pd_phy_send_source_vbus_high called", false, 0);
+
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
     } else if (ufp_dfp == dfp) {
@@ -174,6 +193,9 @@ void pd_phy_send_source_vbus_high (enum ufp_dfp ufp_dfp) {
  * @param ufp_dfp The device type (UFP or DFP) to send the command to.
  */
 void pd_phy_send_i2c_wake (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_pd_phy, "pd_phy_send_i2c_wake called", false, 0);
+
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
     } else if (ufp_dfp == dfp) {
@@ -192,6 +214,9 @@ void pd_phy_send_i2c_wake (enum ufp_dfp ufp_dfp) {
  * @param ufp_dfp The type of device to send the command to (ufp or dfp).
  */
 void pd_phy_send_i2c_idle (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_pd_phy, "pd_phy_send_i2c_idle called", false, 0);
+
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
     } else if (ufp_dfp == dfp) {
@@ -210,6 +235,9 @@ void pd_phy_send_i2c_idle (enum ufp_dfp ufp_dfp) {
  * @param ufp_dfp The type of device (UFP or DFP).
  */
 void pd_phy_send_rx_one_more (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_pd_phy, "pd_phy_send_rx_one_more called", false, 0);
+
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
     } else if (ufp_dfp == dfp) {
@@ -228,6 +256,9 @@ void pd_phy_send_rx_one_more (enum ufp_dfp ufp_dfp) {
  * @param ufp_dfp The type of device to send the FRS signal to (ufp or dfp).
  */
 void pd_phy_send_frs_signal (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_pd_phy, "pd_phy_send_frs_signal called", false, 0);
+
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
     } else if (ufp_dfp == dfp) {
@@ -249,6 +280,9 @@ void pd_phy_send_frs_signal (enum ufp_dfp ufp_dfp) {
  * @param ufp_dfp The type of device to send the command to (UFP or DFP).
  */
 void pd_phy_send_reset_transmit_buffer (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_pd_phy, "pd_phy_send_reset_transmit_buffer called", false, 0);
+
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
     } else if (ufp_dfp == dfp) {
@@ -267,6 +301,8 @@ void pd_phy_send_reset_transmit_buffer (enum ufp_dfp ufp_dfp) {
  * @param ufp_dfp The type of device (UFP or DFP) to send the hard reset to.
  */
 void pd_phy_send_hard_reset (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_pd_phy, "pd_phy_send_hard_reset called", false, 0);
 
     pd_phy_send_i2c_wake(ufp_dfp);
 
@@ -293,6 +329,9 @@ void pd_phy_send_hard_reset (enum ufp_dfp ufp_dfp) {
  *                - If `ufp_dfp` is `dfp`, the command is sent to the DFP PD PHY address.
  */
 void pd_phy_send_reset_recive_buffer (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_pd_phy, "pd_phy_send_reset_recive_buffer called", false, 0);
+
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
     } else if (ufp_dfp == dfp) {
@@ -316,6 +355,9 @@ void pd_phy_send_reset_recive_buffer (enum ufp_dfp ufp_dfp) {
  * @param on_off The desired state of the VCONN power (on or off).
  */
 void pd_phy_vconn_cont(enum ufp_dfp ufp_dfp, enum on_off on_off) {
+
+    debug_msg(partal_pd_phy, "pd_phy_vconn_cont called", true, on_off);
+
     //init local vars
     uint8_t reg_contents_b0 = 0;
     uint8_t reg_contents_b1 = 0;
@@ -380,6 +422,9 @@ void pd_phy_vconn_cont(enum ufp_dfp ufp_dfp, enum on_off on_off) {
  *                - If `ufp_dfp` is `dfp`, the alert register of the DFP mode will be cleared.
  */
 void pd_phy_clear_alert (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_pd_phy, "pd_phy_clear_alert called", false, 0);
+
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
     } else if (ufp_dfp == dfp) {
@@ -402,6 +447,9 @@ void pd_phy_clear_alert (enum ufp_dfp ufp_dfp) {
  *                Possible values are 'ufp' for UFP and 'dfp' for DFP.
  */
 void pd_phy_clear_extended_alert (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_pd_phy, "pd_phy_clear_extended_alert called", false, 0);
+
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
     } else if (ufp_dfp == dfp) {
@@ -422,6 +470,9 @@ void pd_phy_clear_extended_alert (enum ufp_dfp ufp_dfp) {
  *                Must be either `ufp` or `dfp`.
  */
 void pd_phy_clear_fault (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_pd_phy, "pd_phy_clear_fault called", false, 0);
+
     if (ufp_dfp == ufp) {
         Wire.beginTransmission(pd_phy_add_ufp);
     } else if (ufp_dfp == dfp) {
@@ -446,6 +497,9 @@ void pd_phy_clear_fault (enum ufp_dfp ufp_dfp) {
  * @return None.
  */
 void pd_phy_init() {
+
+    debug_msg(partal_pd_phy, "pd_phy_init called", false, 0);
+
     //wake i2c interface on the phys
     pd_phy_send_i2c_wake(ufp);
     pd_phy_send_i2c_wake(dfp);
@@ -636,6 +690,9 @@ void pd_phy_init() {
  * @return The enum value representing the determined alert type.
  */
 enum pd_phy_alert_type pd_phy_determine_alert_type (enum ufp_dfp ufp_dfp) {
+    
+    debug_msg(partal_pd_phy, "pd_phy_determine_alert_type called", false, 0);
+
     //init local vars
     uint8_t current_phy_addres = 0;
     uint16_t current_alert_reg_value = 0;
@@ -776,6 +833,9 @@ enum pd_phy_alert_type pd_phy_determine_alert_type (enum ufp_dfp ufp_dfp) {
  * @return None.
  */
 void pd_phy_complite_attach (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_pd_phy, "pd_phy_complite_attach called", false, 0);
+
     //init local vars 
     uint8_t current_phy_addres = 0;
     uint8_t current_cc_status_reg_value = 0;
@@ -902,6 +962,9 @@ void pd_phy_complite_attach (enum ufp_dfp ufp_dfp) {
  * @param ufp_dfp The UFP/DFP type (enum ufp_dfp) indicating whether it is UFP or DFP.
  */
 void pd_phy_complite_detatch (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_pd_phy, "pd_phy_complite_detatch called", false, 0);
+
     //init local vars 
     uint8_t current_phy_addres = 0;
     uint8_t current_cc_status_reg_value = 0;
@@ -1012,7 +1075,8 @@ void pd_phy_complite_detatch (enum ufp_dfp ufp_dfp) {
     }
 
     return;
- }
+}
+
 
 /**
  * @brief Transmits a hard reset command to the PD PHY.
@@ -1030,6 +1094,9 @@ void pd_phy_complite_detatch (enum ufp_dfp ufp_dfp) {
  * @param ufp_dfp The mode of the PD PHY (UFP or DFP).
  */
 void pd_phy_transmit_hard_reset (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_pd_phy, "pd_phy_transmit_hard_reset called", false, 0);
+
     //inti local vars
     uint8_t current_phy_addres = 0;
 
@@ -1067,6 +1134,9 @@ void pd_phy_transmit_hard_reset (enum ufp_dfp ufp_dfp) {
  * @param ufp_dfp The mode of operation (UFP or DFP).
  */
 void pd_phy_transmit_cable_reset (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_pd_phy, "pd_phy_transmit_cable_reset called", false, 0);
+
     //inti local vars
     uint8_t current_phy_addres = 0;
 
@@ -1106,6 +1176,9 @@ void pd_phy_transmit_cable_reset (enum ufp_dfp ufp_dfp) {
  * @return True if the transmission was successful, false otherwise.
  */
 bool pd_phy_transmit (enum ufp_dfp ufp_dfp, uint8_t to_transmit[], int lenght_of_transmission) {
+
+    debug_msg(partal_pd_phy, "pd_phy_transmit called, trasmitting a message with a length of", true, lenght_of_transmission);
+
     //inti local vars
     uint8_t current_phy_addres = 0;
     uint8_t lenght_of_message = lenght_of_transmission;
@@ -1181,6 +1254,9 @@ bool pd_phy_transmit (enum ufp_dfp ufp_dfp, uint8_t to_transmit[], int lenght_of
  * @param ufp_dfp The enum value indicating whether the message is from UFP or DFP.
  */
 void pd_phy_recive_message (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_pd_phy, "pd_phy_recive_message called", false, 0);
+
     //init local vars
     uint8_t current_phy_addres = 0;
     uint16_t current_alert_reg_value = 0;
@@ -1280,6 +1356,8 @@ void pd_phy_recive_message (enum ufp_dfp ufp_dfp) {
 
     //send i2c sleep command
     pd_phy_send_i2c_idle(ufp_dfp);
+
+    debug_msg(partal_pd_phy, "pd_phy_recive_message completed, with a messgae length of", true, current_message_length);
 
     return;
 

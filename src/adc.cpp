@@ -34,6 +34,9 @@
  * 
  */
 void adc_self_cal () {
+
+  debug_msg(partal_adc, "adc_self_cal called beginnign selfcal seqwince", false, 0);
+
   // Local variables
   bool cal_complete = false;
   uint8_t self_cal_mask = 0b0000010;
@@ -83,6 +86,9 @@ void adc_self_cal () {
       cal_complete = true;
     }
   }
+
+  debug_msg(partal_adc, "self cal complete", false, 0);
+
   return;
 }
 
@@ -99,6 +105,9 @@ void adc_self_cal () {
  * 
  */
 void adc_init(bool fast_mode) {
+
+  debug_msg(partal_adc, "adc_init called, beiging setup, fast mode=", true, fast_mode);
+
   // Initialize local variables
   uint8_t ch0_hysteresis = 0b0;
   uint8_t ch0_high_threshold = 0b0;
@@ -335,6 +344,9 @@ void adc_init(bool fast_mode) {
   if (fast_mode) {
     Wire.setClock(400000);
   }
+
+  debug_msg(partal_adc, "adc init complete", false, 0);
+
   return;
 }
 
@@ -350,6 +362,9 @@ void adc_init(bool fast_mode) {
  * @param low_th The low threshold value to set (12 bits max).
  */
 void adc_threshold_set(enum adc_channel adc_channel, uint16_t high_th, uint16_t low_th) {
+
+  debug_msg(partal_adc, "adc_threshold_set called setting threshold for follwoing channel", true, adc_channel);
+
   //init local vars
   uint8_t chx_hysteresis = 0b0;
   uint8_t chx_high_th = 0b0;
@@ -476,6 +491,8 @@ void adc_threshold_set(enum adc_channel adc_channel, uint16_t high_th, uint16_t 
   Wire.write(chx_low_th);
   Wire.endTransmission();
 
+  debug_msg(partal_adc, "threshold set complete", false, 0);
+
   return;
 
 }
@@ -491,6 +508,9 @@ void adc_threshold_set(enum adc_channel adc_channel, uint16_t high_th, uint16_t 
  * @param hysteresis_set The hysteresis value to set for the ADC channel (4 bits max).
  */
 void adc_hysteresis_set(enum adc_channel adc_channel, uint8_t hysteresis_set) {
+
+  debug_msg(partal_adc, "adc_histerisis_set called, for channel", true, adc_channel);
+
   //init local vars
   uint8_t current_hysteresis_reg_val = 0x00;
   uint8_t chx_hysteresis = 0x00;
@@ -570,6 +590,8 @@ void adc_hysteresis_set(enum adc_channel adc_channel, uint8_t hysteresis_set) {
   Wire.write(chx_hysteresis);
   Wire.endTransmission();
 
+  debug_msg(partal_adc, "histarisis set complete", false, 0);
+
   return;
 
 }
@@ -583,6 +605,9 @@ void adc_hysteresis_set(enum adc_channel adc_channel, uint8_t hysteresis_set) {
  * @return The current event count for the specified ADC channel.
  */
 int adc_event_count_read(enum adc_channel adc_channel) {
+
+  debug_msg(partal_adc, "adc_event_count_read called, for channel", true, adc_channel);
+
   //init local vars 
   uint8_t chx_current_event_count = 0x00;
 
@@ -619,6 +644,9 @@ int adc_event_count_read(enum adc_channel adc_channel) {
 
   Wire.requestFrom(adc_add, 1);
   chx_current_event_count = (Wire.read() & 0x0F);
+
+  debug_msg(partal_adc, "event count read complete with value", true, chx_current_event_count);
+
   return chx_current_event_count;
 }
 
@@ -632,6 +660,9 @@ int adc_event_count_read(enum adc_channel adc_channel) {
  * 
  */
 void adc_event_clear(enum adc_channel adc_channel) {
+
+  debug_msg(partal_adc, "adc_event_clear, called for channel", true, adc_channel);
+
   //init local vars
   uint8_t event_count_value = 0x00;
 
@@ -700,6 +731,8 @@ void adc_event_clear(enum adc_channel adc_channel) {
   }
   Wire.write(event_count_value);
   Wire.endTransmission();
+
+  debug_msg(partal_adc, "event cleard", false, 0);
   
   return;
 
@@ -718,6 +751,9 @@ void adc_event_clear(enum adc_channel adc_channel) {
  * @return The 16-bit analog value read from the ADC.
  */
 int adc_read(enum adc_channel adc_channel) {
+
+  debug_msg(partal_adc, "adc_read called, for channel", true, adc_channel);
+
   //init local vars
   uint16_t read_word = 0x0000;
 
@@ -758,6 +794,8 @@ int adc_read(enum adc_channel adc_channel) {
   read_word = Wire.read();
   Wire.endTransmission();
 
+  debug_msg(partal_adc, "adc read complete, with count", true, read_word);
+
   return read_word;
 
 }
@@ -766,6 +804,9 @@ int adc_read(enum adc_channel adc_channel) {
  * Clears the event flags for the ADC module.
  */
 void adc_clear_event_flags() {
+
+  debug_msg(partal_adc, "adc_clear_event_flags called", false, 0);
+
   Wire.write(adc_add);
   Wire.write(adc_op_single_write);
   Wire.write(adc_event_flag);
@@ -779,6 +820,9 @@ void adc_clear_event_flags() {
  * @return The ADC channel corresponding to the alert source, or `empty` if no alert is detected.
  */
 enum adc_channel adc_determine_alert_source() {
+
+  debug_msg(partal_adc, "adc_determine_alert_source called", false, 0);
+
   //init local vars 
   uint8_t current_event_flag_register_value = 0;
 

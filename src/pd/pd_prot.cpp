@@ -2004,6 +2004,9 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
  * @return The header contents for the PD protocol message.
  */
 uint16_t pd_prot_build_header (bool extended_msg, uint16_t n_data_objects, uint16_t msg_id, enum pd_prot_port_power_role power_role, uint16_t spec_revision, enum ufp_dfp data_role, uint16_t msg_type) {
+
+    debug_msg(partal_pd_prot, "pd_prot_biuld_headder called, with following nuber of data objects", true, n_data_objects);
+
     //init local vars
     uint16_t header_contents = 0;
 
@@ -2074,6 +2077,9 @@ uint16_t pd_prot_build_header (bool extended_msg, uint16_t n_data_objects, uint1
  * @return The built extended header as a 16-bit unsigned integer.
  */
 uint16_t pd_prot_build_ext_header (bool chunked, uint16_t chunk_number, bool request_chunk, uint16_t data_size) {
+
+    debug_msg(partal_pd_prot, "pd_prot_biuld_ext_header called, with following nuber of chunks", true, chunk_number);
+
     //init local vars
     uint16_t ext_header_contents = 0;
 
@@ -2119,6 +2125,8 @@ uint16_t pd_prot_build_ext_header (bool chunked, uint16_t chunk_number, bool req
  */
 enum pd_prot_message_type_enum pd_prot_message_type (enum ufp_dfp ufp_dfp) {
 
+    debug_msg(partal_pd_prot, "pd_prot_message_type called", false, 0);
+
     //select port to determine if its chunked
     if (ufp_dfp == ufp) {
         if ((pd_phy_ufp_last_received_message_contents[0] & 0x80) == 0){
@@ -2142,6 +2150,8 @@ enum pd_prot_message_type_enum pd_prot_message_type (enum ufp_dfp ufp_dfp) {
  * @return True if the message is chunked, false otherwise.
  */
 bool pd_prot_ext_msg_chunked (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_pd_prot, "pd_prot_ext_msg_chunked called", false, 0);
 
     //select port to determine if its chunked
     if (ufp_dfp == ufp) {
@@ -2170,6 +2180,8 @@ bool pd_prot_ext_msg_chunked (enum ufp_dfp ufp_dfp) {
  */
 int pd_prot_ext_msg_n_chunks (enum ufp_dfp ufp_dfp) {
 
+    debug_msg(partal_pd_prot, "pd_prot_ext_msg_n_chunks called", false, 0);
+
     //determine port to check
     if (ufp_dfp == ufp) {
         return ((pd_phy_ufp_last_received_message_contents[2] & 0x01) << 8) | pd_phy_ufp_last_received_message_contents[3];
@@ -2187,6 +2199,8 @@ int pd_prot_ext_msg_n_chunks (enum ufp_dfp ufp_dfp) {
  * @return True if a soft reset has occurred, false otherwise.
  */
 bool pd_prot_check_soft_reset (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_pd_prot, "pd_prot_check_soft_reset called", false, 0);
 
     if (ufp_dfp == ufp) {
         if ((pd_phy_ufp_last_received_message_contents[1] & 0x1F) == 0x0D){
@@ -2213,6 +2227,8 @@ bool pd_prot_check_soft_reset (enum ufp_dfp ufp_dfp) {
  * @param ufp_dfp The enum value specifying the port type (UFP or DFP).
  */
 void pd_prot_discard_message (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_pd_prot, "pd_prot_discard_message called, restetting related recive vars", false, 0);
 
     if (ufp_dfp == ufp) {
         //reset all receive vars for given port
@@ -2243,6 +2259,8 @@ void pd_prot_discard_message (enum ufp_dfp ufp_dfp) {
  * @return The last data message type.
  */
 enum pd_prot_data_msg_enum pd_prot_determine_last_data_message_type (enum ufp_dfp ufp_dfp){
+
+    debug_msg(partal_pd_prot, "pd_prot_determine_last_data_message_type called", false, 0);
     
     //select port to check
     if(ufp_dfp == ufp) {
@@ -2306,6 +2324,9 @@ enum pd_prot_power_cap_enum pd_prot_pdo_determiner (enum ufp_dfp ufp_dfp) {
 
 
 void pd_prot_hard_reset_handeler (enum ufp_dfp ufp_dfp, bool from_policy_engine) {
+
+    debug_msg(partal_pd_prot, "pd_prot_hard_reset_handeler called", false, 0);
+
     //discard last recived message
     pd_prot_discard_message(ufp_dfp);
 
@@ -2331,6 +2352,9 @@ void pd_prot_hard_reset_handeler (enum ufp_dfp ufp_dfp, bool from_policy_engine)
  * @param length_of_message The length of the message.
  */
 void pd_prot_set_last_message(enum ufp_dfp ufp_dfp, uint8_t message[256], uint8_t length_of_message) {
+
+    debug_msg(partal_pd_prot, "pd_prot_set_last_message called", false, 0);
+
     if (ufp_dfp == ufp) {
         for (int i; i < 255; ++i) {
             pd_prot_ufp_last_message[i] = message[i];
@@ -2356,6 +2380,9 @@ void pd_prot_set_last_message(enum ufp_dfp ufp_dfp, uint8_t message[256], uint8_
  * @param ufp_dfp The type of port (UFP or DFP) for which to transmit the source capabilities.
  */
 void pd_prot_transmit_source_capabilities (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_pd_prot, "pd_prot_transmit_source_capabilities called", false, 0);
+
     //init local vars
     uint8_t message[256];
     uint32_t temp = 0;
@@ -2627,6 +2654,9 @@ void pd_prot_transmit_source_capabilities (enum ufp_dfp ufp_dfp) {
  * @param ufp_dfp The type of port (UFP or DFP) for which to decode the sink capabilities.
  */
 void pd_prot_decode_sink_capabilities (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_pd_prot, "pd_prot_decode_sink_capabilities called, from port", true, ufp_dfp);
+
     //init local vars
     int n_pdo = 0;
     u_int32_t sink_pdo = 0;
@@ -2759,6 +2789,9 @@ void pd_prot_decode_sink_capabilities (enum ufp_dfp ufp_dfp) {
  * @param pd_prot_cont_msg_enum The PD protocol command type to transmit.
  */
 void pd_prot_transmit_command (enum ufp_dfp ufp_dfp, enum pd_prot_cont_msg_enum pd_prot_cont_msg_enum) {
+
+    debug_msg(partal_pd_prot, "pd_prot_transmit_command called, cmmand caled to follow", true, pd_prot_cont_msg_enum);
+
     //init local vars
     uint8_t message[256];
     uint16_t selected_comand = 0;
@@ -2861,6 +2894,8 @@ void pd_prot_transmit_command (enum ufp_dfp ufp_dfp, enum pd_prot_cont_msg_enum 
  */
 void pd_prot_rx_state_machine(enum ufp_dfp ufp_dfp) {
 
+    debug_msg(partal_pd_prot, "pd_prot_rx_state_machine called, from port", true, ufp_dfp);
+
     //check for soft reset
     if (pd_phy_ufp_last_received_message_id == pd_prot_ufp_counter_message_id){
         pd_prot_discard_message(ufp_dfp);
@@ -2946,10 +2981,15 @@ void pd_prot_chunked_rx_state_machine(enum ufp_dfp ufp_dfp) {
  */
 void pd_prot_src_port_policy_engine (enum ufp_dfp ufp_dfp) {
 
+    debug_msg(partal_pd_prot, "pd_prot_src_port_policy_engine called, from port", true, ufp_dfp);
+
     if (ufp_dfp == ufp) {
         switch (pd_prot_ufp_pe_current_state) {
             case pe_src_hard_reset_recived:
                 if (pd_prot_ufp_pe_prev_state != pe_src_hard_reset_recived) {
+
+                    debug_msg(partal_pd_prot, "policy engine state machine enterd pe_src_hard_reset_recived state", false, 0);
+
                     // start timers
                     pd_prot_timer_controler(ufp_dfp, ps_hard_reset, start);
                     pd_prot_timer_controler(ufp_dfp, no_responce, start);
@@ -2959,6 +2999,9 @@ void pd_prot_src_port_policy_engine (enum ufp_dfp ufp_dfp) {
                 break;
             case pe_src_transition_to_dflt:
                 if (pd_prot_ufp_pe_prev_state != pe_src_transition_to_dflt) {
+
+                    debug_msg(partal_pd_prot, "policy engine state machine enterd pe_src_transition_to_dflt state", false, 0);
+
                     // kill vconn power
                     pd_phy_vconn_cont(ufp_dfp, off);
 
@@ -2983,6 +3026,9 @@ void pd_prot_src_port_policy_engine (enum ufp_dfp ufp_dfp) {
                 break;
             case pe_src_startup:
                 if (pd_prot_ufp_pe_prev_state != pe_src_startup) {
+
+                    debug_msg(partal_pd_prot, "policy engine state machine enterd pe_src_startup state", false, 0);
+
                     // reset caps counter
                     pd_prot_ufp_counter_caps = 0;
 
@@ -2994,6 +3040,9 @@ void pd_prot_src_port_policy_engine (enum ufp_dfp ufp_dfp) {
                 break;
             case pe_src_discovery:
                 if (pd_prot_ufp_pe_prev_state != pe_src_discovery) {
+
+                    debug_msg(partal_pd_prot, "policy engine state machine enterd pe_src_discovery state", false, 0);
+
                     pd_prot_timer_controler(ufp_dfp, fisrt_source_cap, start);
                     if ((pd_prot_ufp_counter_caps == pd_prot_counter_th_caps) && (pd_prot_ufp_counter_hard_reset == pd_prot_counter_th_hard_reset)) {
                         pd_prot_ufp_pe_current_state = pe_src_disabled;
@@ -3001,6 +3050,12 @@ void pd_prot_src_port_policy_engine (enum ufp_dfp ufp_dfp) {
                 }
                 break;
             case pe_src_send_capabilitiys:
+
+                if(pd_prot_ufp_pe_prev_state != pe_src_send_capabilitiys) {
+
+                    debug_msg(partal_pd_prot, "policy engine state machine enterd pe_src_send_capabilitiys state", false, 0);
+                }
+
                 // send source capabilities 
                 pd_prot_transmit_source_capabilities(ufp);
 
@@ -3030,11 +3085,17 @@ void pd_prot_src_port_policy_engine (enum ufp_dfp ufp_dfp) {
                 break;
             case pe_src_disabled:
                 if (pd_prot_ufp_pe_prev_state != pe_src_disabled) {
+
+                    debug_msg(partal_pd_prot, "policy engine state machine enterd pe_src_disabled state", false, 0);
+
                     pd_power_cont_return_to_base_state(ufp_dfp);
                 }
                 break;
             case pe_src_negotiate_capabilitiys:
                 if (pd_prot_ufp_pe_prev_state != pe_src_negotiate_capabilitiys) {
+
+                    debug_msg(partal_pd_prot, "policy engine state machine enterd pe_src_negotiate_capabilitiys state", false, 0);
+
                     pd_prot_decode_sink_capabilities(ufp_dfp);
                     if (pd_prot_ufp_negotiated_sink_met) {
                         pd_prot_ufp_pe_current_state = pe_src_transition_supply;
@@ -3046,6 +3107,9 @@ void pd_prot_src_port_policy_engine (enum ufp_dfp ufp_dfp) {
                 break;
             case pe_src_transition_supply:
                 if (pd_prot_ufp_pe_prev_state != pe_src_transition_supply) {
+
+                    debug_msg(partal_pd_prot, "policy engine state machine enterd pe_src_transition_supply state", false, 0);
+
                     //send accept message
                     pd_prot_transmit_command(ufp_dfp, accept);
 
@@ -3076,6 +3140,9 @@ void pd_prot_src_port_policy_engine (enum ufp_dfp ufp_dfp) {
                 break;
             case pe_src_ready:
                 if (pd_prot_ufp_pe_prev_state != pe_src_ready) {
+
+                    debug_msg(partal_pd_prot, "policy engine state machine enterd pe_src_ready state", false, 0);
+
                     //start timers
                     pd_prot_timer_controler(ufp_dfp, discover_identity, start);
                     pd_prot_timer_controler(ufp_dfp, source_pps_comm, start);
@@ -3092,21 +3159,26 @@ void pd_prot_src_port_policy_engine (enum ufp_dfp ufp_dfp) {
                 break;
             case pe_src_epr_keep_alive:
                 if (pd_prot_ufp_pe_prev_state != pe_src_epr_keep_alive) {
+                    debug_msg(partal_pd_prot, "policy engine state machine enterd pe_src_epr_keep_alive state", false, 0);
                     // something
                 }
                 break;
             case pe_src_get_sink_cap:
                 if (pd_prot_ufp_pe_prev_state != pe_src_get_sink_cap) {
+                    debug_msg(partal_pd_prot, "policy engine state machine enterd pe_src_get_sink_cap state", false, 0);
                     // something
                 }
                 break;
             case pe_src_give_souce_cap:
                 if (pd_prot_ufp_pe_prev_state != pe_src_give_souce_cap) {
+                    debug_msg(partal_pd_prot, "policy engine state machine enterd pe_src_give_souce_cap state", false, 0);
                     // something
                 }
                 break;
             case pe_src_capabilitiy_response:
                 if (pd_prot_ufp_pe_prev_state != pe_src_capabilitiy_response) {
+
+                    debug_msg(partal_pd_prot, "policy engine state machine enterd pe_src_capabilitiy_response state", false, 0);
                     //send a reject message 
                     pd_prot_transmit_command(ufp_dfp, reject);
                 }
@@ -3120,11 +3192,15 @@ void pd_prot_src_port_policy_engine (enum ufp_dfp ufp_dfp) {
                 break;
             case pe_src_wait_new_capabilitiys:
                 if (pd_prot_ufp_pe_prev_state != pe_src_wait_new_capabilitiys) {
+                    debug_msg(partal_pd_prot, "policy engine state machine enterd pe_src_wait_new_capabilitiys state", false, 0);
                     // something
                 }
                 break;
             case pe_src_hard_reset:
                 if (pd_prot_ufp_pe_prev_state != pe_src_hard_reset) {
+
+                    debug_msg(partal_pd_prot, "policy engine state machine enterd pe_src_hard_reset state", false, 0);
+
                     //send hard reset via phy
                     pd_phy_send_hard_reset(ufp_dfp);
                     
@@ -3139,6 +3215,7 @@ void pd_prot_src_port_policy_engine (enum ufp_dfp ufp_dfp) {
                 break;
             case error_recovery:
                 if (pd_prot_ufp_pe_prev_state != error_recovery) {
+                    debug_msg(partal_pd_prot, "policy engine state machine enterd error_recovery state", false, 0);
                     // something
                 }
                 break;  

@@ -37,6 +37,9 @@
  * @return void
  */
 void disp_init() {
+
+  debug_msg(partal_disp, "disp_init called", false, 0);
+
   //wake up display controler
   Wire.beginTransmission(disp_base_add);
   Wire.write(disp_shutdown);
@@ -80,6 +83,9 @@ void disp_init() {
  * Clears the display by sending blank data to the firdt 4 digits of display module.
  */
 void disp_blank() {
+
+  debug_msg(partal_disp, "disp_blank called", false, 0);
+
   Wire.beginTransmission(disp_add);
   Wire.write(disp_digit_0);
   Wire.write(0x00);
@@ -96,6 +102,9 @@ void disp_blank() {
  * @param desired_brightness The desired brightness level (0-255).
  */
 void disp_write(float input) {
+
+  debug_msg(partal_disp, "disp_write called, with value", true, input);
+
   //init local vars
   int digit_binary_array[4];
   int digit_binary_array_dp = 0;
@@ -184,6 +193,9 @@ void disp_write(float input) {
  * @param led_on_off The state of the LED, either "on" or "off".
  */
 void disp_bright(uint8_t desired_brightness) {
+
+  debug_msg(partal_disp, "disp_bright called, setting brightness with value", true, desired_brightness);
+
   Wire.beginTransmission(disp_add);
   Wire.write(disp_global_intensity);
   Wire.write(desired_brightness);
@@ -202,6 +214,9 @@ void disp_bright(uint8_t desired_brightness) {
  * @param input The floating-point number to be displayed.
  */
 void disp_led_write (struct leds leds, enum on_off led_on_off) {
+
+  debug_msg(partal_disp, "disp_led_write called", fals, 0);
+
   //init local vars
   uint8_t current_register_value = 0x0;
   uint8_t value_to_write = 0x0;

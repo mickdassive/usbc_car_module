@@ -38,6 +38,7 @@
 #include "hub.h"
 #include "i2c_scanner.h"
 #include "wifi.h"
+#include "debug.h"
 
 
 //OTA defines
@@ -54,12 +55,17 @@ int boot_successful = 0;
 
 void setup() {
 
+  //set debug level
+  debug_level = none;
+
   //begin serial
   Serial.begin(115200);
   delay(1000); // Add a delay after initializing the serial communication
   Serial.println(" ");
   Serial.println(" ");
   Serial.println("Serial started");
+  Serial.print("Debug level: ");
+  Serial.println(debug_level);
   Serial.print("Firmware version: ");
   Serial.print(firmware_version);
   Serial.println(" ");
@@ -100,32 +106,40 @@ void setup() {
   Wire.begin(sda.pin_number, scl.pin_number);
   Wire.setClock(400000);
   Serial.println("I2c started");
+  debug_msg(partal_i2c, "I2c started", false, 0);
 
   //begin scanning i2c bus for all devices
+  debug_msg(partal_i2c, "Begin i2c bus scan", false,0);
   if (bus_scan()) {
     ++boot_successful;
   }
 
   //begin GPIO inits for on and offboard 
+  debug_msg(partal_io, "Begin GPIO init", false, 0);
   io_gpio_init();
   Serial.println("GPIO init complete");
 
   //set onboard led to low to not be annoying
+  debug_msg(partal_io, "Set onboard led to low", false, 0);
   io_call(onboard_led, write, low);
 
   //begin init for ADC
+  debug_msg(partal_adc, "Begin ADC init", false, 0);
   //adc_init(false);
   Serial.println("ADC init and self cal complete");
 
   //begin init for display
+  debug_msg(partal_disp, "Begin display init", false, 0);
   disp_init();
   Serial.println("Display init complete");
 
   //begin USB hub chip init
+  debug_msg(partal_hub, "Begin USB-hub init", false, 0);
   hub_init();
   Serial.println("USB-hub init complete");
 
   //begin USB-PD power supply check 
+  debug_msg(partal_power_cont, "PSU self check at boot", false, 0);
   Serial.println("Begin PSU self check");
   if (pd_power_cont_self_check()) {
     Serial.println("UFP&DFP voltages within safe range");
@@ -134,10 +148,12 @@ void setup() {
     Serial.println("PSU self check failed");
   }
   //send psu back to base state
+  debug_msg(partal_power_cont, "PSU boot self check complete, returning to base state", false, 0);
   pd_power_cont_return_to_base_state(ufp);
   pd_power_cont_return_to_base_state(dfp);
 
   //begin init for USB-PD PHYs
+  debug_msg(partal_pd_phy, "Begin USB-PD PHY UFP&DFP init", false, 0);
   pd_phy_init();
   Serial.println("USB-PD PHY UFP&DFP init complete");
 
@@ -164,6 +180,7 @@ void loop() {
 
   //run update server
   if (WiFi.status() == WL_CONNECTED) {
+    debug_msg(partal_wifi, "WiFi connected, update server called", false, 0);
     httpServer.handleClient();
     MDNS.update();
   }

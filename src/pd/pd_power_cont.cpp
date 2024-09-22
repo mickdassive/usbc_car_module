@@ -43,6 +43,8 @@ bool pd_power_cont_dfp_allow_output = false;
  */
 void pd_power_cont_return_to_base_state (enum ufp_dfp ufp_dfp) {
 
+    debug_msg(partal_power_cont, "pd_power_cont_return_to_base_state called", false, 0);
+
     if (ufp_dfp == ufp) {
         //set current voltage
         pd_power_cont_ufp_current_voltage = 0;
@@ -85,6 +87,9 @@ void pd_power_cont_return_to_base_state (enum ufp_dfp ufp_dfp) {
  * @param ufp_dfp The type of usbc port (UFP or DFP).
  */
 void pd_power_cont_en_vsafe5v (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_power_cont, "pd_power_cont_en_vsafe5v called", false, 0);
+
     if (ufp_dfp == ufp) {
         if (pd_power_cont_ufp_allow_output != true) {
             // return to base state of output not allowed
@@ -143,6 +148,9 @@ void pd_power_cont_en_vsafe5v (enum ufp_dfp ufp_dfp) {
  * @param ufp_dfp The type of usbc port (UFP or DFP).
  */
 void pd_power_cont_en_9v (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_power_cont, "pd_power_cont_en_9v called", false, 0);
+
     if (ufp_dfp == ufp) {
         if (pd_power_cont_ufp_allow_output != true) {
             // return to base state of output not allowed
@@ -200,6 +208,9 @@ void pd_power_cont_en_9v (enum ufp_dfp ufp_dfp) {
  * @param ufp_dfp The type of usbc port (UFP or DFP).
  */
 void pd_power_cont_en_12v (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_power_cont, "pd_power_cont_en_12v called", false, 0);
+
     if (ufp_dfp == ufp) {
         if (pd_power_cont_ufp_allow_output  != true) {
             // return to base state of output not allowed
@@ -257,6 +268,9 @@ void pd_power_cont_en_12v (enum ufp_dfp ufp_dfp) {
  * @param ufp_dfp The type of usbc port (UFP or DFP).
  */
 void pd_power_cont_en_15v (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_power_cont, "pd_power_cont_en_15v called", false, 0);
+
     if (ufp_dfp == ufp) {
         if (pd_power_cont_ufp_allow_output  != true) {
             // return to base state of output not allowed
@@ -314,6 +328,9 @@ void pd_power_cont_en_15v (enum ufp_dfp ufp_dfp) {
  * @param ufp_dfp The type of usbc port (UFP or DFP).
  */
 void pd_power_cont_en_20v (enum ufp_dfp ufp_dfp) {
+
+    debug_msg(partal_power_cont, "pd_power_cont_en_20v called", false, 0);
+
     if (ufp_dfp == ufp) {
         if (pd_power_cont_ufp_allow_output  != true) {
             // return to base state of output not allowed
@@ -372,6 +389,9 @@ void pd_power_cont_en_20v (enum ufp_dfp ufp_dfp) {
  * @return True if the power controller's output voltage is within the valid range (10%), false otherwise.
  */
 bool pd_power_cont_pgood (enum ufp_dfp ufp_dfp, int voltage) {
+
+    debug_msg(partal_power_cont, "pd_power_cont_pgood called", false, 0);
+
     //init local vars 
     float upper_valid_value = 0;
     float lower_valid_value = 0;
@@ -415,6 +435,9 @@ bool pd_power_cont_pgood (enum ufp_dfp ufp_dfp, int voltage) {
  * @return true if all tests pass, false otherwise.
  */
 bool pd_power_cont_self_check () {
+
+    debug_msg(partal_power_cont, "pd_power_cont_self_check called", false, 0);
+
     //init local vars
     int n_tests_passed = 0;
 
@@ -504,8 +527,10 @@ bool pd_power_cont_self_check () {
 
     //return test results
     if (n_tests_passed == 10) {
+        debug_msg(partal_power_cont, "pd_power_cont_self_check passed", false, 0);
         return true;
     } else {
+        debug_msg(partal_power_cont, "pd_power_cont_self_check failed", false, 0);
         return false;
     }
 

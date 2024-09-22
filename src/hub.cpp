@@ -23,6 +23,7 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include "hub.h"
+#include "debug.h"
 
 
 /**
@@ -31,6 +32,9 @@
  * @param input The value to be written to the hub register.
  */
 void hub_reg_write (uint16_t input) {
+
+    debug_msg(partal_hub, "hub_reg_write called", true, input);
+
     //init local vars
     uint8_t hub_reg_msb = 0;
     uint8_t hub_reg_lsb = 0;
@@ -47,6 +51,9 @@ void hub_reg_write (uint16_t input) {
  * Sends a reboot command to the hub.
  */
 void hub_send_reset() {
+
+    debug_msg(partal_hub, "hub_send_reset called restetting hub", false, 0);
+
     Wire.beginTransmission(hub_addr);
     hub_reg_write(0x9936);
     Wire.write(0x00);
@@ -58,6 +65,9 @@ void hub_send_reset() {
  * Sends a USB attach signal to the hub.
  */
 void hub_send_usb_attach_with_smbus_active() {
+
+    debug_msg(partal_hub, "hub_sen_usb_attach_with_smbus_active called moving hub into active mode wilth i2c interface active", false, 0);
+
     Wire.beginTransmission(hub_addr);
     hub_reg_write(0xAA56);
     Wire.write(0x00);
@@ -69,6 +79,9 @@ void hub_send_usb_attach_with_smbus_active() {
  * Sends a command to register access command to the hub.
  */
 void hub_send_command_register_access_command() {
+
+    debug_msg(partal_hub, "hub_send_command_register_access_command called", false, 0);
+
     Wire.beginTransmission(hub_addr);
     hub_reg_write(0x9937);
     Wire.write(0x00);
@@ -80,6 +93,9 @@ void hub_send_command_register_access_command() {
  * Sends a write command to the hub to perform OTP (One-Time Programmable) write operation.
  */
 void hub_send_otp_write() {
+
+    debug_msg(partal_hub, "hub_send_otp_write called", false, 0);
+
     Wire.beginTransmission(hub_addr);
     hub_reg_write(0x9933);
     Wire.write(0x00);
@@ -91,6 +107,9 @@ void hub_send_otp_write() {
  * Sends a command to the hub to read the OTP (One-Time Programmable) memory.
  */
 void hub_send_otp_read() {
+
+    debug_msg(partal_hub, "hub_send_otp_read called", false, 0);
+
     Wire.beginTransmission(hub_addr);
     hub_reg_write(0x9934);
     Wire.write(0x00);
@@ -104,6 +123,8 @@ void hub_send_otp_read() {
  * 
  */
 void hub_init() {
+
+    debug_msg(partal_hub, "hub_init called, setting up defult values for hub", false, 0);
 
     hub_send_command_register_access_command();
 
@@ -513,6 +534,8 @@ void hub_init() {
 
     //allow i2c to stay active in runtime
     hub_send_usb_attach_with_smbus_active();
+
+    debug_msg(partal_hub, "hub init complete", false, 0);
 
 
 
