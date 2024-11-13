@@ -17,14 +17,14 @@
 //15/09/2023
 //Tokyo Andreana
 
-#ifndef i2c_scanner_h
-#define i2c_scanner_h
+#ifndef debug_cpp
+#define debug_cpp
 
 #include <Arduino.h>
 #include "debug.h"
 
 //var defines
-enum debug_level;
+enum debug_levels debug_level = no_debug;
 
 //functions
 
@@ -39,16 +39,16 @@ enum debug_level;
  * @param include_num Flag indicating whether to include an attached value.
  * @param num_include The attached value to be printed (if include_num is true).
  */
-void debug_msg(enum debug_level, char* debug_message, bool include_num, int num_include) {
-    if (debug_level != none) {
+void debug_msg(enum debug_levels debug_level, char* debug_message, bool include_num, int num_include) {
+    if (debug_level != no_debug) {
         switch (debug_level) {
             case full:
                 Serial.print("debug msg at millis: ");
                 Serial.print(millis());
-                Serial.print(":");
+                Serial.print("| ");
                 if (include_num) {
                     Serial.print(debug_message);
-                    Serial.print("| attached value: ");
+                    Serial.print("  | attached value: ");
                     Serial.println(num_include);
                 } else {
                     Serial.println(debug_message);
@@ -57,10 +57,10 @@ void debug_msg(enum debug_level, char* debug_message, bool include_num, int num_
             case partal_hub:
                 Serial.print("debug msg at millis: ");
                 Serial.print(millis());
-                Serial.print(":");
+                Serial.print("| ");
                 if (include_num) {
                     Serial.print(debug_message);
-                    Serial.print("| attached value: ");
+                    Serial.print("  | attached value: ");
                     Serial.println(num_include);
                 } else {
                     Serial.println(debug_message);
@@ -69,10 +69,10 @@ void debug_msg(enum debug_level, char* debug_message, bool include_num, int num_
             case partal_pd_phy:
                 Serial.print("debug msg at millis: ");
                 Serial.print(millis());
-                Serial.print(":");
+                Serial.print("| ");
                 if (include_num) {
                     Serial.print(debug_message);
-                    Serial.print("| attached value: ");
+                    Serial.print("  | attached value: ");
                     Serial.println(num_include);
                 } else {
                     Serial.println(debug_message);
@@ -81,10 +81,10 @@ void debug_msg(enum debug_level, char* debug_message, bool include_num, int num_
             case partal_pd_prot:
                 Serial.print("debug msg at millis: ");
                 Serial.print(millis());
-                Serial.print(":");
+                Serial.print("| ");
                 if (include_num) {
                     Serial.print(debug_message);
-                    Serial.print("| attached value: ");
+                    Serial.print("  | attached value: ");
                     Serial.println(num_include);
                 } else {
                     Serial.println(debug_message);
@@ -93,10 +93,10 @@ void debug_msg(enum debug_level, char* debug_message, bool include_num, int num_
             case partal_io:
                 Serial.print("debug msg at millis: ");
                 Serial.print(millis());
-                Serial.print(":");
+                Serial.print("| ");
                 if (include_num) {
                     Serial.print(debug_message);
-                    Serial.print("| attached value: ");
+                    Serial.print("  | attached value: ");
                     Serial.println(num_include);
                 } else {
                     Serial.println(debug_message);
@@ -105,10 +105,10 @@ void debug_msg(enum debug_level, char* debug_message, bool include_num, int num_
             case partal_adc:
                 Serial.print("debug msg at millis: ");
                 Serial.print(millis());
-                Serial.print(":");
+                Serial.print("| ");
                 if (include_num) {
                     Serial.print(debug_message);
-                    Serial.print("| attached value: ");
+                    Serial.print("  | attached value: ");
                     Serial.println(num_include);
                 } else {
                     Serial.println(debug_message);
@@ -117,10 +117,10 @@ void debug_msg(enum debug_level, char* debug_message, bool include_num, int num_
             case partal_disp:
                 Serial.print("debug msg at millis: ");
                 Serial.print(millis());
-                Serial.print(":");
+                Serial.print("| ");
                 if (include_num) {
                     Serial.print(debug_message);
-                    Serial.print("| attached value: ");
+                    Serial.print("  | attached value: ");
                     Serial.println(num_include);
                 } else {
                     Serial.println(debug_message);
@@ -129,10 +129,10 @@ void debug_msg(enum debug_level, char* debug_message, bool include_num, int num_
             case partal_i2c:
                 Serial.print("debug msg at millis: ");
                 Serial.print(millis());
-                Serial.print(":");
+                Serial.print("| ");
                 if (include_num) {
                     Serial.print(debug_message);
-                    Serial.print("| attached value: ");
+                    Serial.print("  | attached value: ");
                     Serial.println(num_include);
                 } else {
                     Serial.println(debug_message);
@@ -141,10 +141,10 @@ void debug_msg(enum debug_level, char* debug_message, bool include_num, int num_
             case partal_can_bus:
                 Serial.print("debug msg at millis: ");
                 Serial.print(millis());
-                Serial.print(":");
+                Serial.print("| ");
                 if (include_num) {
                     Serial.print(debug_message);
-                    Serial.print("| attached value: ");
+                    Serial.print("  | attached value: ");
                     Serial.println(num_include);
                 } else {
                     Serial.println(debug_message);
@@ -153,10 +153,10 @@ void debug_msg(enum debug_level, char* debug_message, bool include_num, int num_
             case partal_power_cont:
                 Serial.print("debug msg at millis: ");
                 Serial.print(millis());
-                Serial.print(":");
+                Serial.print("| ");
                 if (include_num) {
                     Serial.print(debug_message);
-                    Serial.print("| attached value: ");
+                    Serial.print("  | attached value: ");
                     Serial.println(num_include);
                 } else {
                     Serial.println(debug_message);
@@ -165,25 +165,25 @@ void debug_msg(enum debug_level, char* debug_message, bool include_num, int num_
             case partal_wifi:
                 Serial.print("debug msg at millis: ");
                 Serial.print(millis());
-                Serial.print(":");
+                Serial.print("| ");
                 if (include_num) {
                     Serial.print(debug_message);
-                    Serial.print("| attached value: ");
+                    Serial.print("  | attached value: ");
                     Serial.println(num_include);
                 } else {
                     Serial.println(debug_message);
                 }
                 break;
-            case none:
+            case no_debug:
                 break;
         }
     }
 }
 
-void set_debug_level(enum debug_level new_debug_level) {
+void debug_level_set(enum debug_levels new_debug_level) {
     debug_level = new_debug_level;
 }
 
 
 
-#endif // debug_h
+#endif // debug_cpp

@@ -56,7 +56,7 @@ int boot_successful = 0;
 void setup() {
 
   //set debug level
-  debug_level = none;
+  debug_level_set(full);
 
   //begin serial
   Serial.begin(115200);
@@ -65,7 +65,7 @@ void setup() {
   Serial.println(" ");
   Serial.println("Serial started");
   Serial.print("Debug level: ");
-  Serial.println(debug_level);
+  //Serial.println(debug_level);
   Serial.print("Firmware version: ");
   Serial.print(firmware_version);
   Serial.println(" ");

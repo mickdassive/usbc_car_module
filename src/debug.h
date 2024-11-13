@@ -23,7 +23,7 @@
 #include <Arduino.h>
 
 //var defines
-enum debug_level {
+enum debug_levels {
     full,
     partal_hub,
     partal_pd_phy,
@@ -35,14 +35,13 @@ enum debug_level {
     partal_power_cont,
     partal_can_bus,
     partal_wifi,
-    none
+    no_debug
     };
-
-extern enum debug_level debug_level = none;
+;
 
 //function define
-void debug_msg(enum debug_level, char* debug_message, bool include_num, int num_include);
-void set_debug_level(enum debug_level);
+void debug_msg(enum debug_levels debug_level, char* debug_message, bool include_num, int num_include);
+void debug_level_set(enum debug_levels new_debug_level);
 
 
 #endif // debug_h

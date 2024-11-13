@@ -215,7 +215,7 @@ void disp_bright(uint8_t desired_brightness) {
  */
 void disp_led_write (struct leds leds, enum on_off led_on_off) {
 
-  debug_msg(partal_disp, "disp_led_write called", fals, 0);
+  debug_msg(partal_disp, "disp_led_write called", false, 0);
 
   //init local vars
   uint8_t current_register_value = 0x0;
