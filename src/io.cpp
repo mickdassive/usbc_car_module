@@ -204,16 +204,28 @@ void io_gpio_init() {
   uint8_t iox_1_port_1_pinmode = 0x00;
 
   //begin iterating through pins
-  for (uint i = 1; i < sizeof(pin_names[0]); i++) {
+  for (size_t i = 1; i < sizeof(pin_names[0]); i++) {
 
     switch (pin_names[i]->pin_mode) {
+    default:
+      // Error handling for unexpected pin_mode value
+      debug_msg(partal_io, "Unexpected pin_mode value", false, 0);
+      break;
     case in:
       if (pin_names[i]->onboard) {
         pinMode(pin_names[i]->pin_number, INPUT);
 
+      }
+      //no need to do anything to the iox, all pins default to input
+      break;
+    
+    case out:
+      if (pin_names[i]->onboard) {
+        pinMode(pin_names[i]->pin_number, OUTPUT);
+
       } else {
         if (pin_names[i]->iox_number == 0) {
-          if (pin_names[i]->port == 0){
+          if (pin_names[i]->port == 0) {
             iox_0_port_0_pinmode |= pin_names[i]->mask;
 
           } else {
@@ -230,14 +242,7 @@ void io_gpio_init() {
           }
         }
       }
-      break;
-    
-    case out:
-      if (pin_names[i]->onboard) {
-        pinMode(pin_names[i]->pin_number, OUTPUT);
-
-      }
-      //no need to do anything to the iox, all pins default to output
+      
       break;
 
     case bi_dir:
@@ -249,34 +254,30 @@ void io_gpio_init() {
         pinMode(pin_names[i]->pin_number, INPUT);
         attachInterrupt(digitalPinToInterrupt(pin_names[i]->pin_number), io_pin_interrupt_flagger, RISING);
 
-      }      
+      } else {
+        if (pin_names[i]->iox_number == 0) { //setup intupt registers for external pins
+          if (pin_names[i]->port == 0) {
+            iox_0_port_0_interrupt |= ~pin_names[i]->mask;
+
+          } else {
+            iox_0_port_1_interrupt |= pin_names[i]->mask;
+
+          }
+        } else {
+          if (pin_names[i]->port == 0) {
+            iox_1_port_0_interrupt |= pin_names[i]->mask;
+
+          } else {
+            iox_1_port_1_interrupt |= pin_names[i]->mask;
+
+          }
+        }
+      }  
       break;
     case empty_pin:
       //do nothing
       break;
     }  
-
-    // setup the interrupt masks for the io expanders
-    if (pin_names[i]->allow_interrupt && !pin_names[i]->onboard) {
-      if (pin_names[i]->iox_number == 0) {
-        if (pin_names[i]->port == 0) {
-          iox_0_port_0_interrupt ^= pin_names[i]->mask;
-
-        } else {
-          iox_0_port_1_interrupt ^= pin_names[i]->mask;
-
-        }
-      } else {
-        if (pin_names[i]->port == 0) {
-          iox_1_port_0_interrupt ^= pin_names[i]->mask;
-
-        } else {
-          iox_1_port_1_interrupt ^= pin_names[i]->mask;
-
-        }
-      }
-    }
-
   }
 
   //set all outputs of ioxs low
@@ -356,7 +357,7 @@ void io_gpio_init() {
   Wire.write(iox_1_port_1_interrupt);
   Wire.endTransmission();
 
-  debug_msg(partal_io, "pins have been initalised", false, 0);
+  debug_msg(partal_io, "pins have been initialized", false, 0);
 
   return;
 };
@@ -368,9 +369,9 @@ void io_gpio_init() {
  * and enabling the desired interrupt pins.
  * 
  */
-void io_assert_iox_int () {
+void io_de_assert_iox_int () {
 
-  debug_msg(partal_io, "io_assert_iox_int called, reseting and setting interrupt masks", false, 0);
+  debug_msg(partal_io, "io_de_assert_iox_int called, reseting and setting interrupt masks", false, 0);
   
   Wire.beginTransmission(iox_0_add);
   Wire.write(iox_int_mask_register_0);
@@ -487,22 +488,29 @@ void io_intrupt_handeler () {
 
   io_interrupt_flag = false;
 
-  if (io_determine_interrupt_source().pin_ident == 'x') { //adc alert
+  //prefetch inturupt values
+  char interrupt_source = io_determine_interrupt_source().pin_ident;
+  
+  if (interrupt_source == 'x') { //adc alert
+
+    //prefetch data
+    enum adc_channel adc_alert_source = adc_determine_alert_source();
+
     debug_msg(partal_io, "ADC alert intrupt recived", false, 0);
     //determine channel that flagged the alert 
-    if (adc_determine_alert_source() == ch0) {
+    if (adc_alert_source == ch0) {
       //21V csp do nothing
       debug_msg(partal_io, "recived ADC 21V intrupt", false, 0);
-    } else if (adc_determine_alert_source() == ch1) {
+    } else if (adc_alert_source == ch1) {
       //21V csn do nothing 
       debug_msg(partal_io, "recived ADC 21V csn intrupt", false, 0);     
-    } else if (adc_determine_alert_source() == ch2) {
+    } else if (adc_alert_source == ch2) {
       //5V csp do nothing
       debug_msg(partal_io, "recived ADC 5V intrupt", false, 0);
-    } else if (adc_determine_alert_source() == ch3) {
+    } else if (adc_alert_source == ch3) {
       //5V csn do nothing
       debug_msg(partal_io, "recived adc 5V csn intrupt", false, 0);
-    } else if (adc_determine_alert_source() == ch4) {
+    } else if (adc_alert_source == ch4) {
       //ufp csp
       debug_msg(partal_io, "recived UFP csp intrupt", false, 0);
       //turn off power to port if out of range
@@ -514,7 +522,7 @@ void io_intrupt_handeler () {
         pd_power_cont_ufp_allow_output = false;
         debug_msg(partal_power_cont, "UFP csp intrupt recived voltage out of range turning off output", false, 0);
       }
-    } else if (adc_determine_alert_source() == ch5) {
+    } else if (adc_alert_source == ch5) {
       //ufp csn
       debug_msg(partal_io, "recived UFP csn intrupt", false, 0);
       //turn off power to port if out of range
@@ -526,7 +534,7 @@ void io_intrupt_handeler () {
         pd_power_cont_ufp_allow_output = false;
         debug_msg(partal_power_cont, "UFP csn intrupt recived voltage out of range turning off output", false, 0);
       }
-    } else if (adc_determine_alert_source() == ch6) {
+    } else if (adc_alert_source == ch6) {
       //dfp csp
       debug_msg(partal_io, "recived DFP csp intrupt", false, 0);
       //turn off port power if out of range 
@@ -538,7 +546,7 @@ void io_intrupt_handeler () {
         pd_power_cont_dfp_allow_output = false;
         debug_msg(partal_power_cont, "DFP csp intrupt recived voltage out of range turning off output", false, 0);
       }
-    } else if (adc_determine_alert_source() == ch7) {
+    } else if (adc_alert_source == ch7) {
       //dfp csn
       debug_msg(partal_io, "recived DFP csn intrupt", false, 0);
       //turn port power off if out of range
@@ -556,7 +564,7 @@ void io_intrupt_handeler () {
     adc_clear_event_flags();
     debug_msg(partal_adc, "adc event register cleard", false, 0);
 
-  } else if (io_determine_interrupt_source().pin_ident == 'q') { //f usbc pgood
+  } else if (interrupt_source == 'q') { //f usbc pgood
     // read pin to see if high or low
     debug_msg(partal_io, "UFP psu pgood intrupt recived", false, 0);
     if (io_call(f_usbc_pgood, read, read_mode) == 1) {
@@ -568,7 +576,7 @@ void io_intrupt_handeler () {
       pd_power_cont_dfp_allow_output = false;
       debug_msg(partal_power_cont, "UFP psu pgood false stopping output", false, 0);
     }
-  } else if (io_determine_interrupt_source().pin_ident == 'j') { //b usbc pgood
+  } else if (interrupt_source == 'j') { //b usbc pgood
     // read pin to see if high or low
     debug_msg(partal_io, "DFP psu pgood intrupt recived", false, 0);
     if (io_call(b_usbc_pgood, read, read_mode) == 1) {
@@ -580,38 +588,43 @@ void io_intrupt_handeler () {
       pd_power_cont_ufp_allow_output = false;
       debug_msg(partal_power_cont, "DFP psu pgood false stopping output", false, 0);
     }
-  } else if (io_determine_interrupt_source().pin_ident == '4') { //source buttion
+  } else if (interrupt_source == '4') { //source buttion
     io_src_btn_pressed = true;
     debug_msg(partal_io, "recived source buttion intrupt", false, 0);
-  } else if (io_determine_interrupt_source().pin_ident == '3') { //unit buttion
+  } else if (interrupt_source == '3') { //unit buttion
     io_unit_btn_pressed = true;
     debug_msg(partal_io, "recived unit buttion intrupt", false, 0);
-  } else if (io_determine_interrupt_source().pin_ident == '5') { //mode buttion
+  } else if (interrupt_source == '5') { //mode buttion
     io_mode_btn_pressed = true;
     debug_msg(partal_io, "recived mode buttion intrupt", false, 0);
-  } else if (io_determine_interrupt_source().pin_ident == '2') { //display itrupt
+  } else if (interrupt_source == '2') { //display itrupt
     //do nothing, not used 
     debug_msg(partal_io, "recived display intrupt", false, 0);
-  } else if (io_determine_interrupt_source().pin_ident == '0') { //ufp alert n
+  } else if (interrupt_source == '0') { //ufp alert n
     debug_msg(partal_io, "recived UFP pd PHY intrupt", false, 0);
+
     //determine alert type
-    if (pd_phy_alert_type(ufp) == vendor_defined_extended) {
+
+    //prefetch data
+    enum pd_phy_alert_type ufp_phy_interupt_source = pd_phy_alert_type(ufp);
+
+    if (ufp_phy_interupt_source == vendor_defined_extended) {
       // do nothing
       debug_msg(partal_pd_phy, "recived UFP pd PHY vendor defined extended intrupt", false, 0);
-    } else if (pd_phy_alert_type(ufp) == extended_status_changed) {
+    } else if (ufp_phy_interupt_source == extended_status_changed) {
       // do nothing
       debug_msg(partal_pd_phy, "recived UFP pd PHY extended status changed intrupt", false, 0);
-    } else if (pd_phy_alert_type(ufp) == beginning_sop_message_status) {
+    } else if (ufp_phy_interupt_source == beginning_sop_message_status) {
       debug_msg(partal_pd_phy, "recived UFP pd PHY beginning sop message status intrupt, beginning reading messgae", false, 0);
       pd_phy_receive_message(ufp);
-    } else if (pd_phy_alert_type(ufp) == vbus_sink_disconnect_detected) {
+    } else if (ufp_phy_interupt_source == vbus_sink_disconnect_detected) {
       //do nothing?
       debug_msg(partal_pd_phy, "recived UFP pd PHY vbus sink disconnect detected intrupt", false, 0);
-    } else if (pd_phy_alert_type(ufp) == rx_buffer_overflow) {
+    } else if (ufp_phy_interupt_source == rx_buffer_overflow) {
       //reset recive buffer
       debug_msg(partal_pd_phy, "recived UFP pd PHY rx buffer overflow intrupt, reseting buffer", false, 0);
       pd_phy_send_reset_receive_buffer(ufp);
-    } else if (pd_phy_alert_type(ufp) == vbus_voltage_low) {
+    } else if (ufp_phy_interupt_source == vbus_voltage_low) {
       debug_msg(partal_pd_phy, "recived UFP pd PHY vbus voltage low intrupt", false, 0);
       //see if power is actuly bad
       if (pd_power_cont_pgood(ufp, pd_power_cont_ufp_current_voltage)) {
@@ -623,7 +636,7 @@ void io_intrupt_handeler () {
         pd_power_cont_return_to_base_state(ufp);
         pd_power_cont_ufp_allow_output = false;
       }
-    } else if (pd_phy_alert_type(ufp) == vbus_voltage_high) {
+    } else if (ufp_phy_interupt_source == vbus_voltage_high) {
       debug_msg(partal_pd_phy, "recived UFP pd PHY vbus voltage high intrupt", false, 0);
       //see if power is actuly bad
       if (pd_power_cont_pgood(ufp, pd_power_cont_ufp_current_voltage)) {
@@ -635,7 +648,7 @@ void io_intrupt_handeler () {
         pd_power_cont_return_to_base_state(ufp);
         pd_power_cont_ufp_allow_output = false;
       }
-    } else if (pd_phy_alert_type(ufp) == transmit_sop_message_successful) {
+    } else if (ufp_phy_interupt_source == transmit_sop_message_successful) {
       debug_msg(partal_pd_phy, "recived UFP pd PHY transmit sop message successful intrupt", false, 0);
       debug_msg(partal_pd_prot, "recived UFP pd PHY transmit sop message successful intrupt setting good crc flag", false, 0);
 
@@ -643,12 +656,12 @@ void io_intrupt_handeler () {
       pd_prot_ufp_last_good_crc = true;
       
 
-    } else if (pd_phy_alert_type(ufp) == transmit_sop_message_discarded) {
+    } else if (ufp_phy_interupt_source == transmit_sop_message_discarded) {
       debug_msg(partal_pd_phy, "recived UFP pd PHY transmit sop message discarded intrupt, retansmitting message", false, 0);
       //retransmit message if discarded
       pd_phy_transmit(ufp, pd_prot_ufp_last_message, pd_prot_ufp_last_message_length);
 
-    } else if (pd_phy_alert_type(ufp) == transmit_sop_message_failed) {
+    } else if (ufp_phy_interupt_source == transmit_sop_message_failed) {
       debug_msg(partal_pd_phy, "recived UFP pd PHY transmit sop message failed intrupt", false, 0);
       //retransmit message if retransmit counter hasent reached its threshold
       if (pd_prot_ufp_counter_retry <= pd_prot_counter_th_retry) {
@@ -664,21 +677,21 @@ void io_intrupt_handeler () {
       ++pd_prot_ufp_counter_retry;
       debug_msg(partal_pd_prot, "recived UFP pd PHY transmit sop message failed intrupt, adding to retry counter", false, 0);
 
-    } else if (pd_phy_alert_type(ufp) == received_hard_reset) {
+    } else if (ufp_phy_interupt_source == received_hard_reset) {
       debug_msg(partal_pd_phy, "recived UFP pd PHY received hard reset intrupt", false, 0);
       debug_msg(partal_pd_prot, "recived UFP pd PHY received hard reset intrupt, calling hard reset handeler", false, 0);
       pd_prot_hard_reset_handeler(ufp, false);
-    } else if (pd_phy_alert_type(ufp) == received_sop_message_status) {
+    } else if (ufp_phy_interupt_source == received_sop_message_status) {
       debug_msg(partal_pd_phy, "recived UFP pd PHY received sop message status intrupt", false, 0);
       debug_msg(partal_pd_prot, "recived UFP pd PHY received sop message status intrupt, setting messgae received flag and reading message contents into buffer", false, 0);
       //set message received flag and read message contents
       io_interrupt_ufp_msg_received = true;
       pd_phy_receive_message(ufp);
 
-    } else if (pd_phy_alert_type(ufp) == port_power_status_changed) {
+    } else if (ufp_phy_interupt_source == port_power_status_changed) {
       debug_msg(partal_pd_phy, "recived UFP pd PHY port power status changed intrupt", false, 0);
       // do nothing?
-    } else if (pd_phy_alert_type(ufp) == cc_status_alert) {
+    } else if (ufp_phy_interupt_source == cc_status_alert) {
       debug_msg(partal_pd_phy, "recived UFP pd PHY cc status alert intrupt", false, 0);
       // determine if port is in attached or detached state 
       if (pd_phy_ufp_attached) {
@@ -690,36 +703,36 @@ void io_intrupt_handeler () {
         // complete attach
         pd_phy_complete_attach(ufp);
       }
-    } else if (pd_phy_alert_type(ufp) == extended_timer_expired) {
+    } else if (ufp_phy_interupt_source == extended_timer_expired) {
       debug_msg(partal_pd_phy, "recived UFP pd PHY extended timer expired intrupt", false, 0);
       // do nothing
-    } else if (pd_phy_alert_type(ufp) == extended_source_frs) {
+    } else if (ufp_phy_interupt_source == extended_source_frs) {
       debug_msg(partal_pd_phy, "recived UFP pd PHY extended source frs intrupt", false, 0);
       // do nothing
-    } else if (pd_phy_alert_type(ufp) == extended_sink_frs) {
+    } else if (ufp_phy_interupt_source == extended_sink_frs) {
       debug_msg(partal_pd_phy, "recived UFP pd PHY extended sink frs intrupt", false, 0);
       // do nothing
-    } else if (pd_phy_alert_type(ufp) == force_discharge_failed) {
+    } else if (ufp_phy_interupt_source == force_discharge_failed) {
       debug_msg(partal_pd_phy, "recived UFP pd PHY force discharge failed intrupt", false, 0);
       debug_msg(partal_power_cont, "recived UFP pd PHY force discharge failed intrupt, turning off power", false, 0);
       // turn port power supply off
       pd_power_cont_return_to_base_state(ufp);
-    } else if (pd_phy_alert_type(ufp) == auto_discharge_failed) {
+    } else if (ufp_phy_interupt_source == auto_discharge_failed) {
       debug_msg(partal_pd_phy, "recived UFP pd PHY auto discharge failed intrupt", false, 0);
       // do nothing for now
-    } else if (pd_phy_alert_type(ufp) == internal_or_external_vbus_over_current_protection_fault) {
+    } else if (ufp_phy_interupt_source == internal_or_external_vbus_over_current_protection_fault) {
       debug_msg(partal_pd_phy, "recived UFP pd PHY internal or external vbus over current protection fault intrupt", false, 0);
       debug_msg(partal_power_cont, "recived UFP pd PHY internal or external vbus over current protection fault intrupt, turning off and reseting power", false, 0);
       // turn of power and stop allowing output 
       pd_power_cont_return_to_base_state(ufp);
       pd_power_cont_ufp_allow_output = false;
-    } else if (pd_phy_alert_type(ufp) == internal_or_external_vbus_over_voltage_protection_fault) {
+    } else if (ufp_phy_interupt_source == internal_or_external_vbus_over_voltage_protection_fault) {
       debug_msg(partal_pd_phy, "recived UFP pd PHY internal or external vbus over voltage protection fault intrupt", false, 0);
       debug_msg(partal_power_cont, "recived UFP pd PHY internal or external vbus over voltage protection fault intrupt, turning off and reseting power", false, 0);
       //turn off power and stop allowing output
       pd_power_cont_return_to_base_state(ufp);
       pd_power_cont_ufp_allow_output = false;
-    } else if (pd_phy_alert_type(ufp) == i2c_error) {
+    } else if (ufp_phy_interupt_source == i2c_error) {
       debug_msg(partal_pd_phy, "recived UFP pd PHY i2c error intrupt, flushing buffers", false, 0);
       //reset rx & tx buffers
       pd_phy_send_reset_receive_buffer(ufp);
@@ -732,26 +745,30 @@ void io_intrupt_handeler () {
     pd_phy_clear_fault(ufp);
     pd_phy_clear_extended_alert(ufp);
 
-  } else if (io_determine_interrupt_source().pin_ident == '?') { //dfp alert n
+  } else if (interrupt_source == '?') { //dfp alert n
+
+    //prefetch data
+    enum pd_phy_alert_type dfp_phy_interupt_source = pd_phy_alert_type(dfp);
+
     debug_msg(partal_io, "recived DFP pd PHY intrupt", false, 0);
-    if (pd_phy_alert_type(dfp) == vendor_defined_extended) {
+    if (dfp_phy_interupt_source == vendor_defined_extended) {
       debug_msg(partal_pd_phy, "recived DFP pd PHY vendor defined extended intrupt", false, 0);
       // do nothing
-    } else if (pd_phy_alert_type(dfp) == extended_status_changed) {
+    } else if (dfp_phy_interupt_source == extended_status_changed) {
       debug_msg(partal_pd_phy, "recived DFP pd PHY extended status changed intrupt", false, 0);
       // do nothing
-    } else if (pd_phy_alert_type(dfp) == beginning_sop_message_status) {
+    } else if (dfp_phy_interupt_source == beginning_sop_message_status) {
       debug_msg(partal_pd_phy, "recived DFP pd PHY beginning sop message status intrupt, beginning reading message", false, 0);
       pd_phy_receive_message(dfp);
       
-    } else if (pd_phy_alert_type(dfp) == vbus_sink_disconnect_detected) {
+    } else if (dfp_phy_interupt_source == vbus_sink_disconnect_detected) {
       debug_msg(partal_pd_phy, "recived DFP pd PHY vbus sink disconnect detected intrupt", false, 0);
       //do nothing?
-    } else if (pd_phy_alert_type(dfp) == rx_buffer_overflow) {
+    } else if (dfp_phy_interupt_source == rx_buffer_overflow) {
       debug_msg(partal_pd_phy, "recived DFP pd PHY rx buffer overflow intrupt, flushing buffer", false, 0);
       //reset receive buffer
       pd_phy_send_reset_receive_buffer(dfp);
-    } else if (pd_phy_alert_type(dfp) == vbus_voltage_low) {
+    } else if (dfp_phy_interupt_source == vbus_voltage_low) {
       debug_msg(partal_pd_phy, "recived DFP pd PHY vbus voltage low intrupt", false, 0);
       //see if power is actuly bad
       if (pd_power_cont_pgood(dfp, pd_power_cont_dfp_current_voltage)) {
@@ -763,7 +780,7 @@ void io_intrupt_handeler () {
         pd_power_cont_return_to_base_state(dfp);
         pd_power_cont_dfp_allow_output = false;
       }
-    } else if (pd_phy_alert_type(dfp) == vbus_voltage_high) {
+    } else if (dfp_phy_interupt_source == vbus_voltage_high) {
       debug_msg(partal_pd_phy, "recived DFP pd PHY vbus voltage high intrupt", false, 0);
       //see if power is actuly bad
       if (pd_power_cont_pgood(dfp, pd_power_cont_dfp_current_voltage)) {
@@ -775,19 +792,19 @@ void io_intrupt_handeler () {
         pd_power_cont_return_to_base_state(dfp);
         pd_power_cont_dfp_allow_output = false;
       }
-    } else if (pd_phy_alert_type(dfp) == transmit_sop_message_successful) {
+    } else if (dfp_phy_interupt_source == transmit_sop_message_successful) {
       debug_msg(partal_pd_phy, "recived DFP pd PHY transmit sop message successful intrupt", false, 0);
       debug_msg(partal_pd_prot, "recived DFP pd PHY transmit sop message successful intrupt setting good crc flag", false, 0);
 
       //hit good crc flag
       pd_prot_dfp_last_good_crc = true;
 
-    } else if (pd_phy_alert_type(dfp) == transmit_sop_message_discarded) {
+    } else if (dfp_phy_interupt_source == transmit_sop_message_discarded) {
       debug_msg(partal_pd_phy, "recived DFP pd PHY transmit sop message discarded intrupt, retransmitting message", false, 0);
       //retransmmit message if discarded
       pd_phy_transmit(dfp, pd_prot_dfp_last_message, pd_prot_dfp_last_message_length);
       
-    } else if (pd_phy_alert_type(dfp) == transmit_sop_message_failed) {
+    } else if (dfp_phy_interupt_source == transmit_sop_message_failed) {
       debug_msg(partal_pd_phy, "recived DFP pd PHY transmit sop message failed intrupt", false, 0);
       //retransmit message if retransmit counter hasent reached its threshold
       if (pd_prot_dfp_counter_retry <= pd_prot_counter_th_retry) {
@@ -803,20 +820,20 @@ void io_intrupt_handeler () {
       ++pd_prot_ufp_counter_retry;
       debug_msg(partal_pd_prot, "recived DFP pd PHY transmit sop message failed intrupt, adding to retry counter", false, 0);
 
-    } else if (pd_phy_alert_type(dfp) == received_hard_reset) {
+    } else if (dfp_phy_interupt_source == received_hard_reset) {
       debug_msg(partal_pd_phy, "recived DFP pd PHY received hard reset intrupt", false, 0);
       debug_msg(partal_pd_prot, "recived DFP pd PHY received hard reset intrupt, calling hard reset handeler", false, 0);
       pd_prot_hard_reset_handeler(dfp, false);
-    } else if (pd_phy_alert_type(dfp) == received_sop_message_status) {
+    } else if (dfp_phy_interupt_source == received_sop_message_status) {
       debug_msg(partal_pd_phy, "recived DFP pd PHY received sop message status intrupt", false, 0);
       debug_msg(partal_pd_prot, "recived DFP pd PHY received sop message status intrupt, setting messgae received flag and reading message contents into buffer", false, 0);
       //set message received flag and read message contents
       io_interrupt_dfp_msg_received = true;
       pd_phy_receive_message(dfp);
-    } else if (pd_phy_alert_type(dfp) == port_power_status_changed) {
+    } else if (dfp_phy_interupt_source == port_power_status_changed) {
       debug_msg(partal_pd_phy, "recived DFP pd PHY port power status changed intrupt", false, 0);
       // do nothing?
-    } else if (pd_phy_alert_type(dfp) == cc_status_alert) {
+    } else if (dfp_phy_interupt_source == cc_status_alert) {
       debug_msg(partal_pd_phy, "recived DFP pd PHY cc status alert intrupt", false, 0);
       // determine if port is in attched or detached state 
       if (pd_phy_dfp_attached) {
@@ -828,36 +845,36 @@ void io_intrupt_handeler () {
         // complete attach
         pd_phy_complete_attach(dfp);
       }
-    } else if (pd_phy_alert_type(dfp) == extended_timer_expired) {
+    } else if (dfp_phy_interupt_source == extended_timer_expired) {
       debug_msg(partal_pd_phy, "recived DFP pd PHY extended timer expired intrupt", false, 0);
       // do nothing
-    } else if (pd_phy_alert_type(dfp) == extended_source_frs) {
+    } else if (dfp_phy_interupt_source == extended_source_frs) {
       debug_msg(partal_pd_phy, "recived DFP pd PHY extended source frs intrupt", false, 0);
       // do nothing
-    } else if (pd_phy_alert_type(dfp) == extended_sink_frs) {
+    } else if (dfp_phy_interupt_source == extended_sink_frs) {
       debug_msg(partal_pd_phy, "recived DFP pd PHY extended sink frs intrupt", false, 0);
       // do nothing
-    } else if (pd_phy_alert_type(dfp) == force_discharge_failed) {
+    } else if (dfp_phy_interupt_source == force_discharge_failed) {
       debug_msg(partal_pd_phy, "recived DFP pd PHY force discharge failed intrupt", false, 0);
       debug_msg(partal_power_cont, "recived DFP pd PHY force discharge failed intrupt, turning off power", false, 0);
       // turn port power supply off
       pd_power_cont_return_to_base_state(dfp);
-    } else if (pd_phy_alert_type(dfp) == auto_discharge_failed) {
+    } else if (dfp_phy_interupt_source == auto_discharge_failed) {
       debug_msg(partal_pd_phy, "recived DFP pd PHY auto discharge failed intrupt", false, 0);
       // do nothing for now
-    } else if (pd_phy_alert_type(dfp) == internal_or_external_vbus_over_current_protection_fault) {
+    } else if (dfp_phy_interupt_source == internal_or_external_vbus_over_current_protection_fault) {
       debug_msg(partal_pd_phy, "recived DFP pd PHY internal or external vbus over current protection fault intrupt", false, 0);
       debug_msg(partal_power_cont, "recived DFP pd PHY internal or external vbus over current protection fault intrupt, turning off and reseting power", false, 0);
       // turn of power and stop allowing output 
       pd_power_cont_return_to_base_state(dfp);
       pd_power_cont_dfp_allow_output = false;
-    } else if (pd_phy_alert_type(dfp) == internal_or_external_vbus_over_voltage_protection_fault) {
+    } else if (dfp_phy_interupt_source == internal_or_external_vbus_over_voltage_protection_fault) {
       debug_msg(partal_pd_phy, "recived DFP pd PHY internal or external vbus over voltage protection fault intrupt", false, 0);
       debug_msg(partal_power_cont, "recived DFP pd PHY internal or external vbus over voltage protection fault intrupt, turning off and reseting power", false, 0);
       //turn off power and stop allowing output
       pd_power_cont_return_to_base_state(dfp);
       pd_power_cont_dfp_allow_output = false;
-    } else if (pd_phy_alert_type(dfp) == i2c_error) {
+    } else if (dfp_phy_interupt_source == i2c_error) {
       debug_msg(partal_pd_phy, "recived DFP pd PHY i2c error intrupt, flushing buffers", false, 0);
       //reset rx & tx buffers
           pd_phy_send_reset_receive_buffer(dfp);
@@ -875,7 +892,7 @@ void io_intrupt_handeler () {
       debug_msg(partal_io, "deasserting iox interrupts", false, 0);
 
       //deassert iox_interrupts
-      io_assert_iox_int();
+      io_de_assert_iox_int();
 
   return;
 

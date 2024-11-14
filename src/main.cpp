@@ -119,10 +119,6 @@ void setup() {
   io_gpio_init();
   Serial.println("GPIO init complete");
 
-  //set onboard led to low to not be annoying
-  debug_msg(partal_io, "Set onboard led to low", false, 0);
-  io_call(onboard_led, write, low);
-
   //begin init for ADC
   debug_msg(partal_adc, "Begin ADC init", false, 0);
   //adc_init(false);
