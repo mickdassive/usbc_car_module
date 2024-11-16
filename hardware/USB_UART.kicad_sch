@@ -4561,26 +4561,6 @@
 		(color 0 0 0 0)
 		(uuid "f8f2e8f4-eaee-425d-b821-f5069e63842b")
 	)
-	(no_connect
-		(at 144.78 96.52)
-		(uuid "2243f05f-d63b-470f-a324-89d767233980")
-	)
-	(no_connect
-		(at 144.78 86.36)
-		(uuid "23191c2c-e415-4f87-ba6d-c6376ec4d419")
-	)
-	(no_connect
-		(at 144.78 78.74)
-		(uuid "7584c704-3098-47f5-8c9a-7ae5dbd3afe0")
-	)
-	(no_connect
-		(at 144.78 88.9)
-		(uuid "7bbabc1c-0ccf-4af8-84fa-25425aa7921c")
-	)
-	(no_connect
-		(at 144.78 93.98)
-		(uuid "b05462b9-9efe-4cad-bb17-9bf254887dfa")
-	)
 	(wire
 		(pts
 			(xy 149.86 101.6) (xy 144.78 101.6)
@@ -4673,6 +4653,16 @@
 	)
 	(wire
 		(pts
+			(xy 147.32 74.93) (xy 151.13 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0b28690f-f2d3-41b8-9a82-28a3566a06cc")
+	)
+	(wire
+		(pts
 			(xy 100.33 54.61) (xy 100.33 55.88)
 		)
 		(stroke
@@ -4700,6 +4690,16 @@
 			(type default)
 		)
 		(uuid "1776a074-e0e6-466d-96ae-e668b7e299aa")
+	)
+	(wire
+		(pts
+			(xy 147.32 95.25) (xy 151.13 95.25)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "194033b0-33ec-473c-9c04-0713bfec41b4")
 	)
 	(wire
 		(pts
@@ -4740,6 +4740,16 @@
 			(type default)
 		)
 		(uuid "26109e58-c847-4ad1-afbb-f04cd50cac80")
+	)
+	(wire
+		(pts
+			(xy 144.78 86.36) (xy 147.32 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "34cc299c-32a5-47bc-9cea-3b476ac30fcd")
 	)
 	(wire
 		(pts
@@ -4790,6 +4800,16 @@
 			(type default)
 		)
 		(uuid "398015ec-837a-411e-b009-c4254968351c")
+	)
+	(wire
+		(pts
+			(xy 147.32 78.74) (xy 147.32 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3d186b4f-368d-401b-a404-e72d7252b627")
 	)
 	(wire
 		(pts
@@ -4863,6 +4883,16 @@
 	)
 	(wire
 		(pts
+			(xy 144.78 88.9) (xy 148.59 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "53d1e759-8289-4d06-b1b2-fa2ac4ddd3a0")
+	)
+	(wire
+		(pts
 			(xy 199.39 57.15) (xy 227.33 57.15)
 		)
 		(stroke
@@ -4913,6 +4943,16 @@
 	)
 	(wire
 		(pts
+			(xy 147.32 90.17) (xy 151.13 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "644bceb0-0ea0-493f-b43c-8c6af9540541")
+	)
+	(wire
+		(pts
 			(xy 189.23 68.58) (xy 189.23 85.09)
 		)
 		(stroke
@@ -4930,6 +4970,16 @@
 			(type default)
 		)
 		(uuid "67f30c2e-989b-47e4-973d-c9c3dc878da6")
+	)
+	(wire
+		(pts
+			(xy 147.32 96.52) (xy 147.32 95.25)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "691ae7c0-637b-4430-94f8-30c7cf832482")
 	)
 	(wire
 		(pts
@@ -5003,6 +5053,16 @@
 	)
 	(wire
 		(pts
+			(xy 148.59 88.9) (xy 148.59 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "850e0122-782f-4441-bed0-ca69b8d11434")
+	)
+	(wire
+		(pts
 			(xy 217.17 64.77) (xy 222.25 64.77)
 		)
 		(stroke
@@ -5033,6 +5093,16 @@
 	)
 	(wire
 		(pts
+			(xy 144.78 93.98) (xy 147.32 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8f3b8012-4f1b-4089-ac4e-1cd06335d899")
+	)
+	(wire
+		(pts
 			(xy 227.33 91.44) (xy 199.39 91.44)
 		)
 		(stroke
@@ -5040,6 +5110,16 @@
 			(type default)
 		)
 		(uuid "8f8d1f5c-ae52-4ce4-b054-924a85b522a7")
+	)
+	(wire
+		(pts
+			(xy 147.32 80.01) (xy 151.13 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "910f08bd-b025-48f3-88e1-a18b375f554a")
 	)
 	(wire
 		(pts
@@ -5073,6 +5153,16 @@
 	)
 	(wire
 		(pts
+			(xy 148.59 85.09) (xy 151.13 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9b6d415d-7ca2-431b-933e-fb345a1d9f8a")
+	)
+	(wire
+		(pts
 			(xy 132.08 114.3) (xy 132.08 116.84)
 		)
 		(stroke
@@ -5103,6 +5193,16 @@
 	)
 	(wire
 		(pts
+			(xy 147.32 86.36) (xy 147.32 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a1c48e9f-9dac-4588-bf91-118c16db4167")
+	)
+	(wire
+		(pts
 			(xy 129.54 57.15) (xy 130.81 57.15)
 		)
 		(stroke
@@ -5120,6 +5220,16 @@
 			(type default)
 		)
 		(uuid "a36fbd29-e3c9-4109-81b8-4b8227bb8c39")
+	)
+	(wire
+		(pts
+			(xy 147.32 93.98) (xy 147.32 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ae5d85e3-7584-4665-b153-8089b49139f0")
 	)
 	(wire
 		(pts
@@ -5160,6 +5270,16 @@
 			(type default)
 		)
 		(uuid "b6602ce8-7695-44a4-8f5b-e7b46681d5d0")
+	)
+	(wire
+		(pts
+			(xy 144.78 78.74) (xy 147.32 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ba4a8cfb-2fea-4714-8563-0fb26a38d6b9")
 	)
 	(wire
 		(pts
@@ -5210,6 +5330,16 @@
 			(type default)
 		)
 		(uuid "cab63a32-009a-4a4b-8dc5-d5278f66dfea")
+	)
+	(wire
+		(pts
+			(xy 144.78 96.52) (xy 147.32 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cdad25b2-bea6-419d-b0c2-559c51998d0f")
 	)
 	(wire
 		(pts
@@ -6022,6 +6152,73 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 151.13 80.01 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "293daaa3-d4eb-4049-869a-368f852d2abf")
+		(property "Reference" "TP34"
+			(at 155.829 78.7978 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 155.829 81.2221 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
+			(at 151.13 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 151.13 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 151.13 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "bc724e72-6fb3-44f9-8bf5-360d61a307c0")
+		)
+		(instances
+			(project "usbc-car-module"
+				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/115036d9-3633-4f5d-a259-54a6f0cf58ce"
+					(reference "TP34")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Simulation_SPICE:NPN")
 		(at 227.33 81.28 90)
 		(unit 1)
@@ -6184,6 +6381,140 @@
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/115036d9-3633-4f5d-a259-54a6f0cf58ce"
 					(reference "R87")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 151.13 74.93 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3411d91e-b339-4097-b138-868802e44155")
+		(property "Reference" "TP1"
+			(at 155.829 73.7178 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 155.829 76.1421 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
+			(at 151.13 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 151.13 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 151.13 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e667c8b6-ead2-403b-8fa2-7106040d91e9")
+		)
+		(instances
+			(project "usbc-car-module"
+				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/115036d9-3633-4f5d-a259-54a6f0cf58ce"
+					(reference "TP1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 151.13 85.09 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "4386c768-07d3-46da-a8f4-d76600e427e5")
+		(property "Reference" "TP35"
+			(at 155.829 83.8778 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 155.829 86.3021 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
+			(at 151.13 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 151.13 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 151.13 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ff8fb242-c91b-400b-9b0a-aabcb11f723f")
+		)
+		(instances
+			(project "usbc-car-module"
+				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/115036d9-3633-4f5d-a259-54a6f0cf58ce"
+					(reference "TP35")
 					(unit 1)
 				)
 			)
@@ -6670,6 +7001,73 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 151.13 90.17 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "75def37c-d0ec-4cf5-89dd-f5a5472f060b")
+		(property "Reference" "TP36"
+			(at 155.829 88.9578 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 155.829 91.3821 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
+			(at 151.13 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 151.13 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 151.13 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "074e8c9e-08d9-4b88-b999-fe7fea0d2f0a")
+		)
+		(instances
+			(project "usbc-car-module"
+				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/115036d9-3633-4f5d-a259-54a6f0cf58ce"
+					(reference "TP36")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Switch:SW_SPDT")
 		(at 74.93 48.26 270)
 		(mirror x)
@@ -7144,6 +7542,73 @@
 	)
 	(symbol
 		(lib_id "Connector:TestPoint")
+		(at 151.13 95.25 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b8e06bde-bd8d-4535-9edc-777c80bde3b7")
+		(property "Reference" "TP37"
+			(at 155.829 94.0378 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 155.829 96.4621 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
+			(at 151.13 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 151.13 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 151.13 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "97674945-450a-432e-b8f7-857a9ca2336f")
+		)
+		(instances
+			(project "usbc-car-module"
+				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/115036d9-3633-4f5d-a259-54a6f0cf58ce"
+					(reference "TP37")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
 		(at 97.79 86.36 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -7353,7 +7818,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "f974f8ab-7f81-4089-b828-db6ba168ba58")
 		(property "Reference" "TP2"
 			(at 81.407 59.2448 0)
@@ -7365,7 +7829,7 @@
 			)
 		)
 		(property "Value" "TestPoint"
-			(at 81.407 60.2053 0)
+			(at 81.534 60.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
