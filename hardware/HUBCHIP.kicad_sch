@@ -7343,6 +7343,12 @@
 		(uuid "7e728f0f-ed37-4769-94c2-5ac388218bd3")
 	)
 	(junction
+		(at 118.11 95.25)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "828c93d5-9130-4451-8794-1a6739b4bf53")
+	)
+	(junction
 		(at 173.99 30.48)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -7475,12 +7481,6 @@
 		(uuid "dab3085e-2e74-4a3f-a50c-9ab535ef6d16")
 	)
 	(junction
-		(at 58.42 115.57)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "e45286bf-81fe-49e1-9465-4abaf18b225d")
-	)
-	(junction
 		(at 175.26 38.1)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -7533,6 +7533,10 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "ffa99f38-e1ad-4f69-9d69-039d0a200b7a")
+	)
+	(no_connect
+		(at 123.19 100.33)
+		(uuid "f7bf53de-0bbc-40df-8773-91a63387d876")
 	)
 	(wire
 		(pts
@@ -8216,7 +8220,7 @@
 	)
 	(wire
 		(pts
-			(xy 123.19 95.25) (xy 111.76 95.25)
+			(xy 123.19 95.25) (xy 118.11 95.25)
 		)
 		(stroke
 			(width 0)
@@ -8413,16 +8417,6 @@
 			(type default)
 		)
 		(uuid "62885fb3-5e41-4836-aa86-61e5ec413185")
-	)
-	(wire
-		(pts
-			(xy 58.42 115.57) (xy 58.42 119.38)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "637a8c2d-4efa-4811-ae33-dd397e3d19ef")
 	)
 	(wire
 		(pts
@@ -8876,6 +8870,16 @@
 	)
 	(wire
 		(pts
+			(xy 118.11 87.63) (xy 118.11 95.25)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a1bba525-4124-4e8c-9a54-0642c8125f0d")
+	)
+	(wire
+		(pts
 			(xy 100.33 147.32) (xy 99.06 147.32)
 		)
 		(stroke
@@ -8943,6 +8947,16 @@
 			(type default)
 		)
 		(uuid "a9a60756-1e23-4a97-988d-0f78018ec79a")
+	)
+	(wire
+		(pts
+			(xy 118.11 95.25) (xy 111.76 95.25)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a9eed4c5-e62d-4069-a561-c4db8b62391c")
 	)
 	(wire
 		(pts
@@ -9393,16 +9407,6 @@
 			(type default)
 		)
 		(uuid "e76a5845-4081-4bba-891b-a7b90d52c10c")
-	)
-	(wire
-		(pts
-			(xy 52.07 119.38) (xy 58.42 119.38)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e9aad4e5-ac75-4815-a733-db2ea7be3612")
 	)
 	(wire
 		(pts
@@ -13016,6 +13020,72 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 118.11 87.63 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c1ff55b5-8dc3-475f-8b5e-41768e380436")
+		(property "Reference" "TP48"
+			(at 119.507 84.6448 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 119.38 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
+			(at 123.19 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 123.19 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 118.11 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "450c5eda-e45d-4734-8ae2-8edd5e721f95")
+		)
+		(instances
+			(project "usbc-car-module"
+				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/7a7a6512-c96f-448a-bb8d-4d6e185adf7f"
+					(reference "TP48")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 220.98 31.75 180)
 		(unit 1)
@@ -14246,70 +14316,6 @@
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/7a7a6512-c96f-448a-bb8d-4d6e185adf7f"
 					(reference "C67")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 52.07 119.38 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "fbe9cc6c-d843-4340-829b-e11a3f6dc5e2")
-		(property "Reference" "TP1"
-			(at 48.768 115.7351 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 48.768 117.6561 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
-			(at 52.07 114.3 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 52.07 114.3 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 52.07 119.38 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "f30f7cb4-bc07-4bf3-b4a2-2843648ed78d")
-		)
-		(instances
-			(project "usbc-car-module"
-				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/7a7a6512-c96f-448a-bb8d-4d6e185adf7f"
-					(reference "TP1")
 					(unit 1)
 				)
 			)

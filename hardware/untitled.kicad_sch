@@ -1818,14 +1818,6 @@
 		(color 0 0 0 0)
 		(uuid "fff0265f-89a9-4eac-845d-3d99d4d15639")
 	)
-	(no_connect
-		(at 120.65 113.03)
-		(uuid "194530da-8b8b-43f9-8990-0274d6537e56")
-	)
-	(no_connect
-		(at 120.65 116.84)
-		(uuid "9eeea101-bee6-4d49-a84f-dff50d298ad0")
-	)
 	(wire
 		(pts
 			(xy 100.33 144.78) (xy 100.33 146.05)
@@ -1888,6 +1880,16 @@
 	)
 	(wire
 		(pts
+			(xy 118.11 113.03) (xy 118.11 115.57)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "16b9745e-a532-4592-a295-477d99100119")
+	)
+	(wire
+		(pts
 			(xy 40.64 104.14) (xy 40.64 106.68)
 		)
 		(stroke
@@ -1945,6 +1947,16 @@
 			(type default)
 		)
 		(uuid "243fe108-787d-461c-8e69-d147c4aa7d4f")
+	)
+	(wire
+		(pts
+			(xy 120.65 116.84) (xy 120.65 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2972dfb1-af79-4f57-b24c-5619c69b9aa6")
 	)
 	(wire
 		(pts
@@ -2165,6 +2177,16 @@
 			(type default)
 		)
 		(uuid "59ee3466-562f-4cea-b511-6b8830dc6d63")
+	)
+	(wire
+		(pts
+			(xy 120.65 118.11) (xy 105.41 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5a544a64-f9ff-4e8d-b6ae-e38999919208")
 	)
 	(wire
 		(pts
@@ -2598,6 +2620,16 @@
 	)
 	(wire
 		(pts
+			(xy 118.11 115.57) (xy 113.03 115.57)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d3e3d0fc-f73a-4586-be7b-57cde0b83388")
+	)
+	(wire
+		(pts
 			(xy 163.83 90.17) (xy 166.37 90.17)
 		)
 		(stroke
@@ -2755,6 +2787,16 @@
 			(type default)
 		)
 		(uuid "f64550ce-9f98-493a-8c35-f52939308b0f")
+	)
+	(wire
+		(pts
+			(xy 120.65 113.03) (xy 118.11 113.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f9337e36-60e8-454f-bd4a-ed40c020d4a3")
 	)
 	(wire
 		(pts
@@ -3893,6 +3935,71 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 105.41 118.11 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "2112acf6-ead0-4c30-83a9-dead9c8dc6d3")
+		(property "Reference" "TP46"
+			(at 102.108 113.3305 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 102.108 115.7548 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
+			(at 105.41 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 105.41 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 105.41 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "eef189eb-3637-4513-b80d-2d1bdcf55a36")
+		)
+		(instances
+			(project "usbc-car-module"
+				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/d2e16279-165c-4434-90cd-263b76553257"
+					(reference "TP46")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_name "NMOS_1")
 		(lib_id "Simulation_SPICE:NMOS")
 		(at 181.61 101.6 0)
@@ -4320,6 +4427,71 @@
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/d2e16279-165c-4434-90cd-263b76553257"
 					(reference "U1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 113.03 115.57 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "39497fa3-1fff-48b1-afc4-832be06150a5")
+		(property "Reference" "TP47"
+			(at 109.728 110.7905 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 109.728 113.2148 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
+			(at 113.03 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 113.03 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 113.03 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "360f76e6-97b0-4ab2-b15f-50d5fd248e0a")
+		)
+		(instances
+			(project "usbc-car-module"
+				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/d2e16279-165c-4434-90cd-263b76553257"
+					(reference "TP47")
 					(unit 1)
 				)
 			)
