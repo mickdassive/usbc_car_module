@@ -174,7 +174,7 @@ extern uint8_t iox_0_port_0_interrupt;
 extern uint8_t iox_0_port_1_interrupt;
 extern uint8_t iox_1_port_0_interrupt;
 extern uint8_t iox_1_port_1_interrupt;
-extern bool io_interrupt_flag;
+extern uint8_t io_interrupt_counter;
 
 //button info defines
 extern bool io_unit_btn_pressed;

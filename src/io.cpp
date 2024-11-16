@@ -33,7 +33,7 @@ uint8_t iox_0_port_0_interrupt = 0xFF;
 uint8_t iox_0_port_1_interrupt = 0xFF;
 uint8_t iox_1_port_0_interrupt = 0xFF;
 uint8_t iox_1_port_1_interrupt = 0xFF;
-bool io_interrupt_flag = false;
+uint8_t io_interrupt_counter = 0;
 
 //button info defines
 bool io_unit_btn_pressed = false;
@@ -406,6 +406,7 @@ void io_de_assert_iox_int () {
 struct pin io_determine_interrupt_source() {
 
   debug_msg(partal_io, "io_determine_interrupt_source called", false, 0);
+  struct pin* intrupt_spurce_to_return = &empty_struct_pin;
 
   //init local vars
   uint8_t iox_0_int_reg_0_value = 0;
@@ -422,6 +423,77 @@ struct pin io_determine_interrupt_source() {
   iox_0_int_reg_0_value = Wire.read();
   iox_0_int_reg_1_value = Wire.read();
   Wire.endTransmission();
+
+  //begin iterateing thru the possable pins
+  for (size_t i = 1; i < sizeof(pin_names[0]); i++) {
+
+    //check if the current pin is an itrupt pin
+    if (pin_names[i]->pin_mode == intr) {
+
+      //check witch io expeander the pin is on 
+      if (pin_names[i]->iox_number == 0){
+
+        //check what port the pin is on
+        if (pin_names[i]->port == 0) {
+
+          //chek if pin is the intrupt souce
+          if ((pin_names[i]->mask & iox_0_int_reg_0_value) != 0) {
+            //store current pin
+            intrupt_spurce_to_return = pin_names[i];
+
+          }
+        }
+
+        //check if current pin is on port 1
+        else if (pin_names[i]->port == 1) {
+
+          //chek if pin is the intrupt souce
+          if ((pin_names[i]->mask & iox_0_int_reg_1_value) != 0) {
+            //store current pin
+            intrupt_spurce_to_return = pin_names[i];
+
+            // store pin for the case that thare is more than one intrupt soucre
+            iox_0_int_reg_1_value = (pin_names[i]->mask  ^ iox_0_int_reg_1_value);
+          }
+        }
+      }
+      else if (pin_names[i]->iox_number == 1){
+
+        //check if current pin is on port 0
+        if (pin_names[i]->port == 0) {
+
+          //chek if pin is the intrupt souce
+          if ((pin_names[i]->mask & iox_1_int_reg_0_value) != 0) {
+            //store current pin
+            intrupt_spurce_to_return = pin_names[i];
+
+            // store pin for the case that thare is more than one intrupt soucre
+            iox_1_int_reg_0_value = (pin_names[i]->mask  ^ iox_1_int_reg_0_value);
+          }
+        }
+
+        //check if current pin is on port 1
+        else if (pin_names[i]->port == 1) {
+
+          //chek if pin is the intrupt souce
+          if ((pin_names[i]->mask & iox_1_int_reg_1_value) != 0) {
+            //store current pin
+            intrupt_spurce_to_return = pin_names[i];
+
+            // store pin for the case that thare is more than one intrupt soucre
+            iox_1_int_reg_1_value = (pin_names[i]->mask  ^ iox_1_int_reg_1_value);
+          }
+        }
+      }
+    }
+  }
+
+  if (iox_0_int_reg_0_value + iox_0_int_reg_1_value + iox_1_int_reg_0_value + iox_1_int_reg_1_value != 0) {
+    //reset irupt flag if thare are no more wating intrupts
+  }
+
+
+  /*
 
   //check if interrupt came from other iox
   if ((iox_0_int_reg_0_value & iox_1_int.mask) != 0) {
@@ -461,6 +533,8 @@ struct pin io_determine_interrupt_source() {
   }
 
   return empty_struct_pin;
+
+  */
 };
 
 
@@ -469,10 +543,9 @@ struct pin io_determine_interrupt_source() {
  * 
  * This function sets the interrupt flag `io_interrupt_flag` to true.
  */
-void io_pin_interrupt_flagger () {
+void ICACHE_RAM_ATTR io_pin_interrupt_flagger () {
   debug_msg(partal_io, "interrupt flag set", false, 0);
-  //set the interrupt flag
-  io_interrupt_flag = true;
+  incr
   return;
 }
 

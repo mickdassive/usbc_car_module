@@ -186,6 +186,9 @@ void loop() {
     io_intrupt_handeler();
   }
 
+  //chck if pd prot timers
+  pd_prot_timer_handeler();
+
 }
 
 

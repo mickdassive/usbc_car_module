@@ -73,7 +73,7 @@ unsigned long pd_prot_ufp_timer_start_time_enter_usb = 0;
 unsigned long pd_prot_ufp_timer_start_time_enter_usb_wait = 0;
 unsigned long pd_prot_ufp_timer_start_time_enter_epr = 0;
 unsigned long pd_prot_ufp_timer_start_time_epr_soruce_cable_discovvery = 0;
-unsigned long pd_prot_ufp_timer_start_time_fisrt_source_cap = 0;
+unsigned long pd_prot_ufp_timer_start_time_fisrst_source_cap = 0;
 unsigned long pd_prot_ufp_timer_start_time_fr_swap_5v = 0;
 unsigned long pd_prot_ufp_timer_start_time_fr_swap_complete = 0;
 unsigned long pd_prot_ufp_timer_start_time_fr_swap_init = 0;
@@ -119,6 +119,7 @@ unsigned long pd_prot_ufp_timer_start_time_vdm_sender_response = 0;
 unsigned long pd_prot_ufp_timer_start_time_vdm_wait_mode_entry = 0;
 unsigned long pd_prot_ufp_timer_start_time_vdm_wait_mode_exit = 0;
 unsigned long pd_prot_ufp_timer_start_time_source_pps_comm = 0;
+unsigned long pd_prot_ufp_timer_start_time_first_source_cap = 0;
 
 //pd timer start times for dfp
 //usb-if docs page 271
@@ -141,7 +142,7 @@ unsigned long pd_prot_dfp_timer_start_time_enter_usb = 0;
 unsigned long pd_prot_dfp_timer_start_time_enter_usb_wait = 0;
 unsigned long pd_prot_dfp_timer_start_time_enter_epr = 0;
 unsigned long pd_prot_dfp_timer_start_time_epr_soruce_cable_discovvery = 0;
-unsigned long pd_prot_dfp_timer_start_time_fisrt_source_cap = 0;
+unsigned long pd_prot_dfp_timer_start_time_first_source_cap = 0;
 unsigned long pd_prot_dfp_timer_start_time_fr_swap_5v = 0;
 unsigned long pd_prot_dfp_timer_start_time_fr_swap_complete = 0;
 unsigned long pd_prot_dfp_timer_start_time_fr_swap_init = 0;
@@ -1072,19 +1073,19 @@ void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names nam
     case fisrt_source_cap:
         if (start_stop == start) {
             if (ufp_dfp == ufp) {
-                if (pd_prot_ufp_timer_start_time_fisrt_source_cap == 0) {
-                    pd_prot_ufp_timer_start_time_fisrt_source_cap = millis();
+                if (pd_prot_ufp_timer_start_time_first_source_cap == 0) {
+                    pd_prot_ufp_timer_start_time_first_source_cap = millis();
                 }
             } else {
-                if (pd_prot_dfp_timer_start_time_fisrt_source_cap == 0) {
-                    pd_prot_dfp_timer_start_time_fisrt_source_cap = millis();
+                if (pd_prot_dfp_timer_start_time_first_source_cap == 0) {
+                    pd_prot_dfp_timer_start_time_first_source_cap = millis();
                 }
             }
         } else {
             if (ufp_dfp == ufp) {
-                pd_prot_ufp_timer_start_time_fisrt_source_cap = 0;
+                pd_prot_ufp_timer_start_time_first_source_cap = 0;
             } else {
-                pd_prot_dfp_timer_start_time_fisrt_source_cap = 0;
+                pd_prot_dfp_timer_start_time_first_source_cap = 0;
             }
         }
         break;
