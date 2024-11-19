@@ -186,8 +186,10 @@ void loop() {
     io_intrupt_handeler();
   }
 
-  //chck if pd prot timers
+  //chck if pd prot timers are expired
   pd_prot_timer_handeler();
+
+
 
 }
 

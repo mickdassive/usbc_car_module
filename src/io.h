@@ -174,7 +174,7 @@ extern uint8_t iox_0_port_0_interrupt;
 extern uint8_t iox_0_port_1_interrupt;
 extern uint8_t iox_1_port_0_interrupt;
 extern uint8_t iox_1_port_1_interrupt;
-extern uint8_t io_interrupt_counter;
+extern bool io_interrupt_flag;
 
 //button info defines
 extern bool io_unit_btn_pressed;
@@ -189,7 +189,7 @@ extern bool io_interrupt_ufp_msg_received;
 extern bool io_interrupt_dfp_msg_received;
  
 //function defines
-uint8_t io_read_current_io_state(int port, int iox_num);
+uint8_t io_read_current_io_state(u_int8_t port, u_int8_t iox_num);
 int io_call(struct pin pin_needed, enum read_write read_write, enum high_low high_low);
 void io_gpio_init();
 struct pin io_determine_interrupt_source();
