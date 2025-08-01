@@ -531,6 +531,7 @@ extern enum pd_port_policy_engine_state_enum pd_prot_dfp_pe_current_state;
 void pd_prot_hard_reset_handeler (enum ufp_dfp ufp_dfp, bool from_policy_engine);
 void pd_prot_timer_handeler();
 void pd_prot_timer_controler (enum ufp_dfp ufp_dfp, enum pd_prot_timer_names name, enum pd_prot_timer_start_stop start_stop);
+void pd_prot_rx_state_machine(enum ufp_dfp ufp_dfp);
 
 
 

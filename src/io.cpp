@@ -33,7 +33,7 @@ uint8_t iox_0_port_0_interrupt = 0xFF;
 uint8_t iox_0_port_1_interrupt = 0xFF;
 uint8_t iox_1_port_0_interrupt = 0xFF;
 uint8_t iox_1_port_1_interrupt = 0xFF;
-uint8_t io_interrupt_counter = 0;
+bool io_interrupt_flag = false;
 
 //button info defines
 bool io_unit_btn_pressed = false;
@@ -54,7 +54,7 @@ bool io_interrupt_dfp_msg_received = false;
  * @param iox_num The IOX number (0 or 1) to read from.
  * @return The current IO state as a uint8_t value.
  */
-uint8_t io_read_current_io_state(int port, int iox_num) {
+uint8_t io_read_current_io_state(uint8_t port, uint8_t iox_num) {
 
   debug_msg(partal_io, "io_read_current_io_state called, reading current IO state of given io expander", false, 0);
 
@@ -488,53 +488,10 @@ struct pin io_determine_interrupt_source() {
     }
   }
 
-  if (iox_0_int_reg_0_value + iox_0_int_reg_1_value + iox_1_int_reg_0_value + iox_1_int_reg_1_value != 0) {
-    //reset irupt flag if thare are no more wating intrupts
-  }
+  //returnn source pin
+  return *intrupt_spurce_to_return;
 
-
-  /*
-
-  //check if interrupt came from other iox
-  if ((iox_0_int_reg_0_value & iox_1_int.mask) != 0) {
-    //read interrupt register values from iox 1
-    Wire.beginTransmission(iox_1_add);
-    Wire.write(iox_int_stat_register_0);
-    Wire.endTransmission();
-
-    Wire.requestFrom(iox_1_add, 2);
-    iox_1_int_reg_0_value = Wire.read();
-    iox_1_int_reg_1_value = Wire.read();
-    Wire.endTransmission();
-
-    //determine if interrupt came from adc or f/b pgood
-    if ((iox_1_int_reg_1_value & adc_alert.mask) != 0) {
-      return adc_alert;
-    } else if ((iox_1_int_reg_0_value & f_usbc_pgood.mask) != 0) {
-      return f_usbc_pgood;
-    } else if ((iox_1_int_reg_0_value & b_usbc_pgood.mask) != 0) {
-      return b_usbc_pgood;
-    }
-  }
-
-  //determine if interrupt came from source btn, unit btn, mode btn, display, or ufp/dfp pd phy alert
-  if ((iox_0_int_reg_1_value & src_btn.mask) != 0) {
-    return src_btn;
-  } else if ((iox_0_int_reg_1_value & unit_btn.mask) != 0) {
-    return unit_btn;
-  } else if ((iox_0_int_reg_1_value & mode_btn.mask) != 0) {
-    return mode_btn;
-  } else if ((iox_0_int_reg_1_value & disp_irq.mask) != 0) {
-    return disp_irq;
-  } else if ((iox_0_int_reg_1_value & ufp_alert_n.mask) != 0) {
-    return ufp_alert_n;
-  } else if ((iox_0_int_reg_1_value & dfp_alert_n.mask) != 0) {
-    return dfp_alert_n;
-  }
-
-  return empty_struct_pin;
-
-  */
+  
 };
 
 
@@ -545,7 +502,7 @@ struct pin io_determine_interrupt_source() {
  */
 void ICACHE_RAM_ATTR io_pin_interrupt_flagger () {
   debug_msg(partal_io, "interrupt flag set", false, 0);
-  incr
+  io_interrupt_flag = true;
   return;
 }
 
