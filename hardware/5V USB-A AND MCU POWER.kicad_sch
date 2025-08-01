@@ -1,7 +1,7 @@
 (kicad_sch
-	(version 20231120)
+	(version 20250114)
 	(generator "eeschema")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(uuid "abff2e11-d36d-4ddb-ba70-71613982546c")
 	(paper "A4")
 	(title_block
@@ -81,222 +81,6 @@
 						)
 					)
 				)
-				(pin input line
-					(at 19.05 -13.97 180)
-					(length 2.54)
-					(name "SS2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_out line
-					(at 19.05 16.51 180)
-					(length 2.54)
-					(name "SW2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_out line
-					(at 19.05 26.67 180)
-					(length 2.54)
-					(name "HB2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at 19.05 8.89 180)
-					(length 2.54)
-					(name "LOL2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "12"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at 19.05 11.43 180)
-					(length 2.54)
-					(name "LO2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "13"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 19.05 6.35 180)
-					(length 2.54)
-					(name "PGND2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "14"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 1.27 33.02 270)
-					(length 2.54)
-					(name "VCC"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "15"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 3.81 33.02 270)
-					(length 2.54)
-					(name "VCC"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "16"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -17.78 6.35 0)
-					(length 2.54)
-					(name "PGND1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "17"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at -17.78 11.43 0)
-					(length 2.54)
-					(name "LO1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "18"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at -17.78 8.89 0)
-					(length 2.54)
-					(name "LOL1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "19"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at 19.05 -6.35 180)
-					(length 2.54)
-					(name "COMP2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
 				(pin power_out line
 					(at -17.78 26.67 0)
 					(length 2.54)
@@ -308,24 +92,6 @@
 						)
 					)
 					(number "20"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_out line
-					(at -17.78 16.51 0)
-					(length 2.54)
-					(name "SW1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "21"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -369,17 +135,53 @@
 						)
 					)
 				)
-				(pin output line
-					(at -17.78 -11.43 0)
+				(pin power_out line
+					(at -17.78 16.51 0)
 					(length 2.54)
-					(name "PG1"
+					(name "SW1"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "24"
+					(number "21"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at -17.78 11.43 0)
+					(length 2.54)
+					(name "LO1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "18"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at -17.78 8.89 0)
+					(length 2.54)
+					(name "LOL1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "19"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -388,34 +190,16 @@
 					)
 				)
 				(pin power_in line
-					(at -1.27 33.02 270)
+					(at -17.78 6.35 0)
 					(length 2.54)
-					(name "VIN"
+					(name "PGND1"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "25"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_out line
-					(at -17.78 -1.27 0)
-					(length 2.54)
-					(name "VOUT1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "26"
+					(number "17"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -441,17 +225,17 @@
 						)
 					)
 				)
-				(pin input line
-					(at -17.78 -16.51 0)
+				(pin power_out line
+					(at -17.78 -1.27 0)
 					(length 2.54)
-					(name "FB1"
+					(name "VOUT1"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "28"
+					(number "26"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -478,16 +262,34 @@
 					)
 				)
 				(pin input line
-					(at 19.05 -16.51 180)
+					(at -17.78 -8.89 0)
 					(length 2.54)
-					(name "FB2"
+					(name "EN1"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "3"
+					(number "31"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at -17.78 -11.43 0)
+					(length 2.54)
+					(name "PG1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "24"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -514,34 +316,16 @@
 					)
 				)
 				(pin input line
-					(at -17.78 -8.89 0)
+					(at -17.78 -16.51 0)
 					(length 2.54)
-					(name "EN1"
+					(name "FB1"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "31"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at -17.78 -26.67 0)
-					(length 2.54)
-					(name "RES"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "32"
+					(number "28"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -560,6 +344,24 @@
 						)
 					)
 					(number "33"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at -17.78 -26.67 0)
+					(length 2.54)
+					(name "RES"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "32"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -603,6 +405,78 @@
 						)
 					)
 				)
+				(pin power_out line
+					(at -5.08 -40.64 90)
+					(length 2.54)
+					(name "EP"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "41"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at -1.27 33.02 270)
+					(length 2.54)
+					(name "VIN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "25"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 1.27 33.02 270)
+					(length 2.54)
+					(name "VCC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "15"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 3.81 33.02 270)
+					(length 2.54)
+					(name "VCC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "16"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 				(pin output line
 					(at 3.81 -40.64 90)
 					(length 2.54)
@@ -614,6 +488,276 @@
 						)
 					)
 					(number "36"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 6.35 -40.64 90)
+					(length 2.54)
+					(name "VCCX"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 19.05 26.67 180)
+					(length 2.54)
+					(name "HB2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 19.05 21.59 180)
+					(length 2.54)
+					(name "HO2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 19.05 19.05 180)
+					(length 2.54)
+					(name "HOL2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 19.05 16.51 180)
+					(length 2.54)
+					(name "SW2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 19.05 11.43 180)
+					(length 2.54)
+					(name "LO2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "13"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 19.05 8.89 180)
+					(length 2.54)
+					(name "LOL2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 19.05 6.35 180)
+					(length 2.54)
+					(name "PGND2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "14"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 19.05 1.27 180)
+					(length 2.54)
+					(name "CS2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 19.05 -1.27 180)
+					(length 2.54)
+					(name "VOUT2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 19.05 -6.35 180)
+					(length 2.54)
+					(name "COMP2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 19.05 -8.89 180)
+					(length 2.54)
+					(name "EN2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "40"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 19.05 -11.43 180)
+					(length 2.54)
+					(name "PG2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 19.05 -13.97 180)
+					(length 2.54)
+					(name "SS2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 19.05 -16.51 180)
+					(length 2.54)
+					(name "FB2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -675,156 +819,17 @@
 						)
 					)
 				)
-				(pin input line
-					(at 19.05 1.27 180)
-					(length 2.54)
-					(name "CS2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at 19.05 -8.89 180)
-					(length 2.54)
-					(name "EN2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "40"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_out line
-					(at -5.08 -40.64 90)
-					(length 2.54)
-					(name "EP"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "41"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at 19.05 -1.27 180)
-					(length 2.54)
-					(name "VOUT2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 6.35 -40.64 90)
-					(length 2.54)
-					(name "VCCX"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at 19.05 -11.43 180)
-					(length 2.54)
-					(name "PG2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at 19.05 19.05 180)
-					(length 2.54)
-					(name "HOL2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at 19.05 21.59 180)
-					(length 2.54)
-					(name "HO2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Connector:TestPoint"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0.762) hide)
+				(offset 0.762)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -922,9 +927,12 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Device:C"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0.254)
 			)
@@ -997,7 +1005,7 @@
 			(symbol "C_0_1"
 				(polyline
 					(pts
-						(xy -2.032 -0.762) (xy 2.032 -0.762)
+						(xy -2.032 0.762) (xy 2.032 0.762)
 					)
 					(stroke
 						(width 0.508)
@@ -1009,7 +1017,7 @@
 				)
 				(polyline
 					(pts
-						(xy -2.032 0.762) (xy 2.032 0.762)
+						(xy -2.032 -0.762) (xy 2.032 -0.762)
 					)
 					(stroke
 						(width 0.508)
@@ -1058,11 +1066,16 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Device:C_Polarized_Small_US"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0.254) hide)
+				(offset 0.254)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -1167,9 +1180,9 @@
 					)
 				)
 				(arc
-					(start 1.524 -0.762)
+					(start -1.524 -0.762)
 					(mid 0 -0.3734)
-					(end -1.524 -0.762)
+					(end 1.524 -0.762)
 					(stroke
 						(width 0.3048)
 						(type default)
@@ -1217,11 +1230,16 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Device:D_Shockley"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 1.016) hide)
+				(offset 1.016)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -1289,10 +1307,10 @@
 			(symbol "D_Shockley_0_1"
 				(polyline
 					(pts
-						(xy -1.27 0) (xy 1.27 0)
+						(xy -1.27 1.27) (xy -1.27 -1.27)
 					)
 					(stroke
-						(width 0)
+						(width 0.254)
 						(type default)
 					)
 					(fill
@@ -1301,10 +1319,10 @@
 				)
 				(polyline
 					(pts
-						(xy -1.27 1.27) (xy -1.27 -1.27)
+						(xy -1.27 0) (xy 1.27 0)
 					)
 					(stroke
-						(width 0.254)
+						(width 0)
 						(type default)
 					)
 					(fill
@@ -1362,11 +1380,16 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Device:L"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 1.016) hide)
+				(offset 1.016)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -1433,32 +1456,8 @@
 			)
 			(symbol "L_0_1"
 				(arc
-					(start 0 -2.54)
-					(mid 0.6323 -1.905)
-					(end 0 -1.27)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 0 -1.27)
-					(mid 0.6323 -0.635)
-					(end 0 0)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 0 0)
-					(mid 0.6323 0.635)
+					(start 0 2.54)
+					(mid 0.6323 1.905)
 					(end 0 1.27)
 					(stroke
 						(width 0)
@@ -1470,8 +1469,32 @@
 				)
 				(arc
 					(start 0 1.27)
-					(mid 0.6323 1.905)
-					(end 0 2.54)
+					(mid 0.6323 0.635)
+					(end 0 0)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 0)
+					(mid 0.6323 -0.635)
+					(end 0 -1.27)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -1.27)
+					(mid 0.6323 -1.905)
+					(end 0 -2.54)
 					(stroke
 						(width 0)
 						(type default)
@@ -1519,9 +1542,12 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Device:R"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0)
 			)
@@ -1640,10 +1666,13 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Q_NMOS_GDS_1"
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -1704,18 +1733,6 @@
 			(symbol "Q_NMOS_GDS_1_0_1"
 				(polyline
 					(pts
-						(xy 0.254 0) (xy -2.54 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
 						(xy 0.254 1.905) (xy 0.254 -1.905)
 					)
 					(stroke
@@ -1728,7 +1745,19 @@
 				)
 				(polyline
 					(pts
-						(xy 0.762 -1.27) (xy 0.762 -2.286)
+						(xy 0.254 0) (xy -2.54 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.762 2.286) (xy 0.762 1.27)
 					)
 					(stroke
 						(width 0.254)
@@ -1752,34 +1781,10 @@
 				)
 				(polyline
 					(pts
-						(xy 0.762 2.286) (xy 0.762 1.27)
+						(xy 0.762 -1.27) (xy 0.762 -2.286)
 					)
 					(stroke
 						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 2.54) (xy 2.54 1.778)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 -2.54) (xy 2.54 0) (xy 0.762 0)
-					)
-					(stroke
-						(width 0)
 						(type default)
 					)
 					(fill
@@ -1810,6 +1815,63 @@
 						(type outline)
 					)
 				)
+				(circle
+					(center 1.651 0)
+					(radius 2.794)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 2.54) (xy 2.54 1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.54 1.778)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(circle
+					(center 2.54 -1.778)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 -2.54) (xy 2.54 0) (xy 0.762 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
 				(polyline
 					(pts
 						(xy 2.794 0.508) (xy 2.921 0.381) (xy 3.683 0.381) (xy 3.81 0.254)
@@ -1834,41 +1896,26 @@
 						(type none)
 					)
 				)
-				(circle
-					(center 1.651 0)
-					(radius 2.794)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 2.54 -1.778)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(circle
-					(center 2.54 1.778)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
 			)
 			(symbol "Q_NMOS_GDS_1_1_1"
+				(pin input line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "G"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 				(pin passive line
 					(at 2.54 5.08 270)
 					(length 2.54)
@@ -1898,42 +1945,6 @@
 						)
 					)
 					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -5.08 0 0)
-					(length 2.54)
-					(name "G"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 2.54 -5.08 90)
-					(length 2.54)
-					(name "S"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2005,6 +2016,24 @@
 							)
 						)
 					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 -5.08 90)
+					(length 2.54)
+					(name "S"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
 					(number "8"
 						(effects
 							(font
@@ -2014,6 +2043,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Regulator_Linear:AMS1117"
 			(exclude_from_sim no)
@@ -2094,6 +2124,24 @@
 				)
 			)
 			(symbol "AMS1117_1_1"
+				(pin power_in line
+					(at -7.62 0 0)
+					(length 2.54)
+					(name "VIN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 				(pin input line
 					(at 0 -7.62 90)
 					(length 2.54)
@@ -2130,25 +2178,8 @@
 						)
 					)
 				)
-				(pin power_in line
-					(at -7.62 0 0)
-					(length 2.54)
-					(name "VIN"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:+1V2"
 			(power)
@@ -2226,7 +2257,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 0) (xy 0 2.54)
+						(xy 0 2.54) (xy 0.762 1.27)
 					)
 					(stroke
 						(width 0)
@@ -2238,7 +2269,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 2.54) (xy 0.762 1.27)
+						(xy 0 0) (xy 0 2.54)
 					)
 					(stroke
 						(width 0)
@@ -2252,7 +2283,8 @@
 			(symbol "+1V2_1_1"
 				(pin power_in line
 					(at 0 0 90)
-					(length 0) hide
+					(length 0)
+					(hide yes)
 					(name "+1V2"
 						(effects
 							(font
@@ -2269,6 +2301,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:+3V3"
 			(power)
@@ -2346,7 +2379,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 0) (xy 0 2.54)
+						(xy 0 2.54) (xy 0.762 1.27)
 					)
 					(stroke
 						(width 0)
@@ -2358,7 +2391,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 2.54) (xy 0.762 1.27)
+						(xy 0 0) (xy 0 2.54)
 					)
 					(stroke
 						(width 0)
@@ -2372,7 +2405,8 @@
 			(symbol "+3V3_1_1"
 				(pin power_in line
 					(at 0 0 90)
-					(length 0) hide
+					(length 0)
+					(hide yes)
 					(name "+3V3"
 						(effects
 							(font
@@ -2389,6 +2423,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:+5V"
 			(power)
@@ -2466,7 +2501,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 0) (xy 0 2.54)
+						(xy 0 2.54) (xy 0.762 1.27)
 					)
 					(stroke
 						(width 0)
@@ -2478,7 +2513,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 2.54) (xy 0.762 1.27)
+						(xy 0 0) (xy 0 2.54)
 					)
 					(stroke
 						(width 0)
@@ -2492,7 +2527,8 @@
 			(symbol "+5V_1_1"
 				(pin power_in line
 					(at 0 0 90)
-					(length 0) hide
+					(length 0)
+					(hide yes)
 					(name "+5V"
 						(effects
 							(font
@@ -2509,6 +2545,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:GND"
 			(power)
@@ -2588,7 +2625,8 @@
 			(symbol "GND_1_1"
 				(pin power_in line
 					(at 0 0 270)
-					(length 0) hide
+					(length 0)
+					(hide yes)
 					(name "GND"
 						(effects
 							(font
@@ -2605,7 +2643,63 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
+	)
+	(text "1uH"
+		(exclude_from_sim no)
+		(at 218.44 58.42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "000785c0-95cd-41a6-b622-5d34e22250d0")
+	)
+	(text "2.1 MHz SW FREQ\n"
+		(exclude_from_sim no)
+		(at 177.8 130.81 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2fff7741-7d99-4477-b0df-9cb5a2a9a6f6")
+	)
+	(text "3V3 & 5V SUPPLY"
+		(exclude_from_sim no)
+		(at 24.13 25.4 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "33bb95d5-080e-4d14-83f9-9ae12b4a6e7c")
+	)
+	(text "1V2 SUPPLY"
+		(exclude_from_sim no)
+		(at 16.51 161.29 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "7ae26f08-de24-4f7f-a0f2-138b1c08e3e1")
+	)
+	(text "0.68uH"
+		(exclude_from_sim no)
+		(at 72.39 58.42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "eb134d4e-429f-4e10-a564-3ad5f48381eb")
 	)
 	(junction
 		(at 91.44 99.06)
@@ -5049,61 +5143,6 @@
 		)
 		(uuid "fea5ba9d-a7c1-4745-896e-0af62c4dda02")
 	)
-	(text "1uH"
-		(exclude_from_sim no)
-		(at 218.44 58.42 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "000785c0-95cd-41a6-b622-5d34e22250d0")
-	)
-	(text "2.1 MHz SW FREQ\n"
-		(exclude_from_sim no)
-		(at 177.8 130.81 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "2fff7741-7d99-4477-b0df-9cb5a2a9a6f6")
-	)
-	(text "3V3 & 5V SUPPLY"
-		(exclude_from_sim no)
-		(at 24.13 25.4 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "33bb95d5-080e-4d14-83f9-9ae12b4a6e7c")
-	)
-	(text "1V2 SUPPLY"
-		(exclude_from_sim no)
-		(at 16.51 161.29 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "7ae26f08-de24-4f7f-a0f2-138b1c08e3e1")
-	)
-	(text "0.68uH"
-		(exclude_from_sim no)
-		(at 72.39 58.42 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "eb134d4e-429f-4e10-a564-3ad5f48381eb")
-	)
 	(global_label "VDDA_U2"
 		(shape input)
 		(at 151.13 134.62 270)
@@ -5453,7 +5492,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "09b57c06-abf6-42ee-8411-3b8a6e0402ea")
-		(property "Reference" "#PWR0154"
+		(property "Reference" "#PWR012"
 			(at 257.81 64.77 0)
 			(effects
 				(font
@@ -5504,7 +5543,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "#PWR0154")
+					(reference "#PWR012")
 					(unit 1)
 				)
 			)
@@ -5520,7 +5559,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "1e795923-6963-4931-832a-5f290c068b9f")
-		(property "Reference" "#PWR017"
+		(property "Reference" "#PWR018"
 			(at 193.04 86.36 0)
 			(effects
 				(font
@@ -5570,7 +5609,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "#PWR017")
+					(reference "#PWR018")
 					(unit 1)
 				)
 			)
@@ -5586,7 +5625,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "20dc33eb-b09b-4a16-8b9f-d3f93775cb41")
-		(property "Reference" "#PWR0155"
+		(property "Reference" "#PWR011"
 			(at 38.1 63.5 0)
 			(effects
 				(font
@@ -5637,7 +5676,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "#PWR0155")
+					(reference "#PWR011")
 					(unit 1)
 				)
 			)
@@ -5653,7 +5692,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2177b3ef-81c6-4338-8c94-515b07fa94be")
-		(property "Reference" "#PWR014"
+		(property "Reference" "#PWR027"
 			(at 139.7 140.97 0)
 			(effects
 				(font
@@ -5703,7 +5742,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "#PWR014")
+					(reference "#PWR027")
 					(unit 1)
 				)
 			)
@@ -5719,7 +5758,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "21f1e55e-0369-4180-955b-6d4b5466c299")
-		(property "Reference" "#PWR0156"
+		(property "Reference" "#PWR014"
 			(at 39.37 82.55 0)
 			(effects
 				(font
@@ -5769,7 +5808,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "#PWR0156")
+					(reference "#PWR014")
 					(unit 1)
 				)
 			)
@@ -5785,7 +5824,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "227cd7f9-e2ff-430f-bf6d-e37633db455e")
-		(property "Reference" "#PWR018"
+		(property "Reference" "#PWR028"
 			(at 48.26 172.72 0)
 			(effects
 				(font
@@ -5836,7 +5875,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "#PWR018")
+					(reference "#PWR028")
 					(unit 1)
 				)
 			)
@@ -5852,7 +5891,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "259e7ec2-eb07-4d2f-8f11-c89163b28fb1")
-		(property "Reference" "U5"
+		(property "Reference" "U3"
 			(at 55.88 166.6707 0)
 			(effects
 				(font
@@ -5907,7 +5946,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "U5")
+					(reference "U3")
 					(unit 1)
 				)
 			)
@@ -5923,7 +5962,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "26ef519f-0790-4376-ac3e-7ba0967ee119")
-		(property "Reference" "#PWR0149"
+		(property "Reference" "#PWR021"
 			(at 213.36 105.41 0)
 			(effects
 				(font
@@ -5974,7 +6013,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "#PWR0149")
+					(reference "#PWR021")
 					(unit 1)
 				)
 			)
@@ -5990,7 +6029,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "278bfbed-c829-4078-bae4-9eaa155211ae")
-		(property "Reference" "R11"
+		(property "Reference" "R18"
 			(at 64.77 92.6297 90)
 			(effects
 				(font
@@ -6042,7 +6081,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "R11")
+					(reference "R18")
 					(unit 1)
 				)
 			)
@@ -6058,7 +6097,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "28299ec8-fa2f-4218-96c4-4085ea4cd78c")
-		(property "Reference" "#PWR022"
+		(property "Reference" "#PWR024"
 			(at 195.58 116.84 0)
 			(effects
 				(font
@@ -6108,7 +6147,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "#PWR022")
+					(reference "#PWR024")
 					(unit 1)
 				)
 			)
@@ -6124,7 +6163,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "37295e57-555f-4abc-87de-99e668b455e4")
-		(property "Reference" "R13"
+		(property "Reference" "R19"
 			(at 86.36 101.3841 90)
 			(effects
 				(font
@@ -6176,7 +6215,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "R13")
+					(reference "R19")
 					(unit 1)
 				)
 			)
@@ -6192,7 +6231,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3bb4507e-d862-4f1a-92ba-dfd262bf3b3b")
-		(property "Reference" "C117"
+		(property "Reference" "C17"
 			(at 248.031 69.2063 0)
 			(effects
 				(font
@@ -6246,7 +6285,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "C117")
+					(reference "C17")
 					(unit 1)
 				)
 			)
@@ -6262,7 +6301,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "41ca857f-686d-4f40-bf5a-611a84a66d70")
-		(property "Reference" "TP6"
+		(property "Reference" "TP4"
 			(at 50.927 59.5543 0)
 			(effects
 				(font
@@ -6313,7 +6352,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "TP6")
+					(reference "TP4")
 					(unit 1)
 				)
 			)
@@ -6329,7 +6368,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "429a70ab-dd1c-459f-80b4-82bd945b1498")
-		(property "Reference" "C19"
+		(property "Reference" "C27"
 			(at 71.501 175.3179 0)
 			(effects
 				(font
@@ -6383,7 +6422,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "C19")
+					(reference "C27")
 					(unit 1)
 				)
 			)
@@ -6398,7 +6437,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "46931fa1-747b-49e7-b8fc-9c0d1c17956a")
-		(property "Reference" "C16"
+		(property "Reference" "C10"
 			(at 134.62 17.6911 90)
 			(effects
 				(font
@@ -6450,7 +6489,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "C16")
+					(reference "C10")
 					(unit 1)
 				)
 			)
@@ -6466,7 +6505,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "4a0a5af4-3aaf-4e63-8537-5dbd7cdb9338")
-		(property "Reference" "C17"
+		(property "Reference" "C11"
 			(at 140.081 36.1863 0)
 			(effects
 				(font
@@ -6520,7 +6559,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "C17")
+					(reference "C11")
 					(unit 1)
 				)
 			)
@@ -6536,7 +6575,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "4cb47a3d-3b5d-428a-a0fc-0a31bfa5fcfd")
-		(property "Reference" "R16"
+		(property "Reference" "R21"
 			(at 172.72 103.9241 90)
 			(effects
 				(font
@@ -6588,7 +6627,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "R16")
+					(reference "R21")
 					(unit 1)
 				)
 			)
@@ -6604,7 +6643,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "5d326cfc-a89f-4167-a592-9cfefa1828d8")
-		(property "Reference" "#PWR08"
+		(property "Reference" "#PWR013"
 			(at 52.07 81.28 0)
 			(effects
 				(font
@@ -6654,7 +6693,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "#PWR08")
+					(reference "#PWR013")
 					(unit 1)
 				)
 			)
@@ -6670,7 +6709,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "5ecc228b-4994-458f-add5-2415737252b7")
-		(property "Reference" "R109"
+		(property "Reference" "R20"
 			(at 212.09 101.3841 90)
 			(effects
 				(font
@@ -6722,7 +6761,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "R109")
+					(reference "R20")
 					(unit 1)
 				)
 			)
@@ -6808,7 +6847,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6c038e6a-6048-4dda-899b-53b7106ca408")
-		(property "Reference" "C11"
+		(property "Reference" "C20"
 			(at 54.61 91.4867 90)
 			(effects
 				(font
@@ -6860,7 +6899,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "C11")
+					(reference "C20")
 					(unit 1)
 				)
 			)
@@ -6876,7 +6915,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6c188f9e-807f-439c-ba57-326a32f3d36e")
-		(property "Reference" "#PWR016"
+		(property "Reference" "#PWR010"
 			(at 158.75 48.26 0)
 			(effects
 				(font
@@ -6926,7 +6965,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "#PWR016")
+					(reference "#PWR010")
 					(unit 1)
 				)
 			)
@@ -6942,7 +6981,7 @@
 		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "6da9c1ec-4fff-452b-93a9-d600990574c3")
-		(property "Reference" "R106"
+		(property "Reference" "R13"
 			(at 176.53 58.2041 90)
 			(effects
 				(font
@@ -6994,7 +7033,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "R106")
+					(reference "R13")
 					(unit 1)
 				)
 			)
@@ -7011,7 +7050,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "7023bdda-f45a-4baa-b71c-923b5b784dfa")
-		(property "Reference" "Q30"
+		(property "Reference" "Q3"
 			(at 101.4731 59.0637 0)
 			(effects
 				(font
@@ -7083,7 +7122,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "Q30")
+					(reference "Q3")
 					(unit 1)
 				)
 			)
@@ -7099,7 +7138,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "70824f16-d9f6-4687-9708-d71dedc6d29d")
-		(property "Reference" "R108"
+		(property "Reference" "R22"
 			(at 181.61 103.9241 90)
 			(effects
 				(font
@@ -7151,7 +7190,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "R108")
+					(reference "R22")
 					(unit 1)
 				)
 			)
@@ -7167,7 +7206,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "766c8b68-2c26-429c-9447-4415f018bf66")
-		(property "Reference" "C21"
+		(property "Reference" "C12"
 			(at 161.671 36.1863 0)
 			(effects
 				(font
@@ -7221,7 +7260,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "C21")
+					(reference "C12")
 					(unit 1)
 				)
 			)
@@ -7237,7 +7276,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7c0e37fb-22a6-49a2-937a-0543087bb0d3")
-		(property "Reference" "C10"
+		(property "Reference" "C16"
 			(at 54.991 67.9363 0)
 			(effects
 				(font
@@ -7291,7 +7330,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "C10")
+					(reference "C16")
 					(unit 1)
 				)
 			)
@@ -7307,7 +7346,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7ddd2123-584f-4329-b3e8-3e11e587ecba")
-		(property "Reference" "C115"
+		(property "Reference" "C23"
 			(at 241.3 100.2411 90)
 			(effects
 				(font
@@ -7359,7 +7398,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "C115")
+					(reference "C23")
 					(unit 1)
 				)
 			)
@@ -7375,7 +7414,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7e154b99-d9f3-434a-97d1-082fc7e5cc06")
-		(property "Reference" "C15"
+		(property "Reference" "C13"
 			(at 110.49 39.2811 90)
 			(effects
 				(font
@@ -7427,7 +7466,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "C15")
+					(reference "C13")
 					(unit 1)
 				)
 			)
@@ -7443,7 +7482,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "83b053e0-d59a-49c2-844d-76de73317f39")
-		(property "Reference" "TP7"
+		(property "Reference" "TP8"
 			(at 75.057 168.7743 0)
 			(effects
 				(font
@@ -7494,7 +7533,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "TP7")
+					(reference "TP8")
 					(unit 1)
 				)
 			)
@@ -7510,7 +7549,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "83fe87bc-f5c8-4447-90eb-a863300bf234")
-		(property "Reference" "C18"
+		(property "Reference" "C26"
 			(at 146.05 129.4511 90)
 			(effects
 				(font
@@ -7526,7 +7565,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 149.86 133.6548 0)
 			(effects
 				(font
@@ -7562,7 +7601,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "C18")
+					(reference "C26")
 					(unit 1)
 				)
 			)
@@ -7578,7 +7617,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8daf9292-b55a-438d-ab42-a467ee168680")
-		(property "Reference" "#PWR0153"
+		(property "Reference" "#PWR019"
 			(at 176.53 101.6 0)
 			(effects
 				(font
@@ -7629,7 +7668,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "#PWR0153")
+					(reference "#PWR019")
 					(unit 1)
 				)
 			)
@@ -7711,7 +7750,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "9250a9b5-6c60-444c-a086-044ffce912f9")
-		(property "Reference" "#PWR011"
+		(property "Reference" "#PWR017"
 			(at 104.14 86.36 0)
 			(effects
 				(font
@@ -7761,7 +7800,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "#PWR011")
+					(reference "#PWR017")
 					(unit 1)
 				)
 			)
@@ -7777,7 +7816,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "94f6eaaa-ef7f-4288-ac6c-3fdc42d0fa19")
-		(property "Reference" "Q32"
+		(property "Reference" "Q4"
 			(at 195.7069 59.0637 0)
 			(effects
 				(font
@@ -7849,7 +7888,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "Q32")
+					(reference "Q4")
 					(unit 1)
 				)
 			)
@@ -7865,7 +7904,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "97ca4406-c68c-456b-b7aa-db43a7ccbccb")
-		(property "Reference" "#PWR012"
+		(property "Reference" "#PWR08"
 			(at 120.65 22.86 0)
 			(effects
 				(font
@@ -7916,7 +7955,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "#PWR012")
+					(reference "#PWR08")
 					(unit 1)
 				)
 			)
@@ -7932,7 +7971,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9adad617-10e1-4c05-a8f6-79e6e4e89b80")
-		(property "Reference" "R112"
+		(property "Reference" "R17"
 			(at 241.3 91.3597 90)
 			(effects
 				(font
@@ -7984,7 +8023,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "R112")
+					(reference "R17")
 					(unit 1)
 				)
 			)
@@ -7999,7 +8038,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "9b7c1cc4-6bac-41ce-a591-f09d2c9f6e72")
-		(property "Reference" "L5"
+		(property "Reference" "L3"
 			(at 218.44 61.2547 90)
 			(effects
 				(font
@@ -8051,7 +8090,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "L5")
+					(reference "L3")
 					(unit 1)
 				)
 			)
@@ -8067,7 +8106,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9d4e9ce3-e361-4ebe-bf2c-db57135c12e0")
-		(property "Reference" "#PWR0157"
+		(property "Reference" "#PWR016"
 			(at 256.54 83.82 0)
 			(effects
 				(font
@@ -8117,7 +8156,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "#PWR0157")
+					(reference "#PWR016")
 					(unit 1)
 				)
 			)
@@ -8133,7 +8172,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a2d9b3c2-ca83-49b9-994c-b601be55a311")
-		(property "Reference" "C116"
+		(property "Reference" "C19"
 			(at 251.46 91.3511 90)
 			(effects
 				(font
@@ -8185,7 +8224,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "C116")
+					(reference "C19")
 					(unit 1)
 				)
 			)
@@ -8201,7 +8240,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a989b671-86ea-4614-b5e9-4b86dae34df4")
-		(property "Reference" "R110"
+		(property "Reference" "R15"
 			(at 231.14 60.7441 90)
 			(effects
 				(font
@@ -8253,7 +8292,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "R110")
+					(reference "R15")
 					(unit 1)
 				)
 			)
@@ -8269,7 +8308,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ab2d58f9-cb4e-4e13-b6b2-47c117a596ba")
-		(property "Reference" "#PWR09"
+		(property "Reference" "#PWR020"
 			(at 85.09 105.41 0)
 			(effects
 				(font
@@ -8320,7 +8359,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "#PWR09")
+					(reference "#PWR020")
 					(unit 1)
 				)
 			)
@@ -8405,7 +8444,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "ac40bd31-055b-42fa-aebd-b35a5778cbfa")
-		(property "Reference" "R12"
+		(property "Reference" "R14"
 			(at 66.04 59.4741 90)
 			(effects
 				(font
@@ -8457,7 +8496,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "R12")
+					(reference "R14")
 					(unit 1)
 				)
 			)
@@ -8473,7 +8512,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b1810adf-0608-4403-99c6-c3d9a967e96c")
-		(property "Reference" "R111"
+		(property "Reference" "R16"
 			(at 232.41 91.3597 90)
 			(effects
 				(font
@@ -8525,7 +8564,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "R111")
+					(reference "R16")
 					(unit 1)
 				)
 			)
@@ -8541,7 +8580,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b7cc5c1c-2518-4572-943a-4eb5bb5c1261")
-		(property "Reference" "#PWR019"
+		(property "Reference" "#PWR030"
 			(at 58.42 186.69 0)
 			(effects
 				(font
@@ -8591,7 +8630,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "#PWR019")
+					(reference "#PWR030")
 					(unit 1)
 				)
 			)
@@ -8607,7 +8646,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ba0c6fe2-5e6e-4a04-b560-69edaf59255f")
-		(property "Reference" "#PWR0151"
+		(property "Reference" "#PWR022"
 			(at 257.81 114.3 0)
 			(effects
 				(font
@@ -8657,7 +8696,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "#PWR0151")
+					(reference "#PWR022")
 					(unit 1)
 				)
 			)
@@ -8673,7 +8712,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ba55409a-7a6f-4a35-8f91-6264b2754968")
-		(property "Reference" "TP19"
+		(property "Reference" "TP5"
 			(at 242.697 60.8243 0)
 			(effects
 				(font
@@ -8691,7 +8730,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
 			(at 246.38 64.77 0)
 			(effects
 				(font
@@ -8724,7 +8763,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "TP19")
+					(reference "TP5")
 					(unit 1)
 				)
 			)
@@ -8740,7 +8779,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "be263e79-112f-4f1d-96f1-fa4f9fe3ff84")
-		(property "Reference" "#PWR015"
+		(property "Reference" "#PWR026"
 			(at 153.67 125.73 0)
 			(effects
 				(font
@@ -8790,7 +8829,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "#PWR015")
+					(reference "#PWR026")
 					(unit 1)
 				)
 			)
@@ -8807,7 +8846,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "c00742dd-2bbd-41be-ac22-ccf8ea11e55d")
-		(property "Reference" "Q31"
+		(property "Reference" "Q5"
 			(at 101.4731 73.0337 0)
 			(effects
 				(font
@@ -8879,7 +8918,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "Q31")
+					(reference "Q5")
 					(unit 1)
 				)
 			)
@@ -8895,7 +8934,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c241bebb-dfbb-48f8-b2d9-5fbab3033f9f")
-		(property "Reference" "C114"
+		(property "Reference" "C22"
 			(at 198.501 103.4963 0)
 			(effects
 				(font
@@ -8949,7 +8988,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "C114")
+					(reference "C22")
 					(unit 1)
 				)
 			)
@@ -8965,7 +9004,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c3040d62-9fb8-4ea3-a258-306a53b4b028")
-		(property "Reference" "#PWR024"
+		(property "Reference" "#PWR029"
 			(at 74.93 172.72 0)
 			(effects
 				(font
@@ -9016,7 +9055,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "#PWR024")
+					(reference "#PWR029")
 					(unit 1)
 				)
 			)
@@ -9032,7 +9071,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c6c286eb-98fc-4c23-9372-3d4e7b795225")
-		(property "Reference" "C14"
+		(property "Reference" "C25"
 			(at 107.95 105.3211 90)
 			(effects
 				(font
@@ -9048,7 +9087,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 111.76 109.5248 0)
 			(effects
 				(font
@@ -9084,7 +9123,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "C14")
+					(reference "C25")
 					(unit 1)
 				)
 			)
@@ -9100,7 +9139,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "cb6ea6c2-ea9a-41d6-af75-9d6cbb3ccf3e")
-		(property "Reference" "C119"
+		(property "Reference" "C18"
 			(at 258.8514 68.2061 0)
 			(effects
 				(font
@@ -9154,7 +9193,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "C119")
+					(reference "C18")
 					(unit 1)
 				)
 			)
@@ -9170,7 +9209,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "cccc148a-8806-4870-81c1-ed8555b86470")
-		(property "Reference" "#PWR010"
+		(property "Reference" "#PWR025"
 			(at 97.79 119.38 0)
 			(effects
 				(font
@@ -9220,7 +9259,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "#PWR010")
+					(reference "#PWR025")
 					(unit 1)
 				)
 			)
@@ -9236,7 +9275,7 @@
 		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "cef00e82-0d90-4974-b5c5-42051721c59b")
-		(property "Reference" "R14"
+		(property "Reference" "R12"
 			(at 119.38 58.2041 90)
 			(effects
 				(font
@@ -9288,7 +9327,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "R14")
+					(reference "R12")
 					(unit 1)
 				)
 			)
@@ -9304,7 +9343,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d023513f-87f5-4de8-bb9c-72237e3efea3")
-		(property "Reference" "R15"
+		(property "Reference" "R23"
 			(at 123.19 116.6241 90)
 			(effects
 				(font
@@ -9356,7 +9395,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "R15")
+					(reference "R23")
 					(unit 1)
 				)
 			)
@@ -9372,7 +9411,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d8ae0abb-0303-4432-957d-a491c4da8d7c")
-		(property "Reference" "C113"
+		(property "Reference" "C14"
 			(at 176.53 40.5511 90)
 			(effects
 				(font
@@ -9424,7 +9463,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "C113")
+					(reference "C14")
 					(unit 1)
 				)
 			)
@@ -9440,7 +9479,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e5606489-9651-4b45-ab5f-e019feb1d62b")
-		(property "Reference" "C118"
+		(property "Reference" "C15"
 			(at 41.6814 66.9361 0)
 			(effects
 				(font
@@ -9494,7 +9533,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "C118")
+					(reference "C15")
 					(unit 1)
 				)
 			)
@@ -9510,7 +9549,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e62b7cfc-b0f0-4027-bb39-50a74dcb77cd")
-		(property "Reference" "C13"
+		(property "Reference" "C21"
 			(at 100.711 103.4963 0)
 			(effects
 				(font
@@ -9564,7 +9603,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "C13")
+					(reference "C21")
 					(unit 1)
 				)
 			)
@@ -9580,7 +9619,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e849cf51-6921-4a48-a7c6-dc6b9353cf38")
-		(property "Reference" "C12"
+		(property "Reference" "C24"
 			(at 59.69 100.3767 90)
 			(effects
 				(font
@@ -9632,7 +9671,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "C12")
+					(reference "C24")
 					(unit 1)
 				)
 			)
@@ -9648,7 +9687,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "eb20da8f-bb37-4cbc-b091-e1bbfa53b7dc")
-		(property "Reference" "TP20"
+		(property "Reference" "TP6"
 			(at 210.439 95.3079 90)
 			(effects
 				(font
@@ -9699,7 +9738,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "TP20")
+					(reference "TP6")
 					(unit 1)
 				)
 			)
@@ -9715,7 +9754,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ec919d83-71dd-4e78-bebf-86e46bcb164e")
-		(property "Reference" "TP12"
+		(property "Reference" "TP7"
 			(at 85.598 94.2807 90)
 			(effects
 				(font
@@ -9764,7 +9803,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "TP12")
+					(reference "TP7")
 					(unit 1)
 				)
 			)
@@ -9780,7 +9819,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f1eb0b74-b3f2-414b-8b38-9889509ca208")
-		(property "Reference" "#PWR0150"
+		(property "Reference" "#PWR015"
 			(at 245.11 82.55 0)
 			(effects
 				(font
@@ -9830,7 +9869,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "#PWR0150")
+					(reference "#PWR015")
 					(unit 1)
 				)
 			)
@@ -9846,7 +9885,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f5fbf3dd-6163-46c3-b2e5-0f82a5cbab76")
-		(property "Reference" "#PWR013"
+		(property "Reference" "#PWR09"
 			(at 137.16 48.26 0)
 			(effects
 				(font
@@ -9896,7 +9935,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "#PWR013")
+					(reference "#PWR09")
 					(unit 1)
 				)
 			)
@@ -9912,7 +9951,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f96e677d-7eb1-4a3d-9c27-646cac18abf7")
-		(property "Reference" "#PWR07"
+		(property "Reference" "#PWR023"
 			(at 46.99 115.57 0)
 			(effects
 				(font
@@ -9962,7 +10001,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "#PWR07")
+					(reference "#PWR023")
 					(unit 1)
 				)
 			)
@@ -9978,7 +10017,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "fcb4ef07-d1e2-40c4-9bb6-71232bfa8eee")
-		(property "Reference" "Q33"
+		(property "Reference" "Q6"
 			(at 195.7069 73.0337 0)
 			(effects
 				(font
@@ -10050,7 +10089,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/babd34fb-a18a-4bce-9735-4ab8ec7cd7ca"
-					(reference "Q33")
+					(reference "Q6")
 					(unit 1)
 				)
 			)

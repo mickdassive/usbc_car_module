@@ -1,7 +1,7 @@
 (kicad_sch
-	(version 20231120)
+	(version 20250114)
 	(generator "eeschema")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(uuid "03d00ebd-f522-4c5c-aebd-81d3bdec84dd")
 	(paper "A4")
 	(title_block
@@ -16,7 +16,9 @@
 	(lib_symbols
 		(symbol "CARTHING:D7P_Receptacle"
 			(pin_names
-				(offset 1.016) hide)
+				(offset 1.016)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -45,7 +47,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" " ~"
+			(property "Datasheet" "~"
 				(at 0 -2.54 0)
 				(effects
 					(font
@@ -82,101 +84,21 @@
 				)
 			)
 			(symbol "D7P_Receptacle_0_1"
-				(circle
-					(center -1.778 -5.08)
-					(radius 0.762)
+				(polyline
+					(pts
+						(xy -3.81 20.955) (xy 3.175 17.145) (xy 3.175 -17.145) (xy -3.81 -20.955) (xy -3.81 20.955)
+					)
 					(stroke
-						(width 0)
+						(width 0.254)
 						(type default)
 					)
 					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center -1.778 0)
-					(radius 0.762)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center -1.778 5.08)
-					(radius 0.762)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 0 -11.43)
-					(radius 1.7961)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
+						(type background)
 					)
 				)
 				(polyline
 					(pts
-						(xy -3.81 -11.43) (xy -1.27 -11.43)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -3.81 -5.08) (xy -2.54 -5.08)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -3.81 -2.54) (xy 0.508 -2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -3.81 0) (xy -2.54 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -3.81 2.54) (xy 0.508 2.54)
+						(xy -3.81 12.7) (xy -1.27 12.7)
 					)
 					(stroke
 						(width 0)
@@ -200,7 +122,7 @@
 				)
 				(polyline
 					(pts
-						(xy -3.81 12.7) (xy -1.27 12.7)
+						(xy -3.81 2.54) (xy 0.508 2.54)
 					)
 					(stroke
 						(width 0)
@@ -212,14 +134,83 @@
 				)
 				(polyline
 					(pts
-						(xy -3.81 20.955) (xy 3.175 17.145) (xy 3.175 -17.145) (xy -3.81 -20.955) (xy -3.81 20.955)
+						(xy -3.81 0) (xy -2.54 0)
 					)
 					(stroke
-						(width 0.254)
+						(width 0)
 						(type default)
 					)
 					(fill
-						(type background)
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -3.81 -2.54) (xy 0.508 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -3.81 -5.08) (xy -2.54 -5.08)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -3.81 -11.43) (xy -1.27 -11.43)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center -1.778 5.08)
+					(radius 0.762)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center -1.778 0)
+					(radius 0.762)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center -1.778 -5.08)
+					(radius 0.762)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
 					)
 				)
 				(circle
@@ -234,8 +225,8 @@
 					)
 				)
 				(circle
-					(center 1.27 -2.54)
-					(radius 0.762)
+					(center 0 -11.43)
+					(radius 1.7961)
 					(stroke
 						(width 0)
 						(type default)
@@ -246,6 +237,17 @@
 				)
 				(circle
 					(center 1.27 2.54)
+					(radius 0.762)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 1.27 -2.54)
 					(radius 0.762)
 					(stroke
 						(width 0)
@@ -276,24 +278,6 @@
 					)
 				)
 				(pin passive line
-					(at -7.62 -11.43 0)
-					(length 3.81)
-					(name "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
 					(at -7.62 5.08 0)
 					(length 3.81)
 					(name "3"
@@ -304,42 +288,6 @@
 						)
 					)
 					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -7.62 0 0)
-					(length 3.81)
-					(name "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -7.62 -5.08 0)
-					(length 3.81)
-					(name "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -366,6 +314,24 @@
 					)
 				)
 				(pin passive line
+					(at -7.62 0 0)
+					(length 3.81)
+					(name "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
 					(at -7.62 -2.54 0)
 					(length 3.81)
 					(name "7"
@@ -376,6 +342,42 @@
 						)
 					)
 					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -7.62 -5.08 0)
+					(length 3.81)
+					(name "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -7.62 -11.43 0)
+					(length 3.81)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -402,9 +404,12 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Device:C"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0.254)
 			)
@@ -477,7 +482,7 @@
 			(symbol "C_0_1"
 				(polyline
 					(pts
-						(xy -2.032 -0.762) (xy 2.032 -0.762)
+						(xy -2.032 0.762) (xy 2.032 0.762)
 					)
 					(stroke
 						(width 0.508)
@@ -489,7 +494,7 @@
 				)
 				(polyline
 					(pts
-						(xy -2.032 0.762) (xy 2.032 0.762)
+						(xy -2.032 -0.762) (xy 2.032 -0.762)
 					)
 					(stroke
 						(width 0.508)
@@ -538,9 +543,12 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Device:R"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0)
 			)
@@ -659,10 +667,13 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Jumper:SolderJumper_3_Open"
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -728,41 +739,6 @@
 				)
 			)
 			(symbol "SolderJumper_3_Open_0_1"
-				(arc
-					(start -1.016 1.016)
-					(mid -2.0276 0)
-					(end -1.016 -1.016)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start -1.016 1.016)
-					(mid -2.0276 0)
-					(end -1.016 -1.016)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(rectangle
-					(start -0.508 1.016)
-					(end 0.508 -1.016)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
 				(polyline
 					(pts
 						(xy -2.54 0) (xy -2.032 0)
@@ -787,6 +763,41 @@
 						(type none)
 					)
 				)
+				(arc
+					(start -1.016 -1.016)
+					(mid -2.0276 0)
+					(end -1.016 1.016)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start -1.016 -1.016)
+					(mid -2.0276 0)
+					(end -1.016 1.016)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start -0.508 1.016)
+					(end 0.508 -1.016)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
 				(polyline
 					(pts
 						(xy 0 -1.27) (xy 0 -1.016)
@@ -797,6 +808,30 @@
 					)
 					(fill
 						(type none)
+					)
+				)
+				(arc
+					(start 1.016 1.016)
+					(mid 2.0276 0)
+					(end 1.016 -1.016)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 1.016 1.016)
+					(mid 2.0276 0)
+					(end 1.016 -1.016)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
 					)
 				)
 				(polyline
@@ -821,30 +856,6 @@
 					)
 					(fill
 						(type none)
-					)
-				)
-				(arc
-					(start 1.016 -1.016)
-					(mid 2.0276 0)
-					(end 1.016 1.016)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 1.016 -1.016)
-					(mid 2.0276 0)
-					(end 1.016 1.016)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
 					)
 				)
 			)
@@ -904,6 +915,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Mechanical:MountingHole"
 			(pin_names
@@ -986,9 +998,12 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Simulation_SPICE:NMOS"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0)
 			)
@@ -1079,18 +1094,6 @@
 			(symbol "NMOS_0_1"
 				(polyline
 					(pts
-						(xy 0.254 0) (xy -2.54 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
 						(xy 0.254 1.905) (xy 0.254 -1.905)
 					)
 					(stroke
@@ -1103,7 +1106,19 @@
 				)
 				(polyline
 					(pts
-						(xy 0.762 -1.27) (xy 0.762 -2.286)
+						(xy 0.254 0) (xy -2.54 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.762 2.286) (xy 0.762 1.27)
 					)
 					(stroke
 						(width 0.254)
@@ -1127,34 +1142,10 @@
 				)
 				(polyline
 					(pts
-						(xy 0.762 2.286) (xy 0.762 1.27)
+						(xy 0.762 -1.27) (xy 0.762 -2.286)
 					)
 					(stroke
 						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 2.54) (xy 2.54 1.778)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 -2.54) (xy 2.54 0) (xy 0.762 0)
-					)
-					(stroke
-						(width 0)
 						(type default)
 					)
 					(fill
@@ -1185,6 +1176,63 @@
 						(type outline)
 					)
 				)
+				(circle
+					(center 1.651 0)
+					(radius 2.794)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 2.54) (xy 2.54 1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.54 1.778)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(circle
+					(center 2.54 -1.778)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 -2.54) (xy 2.54 0) (xy 0.762 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
 				(polyline
 					(pts
 						(xy 2.794 0.508) (xy 2.921 0.381) (xy 3.683 0.381) (xy 3.81 0.254)
@@ -1209,39 +1257,6 @@
 						(type none)
 					)
 				)
-				(circle
-					(center 1.651 0)
-					(radius 2.794)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 2.54 -1.778)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(circle
-					(center 2.54 1.778)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
 			)
 			(symbol "NMOS_1_1"
 				(pin input line
@@ -1255,24 +1270,6 @@
 						)
 					)
 					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 2.54 -5.08 90)
-					(length 2.54)
-					(name "S"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1298,10 +1295,31 @@
 						)
 					)
 				)
+				(pin passive line
+					(at 2.54 -5.08 90)
+					(length 2.54)
+					(name "S"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Simulation_SPICE:PMOS"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0)
 			)
@@ -1390,6 +1408,18 @@
 			(symbol "PMOS_0_1"
 				(polyline
 					(pts
+						(xy 0.254 1.905) (xy 0.254 -1.905)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
 						(xy 0.254 0) (xy -2.54 0)
 					)
 					(stroke
@@ -1402,7 +1432,31 @@
 				)
 				(polyline
 					(pts
-						(xy 0.254 1.905) (xy 0.254 -1.905)
+						(xy 0.762 2.286) (xy 0.762 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.762 1.778) (xy 3.302 1.778) (xy 3.302 -1.778) (xy 0.762 -1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.762 0.508) (xy 0.762 -0.508)
 					)
 					(stroke
 						(width 0.254)
@@ -1424,60 +1478,11 @@
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy 0.762 0.508) (xy 0.762 -0.508)
-					)
+				(circle
+					(center 1.651 0)
+					(radius 2.794)
 					(stroke
 						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.762 2.286) (xy 0.762 1.27)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 2.54) (xy 2.54 1.778)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 -2.54) (xy 2.54 0) (xy 0.762 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.762 1.778) (xy 3.302 1.778) (xy 3.302 -1.778) (xy 0.762 -1.778)
-					)
-					(stroke
-						(width 0)
 						(type default)
 					)
 					(fill
@@ -1494,6 +1499,52 @@
 					)
 					(fill
 						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 2.54) (xy 2.54 1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.54 1.778)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(circle
+					(center 2.54 -1.778)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 -2.54) (xy 2.54 0) (xy 0.762 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
 					)
 				)
 				(polyline
@@ -1520,41 +1571,44 @@
 						(type none)
 					)
 				)
-				(circle
-					(center 1.651 0)
-					(radius 2.794)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 2.54 -1.778)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(circle
-					(center 2.54 1.778)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
 			)
 			(symbol "PMOS_1_1"
+				(pin input line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "G"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 5.08 270)
+					(length 2.54)
+					(name "D"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 				(pin passive line
 					(at 2.54 -5.08 90)
 					(length 2.54)
@@ -1609,43 +1663,8 @@
 						)
 					)
 				)
-				(pin input line
-					(at -5.08 0 0)
-					(length 2.54)
-					(name "G"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 2.54 5.08 270)
-					(length 2.54)
-					(name "D"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:GND"
 			(power)
@@ -1725,7 +1744,8 @@
 			(symbol "GND_1_1"
 				(pin power_in line
 					(at 0 0 270)
-					(length 0) hide
+					(length 0)
+					(hide yes)
 					(name "GND"
 						(effects
 							(font
@@ -1742,6 +1762,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:GNDS"
 			(power)
@@ -1821,7 +1842,8 @@
 			(symbol "GNDS_1_1"
 				(pin power_in line
 					(at 0 0 270)
-					(length 0) hide
+					(length 0)
+					(hide yes)
 					(name "GNDS"
 						(effects
 							(font
@@ -1838,7 +1860,52 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
+	)
+	(text "CAR CONNECTOR GPIO OR I2C SELSCTION JUMPERS"
+		(exclude_from_sim no)
+		(at 181.61 16.256 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "8bffed3b-ef5e-4a1e-ae19-60897ba04eca")
+	)
+	(text "SHELD LINK"
+		(exclude_from_sim no)
+		(at 15.24 100.33 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b1b0f4fe-7749-4054-8d7c-ac56c45b1eba")
+	)
+	(text "CAR CONNECTOR"
+		(exclude_from_sim no)
+		(at 13.97 17.78 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e43de2c6-57ac-48a2-b63e-aefde3415d0b")
+	)
+	(text "MOUNTING HOLES"
+		(exclude_from_sim no)
+		(at 128.27 17.78 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "eccc8cae-d95b-4752-a16e-477fa82b6c7e")
 	)
 	(junction
 		(at 62.23 115.57)
@@ -2322,50 +2389,6 @@
 		)
 		(uuid "f3c59a02-9ecc-4951-927b-41601d8542c1")
 	)
-	(text "CAR CONNECTOR GPIO OR I2C SELSCTION JUMPERS"
-		(exclude_from_sim no)
-		(at 181.61 16.256 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "8bffed3b-ef5e-4a1e-ae19-60897ba04eca")
-	)
-	(text "SHELD LINK"
-		(exclude_from_sim no)
-		(at 15.24 100.33 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "b1b0f4fe-7749-4054-8d7c-ac56c45b1eba")
-	)
-	(text "CAR CONNECTOR"
-		(exclude_from_sim no)
-		(at 13.97 17.78 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "e43de2c6-57ac-48a2-b63e-aefde3415d0b")
-	)
-	(text "MOUNTING HOLES"
-		(exclude_from_sim no)
-		(at 128.27 17.78 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "eccc8cae-d95b-4752-a16e-477fa82b6c7e")
-	)
 	(global_label "DSUB_P_6"
 		(shape input)
 		(at 240.03 54.61 0)
@@ -2618,7 +2641,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "01721e37-9c16-41a7-9eca-0af815a65b03")
-		(property "Reference" "R104"
+		(property "Reference" "R110"
 			(at 53.34 111.5441 90)
 			(effects
 				(font
@@ -2670,7 +2693,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/67a132ab-d248-4cef-8ed8-9da8a5ccfd64"
-					(reference "R104")
+					(reference "R110")
 					(unit 1)
 				)
 			)
@@ -2686,7 +2709,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "201167ed-ae6d-4b86-90ab-64c2c88573ac")
-		(property "Reference" "#PWR0142"
+		(property "Reference" "#PWR0152"
 			(at 44.45 86.36 0)
 			(effects
 				(font
@@ -2736,7 +2759,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/67a132ab-d248-4cef-8ed8-9da8a5ccfd64"
-					(reference "#PWR0142")
+					(reference "#PWR0152")
 					(unit 1)
 				)
 			)
@@ -2752,7 +2775,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "23efd0e4-3978-421d-80af-e233ff283948")
-		(property "Reference" "H1"
+		(property "Reference" "H6"
 			(at 142.24 49.9653 0)
 			(effects
 				(font
@@ -2806,7 +2829,7 @@
 			)
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/67a132ab-d248-4cef-8ed8-9da8a5ccfd64"
-					(reference "H1")
+					(reference "H6")
 					(unit 1)
 				)
 			)
@@ -2822,7 +2845,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "275e7af1-ad98-4f12-ad71-eb2b6b3b78f4")
-		(property "Reference" "H1"
+		(property "Reference" "H7"
 			(at 142.24 55.0453 0)
 			(effects
 				(font
@@ -2876,7 +2899,7 @@
 			)
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/67a132ab-d248-4cef-8ed8-9da8a5ccfd64"
-					(reference "H8")
+					(reference "H7")
 					(unit 1)
 				)
 			)
@@ -2892,7 +2915,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3650d1fb-bba9-473b-b96a-746015467b0e")
-		(property "Reference" "C112"
+		(property "Reference" "C131"
 			(at 53.34 102.7811 90)
 			(effects
 				(font
@@ -2944,7 +2967,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/67a132ab-d248-4cef-8ed8-9da8a5ccfd64"
-					(reference "C112")
+					(reference "C131")
 					(unit 1)
 				)
 			)
@@ -3014,7 +3037,7 @@
 			)
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/67a132ab-d248-4cef-8ed8-9da8a5ccfd64"
-					(reference "H7")
+					(reference "H1")
 					(unit 1)
 				)
 			)
@@ -3030,7 +3053,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "57500ea5-4f59-4334-8d09-65e81f698afa")
-		(property "Reference" "R107"
+		(property "Reference" "R109"
 			(at 74.168 60.3163 0)
 			(effects
 				(font
@@ -3084,7 +3107,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/67a132ab-d248-4cef-8ed8-9da8a5ccfd64"
-					(reference "R107")
+					(reference "R109")
 					(unit 1)
 				)
 			)
@@ -3100,7 +3123,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "57ba8cc9-eadf-45b0-ba58-3c5a8d03a6e7")
-		(property "Reference" "H1"
+		(property "Reference" "H5"
 			(at 142.24 44.8853 0)
 			(effects
 				(font
@@ -3154,7 +3177,7 @@
 			)
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/67a132ab-d248-4cef-8ed8-9da8a5ccfd64"
-					(reference "H3")
+					(reference "H5")
 					(unit 1)
 				)
 			)
@@ -3258,7 +3281,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "5db3b776-ae79-4f82-89f0-ed30d2597c70")
-		(property "Reference" "Q27"
+		(property "Reference" "Q29"
 			(at 87.63 35.7251 90)
 			(effects
 				(font
@@ -3346,7 +3369,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/67a132ab-d248-4cef-8ed8-9da8a5ccfd64"
-					(reference "Q27")
+					(reference "Q29")
 					(unit 1)
 				)
 			)
@@ -3362,7 +3385,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6c864138-c144-468e-a9c9-59f989faff45")
-		(property "Reference" "#PWR0143"
+		(property "Reference" "#PWR0153"
 			(at 45.72 125.73 0)
 			(effects
 				(font
@@ -3412,7 +3435,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/67a132ab-d248-4cef-8ed8-9da8a5ccfd64"
-					(reference "#PWR0143")
+					(reference "#PWR0153")
 					(unit 1)
 				)
 			)
@@ -3428,7 +3451,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6fc5a1fd-141e-4d2a-a9c8-de35397de900")
-		(property "Reference" "JP2"
+		(property "Reference" "JP13"
 			(at 232.029 54.9268 90)
 			(effects
 				(font
@@ -3485,7 +3508,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/67a132ab-d248-4cef-8ed8-9da8a5ccfd64"
-					(reference "JP2")
+					(reference "JP13")
 					(unit 1)
 				)
 			)
@@ -3501,7 +3524,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "755d5734-7e64-4b76-9466-c1ad8add8e74")
-		(property "Reference" "R105"
+		(property "Reference" "R108"
 			(at 76.708 45.0763 0)
 			(effects
 				(font
@@ -3555,7 +3578,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/67a132ab-d248-4cef-8ed8-9da8a5ccfd64"
-					(reference "R105")
+					(reference "R108")
 					(unit 1)
 				)
 			)
@@ -3571,7 +3594,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "75c3cacc-8486-4d21-b426-93cf09f38292")
-		(property "Reference" "H1"
+		(property "Reference" "H2"
 			(at 142.24 29.6453 0)
 			(effects
 				(font
@@ -3625,7 +3648,7 @@
 			)
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/67a132ab-d248-4cef-8ed8-9da8a5ccfd64"
-					(reference "H9")
+					(reference "H2")
 					(unit 1)
 				)
 			)
@@ -3641,7 +3664,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9162a593-dba3-4a4a-865c-c99c09a92e42")
-		(property "Reference" "#PWR0144"
+		(property "Reference" "#PWR0154"
 			(at 62.23 125.73 0)
 			(effects
 				(font
@@ -3691,7 +3714,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/67a132ab-d248-4cef-8ed8-9da8a5ccfd64"
-					(reference "#PWR0144")
+					(reference "#PWR0154")
 					(unit 1)
 				)
 			)
@@ -3707,7 +3730,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a0a167c0-d82a-4184-9d7a-f95bd38a7e18")
-		(property "Reference" "H1"
+		(property "Reference" "H3"
 			(at 142.24 34.7253 0)
 			(effects
 				(font
@@ -3761,7 +3784,7 @@
 			)
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/67a132ab-d248-4cef-8ed8-9da8a5ccfd64"
-					(reference "H4")
+					(reference "H3")
 					(unit 1)
 				)
 			)
@@ -3777,7 +3800,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b69050a7-bb20-4d8c-ba96-0f2f961d8813")
-		(property "Reference" "H1"
+		(property "Reference" "H4"
 			(at 142.24 39.8053 0)
 			(effects
 				(font
@@ -3831,7 +3854,7 @@
 			)
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/67a132ab-d248-4cef-8ed8-9da8a5ccfd64"
-					(reference "H2")
+					(reference "H4")
 					(unit 1)
 				)
 			)
@@ -3847,7 +3870,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b78c3553-3c07-45aa-97be-81e117e9f0d0")
-		(property "Reference" "H1"
+		(property "Reference" "H8"
 			(at 142.24 60.1253 0)
 			(effects
 				(font
@@ -3901,7 +3924,7 @@
 			)
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/67a132ab-d248-4cef-8ed8-9da8a5ccfd64"
-					(reference "H5")
+					(reference "H8")
 					(unit 1)
 				)
 			)
@@ -3917,7 +3940,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c3ba48ff-67e6-453f-b279-46d7b2e12b27")
-		(property "Reference" "JP1"
+		(property "Reference" "JP12"
 			(at 196.469 54.9268 90)
 			(effects
 				(font
@@ -3974,7 +3997,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/67a132ab-d248-4cef-8ed8-9da8a5ccfd64"
-					(reference "JP1")
+					(reference "JP12")
 					(unit 1)
 				)
 			)
@@ -3990,7 +4013,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "cc17626c-7737-4efa-967e-e92764d31d9f")
-		(property "Reference" "#PWR0145"
+		(property "Reference" "#PWR0151"
 			(at 73.66 71.12 0)
 			(effects
 				(font
@@ -4040,7 +4063,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/67a132ab-d248-4cef-8ed8-9da8a5ccfd64"
-					(reference "#PWR0145")
+					(reference "#PWR0151")
 					(unit 1)
 				)
 			)
@@ -4056,7 +4079,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "cf85fad8-0b53-4e32-9f1a-e8adbc66330b")
-		(property "Reference" "Q26"
+		(property "Reference" "Q30"
 			(at 90.297 57.7763 0)
 			(effects
 				(font
@@ -4140,7 +4163,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/67a132ab-d248-4cef-8ed8-9da8a5ccfd64"
-					(reference "Q26")
+					(reference "Q30")
 					(unit 1)
 				)
 			)

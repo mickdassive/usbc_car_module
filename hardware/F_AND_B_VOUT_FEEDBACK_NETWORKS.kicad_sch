@@ -1,7 +1,7 @@
 (kicad_sch
-	(version 20231120)
+	(version 20250114)
 	(generator "eeschema")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(uuid "dfd880fb-5e15-4faf-8bf4-c5e9c3876c1d")
 	(paper "A4")
 	(title_block
@@ -15,7 +15,9 @@
 	)
 	(lib_symbols
 		(symbol "Device:R"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0)
 			)
@@ -134,9 +136,12 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Device:R_Trim"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0)
 			)
@@ -207,23 +212,23 @@
 				)
 			)
 			(symbol "R_Trim_0_1"
-				(rectangle
-					(start -1.016 -2.54)
-					(end 1.016 2.54)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
 				(polyline
 					(pts
 						(xy -1.905 -1.905) (xy 1.905 1.905) (xy 2.54 1.27) (xy 1.27 2.54)
 					)
 					(stroke
 						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
 						(type default)
 					)
 					(fill
@@ -269,9 +274,12 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Simulation_SPICE:NMOS"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0)
 			)
@@ -362,18 +370,6 @@
 			(symbol "NMOS_0_1"
 				(polyline
 					(pts
-						(xy 0.254 0) (xy -2.54 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
 						(xy 0.254 1.905) (xy 0.254 -1.905)
 					)
 					(stroke
@@ -386,7 +382,19 @@
 				)
 				(polyline
 					(pts
-						(xy 0.762 -1.27) (xy 0.762 -2.286)
+						(xy 0.254 0) (xy -2.54 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.762 2.286) (xy 0.762 1.27)
 					)
 					(stroke
 						(width 0.254)
@@ -410,34 +418,10 @@
 				)
 				(polyline
 					(pts
-						(xy 0.762 2.286) (xy 0.762 1.27)
+						(xy 0.762 -1.27) (xy 0.762 -2.286)
 					)
 					(stroke
 						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 2.54) (xy 2.54 1.778)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 -2.54) (xy 2.54 0) (xy 0.762 0)
-					)
-					(stroke
-						(width 0)
 						(type default)
 					)
 					(fill
@@ -468,6 +452,63 @@
 						(type outline)
 					)
 				)
+				(circle
+					(center 1.651 0)
+					(radius 2.794)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 2.54) (xy 2.54 1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.54 1.778)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(circle
+					(center 2.54 -1.778)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 -2.54) (xy 2.54 0) (xy 0.762 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
 				(polyline
 					(pts
 						(xy 2.794 0.508) (xy 2.921 0.381) (xy 3.683 0.381) (xy 3.81 0.254)
@@ -492,59 +533,8 @@
 						(type none)
 					)
 				)
-				(circle
-					(center 1.651 0)
-					(radius 2.794)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 2.54 -1.778)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(circle
-					(center 2.54 1.778)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
 			)
 			(symbol "NMOS_1_1"
-				(pin passive line
-					(at 2.54 5.08 270)
-					(length 2.54)
-					(name "D"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
 				(pin input line
 					(at -5.08 0 0)
 					(length 2.54)
@@ -556,6 +546,24 @@
 						)
 					)
 					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 5.08 270)
+					(length 2.54)
+					(name "D"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -582,6 +590,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:GND"
 			(power)
@@ -661,7 +670,8 @@
 			(symbol "GND_1_1"
 				(pin power_in line
 					(at 0 0 270)
-					(length 0) hide
+					(length 0)
+					(hide yes)
 					(name "GND"
 						(effects
 							(font
@@ -678,7 +688,140 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
+	)
+	(text "set to 9k"
+		(exclude_from_sim no)
+		(at 198.12 101.6 0)
+		(effects
+			(font
+				(size 0.75 0.75)
+			)
+			(justify left bottom)
+		)
+		(uuid "178696e9-ee8e-436e-8626-fbc2da14bd54")
+	)
+	(text "BACK USB-C BUCK SELECTABLE FEEDBACK NETWORK"
+		(exclude_from_sim no)
+		(at 171.45 27.94 0)
+		(effects
+			(font
+				(size 1.75 1.75)
+			)
+			(justify left bottom)
+		)
+		(uuid "3637bc53-842e-4b79-ab65-e92a11414182")
+	)
+	(text "set to 4k"
+		(exclude_from_sim no)
+		(at 82.55 102.87 0)
+		(effects
+			(font
+				(size 0.75 0.75)
+			)
+			(justify left bottom)
+		)
+		(uuid "5b0f66d9-52b7-4fd9-92fb-1dd6e1a1bd5c")
+	)
+	(text "set to 2k"
+		(exclude_from_sim no)
+		(at 52.07 102.87 0)
+		(effects
+			(font
+				(size 0.75 0.75)
+			)
+			(justify left bottom)
+		)
+		(uuid "5cce4395-9e1a-4392-ae3d-28ac6e31c934")
+	)
+	(text "set to 4k"
+		(exclude_from_sim no)
+		(at 209.55 101.6 0)
+		(effects
+			(font
+				(size 0.75 0.75)
+			)
+			(justify left bottom)
+		)
+		(uuid "66637836-b009-4435-8898-5d878cf0b749")
+	)
+	(text "set to 2k"
+		(exclude_from_sim no)
+		(at 179.07 101.6 0)
+		(effects
+			(font
+				(size 0.75 0.75)
+			)
+			(justify left bottom)
+		)
+		(uuid "9ba5e5a1-9e8d-44a2-960d-3033f0a88f5d")
+	)
+	(text "set to 2k"
+		(exclude_from_sim no)
+		(at 228.6 101.6 0)
+		(effects
+			(font
+				(size 0.75 0.75)
+			)
+			(justify left bottom)
+		)
+		(uuid "a62c32bf-0a70-40cf-a106-e8e91aca90c6")
+	)
+	(text "set to 2k"
+		(exclude_from_sim no)
+		(at 166.37 101.6 0)
+		(effects
+			(font
+				(size 0.75 0.75)
+			)
+			(justify left bottom)
+		)
+		(uuid "abf5dcd9-3465-4660-a2c9-2201298b3911")
+	)
+	(text "set to 9k"
+		(exclude_from_sim no)
+		(at 71.12 102.87 0)
+		(effects
+			(font
+				(size 0.75 0.75)
+			)
+			(justify left bottom)
+		)
+		(uuid "d3cb8691-be84-44f7-b8df-1cd5e7283ebb")
+	)
+	(text "set to 2k"
+		(exclude_from_sim no)
+		(at 101.6 102.87 0)
+		(effects
+			(font
+				(size 0.75 0.75)
+			)
+			(justify left bottom)
+		)
+		(uuid "dfec449c-b320-46ab-ba58-980492757002")
+	)
+	(text "FRONT USB-C BUCK SELECTABLE FEEDBACK NETWORK"
+		(exclude_from_sim no)
+		(at 44.45 25.4 0)
+		(effects
+			(font
+				(size 1.75 1.75)
+			)
+			(justify left bottom)
+		)
+		(uuid "e68b0d3b-a2c5-4749-8c73-ed835e2cc68a")
+	)
+	(text "set to 2k"
+		(exclude_from_sim no)
+		(at 39.37 102.87 0)
+		(effects
+			(font
+				(size 0.75 0.75)
+			)
+			(justify left bottom)
+		)
+		(uuid "f4fe4758-0108-4751-a765-8b23a5bbb45f")
 	)
 	(junction
 		(at 194.31 148.59)
@@ -1486,138 +1629,6 @@
 		)
 		(uuid "fccd4de7-d3f0-4050-bcd4-11f473c504e9")
 	)
-	(text "set to 9k"
-		(exclude_from_sim no)
-		(at 198.12 101.6 0)
-		(effects
-			(font
-				(size 0.75 0.75)
-			)
-			(justify left bottom)
-		)
-		(uuid "178696e9-ee8e-436e-8626-fbc2da14bd54")
-	)
-	(text "BACK USB-C BUCK SELECTABLE FEEDBACK NETWORK"
-		(exclude_from_sim no)
-		(at 171.45 27.94 0)
-		(effects
-			(font
-				(size 1.75 1.75)
-			)
-			(justify left bottom)
-		)
-		(uuid "3637bc53-842e-4b79-ab65-e92a11414182")
-	)
-	(text "set to 4k"
-		(exclude_from_sim no)
-		(at 82.55 102.87 0)
-		(effects
-			(font
-				(size 0.75 0.75)
-			)
-			(justify left bottom)
-		)
-		(uuid "5b0f66d9-52b7-4fd9-92fb-1dd6e1a1bd5c")
-	)
-	(text "set to 2k"
-		(exclude_from_sim no)
-		(at 52.07 102.87 0)
-		(effects
-			(font
-				(size 0.75 0.75)
-			)
-			(justify left bottom)
-		)
-		(uuid "5cce4395-9e1a-4392-ae3d-28ac6e31c934")
-	)
-	(text "set to 4k"
-		(exclude_from_sim no)
-		(at 209.55 101.6 0)
-		(effects
-			(font
-				(size 0.75 0.75)
-			)
-			(justify left bottom)
-		)
-		(uuid "66637836-b009-4435-8898-5d878cf0b749")
-	)
-	(text "set to 2k"
-		(exclude_from_sim no)
-		(at 179.07 101.6 0)
-		(effects
-			(font
-				(size 0.75 0.75)
-			)
-			(justify left bottom)
-		)
-		(uuid "9ba5e5a1-9e8d-44a2-960d-3033f0a88f5d")
-	)
-	(text "set to 2k"
-		(exclude_from_sim no)
-		(at 228.6 101.6 0)
-		(effects
-			(font
-				(size 0.75 0.75)
-			)
-			(justify left bottom)
-		)
-		(uuid "a62c32bf-0a70-40cf-a106-e8e91aca90c6")
-	)
-	(text "set to 2k"
-		(exclude_from_sim no)
-		(at 166.37 101.6 0)
-		(effects
-			(font
-				(size 0.75 0.75)
-			)
-			(justify left bottom)
-		)
-		(uuid "abf5dcd9-3465-4660-a2c9-2201298b3911")
-	)
-	(text "set to 9k"
-		(exclude_from_sim no)
-		(at 71.12 102.87 0)
-		(effects
-			(font
-				(size 0.75 0.75)
-			)
-			(justify left bottom)
-		)
-		(uuid "d3cb8691-be84-44f7-b8df-1cd5e7283ebb")
-	)
-	(text "set to 2k"
-		(exclude_from_sim no)
-		(at 101.6 102.87 0)
-		(effects
-			(font
-				(size 0.75 0.75)
-			)
-			(justify left bottom)
-		)
-		(uuid "dfec449c-b320-46ab-ba58-980492757002")
-	)
-	(text "FRONT USB-C BUCK SELECTABLE FEEDBACK NETWORK"
-		(exclude_from_sim no)
-		(at 44.45 25.4 0)
-		(effects
-			(font
-				(size 1.75 1.75)
-			)
-			(justify left bottom)
-		)
-		(uuid "e68b0d3b-a2c5-4749-8c73-ed835e2cc68a")
-	)
-	(text "set to 2k"
-		(exclude_from_sim no)
-		(at 39.37 102.87 0)
-		(effects
-			(font
-				(size 0.75 0.75)
-			)
-			(justify left bottom)
-		)
-		(uuid "f4fe4758-0108-4751-a765-8b23a5bbb45f")
-	)
 	(global_label "F_USB-C_BUCK_5V_SEL"
 		(shape input)
 		(at 232.41 118.11 270)
@@ -1936,7 +1947,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "02971d8e-5716-4320-84bf-8425dc06a2b5")
-		(property "Reference" "R29"
+		(property "Reference" "R42"
 			(at 38.608 88.2563 0)
 			(effects
 				(font
@@ -1990,7 +2001,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "R29")
+					(reference "R42")
 					(unit 1)
 				)
 			)
@@ -2006,7 +2017,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "042e7ad6-f1ef-494c-86c9-88cd7cea1f42")
-		(property "Reference" "R31"
+		(property "Reference" "R43"
 			(at 50.038 88.2563 0)
 			(effects
 				(font
@@ -2060,7 +2071,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "R31")
+					(reference "R43")
 					(unit 1)
 				)
 			)
@@ -2075,7 +2086,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "08fb86dd-d006-4db8-b2b4-43131f30f167")
-		(property "Reference" "R32"
+		(property "Reference" "R53"
 			(at 51.435 98.4163 0)
 			(effects
 				(font
@@ -2129,7 +2140,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "R32")
+					(reference "R53")
 					(unit 1)
 				)
 			)
@@ -2145,7 +2156,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "172929af-99de-4962-a1b8-784edef8047f")
-		(property "Reference" "Q11"
+		(property "Reference" "Q18"
 			(at 34.163 117.4663 0)
 			(effects
 				(font
@@ -2229,7 +2240,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "Q11")
+					(reference "Q18")
 					(unit 1)
 				)
 			)
@@ -2245,7 +2256,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "194aaf4c-fca4-41fb-98bf-a7ae605da61b")
-		(property "Reference" "#PWR040"
+		(property "Reference" "#PWR049"
 			(at 36.83 162.56 0)
 			(effects
 				(font
@@ -2295,7 +2306,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "#PWR040")
+					(reference "#PWR049")
 					(unit 1)
 				)
 			)
@@ -2311,7 +2322,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "1e99fef3-c353-4c90-bb3b-7e8f4ce3f80d")
-		(property "Reference" "R47"
+		(property "Reference" "R50"
 			(at 208.915 97.1463 0)
 			(effects
 				(font
@@ -2365,7 +2376,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "R47")
+					(reference "R50")
 					(unit 1)
 				)
 			)
@@ -2381,7 +2392,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "21949cb2-f802-4638-8ce0-59cfc1def552")
-		(property "Reference" "R34"
+		(property "Reference" "R54"
 			(at 70.485 98.4163 0)
 			(effects
 				(font
@@ -2435,7 +2446,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "R34")
+					(reference "R54")
 					(unit 1)
 				)
 			)
@@ -2451,7 +2462,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "282146b9-3b6e-4331-af89-a7a8cf946343")
-		(property "Reference" "Q16"
+		(property "Reference" "Q15"
 			(at 161.163 116.1963 0)
 			(effects
 				(font
@@ -2535,7 +2546,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "Q16")
+					(reference "Q15")
 					(unit 1)
 				)
 			)
@@ -2551,7 +2562,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "2ec34080-78c5-42a0-8871-48b229b2db3f")
-		(property "Reference" "Q13"
+		(property "Reference" "Q12"
 			(at 203.073 109.8463 0)
 			(effects
 				(font
@@ -2635,7 +2646,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "Q13")
+					(reference "Q12")
 					(unit 1)
 				)
 			)
@@ -2651,7 +2662,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "33041cc3-3316-440a-985b-76183dcfeec4")
-		(property "Reference" "R44"
+		(property "Reference" "R39"
 			(at 196.088 86.9863 0)
 			(effects
 				(font
@@ -2705,7 +2716,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "R44")
+					(reference "R39")
 					(unit 1)
 				)
 			)
@@ -2721,7 +2732,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3b052a29-8d45-4c13-8215-ebf258eca601")
-		(property "Reference" "R37"
+		(property "Reference" "R46"
 			(at 99.568 88.2563 0)
 			(effects
 				(font
@@ -2775,7 +2786,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "R37")
+					(reference "R46")
 					(unit 1)
 				)
 			)
@@ -2791,7 +2802,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3c2dd0ed-e9c6-47dc-b9be-0b4d3a358e95")
-		(property "Reference" "R42"
+		(property "Reference" "R38"
 			(at 177.038 86.9863 0)
 			(effects
 				(font
@@ -2845,7 +2856,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "R42")
+					(reference "R38")
 					(unit 1)
 				)
 			)
@@ -2860,7 +2871,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "3e74959d-9b98-4416-b7a2-12f7ae3aa80f")
-		(property "Reference" "R30"
+		(property "Reference" "R52"
 			(at 40.005 98.4163 0)
 			(effects
 				(font
@@ -2914,7 +2925,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "R30")
+					(reference "R52")
 					(unit 1)
 				)
 			)
@@ -2930,7 +2941,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "4034bea1-bfcc-4d00-9ad6-d0ab718c2c94")
-		(property "Reference" "R48"
+		(property "Reference" "R41"
 			(at 226.568 86.9863 0)
 			(effects
 				(font
@@ -2984,7 +2995,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "R48")
+					(reference "R41")
 					(unit 1)
 				)
 			)
@@ -3000,7 +3011,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "437036b3-1e67-44a3-b4ac-b113ccf01f44")
-		(property "Reference" "#PWR041"
+		(property "Reference" "#PWR048"
 			(at 163.83 161.29 0)
 			(effects
 				(font
@@ -3050,7 +3061,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "#PWR041")
+					(reference "#PWR048")
 					(unit 1)
 				)
 			)
@@ -3066,7 +3077,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "5774711e-be9c-433b-9587-ee9daa65dfd5")
-		(property "Reference" "R45"
+		(property "Reference" "R49"
 			(at 197.485 97.1463 0)
 			(effects
 				(font
@@ -3120,7 +3131,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "R45")
+					(reference "R49")
 					(unit 1)
 				)
 			)
@@ -3136,7 +3147,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "620e0979-6621-4a1f-9733-a6148b21ff98")
-		(property "Reference" "R35"
+		(property "Reference" "R45"
 			(at 80.518 88.2563 0)
 			(effects
 				(font
@@ -3190,7 +3201,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "R35")
+					(reference "R45")
 					(unit 1)
 				)
 			)
@@ -3206,7 +3217,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6c57905c-8785-4aa6-97f4-372a2e2fc6e2")
-		(property "Reference" "R49"
+		(property "Reference" "R51"
 			(at 227.965 97.1463 0)
 			(effects
 				(font
@@ -3260,7 +3271,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "R49")
+					(reference "R51")
 					(unit 1)
 				)
 			)
@@ -3276,7 +3287,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "73d020ab-9279-4817-858b-1ee192b74170")
-		(property "Reference" "R33"
+		(property "Reference" "R44"
 			(at 69.088 88.2563 0)
 			(effects
 				(font
@@ -3330,7 +3341,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "R33")
+					(reference "R44")
 					(unit 1)
 				)
 			)
@@ -3345,7 +3356,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "8ae63d4e-e307-4a03-8998-47242258b02e")
-		(property "Reference" "R43"
+		(property "Reference" "R48"
 			(at 178.435 97.1463 0)
 			(effects
 				(font
@@ -3399,7 +3410,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "R43")
+					(reference "R48")
 					(unit 1)
 				)
 			)
@@ -3415,7 +3426,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "919be9bc-dc1d-4c9d-bedf-1d3d2a325f0b")
-		(property "Reference" "Q7"
+		(property "Reference" "Q14"
 			(at 76.073 111.1163 0)
 			(effects
 				(font
@@ -3499,7 +3510,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "Q7")
+					(reference "Q14")
 					(unit 1)
 				)
 			)
@@ -3515,7 +3526,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "a06b9b9a-4152-4adb-b909-1097b82c41bb")
-		(property "Reference" "Q10"
+		(property "Reference" "Q13"
 			(at 45.593 111.1163 0)
 			(effects
 				(font
@@ -3599,7 +3610,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "Q10")
+					(reference "Q13")
 					(unit 1)
 				)
 			)
@@ -3615,7 +3626,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a9780e33-fa73-4112-b878-f575fb601eb3")
-		(property "Reference" "R46"
+		(property "Reference" "R40"
 			(at 207.518 86.9863 0)
 			(effects
 				(font
@@ -3669,7 +3680,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "R46")
+					(reference "R40")
 					(unit 1)
 				)
 			)
@@ -3685,7 +3696,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "ab5f55f9-161d-44ba-98e8-621fbcded734")
-		(property "Reference" "Q14"
+		(property "Reference" "Q16"
 			(at 191.643 116.1963 0)
 			(effects
 				(font
@@ -3769,7 +3780,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "Q14")
+					(reference "Q16")
 					(unit 1)
 				)
 			)
@@ -3785,7 +3796,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ac694dfa-a62c-467b-9af1-0490fc93a7f8")
-		(property "Reference" "R41"
+		(property "Reference" "R47"
 			(at 167.005 97.1463 0)
 			(effects
 				(font
@@ -3839,7 +3850,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "R41")
+					(reference "R47")
 					(unit 1)
 				)
 			)
@@ -3855,7 +3866,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "ae4872a2-6f8c-4913-91aa-9ce8fc0fbe70")
-		(property "Reference" "Q15"
+		(property "Reference" "Q11"
 			(at 172.593 109.8463 0)
 			(effects
 				(font
@@ -3939,7 +3950,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "Q15")
+					(reference "Q11")
 					(unit 1)
 				)
 			)
@@ -3955,7 +3966,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "ae778ab0-5bd2-4b68-b2a3-49e18be2fd74")
-		(property "Reference" "Q8"
+		(property "Reference" "Q20"
 			(at 95.123 117.4663 0)
 			(effects
 				(font
@@ -4039,7 +4050,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "Q8")
+					(reference "Q20")
 					(unit 1)
 				)
 			)
@@ -4055,7 +4066,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "aeb48558-02f8-402b-adb3-90bd0cdc6121")
-		(property "Reference" "R39"
+		(property "Reference" "R35"
 			(at 165.608 74.2863 0)
 			(effects
 				(font
@@ -4109,7 +4120,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "R39")
+					(reference "R35")
 					(unit 1)
 				)
 			)
@@ -4125,7 +4136,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b4c258f3-06d5-4b06-a8a8-54300e215447")
-		(property "Reference" "R38"
+		(property "Reference" "R56"
 			(at 100.965 98.4163 0)
 			(effects
 				(font
@@ -4179,7 +4190,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "R38")
+					(reference "R56")
 					(unit 1)
 				)
 			)
@@ -4195,7 +4206,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "e89a6009-7bcf-4ea8-8331-a9267ba12696")
-		(property "Reference" "Q9"
+		(property "Reference" "Q19"
 			(at 64.643 117.4663 0)
 			(effects
 				(font
@@ -4279,7 +4290,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "Q9")
+					(reference "Q19")
 					(unit 1)
 				)
 			)
@@ -4295,7 +4306,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "e9c50672-8540-4eaa-a51b-7b9890a58b76")
-		(property "Reference" "Q12"
+		(property "Reference" "Q17"
 			(at 222.123 116.1963 0)
 			(effects
 				(font
@@ -4379,7 +4390,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "Q12")
+					(reference "Q17")
 					(unit 1)
 				)
 			)
@@ -4395,7 +4406,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "eb38ed4b-8f96-4fe2-af29-e40b1ef25841")
-		(property "Reference" "R36"
+		(property "Reference" "R55"
 			(at 81.915 98.4163 0)
 			(effects
 				(font
@@ -4449,7 +4460,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "R36")
+					(reference "R55")
 					(unit 1)
 				)
 			)
@@ -4465,7 +4476,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ee5b9328-41f8-43f5-80d9-94888410c3b6")
-		(property "Reference" "R28"
+		(property "Reference" "R36"
 			(at 38.608 75.5563 0)
 			(effects
 				(font
@@ -4519,7 +4530,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "R28")
+					(reference "R36")
 					(unit 1)
 				)
 			)
@@ -4535,7 +4546,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "fd1d085e-6c7f-408e-aba7-41f162e8a4cd")
-		(property "Reference" "R40"
+		(property "Reference" "R37"
 			(at 165.608 86.9863 0)
 			(effects
 				(font
@@ -4589,7 +4600,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/91b561d6-4186-4f6f-8a2c-57c2c305f210/5a85a9e9-cefd-4e13-8f1c-f4704056cba2"
-					(reference "R40")
+					(reference "R37")
 					(unit 1)
 				)
 			)

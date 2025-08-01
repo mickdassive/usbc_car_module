@@ -1,7 +1,7 @@
 (kicad_sch
-	(version 20231120)
+	(version 20250114)
 	(generator "eeschema")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(uuid "584edb53-45d0-4fc1-a6c2-0d938e57860d")
 	(paper "A4")
 	(title_block
@@ -15,9 +15,13 @@
 	)
 	(lib_symbols
 		(symbol "Connector:TestPoint"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0.762) hide)
+				(offset 0.762)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -115,9 +119,12 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Device:C"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0.254)
 			)
@@ -190,7 +197,7 @@
 			(symbol "C_0_1"
 				(polyline
 					(pts
-						(xy -2.032 -0.762) (xy 2.032 -0.762)
+						(xy -2.032 0.762) (xy 2.032 0.762)
 					)
 					(stroke
 						(width 0.508)
@@ -202,7 +209,7 @@
 				)
 				(polyline
 					(pts
-						(xy -2.032 0.762) (xy 2.032 0.762)
+						(xy -2.032 -0.762) (xy 2.032 -0.762)
 					)
 					(stroke
 						(width 0.508)
@@ -251,11 +258,16 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Device:LED"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 1.016) hide)
+				(offset 1.016)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -323,10 +335,22 @@
 			(symbol "LED_0_1"
 				(polyline
 					(pts
-						(xy -1.27 -1.27) (xy -1.27 1.27)
+						(xy -3.048 -0.762) (xy -4.572 -2.286) (xy -3.81 -2.286) (xy -4.572 -2.286) (xy -4.572 -1.524)
 					)
 					(stroke
-						(width 0.254)
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 -0.762) (xy -3.302 -2.286) (xy -2.54 -2.286) (xy -3.302 -2.286) (xy -3.302 -1.524)
+					)
+					(stroke
+						(width 0)
 						(type default)
 					)
 					(fill
@@ -347,7 +371,7 @@
 				)
 				(polyline
 					(pts
-						(xy 1.27 -1.27) (xy 1.27 1.27) (xy -1.27 0) (xy 1.27 -1.27)
+						(xy -1.27 -1.27) (xy -1.27 1.27)
 					)
 					(stroke
 						(width 0.254)
@@ -359,22 +383,10 @@
 				)
 				(polyline
 					(pts
-						(xy -3.048 -0.762) (xy -4.572 -2.286) (xy -3.81 -2.286) (xy -4.572 -2.286) (xy -4.572 -1.524)
+						(xy 1.27 -1.27) (xy 1.27 1.27) (xy -1.27 0) (xy 1.27 -1.27)
 					)
 					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.778 -0.762) (xy -3.302 -2.286) (xy -2.54 -2.286) (xy -3.302 -2.286) (xy -3.302 -1.524)
-					)
-					(stroke
-						(width 0)
+						(width 0.254)
 						(type default)
 					)
 					(fill
@@ -420,9 +432,12 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Device:R"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0)
 			)
@@ -541,6 +556,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Display_Character:CC56-12CGKWA"
 			(exclude_from_sim no)
@@ -955,24 +971,16 @@
 						(type none)
 					)
 				)
-				(text "a"
-					(at -15.24 6.35 0)
+				(text "e"
+					(at -21.336 -1.524 0)
 					(effects
 						(font
 							(size 1.524 1.524)
 						)
 					)
 				)
-				(text "b"
-					(at -12.192 2.794 0)
-					(effects
-						(font
-							(size 1.524 1.524)
-						)
-					)
-				)
-				(text "c"
-					(at -13.208 -1.778 0)
+				(text "f"
+					(at -19.558 3.048 0)
 					(effects
 						(font
 							(size 1.524 1.524)
@@ -987,8 +995,40 @@
 						)
 					)
 				)
+				(text "g"
+					(at -16.51 1.524 0)
+					(effects
+						(font
+							(size 1.524 1.524)
+						)
+					)
+				)
+				(text "a"
+					(at -15.24 6.35 0)
+					(effects
+						(font
+							(size 1.524 1.524)
+						)
+					)
+				)
 				(text "DP1"
 					(at -13.716 -6.35 0)
+					(effects
+						(font
+							(size 1.524 1.524)
+						)
+					)
+				)
+				(text "c"
+					(at -13.208 -1.778 0)
+					(effects
+						(font
+							(size 1.524 1.524)
+						)
+					)
+				)
+				(text "b"
+					(at -12.192 2.794 0)
 					(effects
 						(font
 							(size 1.524 1.524)
@@ -1013,30 +1053,6 @@
 				)
 				(text "DP4"
 					(at 17.78 -6.096 0)
-					(effects
-						(font
-							(size 1.524 1.524)
-						)
-					)
-				)
-				(text "e"
-					(at -21.336 -1.524 0)
-					(effects
-						(font
-							(size 1.524 1.524)
-						)
-					)
-				)
-				(text "f"
-					(at -19.558 3.048 0)
-					(effects
-						(font
-							(size 1.524 1.524)
-						)
-					)
-				)
-				(text "g"
-					(at -16.51 1.524 0)
 					(effects
 						(font
 							(size 1.524 1.524)
@@ -1094,6 +1110,78 @@
 			)
 			(symbol "CC56-12CGKWA_1_1"
 				(pin input line
+					(at -27.94 7.62 0)
+					(length 2.54)
+					(name "a"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -27.94 5.08 0)
+					(length 2.54)
+					(name "b"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -27.94 2.54 0)
+					(length 2.54)
+					(name "c"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -27.94 0 0)
+					(length 2.54)
+					(name "d"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
 					(at -27.94 -2.54 0)
 					(length 2.54)
 					(name "e"
@@ -1130,52 +1218,16 @@
 					)
 				)
 				(pin input line
-					(at -27.94 7.62 0)
+					(at -27.94 -7.62 0)
 					(length 2.54)
-					(name "a"
+					(name "g"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at 27.94 -2.54 180)
-					(length 2.54)
-					(name "CC1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "12"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -27.94 0 0)
-					(length 2.54)
-					(name "d"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
+					(number "5"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1202,16 +1254,16 @@
 					)
 				)
 				(pin input line
-					(at -27.94 2.54 0)
+					(at 27.94 -2.54 180)
 					(length 2.54)
-					(name "c"
+					(name "CC1"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "4"
+					(number "12"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1220,52 +1272,16 @@
 					)
 				)
 				(pin input line
-					(at -27.94 -7.62 0)
+					(at 27.94 -5.08 180)
 					(length 2.54)
-					(name "g"
+					(name "CC2"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at 27.94 -10.16 180)
-					(length 2.54)
-					(name "CC4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -27.94 5.08 0)
-					(length 2.54)
-					(name "b"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "7"
+					(number "9"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1292,16 +1308,16 @@
 					)
 				)
 				(pin input line
-					(at 27.94 -5.08 180)
+					(at 27.94 -10.16 180)
 					(length 2.54)
-					(name "CC2"
+					(name "CC4"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "9"
+					(number "6"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1310,6 +1326,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Interface_Expansion:AS1115-BSST"
 			(exclude_from_sim no)
@@ -1391,78 +1408,6 @@
 				)
 			)
 			(symbol "AS1115-BSST_1_1"
-				(pin bidirectional line
-					(at -15.24 7.62 0)
-					(length 2.54)
-					(name "SDA"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin open_collector line
-					(at 15.24 -17.78 180)
-					(length 2.54)
-					(name "DIG7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin open_collector line
-					(at 15.24 -22.86 180)
-					(length 2.54)
-					(name "KEYA"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin open_collector line
-					(at 15.24 -25.4 180)
-					(length 2.54)
-					(name "KEYB"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "12"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
 				(pin passive line
 					(at -15.24 15.24 0)
 					(length 2.54)
@@ -1499,6 +1444,78 @@
 						)
 					)
 				)
+				(pin bidirectional line
+					(at -15.24 7.62 0)
+					(length 2.54)
+					(name "SDA"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin open_collector line
+					(at -15.24 2.54 0)
+					(length 2.54)
+					(name "IRQ"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "24"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 30.48 270)
+					(length 2.54)
+					(name "VDD"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "19"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 -30.48 90)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 				(pin output line
 					(at 15.24 25.4 180)
 					(length 2.54)
@@ -1510,24 +1527,6 @@
 						)
 					)
 					(number "15"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at 15.24 12.7 180)
-					(length 2.54)
-					(name "SEGF"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "16"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1554,60 +1553,6 @@
 					)
 				)
 				(pin output line
-					(at 15.24 10.16 180)
-					(length 2.54)
-					(name "SEGG"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "18"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 0 30.48 270)
-					(length 2.54)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "19"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin open_collector line
-					(at 15.24 0 180)
-					(length 2.54)
-					(name "DIG0"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
 					(at 15.24 20.32 180)
 					(length 2.54)
 					(name "SEGC"
@@ -1618,6 +1563,24 @@
 						)
 					)
 					(number "20"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 15.24 17.78 180)
+					(length 2.54)
+					(name "SEGD"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "23"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1644,6 +1607,42 @@
 					)
 				)
 				(pin output line
+					(at 15.24 12.7 180)
+					(length 2.54)
+					(name "SEGF"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "16"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 15.24 10.16 180)
+					(length 2.54)
+					(name "SEGG"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "18"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
 					(at 15.24 5.08 180)
 					(length 2.54)
 					(name "SEGDP"
@@ -1661,35 +1660,17 @@
 						)
 					)
 				)
-				(pin output line
-					(at 15.24 17.78 180)
-					(length 2.54)
-					(name "SEGD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "23"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
 				(pin open_collector line
-					(at -15.24 2.54 0)
+					(at 15.24 0 180)
 					(length 2.54)
-					(name "IRQ"
+					(name "DIG0"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "24"
+					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1751,24 +1732,6 @@
 						)
 					)
 				)
-				(pin power_in line
-					(at 0 -30.48 90)
-					(length 2.54)
-					(name "GND"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
 				(pin open_collector line
 					(at 15.24 -10.16 180)
 					(length 2.54)
@@ -1823,12 +1786,71 @@
 						)
 					)
 				)
+				(pin open_collector line
+					(at 15.24 -17.78 180)
+					(length 2.54)
+					(name "DIG7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin open_collector line
+					(at 15.24 -22.86 180)
+					(length 2.54)
+					(name "KEYA"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin open_collector line
+					(at 15.24 -25.4 180)
+					(length 2.54)
+					(name "KEYB"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Switch:SW_Push"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 1.016) hide)
+				(offset 1.016)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -1909,10 +1931,9 @@
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy 2.54 1.27) (xy -2.54 1.27)
-					)
+				(circle
+					(center 2.032 0)
+					(radius 0.508)
 					(stroke
 						(width 0)
 						(type default)
@@ -1921,9 +1942,10 @@
 						(type none)
 					)
 				)
-				(circle
-					(center 2.032 0)
-					(radius 0.508)
+				(polyline
+					(pts
+						(xy 2.54 1.27) (xy -2.54 1.27)
+					)
 					(stroke
 						(width 0)
 						(type default)
@@ -1969,6 +1991,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:+3V3"
 			(power)
@@ -2046,7 +2069,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 0) (xy 0 2.54)
+						(xy 0 2.54) (xy 0.762 1.27)
 					)
 					(stroke
 						(width 0)
@@ -2058,7 +2081,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 2.54) (xy 0.762 1.27)
+						(xy 0 0) (xy 0 2.54)
 					)
 					(stroke
 						(width 0)
@@ -2072,7 +2095,8 @@
 			(symbol "+3V3_1_1"
 				(pin power_in line
 					(at 0 0 90)
-					(length 0) hide
+					(length 0)
+					(hide yes)
 					(name "+3V3"
 						(effects
 							(font
@@ -2089,6 +2113,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:GND"
 			(power)
@@ -2168,7 +2193,8 @@
 			(symbol "GND_1_1"
 				(pin power_in line
 					(at 0 0 270)
-					(length 0) hide
+					(length 0)
+					(hide yes)
 					(name "GND"
 						(effects
 							(font
@@ -2185,7 +2211,63 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
+	)
+	(text "FRONT DISPLAY\n"
+		(exclude_from_sim no)
+		(at 146.05 17.78 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "0321cbc5-1ab4-4b8f-8ee9-182ca9ed61fd")
+	)
+	(text "USER INPUT"
+		(exclude_from_sim no)
+		(at 15.24 111.76 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "3d3c94f9-fc39-4a45-b1d0-362feab6ab0c")
+	)
+	(text "INFO LEDS\n"
+		(exclude_from_sim no)
+		(at 146.05 72.39 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "5f95618c-c9c9-4372-8a9b-2bd59479caf9")
+	)
+	(text "DISPLAY DRIVER"
+		(exclude_from_sim no)
+		(at 17.78 17.78 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b11759e4-c2b4-49b4-84eb-23b71aa2c64b")
+	)
+	(text "ADDR 0x02"
+		(exclude_from_sim no)
+		(at 69.85 71.12 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d99d0e5e-a424-45fc-af3d-b2054d0874e5")
 	)
 	(junction
 		(at 261.62 99.06)
@@ -3104,61 +3186,6 @@
 			(type default)
 		)
 		(uuid "f5cd831f-3af2-46a8-bf84-e2b5793ecd78")
-	)
-	(text "FRONT DISPLAY\n"
-		(exclude_from_sim no)
-		(at 146.05 17.78 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "0321cbc5-1ab4-4b8f-8ee9-182ca9ed61fd")
-	)
-	(text "USER INPUT"
-		(exclude_from_sim no)
-		(at 15.24 111.76 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "3d3c94f9-fc39-4a45-b1d0-362feab6ab0c")
-	)
-	(text "INFO LEDS\n"
-		(exclude_from_sim no)
-		(at 146.05 72.39 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "5f95618c-c9c9-4372-8a9b-2bd59479caf9")
-	)
-	(text "DISPLAY DRIVER"
-		(exclude_from_sim no)
-		(at 17.78 17.78 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "b11759e4-c2b4-49b4-84eb-23b71aa2c64b")
-	)
-	(text "ADDR 0x02"
-		(exclude_from_sim no)
-		(at 69.85 71.12 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "d99d0e5e-a424-45fc-af3d-b2054d0874e5")
 	)
 	(global_label "DISP_SEG_E"
 		(shape input)
@@ -4182,7 +4209,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0487130e-e21f-4ef5-93f4-09e1a72e13ce")
-		(property "Reference" "D24"
+		(property "Reference" "D21"
 			(at 189.5475 86.2711 0)
 			(effects
 				(font
@@ -4234,7 +4261,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "D24")
+					(reference "D21")
 					(unit 1)
 				)
 			)
@@ -4250,7 +4277,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0d513f44-337c-4697-a4b9-f2486195bbb8")
-		(property "Reference" "#PWR0140"
+		(property "Reference" "#PWR0148"
 			(at 86.36 161.29 0)
 			(effects
 				(font
@@ -4301,7 +4328,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "#PWR0140")
+					(reference "#PWR0148")
 					(unit 1)
 				)
 			)
@@ -4317,7 +4344,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "100723a1-93ee-4acd-9085-2f9c1a93a9c5")
-		(property "Reference" "#PWR0133"
+		(property "Reference" "#PWR0143"
 			(at 29.21 50.8 0)
 			(effects
 				(font
@@ -4367,7 +4394,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "#PWR0133")
+					(reference "#PWR0143")
 					(unit 1)
 				)
 			)
@@ -4383,7 +4410,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "1f42994f-5f81-4199-98a4-85e0e3e98b8c")
-		(property "Reference" "D25"
+		(property "Reference" "D23"
 			(at 189.5475 93.8911 0)
 			(effects
 				(font
@@ -4435,7 +4462,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "D25")
+					(reference "D23")
 					(unit 1)
 				)
 			)
@@ -4451,7 +4478,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "1fe553db-05c3-4bec-8747-cb8d8676b941")
-		(property "Reference" "U9"
+		(property "Reference" "U13"
 			(at 219.71 24.2402 0)
 			(effects
 				(font
@@ -4539,7 +4566,7 @@
 			)
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "U18")
+					(reference "U13")
 					(unit 1)
 				)
 			)
@@ -4555,7 +4582,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2538e24f-578f-450d-88b1-31cb9d2932dc")
-		(property "Reference" "#PWR0137"
+		(property "Reference" "#PWR0149"
 			(at 62.23 179.07 0)
 			(effects
 				(font
@@ -4605,7 +4632,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "#PWR0137")
+					(reference "#PWR0149")
 					(unit 1)
 				)
 			)
@@ -4689,7 +4716,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2a911e7d-25d8-4137-a32b-0e03959f270d")
-		(property "Reference" "U7"
+		(property "Reference" "U14"
 			(at 79.4894 31.8602 0)
 			(effects
 				(font
@@ -4815,7 +4842,7 @@
 			)
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "U17")
+					(reference "U14")
 					(unit 1)
 				)
 			)
@@ -4831,7 +4858,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2cd65e22-9adb-4120-8e77-c18728e62997")
-		(property "Reference" "D28"
+		(property "Reference" "D29"
 			(at 189.5475 116.7511 0)
 			(effects
 				(font
@@ -4883,7 +4910,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "D28")
+					(reference "D29")
 					(unit 1)
 				)
 			)
@@ -4899,7 +4926,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "398f9a6b-7910-40fd-96a4-43fbb2c99ab2")
-		(property "Reference" "R101"
+		(property "Reference" "R105"
 			(at 62.738 123.8163 0)
 			(effects
 				(font
@@ -4953,7 +4980,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "R101")
+					(reference "R105")
 					(unit 1)
 				)
 			)
@@ -4969,7 +4996,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "49d51e56-880a-42d2-9795-7e986463ee54")
-		(property "Reference" "R103"
+		(property "Reference" "R107"
 			(at 64.008 179.6963 0)
 			(effects
 				(font
@@ -5023,7 +5050,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "R103")
+					(reference "R107")
 					(unit 1)
 				)
 			)
@@ -5039,7 +5066,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "540c9918-ee71-4081-949c-ed0a7ca361f3")
-		(property "Reference" "D32"
+		(property "Reference" "D24"
 			(at 246.6975 93.8911 0)
 			(effects
 				(font
@@ -5091,7 +5118,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "D32")
+					(reference "D24")
 					(unit 1)
 				)
 			)
@@ -5107,7 +5134,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "54629abe-0f9d-4ca1-8c14-cab1ec7c5421")
-		(property "Reference" "D31"
+		(property "Reference" "D22"
 			(at 246.6975 86.2711 0)
 			(effects
 				(font
@@ -5159,7 +5186,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "D31")
+					(reference "D22")
 					(unit 1)
 				)
 			)
@@ -5175,7 +5202,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "69f5fdf3-5fb1-48df-b40f-5095d744faf0")
-		(property "Reference" "TP32"
+		(property "Reference" "TP48"
 			(at 109.347 78.2898 0)
 			(effects
 				(font
@@ -5226,7 +5253,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "TP32")
+					(reference "TP48")
 					(unit 1)
 				)
 			)
@@ -5242,7 +5269,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "768db5fd-8f32-471d-9eec-26ae5dbaebb5")
-		(property "Reference" "D23"
+		(property "Reference" "D19"
 			(at 189.5475 78.6511 0)
 			(effects
 				(font
@@ -5294,7 +5321,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "D23")
+					(reference "D19")
 					(unit 1)
 				)
 			)
@@ -5310,7 +5337,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7893f711-c0d8-400d-84f2-b04a934c8e43")
-		(property "Reference" "C110"
+		(property "Reference" "C129"
 			(at 27.051 38.7263 0)
 			(effects
 				(font
@@ -5364,7 +5391,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "C110")
+					(reference "C129")
 					(unit 1)
 				)
 			)
@@ -5380,7 +5407,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7a0986ee-4276-47dc-9c6c-e2f8de4d0edd")
-		(property "Reference" "D30"
+		(property "Reference" "D20"
 			(at 246.6975 78.6511 0)
 			(effects
 				(font
@@ -5432,7 +5459,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "D30")
+					(reference "D20")
 					(unit 1)
 				)
 			)
@@ -5448,7 +5475,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9301bc22-5293-445c-aa1c-f4f833ae8cf1")
-		(property "Reference" "R102"
+		(property "Reference" "R106"
 			(at 62.738 153.0263 0)
 			(effects
 				(font
@@ -5502,7 +5529,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "R102")
+					(reference "R106")
 					(unit 1)
 				)
 			)
@@ -5586,7 +5613,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a6182d93-d272-477a-bdeb-bd01fd225929")
-		(property "Reference" "D29"
+		(property "Reference" "D30"
 			(at 189.5475 124.3711 0)
 			(effects
 				(font
@@ -5638,7 +5665,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "D29")
+					(reference "D30")
 					(unit 1)
 				)
 			)
@@ -5654,7 +5681,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b5f04b3b-e04a-4cc7-8065-f32d1724134c")
-		(property "Reference" "#PWR0134"
+		(property "Reference" "#PWR0142"
 			(at 60.96 33.02 0)
 			(effects
 				(font
@@ -5704,7 +5731,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "#PWR0134")
+					(reference "#PWR0142")
 					(unit 1)
 				)
 			)
@@ -5720,7 +5747,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "bc5a7d2e-3da6-4f9b-b5c4-531f1712582e")
-		(property "Reference" "TP31"
+		(property "Reference" "TP47"
 			(at 109.347 69.1458 0)
 			(effects
 				(font
@@ -5771,7 +5798,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "TP31")
+					(reference "TP47")
 					(unit 1)
 				)
 			)
@@ -5855,7 +5882,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c56e17e4-b869-407c-ab86-b26ea553669c")
-		(property "Reference" "D33"
+		(property "Reference" "D26"
 			(at 246.6975 101.5111 0)
 			(effects
 				(font
@@ -5907,7 +5934,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "D33")
+					(reference "D26")
 					(unit 1)
 				)
 			)
@@ -5923,7 +5950,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c6d7fd7c-7f24-415b-9cf9-cea9fefa857a")
-		(property "Reference" "TP33"
+		(property "Reference" "TP49"
 			(at 96.647 90.9898 0)
 			(effects
 				(font
@@ -5974,7 +6001,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "TP33")
+					(reference "TP49")
 					(unit 1)
 				)
 			)
@@ -5990,7 +6017,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "cc44dad7-7b28-4a1e-9dd8-a89dfebceec5")
-		(property "Reference" "#PWR0136"
+		(property "Reference" "#PWR0147"
 			(at 60.96 152.4 0)
 			(effects
 				(font
@@ -6040,7 +6067,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "#PWR0136")
+					(reference "#PWR0147")
 					(unit 1)
 				)
 			)
@@ -6056,7 +6083,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ccfa3d65-a659-49df-be59-c39ca097c938")
-		(property "Reference" "C111"
+		(property "Reference" "C130"
 			(at 38.481 38.7263 0)
 			(effects
 				(font
@@ -6110,7 +6137,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "C111")
+					(reference "C130")
 					(unit 1)
 				)
 			)
@@ -6126,7 +6153,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "cdb903c2-d4ae-4be8-9efa-e57cc2d7cf01")
-		(property "Reference" "#PWR0141"
+		(property "Reference" "#PWR0150"
 			(at 87.63 187.96 0)
 			(effects
 				(font
@@ -6177,7 +6204,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "#PWR0141")
+					(reference "#PWR0150")
 					(unit 1)
 				)
 			)
@@ -6193,7 +6220,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d21c82ee-d267-4d13-a0ba-ae8fc8679ff5")
-		(property "Reference" "R100"
+		(property "Reference" "R104"
 			(at 55.118 38.7263 0)
 			(effects
 				(font
@@ -6247,7 +6274,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "R100")
+					(reference "R104")
 					(unit 1)
 				)
 			)
@@ -6263,7 +6290,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d89d0912-1cff-42ac-9974-7094a92f433e")
-		(property "Reference" "#PWR0138"
+		(property "Reference" "#PWR0144"
 			(at 77.47 101.6 0)
 			(effects
 				(font
@@ -6313,7 +6340,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "#PWR0138")
+					(reference "#PWR0144")
 					(unit 1)
 				)
 			)
@@ -6329,7 +6356,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "dfbaac78-6025-47cf-bda3-da9bfb96fb15")
-		(property "Reference" "D26"
+		(property "Reference" "D25"
 			(at 189.5475 101.5111 0)
 			(effects
 				(font
@@ -6381,7 +6408,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "D26")
+					(reference "D25")
 					(unit 1)
 				)
 			)
@@ -6397,7 +6424,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e768e125-2da3-4023-acdd-152cc984f134")
-		(property "Reference" "#PWR0135"
+		(property "Reference" "#PWR0145"
 			(at 60.96 123.19 0)
 			(effects
 				(font
@@ -6447,7 +6474,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "#PWR0135")
+					(reference "#PWR0145")
 					(unit 1)
 				)
 			)
@@ -6463,7 +6490,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f62ac9be-0cd3-4ebf-bff4-0b50cb507917")
-		(property "Reference" "D34"
+		(property "Reference" "D28"
 			(at 246.6975 109.1311 0)
 			(effects
 				(font
@@ -6515,7 +6542,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "D34")
+					(reference "D28")
 					(unit 1)
 				)
 			)
@@ -6599,7 +6626,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f81ff2b6-e95c-4ec8-8a69-b8d86c8b9c61")
-		(property "Reference" "#PWR0139"
+		(property "Reference" "#PWR0146"
 			(at 86.36 132.08 0)
 			(effects
 				(font
@@ -6650,7 +6677,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "#PWR0139")
+					(reference "#PWR0146")
 					(unit 1)
 				)
 			)
@@ -6666,7 +6693,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "fa74c719-e1c9-4811-86dc-46d85aa4d28d")
-		(property "Reference" "R99"
+		(property "Reference" "R103"
 			(at 47.498 38.7263 0)
 			(effects
 				(font
@@ -6720,7 +6747,7 @@
 		(instances
 			(project "usbc-car-module"
 				(path "/fae025e9-99c5-40c1-af6f-99dc1edbfa43/ba7fd60c-2f9a-4947-88c0-3b779b991f83"
-					(reference "R99")
+					(reference "R103")
 					(unit 1)
 				)
 			)
